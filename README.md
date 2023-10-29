@@ -12,7 +12,9 @@ An application to mess with Geometry Dash's files
 
 This application is fully compatible with Geometry Dash v2.113
 - To start using it you will need to grab files from the Geometry Dash/Resources folder
-- Put every file ending in .fnt and every file named GJ
+- Put every file ending in .fnt and every file starting with GJ_GameSheet into the Original files folder
+- When the randomisation is done, copy the files from the Randomised file folder and paste into Geometry Dash/Resources
+- Finally, launch the game and enjoy the chaos!
 
 # Compatibility:
 
