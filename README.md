@@ -6,5 +6,12 @@ An application to mess with Geometry Dash's files
 - Do you want to Randomise on-screen text?
 - Wanna have a ball for a wave and a portal for a ship?
 - Would you like to randomise every texture in the game to make navigating and playing damn near inmpossible?
-
 - This application can do all that and more (in the future, maybe :) )
+
+
+
+
+
+# Compatibility:
+
+- Windows 10 64 bit, Windows 11 64 bit
