@@ -53,7 +53,7 @@ string miscSettings[] = {
 
 //----------------------------------------------------------------------
 
-const string appVersion = "1.0.0";
+const string appVersion = "1.0.1";
 
 #define primaryMenuElementCount 6
 #define secondaryMenuMaxElementCount 9
@@ -723,9 +723,9 @@ int textureRandomisation(fstream *missingFiles, bool menuRand, bool iconRand, bo
 	{
 		if (!menuRand && i < 6)
 			i = 6;
-		if (!iconRand && i < 9)
+		if (!iconRand && i >= 6 && i < 9)
 			i = 9;
-		if (!blockRand && i < 15)
+		if (!blockRand && i >= 9 && i < 15)
 			return 0;
 
 		textureFileNameFill(i);
@@ -850,8 +850,7 @@ int readTextureData(int texture) {
 int readConfigFile() {
 
 	fstream configFile;
-	readValue val;
-	int retval, settingType, settingNumber;
+	int settingType;
 	unsigned int size;
 
 	configFile.open(configFileName, ios::in);
