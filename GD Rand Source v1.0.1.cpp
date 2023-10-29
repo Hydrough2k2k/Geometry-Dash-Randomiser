@@ -147,9 +147,9 @@ const string miscStrings[] = {
 };
 
 const string gameSheetNames[] = {
-	"GJ_GameSheet02",
-	"GJ_GameSheet04",
 	"GJ_GameSheet03",
+	"GJ_GameSheet04",
+	"GJ_GameSheet02",
 	"GJ_GameSheet",
 	"GJ_GameSheetGlow"
 };
