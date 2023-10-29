@@ -8,9 +8,9 @@ An application to mess with Geometry Dash's files
 - Would you like to randomise every texture in the game to make navigating and playing damn near inmpossible?
 - This application can do all that and more (in the future, maybe :) )
 
+# Download the app [here](https://github.com/Hydrough2k2k/Geometry-Dash-Randomier/releases/tag/Geometry-Dash)
 
-
-
+This application is fully compatible with Geometry Dash v2.113
 
 # Compatibility:
 
