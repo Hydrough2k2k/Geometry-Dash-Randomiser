@@ -7,4 +7,4 @@ An application to mess with Geometry Dash's files
 - Wanna have a ball for a wave and a portal for a ship?
 - Would you like to randomise every texture in the game to make navigating and playing damn near inmpossible?
 
-# This application can do all that and more (in the future, maybe :) )
+- This application can do all that and more (in the future, maybe :) )
