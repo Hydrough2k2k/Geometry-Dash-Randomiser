@@ -1,4 +1,4 @@
-# Geometry-Dash-Randomier
+# Geometry-Dash-Randomiser
 An application to mess with Geometry Dash's files
 
 # With this app you can mess with the game in various ways.
