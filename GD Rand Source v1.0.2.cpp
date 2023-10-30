@@ -274,7 +274,7 @@ void randomiseString(string&, int);
 
 void main(void) {
 
-	consoleSetup(false);
+	consoleSetup(true);
 
 	readDescriptions();
 
