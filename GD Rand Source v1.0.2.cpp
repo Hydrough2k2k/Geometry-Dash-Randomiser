@@ -53,7 +53,7 @@ string miscSettings[] = {
 
 //----------------------------------------------------------------------
 
-const string appVersion = "1.0.1";
+const string appVersion = "1.0.2";
 
 #define primaryMenuElementCount 6
 #define secondaryMenuMaxElementCount 9
@@ -92,7 +92,7 @@ struct menuElementData {
 	Vector2 location = {0, 0};
 	string description = "";
 	size_t data = 0;
-	size_t dataLimit = INT_MAX;
+	size_t dataLimit = UINT_MAX;
 };
 
 menuData leftMenu = { 53, 20, 9, {0, 11} };
@@ -117,8 +117,10 @@ string readStr = "";
 const string descFileName = "Data\\descriptions.json";
 const string configFileName = "Data\\config.json";
 const string missingFilesFileName = "MissingFiles.txt";
+const string debugFileName = "Debug.txt";
 
 unsigned int seed;
+unsigned int lastSeed;
 
 //----------------------------------------------------------------------
 
@@ -156,7 +158,53 @@ const string gameSheetNames[] = {
 
 //----------------------------------------------------------------------
 
-const string missingFilesPrint[] = {
+string MainSectionPrint[] = {
+	BRCYAN "Geometry Dash Randomiser " RESET "- by " BRCYAN "Hydrough" RESET " v" + appVersion + "\n\n",
+	"This allows you to randomise many things in " CYAN "Geometry Dash" RESET ", textures, sounds, whatever you like\n",
+	"Some changes are weird, others might make the game " YELLOW "unstable" RESET ". Crashes could happen occasionally\n\n",
+	"You can " GREEN "report bugs " RESET "or crashes on " GREEN "GitHub/Hydrough2k2k " RESET "or on Discord: " GREEN "hydrough_7165" RESET "\n",
+	"Other socials: " RED "Youtube" RESET ":" CYAN " https://tinyurl.com/Hydrough" RESET ", Discord Server: " CYAN "https://discord.gg/GNQkgRN" RESET "\n\n"
+};
+
+string mainSettings[] = {
+	"Text radomisation:",
+	"Menu Texture Randomisation:",
+	"Icon Texture Randomisation:",
+	"Block Texture Randomisation:",
+	"Other Settings",
+	"Randomise!"
+};
+
+string secondarySettings[primaryMenuElementCount][secondaryMenuMaxElementCount] = {
+	{
+		CYAN "Text Randomisation Settings" RESET,
+		"Duplicates Enabled:",
+		"Text Anarchy:"
+	},
+	{
+		CYAN "Menu Texture Randomisation Settings" RESET,
+		"Duplicates Enabled: " BRBLACK "(Temporarily not available)" RESET
+	},
+	{
+		CYAN "Icon Texture Randomisation Settings" RESET,
+		"Duplicates Enabled: " BRBLACK "(Temporarily not available)" RESET
+	},
+	{
+		CYAN "Block Texture Randomisation Settings" RESET,
+		"Duplicates Enabled: " BRBLACK "(Temporarily not available)" RESET
+	},
+	{
+		CYAN "Other Settings Menu" RESET,
+		"Seed:"
+	},
+	{
+		GREEN "Press Enter to start randomising" RESET,
+		"Depending on your settings, randomising could take a while",
+		"Just sit back, relax and watch the progressbars move!"
+	}
+};
+
+string missingFilesPrint[] = {
 	" files are missing from the \"" CYAN "Original files" RESET "\" folder",
 	"You can get them from " GREEN "Geometry Dash" RESET "\\" GREEN "Resources" RESET,
 	"",
@@ -164,17 +212,21 @@ const string missingFilesPrint[] = {
 	"Put those into the \"" CYAN "Original Files" RESET "\" folder to allow this app to randomise them"
 };
 
-const string randomisationComplete[] = {
-GREEN "File Randomisation complete" RESET,
-"",
-"You can copy the randomised files from the \"" CYAN "Randomised files" RESET "\" folder in the exe's folder",
-"Then go to " GREEN "Steam" RESET ", right click on " GREEN "Geometry Dash" RESET " >> " GREEN "Manage" RESET " >> " GREEN "Browse local files" RESET,
-"Open the " CYAN "Resources" RESET " folder and paste the files in there, then click \"" YELLOW "Replace all" RESET"\"",
-"",
-"If you want to revert the game files to the original ones copy the files from \"" CYAN "Original files" RESET "\"" ,
-"",
-"Anyways, enjoy the chaos :)"
+string randomisationComplete[] = {
+	"Files were successfully Randomised" RESET,
+	"",
+	"You can copy the randomised files from the \"" CYAN "Randomised files" RESET "\" folder in the exe's folder",
+	"Then go to " GREEN "Steam" RESET ", right click on " GREEN "Geometry Dash" RESET " >> " GREEN "Manage" RESET " >> " GREEN "Browse local files" RESET,
+	"Open the " CYAN "Resources" RESET " folder and paste the files in there, then click \"" YELLOW "Replace all" RESET,
+	"",
+	"If you want to revert the game files to the original ones copy the files from \"" CYAN "Original files" RESET "\"" ,
+	"",
+	"Anyways, enjoy the chaos :)"
 };
+
+string cancelledStr = YELLOW "Randomisation cancelled" RESET;
+string enabledStr = GREEN " Enabled" RESET;
+string disabledStr = RED " Disabled" RESET;
 
 //----------------------------------------------------------------------
 
@@ -188,19 +240,14 @@ void moveCursorDown();
 void switchColumn();
 void changeSettings();
 bool numBox(char);
-
 void printDescription();
-void clrLeftSide();
-void clrRightSide();
-void clrBottomHalf();
 
 void randomiseStuff();
-
-int fontRansomisation(fstream*, bool);
+int fontRansomisation(fstream*, int*, bool);
 void fontFileNameFill(int, int, int);
 int ransomiseFont();
 
-int textureRandomisation(fstream*, bool, bool, bool);
+int textureRandomisation(fstream*, int*, bool, bool, bool);
 void textureFileNameFill(int);
 int readTextureData(int);
 
@@ -215,28 +262,44 @@ void configureInputLogic();
 void configureValues();
 void setUpDefaultValues();
 
+void clrLeftSide();
+void clrRightSide();
+void clrBottomHalf();
+
+void strRandom();
+int newRandChar();
+void randomiseString(string&, int);
+
 //----------------------------------------------------------------------
 
 void main(void) {
 
 	consoleSetup(false);
 
+	readDescriptions();
+
 	makeDirectories();
 	configureInputLogic();
 	configureValues();
 	setUpDefaultValues();
 	
-	readConfigFile();
-	readDescriptions();
+	if (readConfigFile() == 0)
+		if (rand() % 24 == 0)
+			strRandom();
 	
 	headPrint();
 
-	if (UIControl() != 0) {
-		clrBottomHalf();
+	int retval = UIControl();
+
+	clrBottomHalf();
+	gotoxy(bottomMenu.location.X, bottomMenu.location.Y - 1);
+	printNTimes(windowWidth, 205);
+	if (retval != 0) {
+		gotoxy(bottomMenu.location.X, bottomMenu.location.Y + 1);
+		printCenter(cancelledStr);
+		_getch();
 		return;
 	}
-	clrBottomHalf();
-
 	randomiseStuff();
 }
 
@@ -245,91 +308,50 @@ void main(void) {
 void headPrint() {
 
 	gotoxy(0, 2);
-	const string str[] = {
-	BRCYAN "Geometry Dash Randomiser " RESET "- by " BRCYAN "Hydrough" RESET " v" + appVersion + "\n\n",
-	"This allows you to randomise many things in " CYAN "Geometry Dash" RESET ", textures, sounds, whatever you like\n",
-	"Some changes are weird, others might make the game " YELLOW "unstable" RESET ". Crashes could happen occasionally\n\n",
-	"You can " GREEN "report bugs " RESET "or crashes on " GREEN "GitHub/Hydrough2k2k " RESET "or on Discord: " GREEN "hydrough_7165" RESET "\n",
-	"Other socials: " RED "Youtube" RESET ":" CYAN " https://tinyurl.com/Hydrough" RESET ", Discord Server: " CYAN "https://discord.gg/GNQkgRN" RESET "\n\n",
-	"------------------------------------------------------------------------------------------------------------------------\n\n"
-	};
+	for (int i = 0; i < sizeof(MainSectionPrint) / sizeof(MainSectionPrint[0]); i++)
+		printCenter(MainSectionPrint[i]);
 
-	for (int i = 0; i < sizeof(str) / sizeof(str[0]); i++)
-		printCenter(str[i]);
-}
-
-void mainSettingsPrint() {
-
-	const string localStr[] = {
-	"Text radomisation:",
-	"Menu Texture Randomisation:",
-	"Icon Texture Randomisation:",
-	"Block Texture Randomisation:",
-	"Other Settings",
-	"Randomise!"
-	};
+	gotoxy(bottomMenu.location.X, bottomMenu.location.Y - 1);
+	printNTimes(leftMenu.width, 205);
+	printNTimes(1, 203);
+	printNTimes(rightMenu.width, 205);
 
 	for (int i = windowHeight - bottomMenu.height + 1; i < windowHeight + 1; i++)
 	{
 		gotoxy(leftMenu.width + 1, i);
-		cout << "|";
+		cout << char(186);
 	}
+}
+
+void mainSettingsPrint() {
 
 	for (int i = 0; i < primaryMenuElementCount; i++)
 	{
 		gotoxy(menuElement[i][0].location.X, menuElement[i][0].location.Y);
-		cout << localStr[i];
+		cout << mainSettings[i];
 		if (i == primaryMenuElementCount - 1)
 			break;
-		if (menuElement[i][0].type == OnOffSwitch)
-			menuElement[i][0].isEnabled ? cout << GREEN " Enabled " RESET : cout << RED " Disabled" RESET;
+		if (menuElement[i][0].type == OnOffSwitch) {
+			menuElement[i][0].isEnabled ? cout << enabledStr : cout << disabledStr;
+		}
 	}
 }
 
 void secondarySettingsPrint() {
 
-	const string localStr[primaryMenuElementCount][secondaryMenuMaxElementCount] = {
-		{
-			CYAN "Text Randomisation Settings" RESET,
-			"Duplicates Enabled: ",
-			"Text Anarchy:"
-		},
-		{
-			CYAN "Menu Texture Randomisation Settings" RESET,
-			"Duplicates Enabled: " BRBLACK "(Temporarily not available)" RESET
-		},
-		{
-			CYAN "Icon Texture Randomisation Settings" RESET,
-			"Duplicates Enabled: " BRBLACK "(Temporarily not available)" RESET
-		},
-		{
-			CYAN "Block Texture Randomisation Settings" RESET,
-			"Duplicates Enabled: " BRBLACK "(Temporarily not available)" RESET
-		},
-		{
-			CYAN "Other Settings Menu" RESET,
-			"Seed:"
-		},
-		{
-			GREEN "Press Enter to start randomising" RESET,
-			"Depending on your settings, randomising could take a while",
-			"Just sit back, relax and watch the progressbars move!"
-		}
-	};
-
 	gotoxy(rightMenu.location.X, rightMenu.location.Y + 1);
-	printCenter(localStr[cursor.primaryColumn][0], rightMenu.width);
+	printCenter(secondarySettings[cursor.primaryColumn][0], rightMenu.width);
 
-	for (int i = 1; i < sizeof(localStr[cursor.primaryColumn]) / sizeof(localStr[cursor.primaryColumn][0].size()); i++)
+	for (int i = 1; i < sizeof(secondarySettings[cursor.primaryColumn]) / sizeof(secondarySettings[cursor.primaryColumn][0].size()); i++)
 	{
-		if (localStr[cursor.primaryColumn][i] == "")
+		if (secondarySettings[cursor.primaryColumn][i] == "")
 			break;
 
 		if (cursor.primaryColumn != primaryMenuElementCount - 1) {
 			gotoxy(rightMenu.location.X + rightMenu.textOffset, rightMenu.location.Y + 2 + (i * 2));
-			cout << localStr[cursor.primaryColumn][i];
+			cout << secondarySettings[cursor.primaryColumn][i];
 			if (menuElement[cursor.primaryColumn][i].type == OnOffSwitch)
-				menuElement[cursor.primaryColumn][i].isEnabled ? cout << GREEN " Enabled " RESET : cout << RED " Disabled" RESET;
+				menuElement[cursor.primaryColumn][i].isEnabled ? cout << enabledStr : cout << disabledStr;
 			else if (menuElement[cursor.primaryColumn][i].type == NumberBox) {
 				if (menuElement[cursor.primaryColumn][i].data > 9)
 					printNTimes(10 - log10(menuElement[cursor.primaryColumn][i].data));
@@ -339,7 +361,7 @@ void secondarySettingsPrint() {
 			}
 		} else {
 			gotoxy(rightMenu.location.X, rightMenu.location.Y + 2 + (i * 2));
-			printCenter(localStr[cursor.primaryColumn][i], rightMenu.width);
+			printCenter(secondarySettings[cursor.primaryColumn][i], rightMenu.width);
 		}
 	}
 }
@@ -469,33 +491,6 @@ bool numBox(char ch) {
 	return false;
 }
 
-void clrLeftSide() {
-
-	for (int i = leftMenu.location.Y; i <= windowHeight; i++)
-	{
-		gotoxy(leftMenu.location.X, i);
-		printNTimes(leftMenu.width);
-	}
-}
-
-void clrRightSide() {
-
-	for (int i = rightMenu.location.Y; i <= windowHeight; i++)
-	{
-		gotoxy(rightMenu.location.X, i);
-		printNTimes(rightMenu.width);
-	}
-}
-
-void clrBottomHalf() {
-
-	for (int i = leftMenu.location.Y; i <= windowHeight; i++)
-	{
-		gotoxy(leftMenu.location.X, i);
-		printNTimes(windowWidth);
-	}
-}
-
 void printDescription() {
 
 	int areaWidth = 64, stringletCount = 0, erasedChars;
@@ -511,11 +506,16 @@ void printDescription() {
 
 		erasedChars = areaWidth;
 		while (true) {
-			if (stringlets[stringletCount][stringlets[stringletCount].size() - 1] == ' ') {
+			if (stringlets[stringletCount][stringlets[stringletCount].size() - 1] == ' ')
 				break;
-			}
 			stringlets[stringletCount].erase(stringlets[stringletCount].size() - 1, stringlets[stringletCount].size());
 			erasedChars--;
+			if (erasedChars == 0) {
+				erasedChars = areaWidth;
+				stringlets[stringletCount] = stringCopy;
+				stringlets[stringletCount].erase(areaWidth, stringlets[stringletCount].size());
+				break;
+			}
 		}
 		stringCopy.erase(0, erasedChars);
 		stringletCount++;
@@ -547,10 +547,10 @@ void randomiseStuff() {
 
 	srand(seed);
 
-	int missingFiles = 0;
+	int missingFiles = 0, successfullyRandomised = 0;
 
-	missingFiles += (fontRansomisation(&missingFilesFile, menuElement[0][0].isEnabled));
-	missingFiles += (textureRandomisation(&missingFilesFile, menuElement[1][0].isEnabled, menuElement[2][0].isEnabled, menuElement[3][0].isEnabled));
+	missingFiles += (fontRansomisation(&missingFilesFile, &successfullyRandomised, menuElement[0][0].isEnabled));
+	missingFiles += (textureRandomisation(&missingFilesFile, &successfullyRandomised, menuElement[1][0].isEnabled, menuElement[2][0].isEnabled, menuElement[3][0].isEnabled));
 
 	clrBottomHalf();
 
@@ -567,15 +567,18 @@ void randomiseStuff() {
 		}
 	}
 
+	string printString = GREEN + to_string(successfullyRandomised) + " ";
+
 	for (int i = 0; i < sizeof(randomisationComplete) / sizeof(randomisationComplete[0]); i++)
 	{
+		printString += randomisationComplete[i];
+		if (i == 0)
+			printString += CYAN " (Seed: " + to_string(seed) + ")" RESET;
 		gotoxy(bottomMenu.location.X, bottomMenu.location.Y + bottomMenu.height - 2 - (int)(sizeof(randomisationComplete) / sizeof(randomisationComplete[0])) + i);
-		if (randomisationComplete[i].size() != 0)
-			printCenter(randomisationComplete[i], bottomMenu.width);
+		if (printString.size() != 0)
+			printCenter(printString, bottomMenu.width);
+		printString = "";
 	}
-
-	gotoxy(bottomMenu.location.X, bottomMenu.location.Y + bottomMenu.height);
-	cout << "Seed: " << seed;
 
 	missingFilesFile.close();
 	if (missingFiles == 0)
@@ -585,7 +588,7 @@ void randomiseStuff() {
 
 //----------------------------------------------------------------------
 
-int fontRansomisation(fstream *missingFiles, bool textRand) {
+int fontRansomisation(fstream *missingFiles, int* successful, bool textRand) {
 
 	if (!textRand)
 		return 0;
@@ -606,8 +609,10 @@ int fontRansomisation(fstream *missingFiles, bool textRand) {
 			*missingFiles << inputFileName + "\n";
 			missingTexturesFiles++;
 		}
-		else
+		else {
+			*successful += 1;
 			randomisedTextFiles++;
+		}
 	}
 
 	gotoxy(printCursor.X, printCursor.Y);
@@ -715,7 +720,7 @@ int ransomiseFont() {
 
 //----------------------------------------------------------------------
 
-int textureRandomisation(fstream *missingFiles, bool menuRand, bool iconRand, bool blockRand) {
+int textureRandomisation(fstream *missingFiles, int *successful, bool menuRand, bool iconRand, bool blockRand) {
 
 	int error, missingFileCount = 0;
 
@@ -733,6 +738,9 @@ int textureRandomisation(fstream *missingFiles, bool menuRand, bool iconRand, bo
 		if (error = readTextureData(i) != 0) {
 			*missingFiles << inputFileName + "\n";
 			missingFileCount++;
+		}
+		else {
+			*successful += 1;
 		}
 	}
 
@@ -1120,7 +1128,7 @@ void configureValues() { // Incomplete, Type is not set up yet
 			menuElement[x][y].type = OnOffSwitch;
 		}
 	}
-
+	
 	// Temporarily disabled settings
 	menuElement[1][1].type = Null;
 	menuElement[2][1].type = Null;
@@ -1143,4 +1151,94 @@ void setUpDefaultValues() {
 
 	menuElement[0][0].isEnabled = true;
 	menuElement[1][0].isEnabled = true;
+}
+
+//----------------------------------------------------------------------
+
+void clrLeftSide() {
+
+	for (int i = leftMenu.location.Y; i <= windowHeight; i++)
+	{
+		gotoxy(leftMenu.location.X, i);
+		printNTimes(leftMenu.width);
+	}
+}
+
+void clrRightSide() {
+
+	for (int i = rightMenu.location.Y; i <= windowHeight; i++)
+	{
+		gotoxy(rightMenu.location.X, i);
+		printNTimes(rightMenu.width);
+	}
+}
+
+void clrBottomHalf() {
+
+	for (int i = leftMenu.location.Y; i <= windowHeight; i++)
+	{
+		gotoxy(leftMenu.location.X, i);
+		printNTimes(windowWidth);
+	}
+}
+
+//----------------------------------------------------------------------
+
+void strRandom() {
+
+	for (int i = 0; i < sizeof(MainSectionPrint) / sizeof(MainSectionPrint[0]); i++) {
+		randomiseString(MainSectionPrint[i], MainSectionPrint[i].size());
+	}
+	for (int i = 0; i < sizeof(mainSettings) / sizeof(mainSettings[0]); i++) {
+		randomiseString(mainSettings[i], mainSettings[i].size());
+	}
+	for (int i = 0; i < primaryMenuElementCount; i++)
+	{
+		for (int j = 0; j < secondaryMenuMaxElementCount; j++)
+		{
+			randomiseString(secondarySettings[i][j], secondarySettings[i][j].size());
+		}
+	}
+	for (int i = 0; i < sizeof(missingFilesPrint) / sizeof(missingFilesPrint[0]); i++) {
+		randomiseString(missingFilesPrint[i], missingFilesPrint[i].size());
+	}
+	for (int i = 0; i < sizeof(randomisationComplete) / sizeof(randomisationComplete[0]); i++) {
+		randomiseString(randomisationComplete[i], randomisationComplete[i].size());
+	}
+	for (int i = 0; i < primaryMenuElementCount - 1; i++)
+	{
+		for (int j = 0; j < secondaryMenuMaxElementCount - 1; j++)
+		{
+			randomiseString(menuElement[i][j].description, menuElement[i][j].description.size());
+		}
+	}
+	randomiseString(enabledStr, enabledStr.size());
+	randomiseString(disabledStr, disabledStr.size());
+	randomiseString(cancelledStr, cancelledStr.size());
+}
+
+void randomiseString(string &str, int size) {
+	if (size == 0) return;
+	int randChance = 8, i = 0;
+	while (str[i] != '\n' && str[i] != '\0')
+	{
+		if (str[i] == '\x1B') {
+			while (str[i] != 'm')
+				i++;
+			i++;
+			if (str[i] == '\n' || str[i] == '\0')
+				break;
+		}
+		if (rand() % randChance == 0)
+			str[i] = newRandChar();
+		i++;
+	}
+}
+
+int newRandChar() {
+	int random, min = 21, max = 126;
+	do {
+		random = (rand() % (max - min)) + min;
+	} while (random == 27);
+	return random;
 }
