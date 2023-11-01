@@ -95,7 +95,7 @@ void consoleSetup(bool resizeEnabled, int width, int height) {
 }
 
 void printNTimes(int n, char ch = ' ') {
-
+	if (n <= 0) return;
 	cout << string(n, ch);
 }
 

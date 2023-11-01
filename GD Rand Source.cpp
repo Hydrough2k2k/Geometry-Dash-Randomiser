@@ -54,7 +54,7 @@ string miscSettings[] = {
 
 //----------------------------------------------------------------------
 
-const string appVersion = "1.0.4";
+const string appVersion = "1.0.5";
 
 #define primaryMenuElementCount 6
 #define secondaryMenuMaxElementCount 9
@@ -127,19 +127,6 @@ unsigned int seed = 0;
 
 //----------------------------------------------------------------------
 
-const string textFileNames[] = {
-	"bigFont",
-	"gjFont",
-	"goldFont",
-	"chatFont"
-};
-
-const string fntExtensions[] = {
-	".fnt",
-	"-hd.fnt",
-	"-uhd.fnt"
-};
-
 const string plistExtensions[] = {
 	".plist",
 	"-hd.plist",
@@ -149,14 +136,6 @@ const string plistExtensions[] = {
 const string miscStrings[] = {
 	"Original files\\",
 	"Randomised files\\"
-};
-
-const string gameSheetNames[] = {
-	"GJ_GameSheet03",
-	"GJ_GameSheet04",
-	"GJ_GameSheet02",
-	"GJ_GameSheet",
-	"GJ_GameSheetGlow"
 };
 
 //----------------------------------------------------------------------
@@ -265,7 +244,7 @@ void fontFileNameFill(int, int);
 int ransomiseFont();
 
 int textureRandomisation(fstream*, int*, bool, bool, bool);
-void textureFileNameFill(int, int);
+void textureFileNameFill(int, int, const string *gameSheetNames);
 int readTextureData(int);
 
 void readDescriptions();
@@ -355,6 +334,7 @@ void mainSettingsPrint() {
 
 void secondarySettingsPrint() {
 
+	string printStr;
 	gotoxy(rightMenu.location.X, rightMenu.location.Y + 1);
 	printCenter(secondarySettings[cursor.primaryColumn][0], rightMenu.width);
 
@@ -369,11 +349,9 @@ void secondarySettingsPrint() {
 			if (menuElement[cursor.primaryColumn][i].type == OnOffSwitch)
 				menuElement[cursor.primaryColumn][i].isEnabled ? cout << enabledStr : cout << disabledStr;
 			else if (menuElement[cursor.primaryColumn][i].type == NumberBox) {
-				if (menuElement[cursor.primaryColumn][i].data > 9)
-					printNTimes(10 - log10(menuElement[cursor.primaryColumn][i].data));
-				else
-					printNTimes(9);
-				cout << BRBLUE " " << menuElement[cursor.primaryColumn][i].data << RESET;
+				numberToStringSeparated(printStr, menuElement[cursor.primaryColumn][i].data);
+				printNTimes(13 - printStr.size());
+				cout << BRBLUE " " << printStr << RESET;
 			}
 			else if (menuElement[cursor.primaryColumn][i].type == Switch)
 				switchStatePrint(i);
@@ -651,11 +629,11 @@ int fontRansomisation(fstream *missingFiles, int* successful, bool textRand) {
 	bool mediumQuality = (menuElement[primaryMenuElementCount - 2][2].switchState >> 1) % 2;
 	bool highQuality = (menuElement[primaryMenuElementCount - 2][2].switchState >> 0) % 2;
 
-	int textFileTypes = 14;
+	int textFileTypes = 14, textureQualities = 3;
 	int totalTextFiles = textFileTypes * lowQuality + textFileTypes * mediumQuality + textFileTypes * highQuality;
 	int randomisedTextFiles = 0, missingTexturesFiles = 0;
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < textureQualities; i++)
 	{
 		if (!lowQuality && i == 0) i++;
 		if (!mediumQuality && i == 1) i++;
@@ -689,14 +667,26 @@ int fontRansomisation(fstream *missingFiles, int* successful, bool textRand) {
 
 void fontFileNameFill(int fontID, int fileExtension) {
 
+	const string textFileNames[] = {
+	"bigFont",
+	"gjFont",
+	"goldFont",
+	"chatFont"
+	};
+	const string fntExtensions[] = {
+	".fnt",
+	"-hd.fnt",
+	"-uhd.fnt"
+	};
+
 	string buf;
 	if (fontID == 0)
-		buf = textFileNames[0]; // bigFont
+		buf = textFileNames[0];
 	else if (fontID < 12) {
-		buf = textFileNames[1]; // gjFont
+		buf = textFileNames[1];
 		buf += (to_string(fontID / 10) + to_string(fontID % 10));
 	} else
-		buf = textFileNames[fontID - 10]; // goldFont and chatFont
+		buf = textFileNames[fontID - 10];
 	buf += fntExtensions[fileExtension];
 
 	inputFileName = buf;
@@ -788,28 +778,38 @@ int ransomiseFont() {
 
 int textureRandomisation(fstream *missingFiles, int *successful, bool menuRand, bool iconRand, bool blockRand) {
 
+	const string gameSheetNames[] = {
+		"GJ_GameSheet03",
+		"GJ_GameSheet04",
+		"GJ_GameSheet02",
+		"GJ_GameSheet",
+		"GJ_GameSheetGlow",
+		"FireSheet_01"
+	};
+
 	int error, missingFileCount = 0;
+	int textureQualities = 3, totalFileTypes = sizeof(gameSheetNames) / sizeof(gameSheetNames[0]);
 
 	bool lowQuality = (menuElement[primaryMenuElementCount - 2][2].switchState >> 2) % 2;
 	bool mediumQuality = (menuElement[primaryMenuElementCount - 2][2].switchState >> 1) % 2;
 	bool highQuality = (menuElement[primaryMenuElementCount - 2][2].switchState >> 0) % 2;
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < textureQualities; i++)
 	{
 		if (!lowQuality && i == 0) i++;
 		if (!mediumQuality && i == 1) i++;
 		if (!highQuality && i == 2) break;
 
-		for (int j = 0; j < 5; j++)
+		for (int j = 0; j < totalFileTypes; j++)
 		{
 			if (!menuRand && j < 2)
 				i = 2;
 			if (!iconRand && i >= 2 && i < 3)
 				i = 3;
-			if (!blockRand && i >= 3 && i < 5)
+			if (!blockRand && i >= 3 && i < 6)
 				break;
 
-			textureFileNameFill(j, i);
+			textureFileNameFill(j, i, gameSheetNames);
 
 			if (error = readTextureData(i) != 0) {
 				*missingFiles << inputFileName + "\n";
@@ -830,12 +830,9 @@ int textureRandomisation(fstream *missingFiles, int *successful, bool menuRand, 
 	return missingFileCount;
 }
 
-void textureFileNameFill(int TextureFileID, int fileExtension) {
-
-	string buf = gameSheetNames[TextureFileID] + plistExtensions[fileExtension];
-
-	inputFileName = buf;
-	outputFileName = buf;
+void textureFileNameFill(int TextureFileID, int fileExtension, const string *gameSheetNames) {
+	inputFileName = gameSheetNames[TextureFileID] + plistExtensions[fileExtension];
+	outputFileName = gameSheetNames[TextureFileID] + plistExtensions[fileExtension];
 }
 
 int readTextureData(int texture) {
@@ -1003,21 +1000,20 @@ void readRandConfig(fstream* configFile, int settingType, string *settingArray, 
 		removeSpecialChars(readStr);
 		removeSpecialChars(stringlet);
 
-		val = readTrueOrFalse(stringlet);
-
 		int j = 0;
 		for (; j < size; j++)
 			if (readStr == settingArray[j])
 				break;
 
 		if (menuElement[settingType][j].type == OnOffSwitch) {
+			val = readTrueOrFalse(stringlet);
 			if (val == True)
 				menuElement[settingType][j].isEnabled = true;
 			else if (val == False)
 				menuElement[settingType][j].isEnabled = false;
 		}
-		else if (menuElement[settingType][j].type == NumberBox) {
-			if (stoull(stringlet) > UINT_MAX)
+		else if (menuElement[settingType][j].type == NumberBox && stringlet.size() < 19) {
+			if (stoull(stringlet) > UINT_MAX || stoull(stringlet) > menuElement[settingType][j].dataLimit)
 				menuElement[settingType][j].data = 0;
 			else
 				menuElement[settingType][j].data = stoul(stringlet);
