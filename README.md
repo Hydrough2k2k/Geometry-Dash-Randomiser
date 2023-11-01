@@ -1,12 +1,14 @@
 # Geometry-Dash-Randomiser
 An application to mess with Geometry Dash's files
 
-# With this app you can mess with the game in various ways.
+# With this app you can mess with game file in various ways.
 
 - Do you want to Randomise on-screen text?
 - Wanna have a ball for a wave and a portal for a ship?
 - Would you like to randomise every texture in the game to make navigating and playing damn near impossible?
 - This application can do all that and more (in the future, maybe :) )
+- Here is a video of what you can expect: https://youtu.be/joB3ZjvAnq8
+    (This is with every setting enabled as of 1/11/2023 DD/MM/YYYY)
 
 # Download the app [here](https://github.com/Hydrough2k2k/Geometry-Dash-Randomiser/releases/tag/Geometry-Dash-Ransomiser)
 
