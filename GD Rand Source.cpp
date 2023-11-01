@@ -803,10 +803,10 @@ int textureRandomisation(fstream *missingFiles, int *successful, bool menuRand, 
 		for (int j = 0; j < totalFileTypes; j++)
 		{
 			if (!menuRand && j < 2)
-				i = 2;
-			if (!iconRand && i >= 2 && i < 3)
-				i = 3;
-			if (!blockRand && i >= 3 && i < 6)
+				j = 2;
+			if (!iconRand && j >= 2 && j < 3)
+				j = 3;
+			if (!blockRand && j >= 3 && j < 6)
 				break;
 
 			textureFileNameFill(j, i, gameSheetNames);
