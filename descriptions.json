@@ -24,6 +24,7 @@
 	{
 		"Here are some settings that might be worth adjusting",
 		"You can set a custom seed to get repeatable results. Setting it to 0 will give you a random seed",
-		"Choose which texture qualities get randomised, if you only play on High quality, you only need to randomise High quality (.uhd) files, for example"
+		"Choose which texture qualities get randomised, if you only play on High quality, you only need to randomise High quality (.uhd) files, for example",
+		"If enabled this will delete files from Randomised Files that aren't freshly randomised"
 	}
 }
