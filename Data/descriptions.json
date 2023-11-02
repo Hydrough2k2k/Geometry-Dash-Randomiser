@@ -19,10 +19,12 @@
 	{
 		"If you think this game is too easy to play, turn this setting on. It will erase your muscle memory on levels. Potential seisure warning, this can get wild",
 		"With this setting multiple blocks can look identical to make this even more confusing. Fun! (Temporarily disabled, causes very frequent crashes)"
-	}
+	},
 	"Other Settings":
 	{
 		"Here are some settings that might be worth adjusting",
-		"You can set a custom seed to get repeatable results. Setting it to 0 will give you a random seed"
+		"You can set a custom seed to get repeatable results. Setting it to 0 will give you a random seed",
+		"Choose which texture qualities get randomised, if you only play on High quality, you only need to randomise High quality (.uhd) files, for example",
+		"If enabled this will delete files from Randomised Files that aren't freshly randomised"
 	}
 }
