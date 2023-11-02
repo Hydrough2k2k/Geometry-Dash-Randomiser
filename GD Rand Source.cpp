@@ -6,6 +6,7 @@
 #include <vector>
 #include <chrono>
 #include <cstdio>
+#include <ctime>
 
 using std::cout; std::string;
 
@@ -28,7 +29,7 @@ const string configText[] = {
 string textRandSettings[] = {
 "Enabled",
 "Duplicate Characters",
-"Text Anarchy"
+"Broken Text"
 };
 
 string menuRandSettings[] = {
@@ -49,12 +50,13 @@ string blockRandSettings[] = {
 string miscSettings[] = {
 "",
 "Seed",
-"Randomised Qualities"
+"Randomised Qualities",
+"Delete Old Files"
 };
 
 //----------------------------------------------------------------------
 
-const string appVersion = "1.0.5";
+const string appVersion = "1.0.7";
 
 #define primaryMenuElementCount 6
 #define secondaryMenuMaxElementCount 9
@@ -63,7 +65,7 @@ const string appVersion = "1.0.5";
 //----------------------------------------------------------------------
 
 typedef enum readValue { Invalid, True, False, Default };
-typedef enum menuElementType { Null, OnOffSwitch, Switch, Button, Textbox, NumberBox, Slider };
+typedef enum menuElementType { Nothing, OnOffSwitch, Switch, Button, Textbox, NumberBox, Slider };
 
 typedef enum inputType { Undefined, Up, Down, Left, Right, Tab, Enter, Esc };
 inputType userInputRefTable[totalPossibleInputs];
@@ -88,7 +90,7 @@ struct menuData {
 };
 
 struct menuElementData {
-	menuElementType type = Null;
+	menuElementType type = Nothing;
 	bool isEnabled = false;
 	Vector2 location = {0, 0};
 	string description = "";
@@ -105,7 +107,7 @@ menuData bottomMenu = { 120, 20, 0, {0, 11} };
 
 menuElementData menuElement[primaryMenuElementCount][secondaryMenuMaxElementCount + 1];
 // The amount of settings in each submenu
-int secondaryMenuElementCount[primaryMenuElementCount] = { 2, 1, 1, 1, 2, 0 };
+int secondaryMenuElementCount[primaryMenuElementCount] = { 2, 1, 1, 1, 3, 0 };
 
 locations cursor = { 0, 0 };
 Vector2 printCursor = { leftMenu.location.X, leftMenu.location.Y + 1 };
@@ -117,11 +119,10 @@ int windowWidth = 120, windowHeight = 30;
 string inputFileName = "";
 string outputFileName = "";
 
-string readStr = "";
-
 const string descFileName = "Data\\descriptions.json";
 const string configFileName = "Data\\config.json";
-const string missingFilesFileName = "MissingFiles.txt";
+const string missingFilesFileName = "Missing Files.txt";
+const string recentSeedsFileName = "Recent Seeds.txt";
 
 unsigned int seed = 0;
 
@@ -133,9 +134,31 @@ const string plistExtensions[] = {
 	"-uhd.plist"
 };
 
+const string fntExtensions[] = {
+	".fnt",
+	"-hd.fnt",
+	"-uhd.fnt"
+};
+
 const string miscStrings[] = {
 	"Original files\\",
 	"Randomised files\\"
+};
+
+const string gameSheetNames[] = {
+	"GJ_GameSheet03",
+	"GJ_GameSheet04",
+	"GJ_GameSheet02",
+	"GJ_GameSheet",
+	"GJ_GameSheetGlow",
+	"FireSheet_01"
+};
+
+const string textFileNames[] = {
+	"bigFont",
+	"gjFont",
+	"goldFont",
+	"chatFont"
 };
 
 //----------------------------------------------------------------------
@@ -161,24 +184,25 @@ string secondarySettings[primaryMenuElementCount][secondaryMenuMaxElementCount] 
 	{
 		CYAN "Text Randomisation Settings" RESET,
 		"Duplicate Characters:",
-		"Text Anarchy:"
+		"Broken Text:"
 	},
 	{
 		CYAN "Menu Texture Randomisation Settings" RESET,
-		"Duplicate Buttons: " BRBLACK "(Temporarily not available)" RESET
+		"Duplicate Buttons:" RESET
 	},
 	{
 		CYAN "Icon Texture Randomisation Settings" RESET,
-		"Duplicate Icons: " BRBLACK "(Temporarily not available)" RESET
+		"Duplicate Icons: " RESET
 	},
 	{
 		CYAN "Block Texture Randomisation Settings" RESET,
-		"Duplicate Blocks: " BRBLACK "(Temporarily not available)" RESET
+		"Duplicate Blocks: " RESET
 	},
 	{
 		CYAN "Other Settings Menu" RESET,
 		"Seed:",
-		"Texture Qualities:"
+		"Texture Qualities:",
+		"Delete Old Files:"
 	},
 	{
 		GREEN "Press Enter to start randomising" RESET,
@@ -200,11 +224,11 @@ string randomisationComplete[] = {
 	"",
 	"You can copy the randomised files from the \"" CYAN "Randomised files" RESET "\" folder in the exe's folder",
 	"Then go to " GREEN "Steam" RESET ", right click on " GREEN "Geometry Dash" RESET " >> " GREEN "Manage" RESET " >> " GREEN "Browse local files" RESET,
-	"Open the " CYAN "Resources" RESET " folder and paste the files in there, then click \"" YELLOW "Replace all" RESET,
+	"Open the " CYAN "Resources" RESET " folder and paste the files in there, then click \"" YELLOW "Replace all\"" RESET,
 	"",
 	"If you want to revert the game files to the original ones copy the files from \"" CYAN "Original files" RESET "\"" ,
 	"",
-	"Anyways, enjoy the chaos :)"
+	"Anyways, enjoy the chaos :) - Press " GREEN "Enter" RESET " to start randomising again"
 };
 
 string qualitySwitchPrint[] = {
@@ -223,6 +247,8 @@ string enabledStr = GREEN " Enabled" RESET;
 string disabledStr = RED " Disabled" RESET;
 
 //----------------------------------------------------------------------
+
+void mainMenu();
 
 void headPrint();
 void mainSettingsPrint();
@@ -244,15 +270,18 @@ void fontFileNameFill(int, int);
 int ransomiseFont();
 
 int textureRandomisation(fstream*, int*, bool, bool, bool);
-void textureFileNameFill(int, int, const string *gameSheetNames);
-int readTextureData(int);
+void textureFileNameFill(int, int);
+int readTextureData(bool);
+
+int readConfigFile();
+void readRandConfig(fstream*, int, string* settingArray, unsigned int);
+readValue readTrueOrFalse(string);
+int writeConfigFile();
 
 void readDescriptions();
 void makeDirectories();
-int readConfigFile();
-int writeConfigFile();
-void readRandConfig(fstream*, int, string *settingArray, unsigned int);
-readValue readTrueOrFalse(string);
+void updateRecentSeedsFile();
+void deleteOldFiles();
 
 void configureInputLogic();
 void configureValues();
@@ -282,6 +311,11 @@ void main(void) {
 		if (rand() % 25 == 0)
 			strRandom();
 	
+	mainMenu();
+}
+
+void mainMenu() {
+
 	headPrint();
 
 	int retval = UIControl();
@@ -295,7 +329,15 @@ void main(void) {
 		_getch();
 		return;
 	}
+
+	if (menuElement[primaryMenuElementCount - 2][3].isEnabled)
+		deleteOldFiles();
+
 	randomiseStuff();
+	updateRecentSeedsFile();
+	char ch = _getch();
+	if (userInputRefTable[ch] == Enter)
+		mainMenu();
 }
 
 //----------------------------------------------------------------------
@@ -368,10 +410,9 @@ int UIControl() {
 
 	while (true) {
 
-		if (activeColumn == 0) {
-			clrLeftSide();
-			mainSettingsPrint();
-		}
+		clrLeftSide();
+		mainSettingsPrint();
+
 		clrRightSide();
 		secondarySettingsPrint();
 		printDescription();
@@ -615,7 +656,6 @@ void randomiseStuff() {
 	missingFilesFile.close();
 	if (missingFiles == 0)
 		std::remove("MissingFiles.txt");
-	char ch = _getch();
 }
 
 //----------------------------------------------------------------------
@@ -629,22 +669,22 @@ int fontRansomisation(fstream *missingFiles, int* successful, bool textRand) {
 	bool mediumQuality = (menuElement[primaryMenuElementCount - 2][2].switchState >> 1) % 2;
 	bool highQuality = (menuElement[primaryMenuElementCount - 2][2].switchState >> 0) % 2;
 
-	int textFileTypes = 14, textureQualities = 3;
-	int totalTextFiles = textFileTypes * lowQuality + textFileTypes * mediumQuality + textFileTypes * highQuality;
+	int totalTextFileTypes = 14, textureQualities = 3;
+	int totalTextFiles = totalTextFileTypes * lowQuality + totalTextFileTypes * mediumQuality + totalTextFileTypes * highQuality;
 	int randomisedTextFiles = 0, missingTexturesFiles = 0;
 
-	for (int i = 0; i < textureQualities; i++)
+	for (int quality = 0; quality < textureQualities; quality++)
 	{
-		if (!lowQuality && i == 0) i++;
-		if (!mediumQuality && i == 1) i++;
-		if (!highQuality && i == 2) break;
+		if (!lowQuality && quality == 0) quality++;
+		if (!mediumQuality && quality == 1) quality++;
+		if (!highQuality && quality == 2) break;
 
-		for (int j = 0; j < textFileTypes; j++)
+		for (int textureID = 0; textureID < totalTextFileTypes; textureID++)
 		{
 			gotoxy(printCursor.X, printCursor.Y);
 			cout << " - - Text Randomisation Progress: " << randomisedTextFiles << " / " << totalTextFiles << " files complete";
 
-			fontFileNameFill(j, i);
+			fontFileNameFill(textureID, quality);
 			if (ransomiseFont() == -1) {
 				*missingFiles << inputFileName + "\n";
 				missingTexturesFiles++;
@@ -666,18 +706,6 @@ int fontRansomisation(fstream *missingFiles, int* successful, bool textRand) {
 }
 
 void fontFileNameFill(int fontID, int fileExtension) {
-
-	const string textFileNames[] = {
-	"bigFont",
-	"gjFont",
-	"goldFont",
-	"chatFont"
-	};
-	const string fntExtensions[] = {
-	".fnt",
-	"-hd.fnt",
-	"-uhd.fnt"
-	};
 
 	string buf;
 	if (fontID == 0)
@@ -711,7 +739,7 @@ int ransomiseFont() {
 	vector<bool> available;
 
 	int IDs = 0;
-	string stringCpy;
+	string readStr, stringCpy;
 
 	// Scan the file line by line, extract and store character IDs and Character Stats
 	while (getline(originalFile, readStr)) {
@@ -778,40 +806,38 @@ int ransomiseFont() {
 
 int textureRandomisation(fstream *missingFiles, int *successful, bool menuRand, bool iconRand, bool blockRand) {
 
-	const string gameSheetNames[] = {
-		"GJ_GameSheet03",
-		"GJ_GameSheet04",
-		"GJ_GameSheet02",
-		"GJ_GameSheet",
-		"GJ_GameSheetGlow",
-		"FireSheet_01"
-	};
-
-	int error, missingFileCount = 0;
-	int textureQualities = 3, totalFileTypes = sizeof(gameSheetNames) / sizeof(gameSheetNames[0]);
+	int retval, missingFileCount = 0;
+	int textureQualityCount = 3, totalFileTypes = sizeof(gameSheetNames) / sizeof(gameSheetNames[0]);
 
 	bool lowQuality = (menuElement[primaryMenuElementCount - 2][2].switchState >> 2) % 2;
 	bool mediumQuality = (menuElement[primaryMenuElementCount - 2][2].switchState >> 1) % 2;
 	bool highQuality = (menuElement[primaryMenuElementCount - 2][2].switchState >> 0) % 2;
 
-	for (int i = 0; i < textureQualities; i++)
+	for (int quality = 0; quality < textureQualityCount; quality++)
 	{
-		if (!lowQuality && i == 0) i++;
-		if (!mediumQuality && i == 1) i++;
-		if (!highQuality && i == 2) break;
+		if (!lowQuality && quality == 0) quality++;
+		if (!mediumQuality && quality == 1) quality++;
+		if (!highQuality && quality == 2) break;
 
-		for (int j = 0; j < totalFileTypes; j++)
+		for (int gameSheetID = 0; gameSheetID < totalFileTypes; gameSheetID++)
 		{
-			if (!menuRand && j < 2)
-				j = 2;
-			if (!iconRand && j >= 2 && j < 3)
-				j = 3;
-			if (!blockRand && j >= 3 && j < 6)
+			if (!menuRand && gameSheetID < 2)
+				gameSheetID = 2;
+			if (!iconRand && gameSheetID >= 2 && gameSheetID < 3)
+				gameSheetID = 3;
+			if (!blockRand && gameSheetID >= 3 && gameSheetID < 6)
 				break;
 
-			textureFileNameFill(j, i, gameSheetNames);
+			textureFileNameFill(gameSheetID, quality);
 
-			if (error = readTextureData(i) != 0) {
+			if (gameSheetID < 2)
+				retval = readTextureData(menuElement[1][1].isEnabled);
+			else if (gameSheetID < 3)
+				retval = readTextureData(menuElement[2][1].isEnabled);
+			else if (gameSheetID < 6)
+				retval = readTextureData(menuElement[3][1].isEnabled);
+
+			if (retval != 0) {
 				*missingFiles << inputFileName + "\n";
 				missingFileCount++;
 			}
@@ -830,15 +856,14 @@ int textureRandomisation(fstream *missingFiles, int *successful, bool menuRand, 
 	return missingFileCount;
 }
 
-void textureFileNameFill(int TextureFileID, int fileExtension, const string *gameSheetNames) {
+void textureFileNameFill(int TextureFileID, int fileExtension) {
 	inputFileName = gameSheetNames[TextureFileID] + plistExtensions[fileExtension];
 	outputFileName = gameSheetNames[TextureFileID] + plistExtensions[fileExtension];
 }
 
-int readTextureData(int texture) {
+int readTextureData(bool duplicatesEnabled) {
 
 	string buf, randText = " - - Randomising ";
-	int totalObjects;
 
 	gotoxy(printCursor.X, printCursor.Y);
 	printNTimes(100, ' ');
@@ -856,46 +881,47 @@ int readTextureData(int texture) {
 	if (!originalFile.is_open())
 		return -2;
 
-	string refString = ".png</key>";
-	vector<string> textureNames;
-	vector<int> lineCount;
-	vector<bool> isRandomised;
-	int line = 1;
+	string startReferenceString = ".png</key>";
+	string endReferenceString = "</dict>";
+	vector<string> textureData;
+	vector<bool> available;
+
+	string readStr, stringCpy;
 
 	// Extracting relevant data from file
 	while (getline(originalFile, readStr)) {
-		string stringCpy = readStr;
-		removeWhitespace(readStr);
-		stringCpy.erase(0, stringCpy.size() - refString.size());
+		stringCpy = readStr;
+		stringCpy.erase(0, stringCpy.size() - startReferenceString.size());
 
-		if (stringCpy == refString) {
-			textureNames.push_back(readStr);
-			lineCount.push_back(line);
-			isRandomised.push_back(false);
+		if (stringCpy == startReferenceString) {
+			available.push_back(true);
+			textureData.push_back("");
+
+			while (getline(originalFile, readStr))
+			{
+				string stringCpy = readStr;
+				stringCpy.erase(0, stringCpy.size() - endReferenceString.size());
+
+				if (stringCpy == endReferenceString) {
+					textureData[textureData.size() - 1] += readStr + "\n";
+					break;
+				}
+				textureData[textureData.size() - 1] += readStr + "\n";
+			}
 		}
-		line++;
 	}
-
-	// Adding filler data to avoid "out of array index" issues
-	textureNames.push_back("");
-	lineCount.push_back(0);
-	isRandomised.push_back(true);
 
 	originalFile.close();
 	originalFile.open(miscStrings[0] + inputFileName, ios::in);
 	if (!originalFile.is_open())
 		return -1;
 
-	int currentLine = 1;
-	int randomisedTextures = 0;
-	int random;
+	int totalObjects = textureData.size();
+	int randomisedTextures = 0, random;
 
-	totalObjects = textureNames.size();
-
-	// Writing the randomised file
 	while (getline(originalFile, readStr)) {
 
-		if (rand() % 12 == 0) {
+		if (rand() % 16 == 0) {
 			gotoxy(printCursor.X, printCursor.Y);
 			printNTimes(randText.size() + inputFileName.size() + buf.size() - 3);
 			gotoxy(printCursor.X, printCursor.Y);
@@ -903,27 +929,37 @@ int readTextureData(int texture) {
 			cout << randText + inputFileName + buf;
 		}
 
-		if (currentLine != lineCount[randomisedTextures])
-			editedFile << readStr << "\n";
-		else {
-			editedFile << "\t\t\t";
-			while (true) {
+		string stringCpy = readStr;
+		stringCpy.erase(0, stringCpy.size() - startReferenceString.size());
 
-				int random = rand() % textureNames.size();
-				if (isRandomised[random] == false) {
-					isRandomised[random] = true;
-					editedFile << textureNames[random];
-					break;
-				}
-			}
-			editedFile << "\n";
-			randomisedTextures++;
+		if (stringCpy != startReferenceString) {
+			editedFile << readStr << "\n";
 		}
-		currentLine++;
+		else {
+			do {
+				random = rand() % textureData.size();
+			} while (!available[random]);
+			editedFile << readStr << "\n";
+			editedFile << textureData[random];
+
+			if (!duplicatesEnabled)
+				available[random] = false;
+
+			while (getline(originalFile, readStr)) {
+				removeWhitespace(readStr);
+				if (readStr == endReferenceString)
+					break;
+			}
+		}
+		randomisedTextures++;
 	}
 
-	gotoxy(printCursor.X, printCursor.Y);
-	printNTimes(randText.size() + inputFileName.size() + buf.size() - 3);
+	vector<string>().swap(textureData);
+	vector<bool>().swap(available);
+
+	originalFile.close();
+	editedFile.close();
+
 	return 0;
 }
 
@@ -934,6 +970,7 @@ int readConfigFile() {
 	fstream configFile;
 	int settingType;
 	unsigned int size;
+	string readStr;
 
 	configFile.open(configFileName, ios::in);
 	if (!configFile.is_open()) {
@@ -1077,7 +1114,7 @@ int writeConfigFile() {
 		}
 		for (int j = 0; j < writeStr.size(); j++)
 		{
-			if (menuElement[i - 1][j].type != Null) {
+			if (menuElement[i - 1][j].type != Nothing) {
 				configFile << "\t\t\t\"" + writeStr[j] + "\": ";
 				if (menuElement[i - 1][j].type == OnOffSwitch)
 					configFile << std::boolalpha << menuElement[i - 1][j].isEnabled;
@@ -1145,6 +1182,81 @@ void makeDirectories() {
 	retval = _mkdir("Randomised files");
 }
 
+void updateRecentSeedsFile() {
+
+	int maxStoredSeeds = 20;
+	fstream recentSeeds;
+	string readStr, dateStr;
+
+	recentSeeds.open(recentSeedsFileName, ios::in);
+
+	vector<string> previousData;
+
+	while (getline(recentSeeds, readStr)) {
+		previousData.push_back(readStr);
+	}
+
+	recentSeeds.close();
+	recentSeeds.open(recentSeedsFileName, ios::out);
+	if (!recentSeeds.is_open())
+		return;
+
+	time_t t = time(0);
+	tm time;
+	localtime_s(&time, &t);
+
+	recentSeeds << "Seed: " << seed << " - " << time.tm_year + 1900 << "/" << time.tm_mon << "/" << time.tm_mday << " " << time.tm_hour << "-" << time.tm_min << "-" << time.tm_sec;
+	if (previousData.size() != 0) recentSeeds << "\n";
+
+	for (int i = 0; i < previousData.size(); i++) {
+		recentSeeds << previousData[i];
+		if (i == previousData.size() - 1 || i > maxStoredSeeds - 3)
+			break;
+		recentSeeds << "\n";
+	}
+
+	vector<string>().swap(previousData);
+
+	recentSeeds.close();
+}
+
+void deleteOldFiles() {
+
+	int totalTextFileTypes = 14, totalTextureFileTypes = 6, textureQualities = 3;
+	string str;
+	char fileName[100];
+
+	for (int quality = 0; quality < textureQualities; quality++)
+	{
+		for (int fontID = 0; fontID < totalTextFileTypes; fontID++) {
+			str = miscStrings[1];
+
+			if (fontID == 0)
+				str += textFileNames[0];
+			else if (fontID < 12) {
+				str += textFileNames[1];
+				str += (to_string(fontID / 10) + to_string(fontID % 10));
+			}
+			else
+				str += textFileNames[fontID - 10];
+			str += fntExtensions[quality];
+
+			strcpy_s(fileName, str.c_str());
+			std::remove(fileName);
+		}
+	}
+
+	for (int quality = 0; quality < textureQualities; quality++)
+	{
+		for (int textureID = 0; textureID < totalTextureFileTypes; textureID++) {
+			str = miscStrings[1] + gameSheetNames[textureID] + plistExtensions[quality];
+
+			strcpy_s(fileName, str.c_str());
+			std::remove(fileName);
+		}
+	}
+}
+
 //----------------------------------------------------------------------
 
 void configureInputLogic() {
@@ -1209,15 +1321,10 @@ void configureValues() { // Incomplete, Type is not set up yet
 			menuElement[x][y].type = OnOffSwitch;
 		}
 	}
-	
-	// Temporarily disabled settings
-	menuElement[1][1].type = Null;
-	menuElement[2][1].type = Null;
-	menuElement[3][1].type = Null;
 
 	// Other settings menu
 	menuElement[primaryMenuElementCount - 2][0].location.Y = rightMenu.location.Y + rightMenu.height - 4;
-	menuElement[primaryMenuElementCount - 2][0].type = Null;
+	menuElement[primaryMenuElementCount - 2][0].type = Nothing;
 	// Seed input
 	menuElement[primaryMenuElementCount - 2][1].type = NumberBox;
 	menuElement[primaryMenuElementCount - 2][1].dataLimit = UINT_MAX;
@@ -1238,6 +1345,7 @@ void setUpDefaultValues() {
 	menuElement[1][0].isEnabled = true;
 
 	menuElement[primaryMenuElementCount - 2][2].switchState = 1;
+	menuElement[primaryMenuElementCount - 2][3].isEnabled = true;
 }
 
 //----------------------------------------------------------------------
