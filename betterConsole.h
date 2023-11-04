@@ -183,6 +183,14 @@ void inputCheck(char* ch) {
 	if (_kbhit) *ch = _getch();
 }
 
+int advInputCheck(char *ch = 0) { // no workie
+	*ch = _getch();
+
+	if (*ch == -32 || *ch == 0)
+		return 255 + _getch();
+	return *ch;
+}
+
 void clrScreen() {
 
 	gotoxy(0, 0);

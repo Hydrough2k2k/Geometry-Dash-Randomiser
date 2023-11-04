@@ -4,59 +4,55 @@
 #include <cstring>
 #include <string>
 #include <vector>
-#include <chrono>
-#include <cstdio>
 #include <ctime>
-
-using std::cout; std::string;
-
 #include <direct.h>
 #include <windows.h>
-
 #include "betterConsole.h"
 #include "stringMod.h"
+
+const string appVersion = "1.0.8";
+
+using std::cout; std::string;
 
 //----------------------------------------------------------------------
 
 const string configText[] = {
-"Text Randomisation",
-"Menu Texture Randomisation",
-"Icon Texture Randomisation",
-"Block Texture Randomisation",
-"Other settings"
+	"Text Randomisation",
+	"Menu Texture Randomisation",
+	"Icon Texture Randomisation",
+	"Block Texture Randomisation",
+	"Other settings"
 };
 
 string textRandSettings[] = {
-"Enabled",
-"Duplicate Characters",
-"Broken Text"
+	"Enabled",
+	"Randomisation Mode",
+	"Duplicate Characters"
 };
 
 string menuRandSettings[] = {
-"Enabled",
-"Duplicate Buttons"
+	"Enabled",
+	"Duplicate Buttons"
 };
 
 string iconRandSettings[] = {
-"Enabled",
-"Duplicate Icons"
+	"Enabled",
+	"Duplicate Icons"
 };
 
 string blockRandSettings[] = {
-"Enabled",
-"Duplicate Blocks"
+	"Enabled",
+	"Duplicate Blocks"
 };
 
 string miscSettings[] = {
-"",
-"Seed",
-"Randomised Qualities",
-"Delete Old Files"
+	"",
+	"Seed",
+	"Randomised Qualities",
+	"Delete Old Files"
 };
 
 //----------------------------------------------------------------------
-
-const string appVersion = "1.0.7";
 
 #define primaryMenuElementCount 6
 #define secondaryMenuMaxElementCount 9
@@ -77,7 +73,7 @@ struct Vector2 {
 	int Y;
 };
 
-struct locations {
+struct position {
 	int primaryColumn;
 	int secondaryColumn;
 };
@@ -92,13 +88,13 @@ struct menuData {
 struct menuElementData {
 	menuElementType type = Nothing;
 	bool isEnabled = false;
-	Vector2 location = {0, 0};
-	string description = "";
+	Vector2 location = { 0, 0 };
 	size_t data = 0;
 	size_t dataLimit = UINT_MAX;
 	int switchState = 0;
 	int minSwitchState = 0;
 	int maxSwitchState = 0;
+	bool dynamicDescription = false;
 };
 
 menuData leftMenu = { 53, 20, 9, {0, 11} };
@@ -106,10 +102,11 @@ menuData rightMenu = { 66, 20, 8, {55, 11} };
 menuData bottomMenu = { 120, 20, 0, {0, 11} };
 
 menuElementData menuElement[primaryMenuElementCount][secondaryMenuMaxElementCount + 1];
+vector<string> description[primaryMenuElementCount][secondaryMenuMaxElementCount + 1];
 // The amount of settings in each submenu
 int secondaryMenuElementCount[primaryMenuElementCount] = { 2, 1, 1, 1, 3, 0 };
 
-locations cursor = { 0, 0 };
+position cursor = { 0, 0 };
 Vector2 printCursor = { leftMenu.location.X, leftMenu.location.Y + 1 };
 int cursorPrintOffset = 3;
 int activeColumn = 0;
@@ -183,8 +180,8 @@ string mainSettings[] = {
 string secondarySettings[primaryMenuElementCount][secondaryMenuMaxElementCount] = {
 	{
 		CYAN "Text Randomisation Settings" RESET,
-		"Duplicate Characters:",
-		"Broken Text:"
+		"Randomisation Mode:",
+		"Duplicate Characters:"
 	},
 	{
 		CYAN "Menu Texture Randomisation Settings" RESET,
@@ -242,6 +239,12 @@ string qualitySwitchPrint[] = {
 	"Low, Medium and High" RESET
 };
 
+string textRandSwitchPrint[] = {
+	YELLOW " ",
+	"Standard" RESET,
+	"Broken Text" RESET
+};
+
 string cancelledStr = YELLOW "Randomisation cancelled" RESET;
 string enabledStr = GREEN " Enabled" RESET;
 string disabledStr = RED " Disabled" RESET;
@@ -267,7 +270,8 @@ void printDescription();
 void randomiseStuff();
 int fontRansomisation(fstream*, int*, bool);
 void fontFileNameFill(int, int);
-int ransomiseFont();
+int randomiseFont();
+int brokenText();
 
 int textureRandomisation(fstream*, int*, bool, bool, bool);
 void textureFileNameFill(int, int);
@@ -290,6 +294,8 @@ void setUpDefaultValues();
 void clrLeftSide();
 void clrRightSide();
 void clrBottomHalf();
+void drawRightScrollBar();
+void drawLeftScrollBar();
 
 void strRandom();
 int newRandChar();
@@ -306,11 +312,16 @@ void main(void) {
 	configureInputLogic();
 	configureValues();
 	setUpDefaultValues();
-	
-	if (readConfigFile() == 0)
-		if (rand() % 25 == 0)
-			strRandom();
-	
+
+	if (readConfigFile() == 0 && rand() % 25 == 0) {
+		strRandom();
+		for (int i = 0; i < 10; i++) {
+			if (rand() % 4 == 0)
+				strRandom();
+			else break;
+		}
+	}
+
 	mainMenu();
 }
 
@@ -388,16 +399,19 @@ void secondarySettingsPrint() {
 		if (cursor.primaryColumn != primaryMenuElementCount - 1) {
 			gotoxy(rightMenu.location.X + rightMenu.textOffset, rightMenu.location.Y + 2 + (i * 2));
 			cout << secondarySettings[cursor.primaryColumn][i];
+
 			if (menuElement[cursor.primaryColumn][i].type == OnOffSwitch)
 				menuElement[cursor.primaryColumn][i].isEnabled ? cout << enabledStr : cout << disabledStr;
+
 			else if (menuElement[cursor.primaryColumn][i].type == NumberBox) {
-				numberToStringSeparated(printStr, menuElement[cursor.primaryColumn][i].data);
-				printNTimes(13 - printStr.size());
+				numToStrSeparated(printStr, menuElement[cursor.primaryColumn][i].data);
+				printNTimes(14 - printStr.size());
 				cout << BRBLUE " " << printStr << RESET;
 			}
 			else if (menuElement[cursor.primaryColumn][i].type == Switch)
 				switchStatePrint(i);
-		} else {
+		}
+		else {
 			gotoxy(rightMenu.location.X, rightMenu.location.Y + 2 + (i * 2));
 			printCenter(secondarySettings[cursor.primaryColumn][i], rightMenu.width);
 		}
@@ -409,7 +423,7 @@ int UIControl() {
 	inputType userInput;
 
 	while (true) {
-
+		
 		clrLeftSide();
 		mainSettingsPrint();
 
@@ -420,7 +434,8 @@ int UIControl() {
 		if (activeColumn == 0) {
 			gotoxy(menuElement[cursor.primaryColumn][0].location.X - cursorPrintOffset, menuElement[cursor.primaryColumn][0].location.Y);
 			cout << ">>";
-		} else {
+		}
+		else {
 			gotoxy(menuElement[cursor.primaryColumn][cursor.secondaryColumn].location.X - cursorPrintOffset, menuElement[cursor.primaryColumn][cursor.secondaryColumn].location.Y);
 			cout << ">>";
 		}
@@ -469,7 +484,8 @@ void moveCursorUp() {
 		cursor.primaryColumn--;
 		if (cursor.primaryColumn < 0)
 			cursor.primaryColumn = primaryMenuElementCount - 1;
-	} else {
+	}
+	else {
 		cursor.secondaryColumn--;
 		if (cursor.secondaryColumn <= 0)
 			cursor.secondaryColumn = secondaryMenuElementCount[cursor.primaryColumn];
@@ -481,7 +497,8 @@ void moveCursorDown() {
 		cursor.primaryColumn++;
 		if (cursor.primaryColumn > primaryMenuElementCount - 1)
 			cursor.primaryColumn = 0;
-	} else {
+	}
+	else {
 		cursor.secondaryColumn++;
 		if (cursor.secondaryColumn > secondaryMenuElementCount[cursor.primaryColumn])
 			cursor.secondaryColumn = 1;
@@ -489,13 +506,14 @@ void moveCursorDown() {
 }
 
 void switchColumn() {
-	if (cursor.primaryColumn == primaryMenuElementCount - 1)
+	if (secondaryMenuElementCount[cursor.primaryColumn] == 0)
 		return;
 
 	if (activeColumn == 0) {
 		activeColumn = 1;
 		cursor.secondaryColumn = 1;
-	} else {
+	}
+	else {
 		activeColumn = 0;
 		cursor.secondaryColumn = 0;
 	}
@@ -504,8 +522,10 @@ void switchColumn() {
 void changeSettings() {
 	if (menuElement[cursor.primaryColumn][cursor.secondaryColumn].type == OnOffSwitch)
 		menuElement[cursor.primaryColumn][cursor.secondaryColumn].isEnabled = !menuElement[cursor.primaryColumn][cursor.secondaryColumn].isEnabled;
+
 	else if (menuElement[cursor.primaryColumn][cursor.secondaryColumn].type == Switch) {
 		menuElement[cursor.primaryColumn][cursor.secondaryColumn].switchState++;
+
 		if (menuElement[cursor.primaryColumn][cursor.secondaryColumn].switchState > menuElement[cursor.primaryColumn][cursor.secondaryColumn].maxSwitchState)
 			menuElement[cursor.primaryColumn][cursor.secondaryColumn].switchState = menuElement[cursor.primaryColumn][cursor.secondaryColumn].minSwitchState;
 	}
@@ -527,7 +547,7 @@ bool numBox(char ch) {
 		numBoxLimitCheck(false);
 		return true;
 	case -32:
-		if (_getch() == 83) {
+		if (_getch() == 83) { // Esc
 			menuElement[cursor.primaryColumn][cursor.secondaryColumn].data = 0;
 			return true;
 		}
@@ -557,6 +577,9 @@ void switchStatePrint(int secondaryColumn) {
 	case (primaryMenuElementCount - 2, 2):
 		cout << qualitySwitchPrint[0] << qualitySwitchPrint[menuElement[primaryMenuElementCount - 2][2].switchState];
 		break;
+	case (0, 1):
+		cout << textRandSwitchPrint[0] << textRandSwitchPrint[menuElement[0][1].switchState];
+		break;
 	default:
 		break;
 	}
@@ -564,36 +587,22 @@ void switchStatePrint(int secondaryColumn) {
 
 void printDescription() {
 
-	int areaWidth = 64, stringletCount = 0, erasedChars;
-	vector<string> stringlets;
-	string stringCopy = menuElement[cursor.primaryColumn][cursor.secondaryColumn].description;
+	int descriptionIndex = 0;
+	int vectorSize = description[cursor.primaryColumn][cursor.secondaryColumn].size();
+	bool dynamicDescription = menuElement[cursor.primaryColumn][cursor.secondaryColumn].dynamicDescription;
 
+	if (dynamicDescription)
+		descriptionIndex = menuElement[cursor.primaryColumn][cursor.secondaryColumn].switchState - 1;
+
+	if (vectorSize - 1 < descriptionIndex)
+		return;
+
+	string stringCopy = description[cursor.primaryColumn][cursor.secondaryColumn][descriptionIndex];
 	if (stringCopy.size() == 0)
 		return;
 
-	// Takes a string and separates it into as few strings as possible at strings without overflowing the print area
-	while (stringCopy.size() > areaWidth) {
-		stringlets.push_back(stringCopy);
-		stringlets[stringletCount].erase(areaWidth, stringlets[stringletCount].size());
-
-		erasedChars = areaWidth;
-		while (true) {
-			if (stringlets[stringletCount][stringlets[stringletCount].size() - 1] == ' ')
-				break;
-			stringlets[stringletCount].erase(stringlets[stringletCount].size() - 1, stringlets[stringletCount].size());
-			erasedChars--;
-			if (erasedChars == 0) {
-				erasedChars = areaWidth;
-				stringlets[stringletCount] = stringCopy;
-				stringlets[stringletCount].erase(areaWidth, stringlets[stringletCount].size());
-				break;
-			}
-		}
-		stringCopy.erase(0, erasedChars);
-		stringletCount++;
-	}
-	stringlets.push_back(stringCopy);
-	stringletCount++;
+	int areaWidth = 64;
+	vector<string> stringlets = splitString(stringCopy, areaWidth);
 
 	for (int i = 0; i < stringlets.size(); i++)
 	{
@@ -660,7 +669,7 @@ void randomiseStuff() {
 
 //----------------------------------------------------------------------
 
-int fontRansomisation(fstream *missingFiles, int* successful, bool textRand) {
+int fontRansomisation(fstream* missingFiles, int* successful, bool textRand) {
 
 	if (!textRand)
 		return 0;
@@ -672,6 +681,8 @@ int fontRansomisation(fstream *missingFiles, int* successful, bool textRand) {
 	int totalTextFileTypes = 14, textureQualities = 3;
 	int totalTextFiles = totalTextFileTypes * lowQuality + totalTextFileTypes * mediumQuality + totalTextFileTypes * highQuality;
 	int randomisedTextFiles = 0, missingTexturesFiles = 0;
+
+	int retval;
 
 	for (int quality = 0; quality < textureQualities; quality++)
 	{
@@ -685,7 +696,12 @@ int fontRansomisation(fstream *missingFiles, int* successful, bool textRand) {
 			cout << " - - Text Randomisation Progress: " << randomisedTextFiles << " / " << totalTextFiles << " files complete";
 
 			fontFileNameFill(textureID, quality);
-			if (ransomiseFont() == -1) {
+
+			if (menuElement[0][1].switchState == 1)
+				retval = randomiseFont();
+			else retval = brokenText();
+
+			if (retval != 0) {
 				*missingFiles << inputFileName + "\n";
 				missingTexturesFiles++;
 			}
@@ -713,7 +729,8 @@ void fontFileNameFill(int fontID, int fileExtension) {
 	else if (fontID < 12) {
 		buf = textFileNames[1];
 		buf += (to_string(fontID / 10) + to_string(fontID % 10));
-	} else
+	}
+	else
 		buf = textFileNames[fontID - 10];
 	buf += fntExtensions[fileExtension];
 
@@ -721,7 +738,7 @@ void fontFileNameFill(int fontID, int fileExtension) {
 	outputFileName = buf;
 }
 
-int ransomiseFont() {
+int randomiseFont() {
 
 	fstream originalFile;
 	fstream editedFile;
@@ -777,12 +794,12 @@ int ransomiseFont() {
 			// Randomise where the stored stings go in the file
 			do {
 				random = rand() % IDs;
-			} while (!available[random] && !menuElement[0][2].isEnabled); // Text Anarchy
+			} while (!available[random]);
 
 			// Start wiriting the file
 			if (available[random]) {
 				editedFile << charID[randomisedItems] << charStats[random] << "\n";
-				if (!menuElement[0][1].isEnabled) // Text Duplicates
+				if (!menuElement[0][2].isEnabled) // Text Duplicates
 					available[random] = false;
 				randomisedItems++;
 			}
@@ -802,9 +819,43 @@ int ransomiseFont() {
 	return 0;
 }
 
+int brokenText() {
+
+	fstream originalFile;
+	fstream editedFile;
+
+	// If the file doesn't exist or cant be opened, skip it
+	originalFile.open(miscStrings[0] + inputFileName, ios::in);
+	if (!originalFile.is_open())
+		return -1;
+	editedFile.open(miscStrings[1] + outputFileName, ios::out);
+	if (!editedFile.is_open())
+		return -2;
+
+	string readStr, stringCpy;
+	int brokenCharProbability = rand() % 5 + 3;
+
+	// Scan the file line by line, extract and store character IDs and Character Stats
+	while (getline(originalFile, readStr)) {
+		stringCpy = readStr;
+		stringCpy.erase(8, stringCpy.size());
+
+		// If a line start with "char id=" split it into 2 parts, ending at the first 'x'
+		if (stringCpy == "char id=") {
+			if ((rand() % brokenCharProbability) < brokenCharProbability - 1)
+				editedFile << readStr << "\n";
+		}
+		else editedFile << readStr << "\n";
+	}
+	return 0;
+}
+
 //----------------------------------------------------------------------
 
-int textureRandomisation(fstream *missingFiles, int *successful, bool menuRand, bool iconRand, bool blockRand) {
+int textureRandomisation(fstream* missingFiles, int* successful, bool menuRand, bool iconRand, bool blockRand) {
+
+	if (!menuRand && !iconRand && !blockRand)
+		return 0;
 
 	int retval, missingFileCount = 0;
 	int textureQualityCount = 3, totalFileTypes = sizeof(gameSheetNames) / sizeof(gameSheetNames[0]);
@@ -1022,7 +1073,7 @@ int readConfigFile() {
 	return 0;
 }
 
-void readRandConfig(fstream* configFile, int settingType, string *settingArray, unsigned int size) {
+void readRandConfig(fstream* configFile, int settingType, string* settingArray, unsigned int size) {
 
 	string readStr, stringlet;
 	readValue val;
@@ -1056,7 +1107,8 @@ void readRandConfig(fstream* configFile, int settingType, string *settingArray, 
 				menuElement[settingType][j].data = stoul(stringlet);
 		}
 		else if (menuElement[settingType][j].type == Switch) {
-			if (stoull(stringlet) <= menuElement[settingType][j].maxSwitchState)
+			removeNonDigits(stringlet);
+			if (stringlet.size() != 0 && stoull(stringlet) <= menuElement[settingType][j].maxSwitchState)
 				menuElement[settingType][j].switchState = stoul(stringlet);
 		}
 	}
@@ -1150,27 +1202,36 @@ void readDescriptions() {
 	if (!descriptionFile.is_open())
 		return;
 
-	int r = 0, c = 0;
+	int indents = 0, row = 0, column = 0;
 
 	while (getline(descriptionFile, readStr)) {
 		removeWhitespace(readStr);
 		if (readStr[readStr.size() - 1] == ',')
 			readStr.erase(readStr.size() - 1, readStr.size());
 
-		if (readStr == "}") {
-			r = 0;
-			c++;
-		}
-		else if (readStr != "{") {
-			readStr.erase(0, 1);
-			readStr.erase(readStr.size() - 1, readStr.size());
+		if (readStr == "{")
+			indents++;
 
-			if (readStr[readStr.size() - 1] != '"') {
-				menuElement[c][r].description = readStr;
-				r++;
+		else if (readStr == "}") {
+			indents--;
+			if (indents == 1) {
+				row++;
+				column = 0;
+			} else if (indents == 2)
+				column++;
+		}
+		else
+		{
+			if (indents > 1) {
+				readStr.erase(0, 1);
+				readStr.erase(readStr.size() - 1, readStr.size());
+				description[row][column].push_back(readStr);
 			}
+			if (indents == 2)
+				column++;
 		}
 	}
+
 	descriptionFile.close();
 }
 
@@ -1186,7 +1247,7 @@ void updateRecentSeedsFile() {
 
 	int maxStoredSeeds = 20;
 	fstream recentSeeds;
-	string readStr, dateStr;
+	string readStr, seedStr;
 
 	recentSeeds.open(recentSeedsFileName, ios::in);
 
@@ -1205,7 +1266,23 @@ void updateRecentSeedsFile() {
 	tm time;
 	localtime_s(&time, &t);
 
-	recentSeeds << "Seed: " << seed << " - " << time.tm_year + 1900 << "/" << time.tm_mon << "/" << time.tm_mday << " " << time.tm_hour << "-" << time.tm_min << "-" << time.tm_sec;
+	seedStr = "Seed: ";
+	numToStrWithPadding(seedStr, seed, 10, ' ');
+	seedStr += " - ";
+	numToStrWithPadding(seedStr, time.tm_year + 1900, 4);
+	seedStr += "/";
+	numToStrWithPadding(seedStr, time.tm_mon, 2);
+	seedStr += "/";
+	numToStrWithPadding(seedStr, time.tm_mday, 2);
+	seedStr += " ";
+	numToStrWithPadding(seedStr, time.tm_hour, 2);
+	seedStr += "-";
+	numToStrWithPadding(seedStr, time.tm_min, 2);
+	seedStr += "-";
+	numToStrWithPadding(seedStr, time.tm_sec, 2);
+
+	recentSeeds << seedStr;
+
 	if (previousData.size() != 0) recentSeeds << "\n";
 
 	for (int i = 0; i < previousData.size(); i++) {
@@ -1322,6 +1399,12 @@ void configureValues() { // Incomplete, Type is not set up yet
 		}
 	}
 
+	// Text Randomisation Modes
+	menuElement[0][1].type = Switch;
+	menuElement[0][1].minSwitchState = 1;
+	menuElement[0][1].maxSwitchState = 2;
+	menuElement[0][1].dynamicDescription = true;
+
 	// Other settings menu
 	menuElement[primaryMenuElementCount - 2][0].location.Y = rightMenu.location.Y + rightMenu.height - 4;
 	menuElement[primaryMenuElementCount - 2][0].type = Nothing;
@@ -1343,6 +1426,8 @@ void setUpDefaultValues() {
 
 	menuElement[0][0].isEnabled = true;
 	menuElement[1][0].isEnabled = true;
+
+	menuElement[0][1].switchState = 1;
 
 	menuElement[primaryMenuElementCount - 2][2].switchState = 1;
 	menuElement[primaryMenuElementCount - 2][3].isEnabled = true;
@@ -1377,6 +1462,32 @@ void clrBottomHalf() {
 	}
 }
 
+void drawRightScrollBar() {
+	Vector2 cursorGoTo = { rightMenu.location.X + rightMenu.width - 2, rightMenu.location.Y };
+
+	for (int i = 1; i < rightMenu.height - 1; i++) {
+		gotoxy(cursorGoTo.X, cursorGoTo.Y + i);
+		cout << char(219); // 176, 219
+	}
+	gotoxy(cursorGoTo.X, cursorGoTo.Y);
+	cout << char(30);
+	gotoxy(cursorGoTo.X, cursorGoTo.Y + rightMenu.height);
+	cout << char(31);
+}
+
+void drawLeftScrollBar() {
+	Vector2 cursorGoTo = { leftMenu.location.X + leftMenu.width - 1, leftMenu.location.Y };
+
+	for (int i = 1; i < leftMenu.height - 1; i++) {
+		gotoxy(cursorGoTo.X, cursorGoTo.Y + i);
+		cout << char(219); // 176, 219
+	}
+	gotoxy(cursorGoTo.X, cursorGoTo.Y);
+	cout << char(30);
+	gotoxy(cursorGoTo.X, cursorGoTo.Y + leftMenu.height);
+	cout << char(31);
+}
+
 //----------------------------------------------------------------------
 
 void strRandom() {
@@ -1399,7 +1510,8 @@ void strRandom() {
 
 	for (int i = 0; i < primaryMenuElementCount - 1; i++)
 		for (int j = 0; j < secondaryMenuMaxElementCount - 1; j++)
-			randomiseString(menuElement[i][j].description, menuElement[i][j].description.size());
+			for (int k = 0; k < (int)description[i][j].size(); k++)
+				randomiseString(description[i][j][k], description[i][j][k].size());
 
 	randomiseString(enabledStr, enabledStr.size());
 	randomiseString(disabledStr, disabledStr.size());
@@ -1407,9 +1519,12 @@ void strRandom() {
 
 	for (int i = 0; i < sizeof(qualitySwitchPrint) / sizeof(qualitySwitchPrint[0]); i++)
 		randomiseString(qualitySwitchPrint[i], qualitySwitchPrint[i].size());
+
+	for (int i = 0; i < sizeof(textRandSwitchPrint) / sizeof(textRandSwitchPrint[0]); i++)
+		randomiseString(textRandSwitchPrint[i], textRandSwitchPrint[i].size());
 }
 
-void randomiseString(string &str, int size) {
+void randomiseString(string& str, int size) {
 	if (size == 0) return;
 	int randChance = 8, i = 0;
 	while (str[i] != '\n' && str[i] != '\0')
