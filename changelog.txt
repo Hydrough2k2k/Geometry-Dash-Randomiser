@@ -1,4 +1,51 @@
-GD Randomiser v1.0.5 Changelog: (Current)
+GD Randomiser v1.0.8 Changelog: (Current)
+
+What's new?
+ - Dynamic descriptions. On Text Randomisation mode the description changes with the setting
+
+Changes:
+ - Fixed the Recent Seeds file formatting
+ - Some settings were merged in the Text Randomisation menu
+
+Other changes:
+ - Minor Render Optimisations
+
+------------------------------------------
+
+GD Randomiser v1.0.7 Changelog:
+
+What's new?
+ - There is an option to remove old randomised files in the Settings Menu
+ - The most recent 20 seeds are now stored in a text file
+ - Fixed and re-enabled the texture duplicates option. It may still be buggy
+
+Changes:
+ - You don't have to restart the app to start randomising again
+ - "Text anarchy" has been renamed to "Broken text"
+
+Bugfixes:
+ - Hopefully fixed Quality Randomisation settings navigation
+
+Other changes:
+ - The README.txt was split into 2 files, README and Bug Report.txt
+
+------------------------------------------
+
+GD Randomiser v1.0.5.2 Changelog:
+
+Bugfixes:
+ - Fixed out of array bounds error, the app was trying to randomise "FireSheet_01MissingFiles.txt"
+
+------------------------------------------
+
+GD Randomiser v1.0.5.1 Changelog:
+
+Changes:
+ - The app has an icon now, yay :)
+
+------------------------------------------
+
+GD Randomiser v1.0.5 Changelog:
 
 Changes:
  - GJ_FireSheet_01 can now get randomised
