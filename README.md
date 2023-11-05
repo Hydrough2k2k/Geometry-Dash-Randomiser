@@ -23,3 +23,30 @@ This application is fully compatible with Geometry Dash v2.113
 # Compatibility:
 
 - Windows 10 64 bit, Windows 11 64 bit
+
+# Report Bugs:
+
+If the app or the game crashes, feel free to bug report it to me directly
+
+If the application does not render properly, try this:
+
+ - Windows 10:
+     - Right click the Command Prompt's border, click Properties
+     - Go to Layout, and change Window Size to Width: 120, Height: 30 and Screen Buffer Size: 120
+     - Relaunch the application
+
+ - Windows 11:
+     - Right click the Command Prompt's border, click Settings
+     - Go to Startup >> Launch Size and change Columns to 120 and Rows to 30
+     - Relaunch the application
+
+ - If these did not fix the rendering for you, reach out to me
+
+My socials if you want to reach out, or report a bug:
+ - Add me on discord: hydrough_7165
+ - Youtube: https://tinyurl.com/Hydrough
+ - Discord Server: https://discord.gg/GNQkgRN
+ - Github: GitHub/Hydrough2k2k
+
+When reporting bugs please specify what crashed and when
+ - If the game crashed, tell me what your randomisation settings and seed were
