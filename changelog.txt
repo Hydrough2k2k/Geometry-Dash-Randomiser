@@ -1,4 +1,17 @@
-GD Randomiser v1.0.8 Changelog: (Current)
+GD Randomiser v1.0.9 Changelog: (Current Version)
+
+What's new?
+ - Shop Randomisation is now a setting
+
+Changes:
+ - Hid the blinking cursor to make the UI a bit cleaner
+ - The app can randomise more files, mainly to mess with menu textures
+      The files are: "WorldSheet", "SecretSheet", "GauntletSheet", "GJ_LaunchSheet" and "GJ_ShopSheet"
+ - Nonsense++;
+
+------------------------------------------
+
+GD Randomiser v1.0.8 Changelog:
 
 What's new?
  - Dynamic descriptions. On Text Randomisation mode the description changes with the setting
