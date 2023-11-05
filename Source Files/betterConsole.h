@@ -9,9 +9,11 @@ using namespace std;
 #include <windows.h>
 #include <conio.h>
 
-#define gotoxy(x,y)     printf("\033[%d;%dH", (y), (x))
+//#define gotoxy(x,y)  printf("\033[%d;%dH", (y), (x))
 
-#define UNDERLINE "\x1B[4m"
+#define gotoxy(x,y)  cout<<"\33["<<y<<";"<<x<<"H";
+
+#define UNDERLINE  "\x1B[4m"
 
 #define BLACK    "\x1B[30m"
 #define RED      "\x1B[31m"
@@ -89,6 +91,11 @@ void consoleSetup(bool resizeEnabled, int width, int height) {
 
 	if (!resizeEnabled)
 		SetWindowLong(consoleWindow, GWL_STYLE, GetWindowLong(consoleWindow, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
+
+	CONSOLE_CURSOR_INFO cursorInfo;
+	GetConsoleCursorInfo(hstdin, &cursorInfo);
+	cursorInfo.bVisible = false;
+	SetConsoleCursorInfo(hstdin, &cursorInfo);
 
 	time_t current_time = time(NULL);
 	srand((unsigned)time(NULL));
@@ -179,8 +186,10 @@ void strLengthCorrection(string str, int *length) {
 	}
 }
 
+ // *ch only changes if there is a keyboard input, does not freeze the program until user input
 void inputCheck(char* ch) {
 	if (_kbhit) *ch = _getch();
+	while (_kbhit() != 0) _getch();
 }
 
 int advInputCheck(char *ch = 0) { // no workie

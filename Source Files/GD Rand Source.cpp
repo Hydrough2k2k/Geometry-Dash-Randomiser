@@ -4,16 +4,15 @@
 #include <cstring>
 #include <string>
 #include <vector>
-#include <cstdio>
 #include <ctime>
-
-using std::cout; std::string;
-
 #include <direct.h>
 #include <windows.h>
-
 #include "betterConsole.h"
 #include "stringMod.h"
+
+const string appVersion = "1.0.9";
+
+using std::cout; std::string;
 
 //----------------------------------------------------------------------
 
@@ -22,6 +21,7 @@ const string configText[] = {
 	"Menu Texture Randomisation",
 	"Icon Texture Randomisation",
 	"Block Texture Randomisation",
+	"Shop Texture Randomisation",
 	"Other settings"
 };
 
@@ -46,6 +46,11 @@ string blockRandSettings[] = {
 	"Duplicate Blocks"
 };
 
+string shopRandSettings[] = {
+	"Enabled",
+	"Duplicate Textures"
+};
+
 string miscSettings[] = {
 	"",
 	"Seed",
@@ -55,9 +60,7 @@ string miscSettings[] = {
 
 //----------------------------------------------------------------------
 
-const string appVersion = "1.0.8";
-
-#define primaryMenuElementCount 6
+#define primaryMenuElementCount 7
 #define secondaryMenuMaxElementCount 9
 #define totalPossibleInputs 255
 
@@ -107,7 +110,7 @@ menuData bottomMenu = { 120, 20, 0, {0, 11} };
 menuElementData menuElement[primaryMenuElementCount][secondaryMenuMaxElementCount + 1];
 vector<string> description[primaryMenuElementCount][secondaryMenuMaxElementCount + 1];
 // The amount of settings in each submenu
-int secondaryMenuElementCount[primaryMenuElementCount] = { 2, 1, 1, 1, 3, 0 };
+int secondaryMenuElementCount[primaryMenuElementCount] = { 2, 1, 1, 1, 1, 3, 0 };
 
 position cursor = { 0, 0 };
 Vector2 printCursor = { leftMenu.location.X, leftMenu.location.Y + 1 };
@@ -124,6 +127,7 @@ const string configFileName = "Data\\config.json";
 const string missingFilesFileName = "Missing Files.txt";
 const string recentSeedsFileName = "Recent Seeds.txt";
 
+bool hecedUpText = false;
 unsigned int seed = 0;
 
 //----------------------------------------------------------------------
@@ -146,12 +150,17 @@ const string miscStrings[] = {
 };
 
 const string gameSheetNames[] = {
+	"WorldSheet",
+	"SecretSheet",
+	"GauntletSheet",
+	"GJ_LaunchSheet",
 	"GJ_GameSheet03",
 	"GJ_GameSheet04",
 	"GJ_GameSheet02",
 	"GJ_GameSheet",
 	"GJ_GameSheetGlow",
-	"FireSheet_01"
+	"FireSheet_01",
+	"GJ_ShopSheet"
 };
 
 const string textFileNames[] = {
@@ -176,6 +185,7 @@ string mainSettings[] = {
 	"Menu Texture Randomisation:",
 	"Icon Texture Randomisation:",
 	"Block Texture Randomisation:",
+	"Shop Texture Randomisation:",
 	"Other Settings",
 	"Randomise!"
 };
@@ -192,11 +202,15 @@ string secondarySettings[primaryMenuElementCount][secondaryMenuMaxElementCount] 
 	},
 	{
 		CYAN "Icon Texture Randomisation Settings" RESET,
-		"Duplicate Icons: " RESET
+		"Duplicate Icons:" RESET
 	},
 	{
 		CYAN "Block Texture Randomisation Settings" RESET,
-		"Duplicate Blocks: " RESET
+		"Duplicate Blocks:" RESET
+	},
+	{
+		CYAN "Shop Texture Randomisation Settings" RESET,
+		"Duplicate Textures:" RESET
 	},
 	{
 		CYAN "Other Settings Menu" RESET,
@@ -267,7 +281,7 @@ void switchColumn();
 void changeSettings();
 bool numBox(char);
 void numBoxLimitCheck(bool);
-void switchStatePrint(int);
+void switchStatePrint(int, int);
 void printDescription();
 
 void randomiseStuff();
@@ -276,7 +290,7 @@ void fontFileNameFill(int, int);
 int randomiseFont();
 int brokenText();
 
-int textureRandomisation(fstream*, int*, bool, bool, bool);
+int textureRandomisation(fstream*, int*, bool, bool, bool, bool);
 void textureFileNameFill(int, int);
 int readTextureData(bool);
 
@@ -302,14 +316,11 @@ void drawLeftScrollBar();
 
 void strRandom();
 int newRandChar();
-void randomiseString(string&, int);
+string randomiseString(string, unsigned int, bool randEnabled = true);
 
 //----------------------------------------------------------------------
 
 void main(void) {
-
-	//readDescriptions();
-	//return;
 
 	consoleSetup(true, 120, 30);
 
@@ -321,6 +332,7 @@ void main(void) {
 
 	if (readConfigFile() == 0 && rand() % 25 == 0) {
 		strRandom();
+		hecedUpText = true;
 		for (int i = 0; i < 10; i++) {
 			if (rand() % 4 == 0)
 				strRandom();
@@ -332,6 +344,12 @@ void main(void) {
 }
 
 void mainMenu() {
+
+	if (!hecedUpText && rand() % 33 == 0) {
+		strRandom();
+		hecedUpText = true;
+	} else if (rand() % 6 == 0)
+		strRandom();
 
 	headPrint();
 
@@ -386,7 +404,9 @@ void mainSettingsPrint() {
 		if (i == primaryMenuElementCount - 1)
 			break;
 		if (menuElement[i][0].type == OnOffSwitch) {
-			menuElement[i][0].isEnabled ? cout << enabledStr : cout << disabledStr;
+
+			if (menuElement[i][0].isEnabled) cout << randomiseString(enabledStr, enabledStr.size(), hecedUpText);
+			else cout << randomiseString(disabledStr, disabledStr.size(), hecedUpText);
 		}
 	}
 }
@@ -406,16 +426,17 @@ void secondarySettingsPrint() {
 			gotoxy(rightMenu.location.X + rightMenu.textOffset, rightMenu.location.Y + 2 + (i * 2));
 			cout << secondarySettings[cursor.primaryColumn][i];
 
-			if (menuElement[cursor.primaryColumn][i].type == OnOffSwitch)
-				menuElement[cursor.primaryColumn][i].isEnabled ? cout << enabledStr : cout << disabledStr;
-
+			if (menuElement[cursor.primaryColumn][i].type == OnOffSwitch) {
+				if (menuElement[cursor.primaryColumn][i].isEnabled) cout << randomiseString(enabledStr, enabledStr.size(), hecedUpText);
+				else cout << randomiseString(disabledStr, disabledStr.size(), hecedUpText);
+			}
 			else if (menuElement[cursor.primaryColumn][i].type == NumberBox) {
 				numToStrSeparated(printStr, menuElement[cursor.primaryColumn][i].data);
 				printNTimes(14 - printStr.size());
 				cout << BRBLUE " " << printStr << RESET;
 			}
 			else if (menuElement[cursor.primaryColumn][i].type == Switch)
-				switchStatePrint(i);
+				switchStatePrint(cursor.primaryColumn, i);
 		}
 		else {
 			gotoxy(rightMenu.location.X, rightMenu.location.Y + 2 + (i * 2));
@@ -576,15 +597,18 @@ void numBoxLimitCheck(bool overflow) {
 	}
 }
 
-void switchStatePrint(int secondaryColumn) {
+void switchStatePrint(int primaryColumn, int secondaryColumn) {
 
-	switch (cursor.primaryColumn, secondaryColumn)
+	unsigned int size;
+	switch (primaryColumn, secondaryColumn)
 	{
 	case (primaryMenuElementCount - 2, 2):
-		cout << qualitySwitchPrint[0] << qualitySwitchPrint[menuElement[primaryMenuElementCount - 2][2].switchState];
+		size = qualitySwitchPrint[menuElement[primaryMenuElementCount - 2][2].switchState].size();
+		cout << qualitySwitchPrint[0] << randomiseString(qualitySwitchPrint[menuElement[primaryMenuElementCount - 2][2].switchState], size, hecedUpText);
 		break;
 	case (0, 1):
-		cout << textRandSwitchPrint[0] << textRandSwitchPrint[menuElement[0][1].switchState];
+		size = textRandSwitchPrint[menuElement[0][1].switchState].size();
+		cout << textRandSwitchPrint[0] << randomiseString(textRandSwitchPrint[menuElement[0][1].switchState], size, hecedUpText);
 		break;
 	default:
 		break;
@@ -628,9 +652,7 @@ void randomiseStuff() {
 	if (menuElement[primaryMenuElementCount - 2][1].data == 0) {
 		for (int i = 0; i < 9; i++)
 			seed = (seed * 10) + rand() % 10;
-	}
-	else
-		seed = menuElement[primaryMenuElementCount - 2][1].data;
+	} else seed = menuElement[primaryMenuElementCount - 2][1].data;
 
 	srand(seed);
 
@@ -638,7 +660,8 @@ void randomiseStuff() {
 
 	// Starts randomising if the settings are enabled
 	missingFiles += (fontRansomisation(&missingFilesFile, &successfullyRandomised, menuElement[0][0].isEnabled));
-	missingFiles += (textureRandomisation(&missingFilesFile, &successfullyRandomised, menuElement[1][0].isEnabled, menuElement[2][0].isEnabled, menuElement[3][0].isEnabled));
+	missingFiles += (textureRandomisation(&missingFilesFile, &successfullyRandomised,
+		menuElement[1][0].isEnabled, menuElement[2][0].isEnabled, menuElement[3][0].isEnabled, menuElement[4][0].isEnabled));
 
 	clrBottomHalf();
 
@@ -839,28 +862,29 @@ int brokenText() {
 		return -2;
 
 	string readStr, stringCpy;
-	int brokenCharProbability = rand() % 5 + 3;
+	int brokenCharProbability = rand() % 5 + 3; // Arbitrary random chance
 
-	// Scan the file line by line, extract and store character IDs and Character Stats
 	while (getline(originalFile, readStr)) {
 		stringCpy = readStr;
 		stringCpy.erase(8, stringCpy.size());
 
-		// If a line start with "char id=" split it into 2 parts, ending at the first 'x'
 		if (stringCpy == "char id=") {
 			if ((rand() % brokenCharProbability) < brokenCharProbability - 1)
 				editedFile << readStr << "\n";
 		}
 		else editedFile << readStr << "\n";
 	}
+
+	originalFile.close();
+	editedFile.close();
 	return 0;
 }
 
 //----------------------------------------------------------------------
 
-int textureRandomisation(fstream* missingFiles, int* successful, bool menuRand, bool iconRand, bool blockRand) {
+int textureRandomisation(fstream* missingFiles, int* successful, bool menuRand, bool iconRand, bool blockRand, bool shopRand) {
 
-	if (!menuRand && !iconRand && !blockRand)
+	if (!menuRand && !iconRand && !blockRand && !shopRand)
 		return 0;
 
 	int retval, missingFileCount = 0;
@@ -878,21 +902,25 @@ int textureRandomisation(fstream* missingFiles, int* successful, bool menuRand, 
 
 		for (int gameSheetID = 0; gameSheetID < totalFileTypes; gameSheetID++)
 		{
-			if (!menuRand && gameSheetID < 2)
-				gameSheetID = 2;
-			if (!iconRand && gameSheetID >= 2 && gameSheetID < 3)
-				gameSheetID = 3;
-			if (!blockRand && gameSheetID >= 3 && gameSheetID < 6)
+			if (!menuRand && gameSheetID < 6)
+				gameSheetID = 6;
+			if (!iconRand && gameSheetID >= 6 && gameSheetID < 7)
+				gameSheetID = 7;
+			if (!blockRand && gameSheetID >= 7 && gameSheetID < 10)
+				gameSheetID = 10;
+			if (!shopRand && gameSheetID >= 10)
 				break;
 
 			textureFileNameFill(gameSheetID, quality);
 
-			if (gameSheetID < 2)
+			if (gameSheetID < 6)
 				retval = readTextureData(menuElement[1][1].isEnabled);
-			else if (gameSheetID < 3)
+			else if (gameSheetID < 7)
 				retval = readTextureData(menuElement[2][1].isEnabled);
-			else if (gameSheetID < 6)
+			else if (gameSheetID < 10)
 				retval = readTextureData(menuElement[3][1].isEnabled);
+			else
+				retval = readTextureData(menuElement[4][1].isEnabled);
 
 			if (retval != 0) {
 				*missingFiles << inputFileName + "\n";
@@ -1067,6 +1095,10 @@ int readConfigFile() {
 			readRandConfig(&configFile, settingType, blockRandSettings, size);
 			break;
 		case 4:
+			size = sizeof(shopRandSettings) / sizeof(shopRandSettings[0]);
+			readRandConfig(&configFile, settingType, shopRandSettings, size);
+			break;
+		case 5:
 			size = sizeof(miscSettings) / sizeof(miscSettings[0]);
 			readRandConfig(&configFile, settingType, miscSettings, size);
 			break;
@@ -1164,6 +1196,10 @@ int writeConfigFile() {
 				writeStr.push_back(blockRandSettings[j]);
 			break;
 		case 5:
+			for (int j = 0; j < sizeof(shopRandSettings) / sizeof(shopRandSettings[0]); j++)
+				writeStr.push_back(shopRandSettings[j]);
+			break;
+		case 6:
 			for (int j = 0; j < sizeof(miscSettings) / sizeof(miscSettings[0]); j++)
 				writeStr.push_back(miscSettings[j]);
 			break;
@@ -1305,7 +1341,7 @@ void updateRecentSeedsFile() {
 
 void deleteOldFiles() {
 
-	int totalTextFileTypes = 14, totalTextureFileTypes = 6, textureQualities = 3;
+	int totalTextFileTypes = 14, totalTextureFileTypes = sizeof(gameSheetNames) / sizeof(gameSheetNames[0]), textureQualities = 3;
 	string str;
 	char fileName[100];
 
@@ -1383,7 +1419,7 @@ void configureInputLogic() {
 	}
 }
 
-void configureValues() { // Incomplete, Type is not set up yet
+void configureValues() {
 
 	for (int x = 0; x < primaryMenuElementCount; x++)
 	{
@@ -1434,6 +1470,8 @@ void setUpDefaultValues() {
 	menuElement[1][0].isEnabled = true;
 
 	menuElement[0][1].switchState = 1;
+
+	menuElement[4][0].isEnabled = true;
 
 	menuElement[primaryMenuElementCount - 2][2].switchState = 1;
 	menuElement[primaryMenuElementCount - 2][3].isEnabled = true;
@@ -1499,39 +1537,32 @@ void drawLeftScrollBar() {
 void strRandom() {
 
 	for (int i = 0; i < sizeof(MainSectionPrint) / sizeof(MainSectionPrint[0]); i++)
-		randomiseString(MainSectionPrint[i], MainSectionPrint[i].size());
+		MainSectionPrint[i] = randomiseString(MainSectionPrint[i], MainSectionPrint[i].size());
 
 	for (int i = 0; i < sizeof(mainSettings) / sizeof(mainSettings[0]); i++)
-		randomiseString(mainSettings[i], mainSettings[i].size());
+		mainSettings[i] = randomiseString(mainSettings[i], mainSettings[i].size());
 
 	for (int i = 0; i < primaryMenuElementCount; i++)
 		for (int j = 0; j < secondaryMenuMaxElementCount; j++)
-			randomiseString(secondarySettings[i][j], secondarySettings[i][j].size());
+			secondarySettings[i][j] = randomiseString(secondarySettings[i][j], secondarySettings[i][j].size());
 
 	for (int i = 0; i < sizeof(missingFilesPrint) / sizeof(missingFilesPrint[0]); i++)
-		randomiseString(missingFilesPrint[i], missingFilesPrint[i].size());
+		missingFilesPrint[i] = randomiseString(missingFilesPrint[i], missingFilesPrint[i].size());
 
 	for (int i = 0; i < sizeof(randomisationComplete) / sizeof(randomisationComplete[0]); i++)
-		randomiseString(randomisationComplete[i], randomisationComplete[i].size());
+		randomisationComplete[i] = randomiseString(randomisationComplete[i], randomisationComplete[i].size());
 
 	for (int i = 0; i < primaryMenuElementCount - 1; i++)
 		for (int j = 0; j < secondaryMenuMaxElementCount - 1; j++)
 			for (int k = 0; k < (int)description[i][j].size(); k++)
-				randomiseString(description[i][j][k], description[i][j][k].size());
+				description[i][j][k] = randomiseString(description[i][j][k], description[i][j][k].size());
 
-	randomiseString(enabledStr, enabledStr.size());
-	randomiseString(disabledStr, disabledStr.size());
 	randomiseString(cancelledStr, cancelledStr.size());
-
-	for (int i = 0; i < sizeof(qualitySwitchPrint) / sizeof(qualitySwitchPrint[0]); i++)
-		randomiseString(qualitySwitchPrint[i], qualitySwitchPrint[i].size());
-
-	for (int i = 0; i < sizeof(textRandSwitchPrint) / sizeof(textRandSwitchPrint[0]); i++)
-		randomiseString(textRandSwitchPrint[i], textRandSwitchPrint[i].size());
 }
 
-void randomiseString(string& str, int size) {
-	if (size == 0) return;
+string randomiseString(string str, unsigned int size, bool randEnabled) {
+	if (!randEnabled) return str;
+	if (size == 0) return "";
 	int randChance = 8, i = 0;
 	while (str[i] != '\n' && str[i] != '\0')
 	{
@@ -1546,6 +1577,7 @@ void randomiseString(string& str, int size) {
 			str[i] = newRandChar();
 		i++;
 	}
+	return str;
 }
 
 int newRandChar() {
