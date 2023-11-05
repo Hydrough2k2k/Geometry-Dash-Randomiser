@@ -23,6 +23,11 @@
 		"This will randomise the blocks in levels to make playing levels rather difficult",
 		"With this setting multiple blocks can look identical to make this even more confusing. Fun!"
 	},
+	"Shop Setting Descriptions":
+	{
+		"Are the shops too normal? I would say so, let us fix that, shall we",
+		"Poor game, it didn't deserve this..."
+	},
 	"Other Settings":
 	{
 		"Here are some settings that might be worth adjusting",
