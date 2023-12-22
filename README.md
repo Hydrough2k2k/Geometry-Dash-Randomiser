@@ -1,5 +1,6 @@
 # Warning: GDR is broken as of GD 2.2's release
 I am working on fixing it, but it will take time. A lot of time.
+
 Robala Topala has reworked the way the GameSheets are layed out entirely
 
 # Geometry-Dash-Randomiser
