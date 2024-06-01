@@ -11,7 +11,7 @@ An application to mess with Geometry Dash's files
 - This application can do all that and more (in the future, maybe :) )
 - Here is a video of what you can expect: [Youtube Video](https://youtu.be/joB3ZjvAnq8) (This is with every setting enabled as of 1/11/2023 DD/MM/YYYY)
 
-# Download the app [here](https://github.com/Hydrough2k2k/Geometry-Dash-Randomiser/releases/tag/Geometry-Dash-Ransomiser)
+# Download the app [here](https://github.com/Hydrough2k2k/Geometry-Dash-Randomiser/releases/tag/Geometry_Dash_Randomiser)
 
  - Alternatively click on Releases on the right side, and download the RAR from the most recent one
 
