@@ -9,7 +9,7 @@ An application to mess with Geometry Dash's files
 - Do you want to Randomise on-screen text?
 - Would you like to randomise every texture in the game to make navigating and playing damn near impossible?
 - This application can do all that and more (in the future, maybe :) )
-- Here is a video of what you can expect: [Youtube Video](https://youtu.be/joB3ZjvAnq8) (This is with every setting enabled as of 1/Nov/2023}
+- Here is a video of what you can expect: [Youtube Video](https://youtu.be/joB3ZjvAnq8) (This is with every setting enabled as of 1/Nov/2023)
 
 # Download the app [here](https://github.com/Hydrough2k2k/Geometry-Dash-Randomiser/releases/tag/Geometry_Dash_Randomiser)
 
