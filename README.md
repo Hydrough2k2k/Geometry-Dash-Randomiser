@@ -1,3 +1,6 @@
+# New:
+This application stating with version 2.0.x supports Geometry Dash 2.2
+
 # Geometry-Dash-Randomiser
 An application to mess with Geometry Dash's files
 
