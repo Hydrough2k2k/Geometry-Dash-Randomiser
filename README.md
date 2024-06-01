@@ -1,15 +1,9 @@
-# Warning: GDR is broken as of GD 2.2's release
-I am working on fixing it, but it will take time. A lot of time.
-
-Robala Topala has reworked the way the GameSheets are layed out entirely
-
 # Geometry-Dash-Randomiser
 An application to mess with Geometry Dash's files
 
 # With this app you can mess with game file in various ways.
 
 - Do you want to Randomise on-screen text?
-- Wanna have a ball for a wave and a portal for a ship?
 - Would you like to randomise every texture in the game to make navigating and playing damn near impossible?
 - This application can do all that and more (in the future, maybe :) )
 - Here is a video of what you can expect: [Youtube Video](https://youtu.be/joB3ZjvAnq8) (This is with every setting enabled as of 1/11/2023 DD/MM/YYYY)
@@ -18,7 +12,7 @@ An application to mess with Geometry Dash's files
 
  - Alternatively click on Releases on the right side, and download the RAR from the most recent one
 
-This application is fully compatible with Geometry Dash v2.113
+This application is fully compatible with Geometry Dash v2.203
 - To start using it you will need to grab files from the Geometry Dash/Resources folder
 - Put every file ending in .fnt and every file starting with GJ_GameSheet and ending with .plist into the "Original files" folder
 - When the randomisation is done, copy the files from the Randomised file folder and paste into Geometry Dash/Resources
