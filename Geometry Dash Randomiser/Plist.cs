@@ -4,7 +4,6 @@ using System.Linq;
 using System;
 using System.Text;
 using System.Drawing;
-using Newtonsoft.Json.Linq;
 using RectpackSharp;
 
 namespace Geometry_Dash_Randomiser {

@@ -58,7 +58,6 @@ G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geomet
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.WindowsAPICodePack.Sensors.dll
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.dll
-G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\Newtonsoft.Json.dll
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\System.Buffers.dll
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\System.IO.Pipelines.dll
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\System.Memory.dll
@@ -73,7 +72,6 @@ G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geomet
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\Chasm.Compatibility.HashCode.xml
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.Bcl.HashCode.xml
-G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\Newtonsoft.Json.xml
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\System.Buffers.xml
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\System.IO.Pipelines.xml
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\System.Memory.xml
