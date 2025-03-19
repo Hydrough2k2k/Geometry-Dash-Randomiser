@@ -1,0 +1,49 @@
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Geometry Dash Randomiser.exe.config
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Geometry Dash Randomiser.exe
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Geometry Dash Randomiser.pdb
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.csproj.AssemblyReference.cache
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry_Dash_Randomiser.Properties.Resources.resources
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.csproj.GenerateResource.cache
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.csproj.CoreCompileInputs.cache
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.exe
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.pdb
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry_Dash_Randomiser.GDR_Form.resources
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Newtonsoft.Json.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Newtonsoft.Json.xml
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry.57723067.Up2Date
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Buffers.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.IO.Pipelines.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Memory.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Numerics.Vectors.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Text.Encodings.Web.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Text.Json.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Threading.Tasks.Extensions.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.ValueTuple.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Buffers.xml
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.IO.Pipelines.xml
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Memory.xml
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Numerics.Vectors.xml
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Text.Encodings.Web.xml
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Text.Json.xml
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Threading.Tasks.Extensions.xml
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.ValueTuple.xml
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.csproj.SuggestedBindingRedirects.cache
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.exe.config
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.WindowsAPICodePack.Core.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.WindowsAPICodePack.Sensors.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Windows.Forms.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\WindowsFormsIntegration.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Windows.Forms.xml
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\WindowsFormsIntegration.xml
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry_Dash_Randomiser.GameFiles.resources
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Chasm.Compatibility.HashCode.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.Bcl.HashCode.dll
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Chasm.Compatibility.HashCode.xml
+G:\Git Synced Projects\Visual Studio\C#\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.Bcl.HashCode.xml
