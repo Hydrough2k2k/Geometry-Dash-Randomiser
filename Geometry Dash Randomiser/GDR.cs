@@ -25,10 +25,13 @@ namespace Geometry_Dash_Randomiser {
                   qualitySelector.Items.Add(GameFiles.lowQualityName);
 
                   ApplyAllSettings();
-                  updateElements();
             }
 
+            private void GDR_Form_Load(object sender, EventArgs e) { }
+
             private void ApplyAllSettings() {
+                  ReadyState readyState = GameFiles.getReadyState();
+
                   this.IconTexturesCheckbox.Checked = Config.iconTextures.enabled;
                   this.IconTexturesGroupDisplay.Value = Config.iconTextures.group;
                   this.IconTexturesGroupDisplay.Enabled = this.IconTexturesCheckbox.Checked;
@@ -70,13 +73,14 @@ namespace Geometry_Dash_Randomiser {
                   this.MiscGroupDisplay.Enabled = this.MiscCheckbox.Checked;
 
 
-                  this.GameFolderTextBox.Text = Config.gameDirectory;
-                  this.SeedInput.Text = Config.seed.ToString();
+                  this.gameFolderTextBox.Text = Config.gameDirectory;
+                  this.outputFolderTextBox.Text = Config.outputDirectory;
+                  this.seedInput.Text = Config.seed.ToString();
+                  this.seedInput.ForeColor = Color.Black;
                   this.qualitySelector.SelectedIndex = (int)Config.quality;
                   this.textureCachingCheckbox.Checked = Config.caching;
 
-                  readyState ready = GameFiles.getReadyState();
-                  updateElements(ready);
+                  updateElements(readyState);
             }
 
             private void IconTexturesSettingsChanged(object sender, EventArgs e) {
@@ -146,9 +150,23 @@ namespace Geometry_Dash_Randomiser {
                   ApplyAllSettings();
             }
 
+            private void SetOutputFolder(object sender, EventArgs e) {
+                  string folder = GetFolderViaExplorer(Config.outputDirectory, true);
+                  if (folder != string.Empty)
+                        Config.outputDirectory = folder;
+                  ApplyAllSettings();
+            }
+
             private void GameFolderTextBox_TextChanged(object sender, EventArgs e) {
                   TextBox textBox = sender as TextBox;
                   Config.gameDirectory = textBox.Text;
+
+                  ApplyAllSettings();
+            }
+
+            private void outputFolderTextBox_TextChanged(object sender, EventArgs e) {
+                  TextBox textBox = sender as TextBox;
+                  Config.outputDirectory = textBox.Text;
 
                   ApplyAllSettings();
             }
@@ -177,50 +195,6 @@ namespace Geometry_Dash_Randomiser {
 
             public void SetStartButtonState(bool state) {
                   startButton.Enabled = state;
-            }
-
-            private async void startButton_Click(object sender, EventArgs e) {
-                  bool ready = GameFiles.isReady();
-                  if (ready == false)
-                        return;
-
-                  SetUI_ReadonlyState(true);
-
-                  this.startButton.Visible = false;
-                  this.infoDisplay.Location = new Point(12, 421);
-                  this.infoDisplay.Width = 750;
-                  this.allFilesProgressBar.Visible = true;
-                  this.fileProgressBar.Visible = true;
-
-                  GameFiles.updateEvent += (eventSender, args) => { this.updateProgress(eventSender, args); };
-                  GameFiles.changeDisplayedTextEvent += (eventSender, args) => { this.infoDisplay.Text = args; };
-                  GameFiles.updateFileProgressEvent += (eventSender, args) => { this.fileProgressBar.Value = args; };
-                  GameFiles.updateTotalProgressEvent += (eventSender, args) => { this.allFilesProgressBar.Value = args; };
-
-                  GameSheet.changeDisplayedTextEvent += (eventSender, args) => { this.infoDisplay.Text = args; };
-
-                  await Task.Run(() => GameFiles.StartRandomising());
-
-                  this.startButton.Visible = true;
-                  this.infoDisplay.Location = new Point(12, 450);
-                  this.infoDisplay.Width = 611;
-                  this.allFilesProgressBar.Visible = false;
-                  this.fileProgressBar.Visible = false;
-
-                  GameFiles.updateEvent -= (eventSender, args) => { this.updateProgress(eventSender, args); };
-                  GameFiles.changeDisplayedTextEvent -= (eventSender, args) => { this.infoDisplay.Text = args; };
-                  GameFiles.updateFileProgressEvent -= (eventSender, args) => { this.fileProgressBar.Value = args; };
-                  GameFiles.updateTotalProgressEvent -= (eventSender, args) => { this.allFilesProgressBar.Value = args; };
-
-                  GameSheet.changeDisplayedTextEvent -= (eventSender, args) => { this.infoDisplay.Text = args; };
-
-                  SetUI_ReadonlyState(false);
-
-                  ApplyAllSettings();
-
-                  this.infoDisplay.Text = "Randomisation complete.\n" +
-                        " - You can find the new files in the \"Randomised Files\" folder.\n" +
-                        " - To reset them copy the files from the \"Unaltered Files\" folder. Have fun!";
             }
 
             private void updateProgress(object sender, ProgressUpdate update) {
@@ -253,8 +227,8 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            private void updateElements(readyState ready = readyState.Unknown) {
-                  if (ready == readyState.Unknown)
+            private void updateElements(ReadyState ready = ReadyState.Unknown) {
+                  if (ready == ReadyState.Unknown)
                         ready = GameFiles.getReadyState();
 
                   this.infoDisplay.Text = readyStateStrings[(int)ready];
@@ -287,7 +261,7 @@ namespace Geometry_Dash_Randomiser {
             private void randomSeedButton_Click(object sender, EventArgs e) {
                   Random random = new Random(Guid.NewGuid().GetHashCode());
                   int value = random.Next(int.MinValue, int.MaxValue);
-                  this.SeedInput.Value = value;
+                  this.seedInput.Value = value;
 
                   ApplyAllSettings();
             }
@@ -316,11 +290,95 @@ namespace Geometry_Dash_Randomiser {
                   this.MiscCheckbox.Enabled = enabled;
                   this.MiscGroupDisplay.Enabled = enabled;
 
-                  this.GameFolderTextBox.Enabled = enabled;
+                  this.gameFolderTextBox.Enabled = enabled;
                   this.gameFolderSelectorButton.Enabled = enabled;
-                  this.SeedInput.Enabled = enabled;
+                  this.outputFolderTextBox.Enabled = enabled;
+                  this.outputFolderSelectorButton.Enabled = enabled;
+                  this.seedInput.Enabled = enabled;
                   this.randomSeedButton.Enabled = enabled;
                   this.qualitySelector.Enabled = enabled;
+            }
+
+            private void groupInfoHelpButton_Click(object sender, EventArgs e) {
+
+                  // Initializes the variables to pass to the MessageBox.Show method.
+                  string caption = "Texture Group Help";
+                  string[] message = {
+                        "You can add texture groups to randomisation groups via the number boxes.",
+                        "If you have more than 1 texture group in a group, their textures will be mixed together.\n",
+                        "For example: If you add both Menu and Editor groups to group 1, then the editor and the menu elements will be randomised together.",
+                        "Some elements from the menu will appear in the editor and vica-versa.\n",
+                        "If you add a texture group to group 0, they will not be mixed together, but rather each group will be shuffled separately.\n",
+                        "If you add everything to group 1, the game will become very chaotic :)"
+                  };
+
+                  MessageBoxButtons buttons = MessageBoxButtons.OK;
+                  DialogResult result;
+
+                  // Displays the MessageBox.
+                  result = MessageBox.Show(string.Join("\n", message), caption, buttons);
+                  if (result == System.Windows.Forms.DialogResult.Yes) {
+                        // Closes the parent form.
+                        this.Close();
+                  }
+            }
+
+            private async void startButton_Click(object sender, EventArgs e) {
+                  bool ready = GameFiles.isReady();
+                  if (ready == false)
+                        return;
+
+                  SetUI_ReadonlyState(true);
+
+                  this.startButton.Visible = false;
+                  this.infoDisplay.Location = new Point(12, 421);
+                  this.infoDisplay.Width = 750;
+                  this.allFilesProgressBar.Visible = true;
+                  this.fileProgressBar.Visible = true;
+
+                  GameFiles.updateEvent += (eventSender, args) => { this.updateProgress(eventSender, args); };
+                  GameFiles.changeDisplayedTextEvent += (eventSender, args) => { this.infoDisplay.Text = args; };
+                  GameFiles.updateFileProgressEvent += (eventSender, args) => { this.fileProgressBar.Value = args; };
+                  GameFiles.updateTotalProgressEvent += (eventSender, args) => { this.allFilesProgressBar.Value = args; };
+
+                  GameSheet.changeDisplayedTextEvent += (eventSender, args) => { this.infoDisplay.Text = args; };
+
+                  // Create a new random seed if the input value is 0
+                  int seed = Config.seed == 0 ? Guid.NewGuid().GetHashCode() : Config.seed;
+
+                  // Overwrite the seed input value until the randomisation starts again or the user overwrites it to show what the seed was
+                  this.seedInput.Value = seed;
+                  this.seedInput.ForeColor = Color.Gray;
+
+                  await Task.Run(() => GameFiles.StartRandomising(seed));
+
+                  this.startButton.Visible = true;
+                  this.infoDisplay.Location = new Point(12, 450);
+                  this.infoDisplay.Width = 611;
+                  this.allFilesProgressBar.Visible = false;
+                  this.fileProgressBar.Visible = false;
+
+                  GameFiles.updateEvent -= (eventSender, args) => { this.updateProgress(eventSender, args); };
+                  GameFiles.changeDisplayedTextEvent -= (eventSender, args) => { this.infoDisplay.Text = args; };
+                  GameFiles.updateFileProgressEvent -= (eventSender, args) => { this.fileProgressBar.Value = args; };
+                  GameFiles.updateTotalProgressEvent -= (eventSender, args) => { this.allFilesProgressBar.Value = args; };
+
+                  GameSheet.changeDisplayedTextEvent -= (eventSender, args) => { this.infoDisplay.Text = args; };
+
+                  SetUI_ReadonlyState(false);
+
+                  ApplyAllSettings();
+
+                  this.infoDisplay.Text = "Randomisation complete.\n";
+                  switch (Config.GetOutputDirectoryStatus()) {
+                        case Config.OutputFolder.Default:
+                              this.infoDisplay.Text += " - You can find the new files in the \"Randomised Files\" folder.\n";
+                              break;
+                        case Config.OutputFolder.Overwritten:
+                              this.infoDisplay.Text += " - You can find the new files in the given output folder.\n";
+                              break;
+                  }
+                  this.infoDisplay.Text += " - To reset them copy the files from the \"Unaltered Files\" folder. Have fun!";
             }
       }
 }

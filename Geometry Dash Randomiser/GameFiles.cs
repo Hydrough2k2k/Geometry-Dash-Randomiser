@@ -102,7 +102,18 @@ namespace Geometry_Dash_Randomiser {
                   "PlayerExplosion"
             };
 
-            public enum readyState { Unknown, Ready, ReadyCacheIsMissing, GameFolderNotFound, GameResourceFolderNotFound, GameIconFolderNotFound, ExeNotFound, NoSettingsEnabled};
+            public enum ReadyState {
+                  Unknown,
+                  Ready,
+                  ReadyCacheIsMissing,
+                  GameFolderNotFound,
+                  GameResourceFolderNotFound,
+                  GameIconFolderNotFound,
+                  ExeNotFound,
+                  NoSettingsEnabled,
+                  OutputFolderNotFound,
+                  OutputFolderIsCreatable
+            };
 
             public static readonly string[] readyStateStrings = {
                   "The application is not ready due to an unknown error",
@@ -111,8 +122,10 @@ namespace Geometry_Dash_Randomiser {
                   "The given folder doesn't exist",
                   "The \"Recources\" folder could not be found in the given game path",
                   "The \"Recources\\icons\" folder could not be found in the given game path",
-                  "The executable \"GeometryDash.exe\" could not be found in the given folder path",
-                  "No settings are enabled for randomisation. Enable at least one setting to start it"
+                  "The executable \"GeometryDash.exe\" could not be found in the given path",
+                  "No settings are enabled for randomisation. Enable at least one setting to start it",
+                  "The given output folder doesn't exist",
+                  "The given output folder doesn't exist, but can be created"
             };
 
             // ----------------------------------------------------------
@@ -133,46 +146,72 @@ namespace Geometry_Dash_Randomiser {
             public event ChangeDisplayedText changeDisplayedTextEvent;
 
             public bool isReady() {
-                  readyState ready = getRandomisationReadyState();
+                  ReadyState ready = getRandomisationReadyState();
 
                   return isReady(ready);
             }
 
-            public bool isReady(readyState ready) {
-                  if (ready != readyState.Ready && ready != readyState.ReadyCacheIsMissing)
+            public bool isReady(ReadyState ready) {
+                  if (ready != ReadyState.Ready &&
+                        ready != ReadyState.ReadyCacheIsMissing &&
+                        ready != ReadyState.OutputFolderIsCreatable) {
+
                         return false;
+                  }
                   return true;
             }
 
-            public readyState getReadyState() {
-                  readyState ready = getRandomisationReadyState();
+            public ReadyState getReadyState() {
+                  ReadyState ready = getRandomisationReadyState();
                   return ready;
             }
 
-            readyState getRandomisationReadyState() {
+            ReadyState getRandomisationReadyState() {
 
                   if (Directory.Exists(Config.gameDirectory) == false)
-                        return readyState.GameFolderNotFound;
+                        return ReadyState.GameFolderNotFound;
 
-                  if (File.Exists(Path.Combine(Config.gameDirectory, "GeometryDash.exe")) == false)
-                        return readyState.ExeNotFound;
+                  ReadyState readyState = getGameDirectoryStatus();
 
-                  if (Directory.Exists(gameFilesFolder) == false)
-                        return readyState.GameResourceFolderNotFound;
-
-                  if (Directory.Exists(gameResourcesFolder) == false)
-                        return readyState.GameResourceFolderNotFound;
-
-                  if (Directory.Exists(gameIconsFolder) == false)
-                        return readyState.GameIconFolderNotFound;
+                  if (readyState != ReadyState.Ready)
+                        return readyState;
 
                   //if (Config.caching == true && verifyCacheIntegrity() == false)
                   //      return readyState.ReadyCacheIsMissing;
 
                   if (Config.GetEnabledSettingsCount() == 0)
-                        return readyState.NoSettingsEnabled;
+                        return ReadyState.NoSettingsEnabled;
 
-                  return readyState.Ready;
+                  switch (Config.GetOutputDirectoryStatus()) {
+                        case Config.OutputFolder.Unknown:
+                              return ReadyState.Unknown;
+                        case Config.OutputFolder.Default:
+                              break;
+                        case Config.OutputFolder.Overwritten:
+                              break;
+                        case Config.OutputFolder.Invalid:
+                              return ReadyState.OutputFolderNotFound;
+                        case Config.OutputFolder.Creatable:
+                              return ReadyState.OutputFolderIsCreatable;
+                  }
+                  return ReadyState.Ready;
+            }
+
+            public ReadyState getGameDirectoryStatus() {
+
+                  if (File.Exists(Path.Combine(Config.gameDirectory, "GeometryDash.exe")) == false)
+                        return ReadyState.ExeNotFound;
+
+                  if (Directory.Exists(gameFilesFolder) == false)
+                        return ReadyState.GameResourceFolderNotFound;
+
+                  if (Directory.Exists(gameResourcesFolder) == false)
+                        return ReadyState.GameResourceFolderNotFound;
+
+                  if (Directory.Exists(gameIconsFolder) == false)
+                        return ReadyState.GameIconFolderNotFound;
+
+                  return ReadyState.Ready;
             }
 
             // Very simple right now, will be more complex when new features require complexity
@@ -180,7 +219,7 @@ namespace Geometry_Dash_Randomiser {
                   return File.Exists(Path.Combine(currentCachedQualityFolder, localCachedTexturesJson));
             }
 
-            public void StartRandomising() {
+            public void StartRandomising(int seed) {
 
                   mainUpdateTimer.Restart();
                   secondaryUpdateTimer.Restart();
@@ -192,13 +231,16 @@ namespace Geometry_Dash_Randomiser {
                   }
 
                   // Caching is disabled for the time being
-                  if (Config.caching == true && verifyCacheIntegrity() == false) {
+                  //if (Config.caching == true && verifyCacheIntegrity() == false) {
                         //CacheGameFiles();
-                  }
+                  //}
 
                   changeDisplayedTextEvent?.Invoke(this, "Randomising data...");
+                  randomiseData(seed);
+            }
 
-                  Randomiser random = new Randomiser(this, Config.seed);
+            void randomiseData(int seed) {
+                  Randomiser random = new Randomiser(this, seed);
                   List<Sprite> randomisedSprites = random.RandomiseData();
 
                   string[] gameSheetFiles = randomisedSprites
@@ -206,8 +248,17 @@ namespace Geometry_Dash_Randomiser {
                         .Distinct()
                         .ToArray();
 
-                  Directory.CreateDirectory(localIconsOutputFolder);
-                  Directory.CreateDirectory(localResourcesOutputFolder);
+                  string outputPath;
+
+                  if (Config.outputDirectory == string.Empty) {
+                        outputPath = randomisedFilesFolderName;
+
+                  } else {
+                        outputPath = Config.outputDirectory;
+                  }
+
+                  Directory.CreateDirectory(Path.Combine(outputPath, iconsFolderName));
+                  Directory.CreateDirectory(Path.Combine(outputPath, resourcesFolderName));
 
                   for (int i = 0; i < gameSheetFiles.Length; i++) {
                         if (mainUpdateTimer.ElapsedMilliseconds > mainPrintDelta) {
@@ -225,16 +276,15 @@ namespace Geometry_Dash_Randomiser {
 
                         PackingRectangle bounds;
                         PackingRectangle[] rects = getPackingRects(ref sprites, out bounds);
-                        //updateFileProgressEvent?.Invoke(this, 25);
 
                         Bitmap finalGameSheet = GameSheet.Assemble(sprites, rects, bounds);
                         updateFileProgressEvent?.Invoke(this, 50);
 
                         string[] plistFile = Plist.Serialise(sprites, rects, gameSheetFiles[i], new Size(finalGameSheet.Width, finalGameSheet.Height));
-                        //updateFileProgressEvent?.Invoke(this, 75);
 
                         bool isIconsFile = sprites.Any(s => s.type == Sprite.Type.Icon);
-                        string outputFolder = isIconsFile ? localIconsOutputFolder : localResourcesOutputFolder;
+                        string outputFolder = isIconsFile ? iconsFolderName : resourcesFolderName;
+                        outputFolder = Path.Combine(outputPath, outputFolder);
 
                         finalGameSheet.Save(Path.Combine(outputFolder, gameSheetFiles[i] + ".png"));
                         File.WriteAllLines(Path.Combine(outputFolder, gameSheetFiles[i] + ".plist"), plistFile);

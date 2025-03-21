@@ -120,10 +120,4 @@
   <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="GroupLabel.ToolTip" xml:space="preserve">
-    <value>These values show what Randomisation Group this texture group is in. For example: If you have Icon and Menu textures in Group 1, they will be mixed together. Leaving Group at 0 will randomise the group, but will not shuffle it with other groups with Group number 0</value>
-  </data>
 </root>

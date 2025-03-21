@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Text.Json;
 
@@ -7,11 +6,13 @@ namespace Geometry_Dash_Randomiser {
 
       internal static class Config {
 
+            public enum OutputFolder { Unknown, Default, Overwritten, Invalid, Creatable };
+
             static string configFileName = "config.txt";
 
             // This is where the default values are defined
-            public static string gameDirectory = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Geometry Dash";
-            //public static bool ignoreBlacklistedFiles = true; // Not functional, but will work. Also add a warning for "this will cause extra chaos"
+            public static string gameDirectory = "";
+            public static string outputDirectory = "";
             
             // Configs for every randomisation type. More might be added later
             public static RandomisationGroup iconTextures = new RandomisationGroup(1, true);
@@ -25,6 +26,7 @@ namespace Geometry_Dash_Randomiser {
             public static RandomisationGroup effectTextures = new RandomisationGroup(0, false);
             public static RandomisationGroup miscTextures = new RandomisationGroup(0, false);
 
+            //public static bool ignoreBlacklistedFiles = true; // Not functional, but will work. Also add a warning for "this will cause extra chaos"
             public static GameFiles.Quality quality = GameFiles.Quality.High;
             public static int seed = 0;
 
@@ -32,8 +34,8 @@ namespace Geometry_Dash_Randomiser {
 
             public static void ApplySettings(Serialised_Config config) {
                   gameDirectory = config.gameDirectory;
-                  //Config.ignoreBlacklistedFiles = config.ignoreBlacklistedFiles;
-
+                  outputDirectory = config.outputDirectory;
+                  
                   iconTextures = config.iconTextures;
                   menuTextures = config.menuTextures;
                   shopTextures = config.shopTextures;
@@ -45,6 +47,7 @@ namespace Geometry_Dash_Randomiser {
                   effectTextures = config.effectTextures;
                   miscTextures = config.miscTextures;
 
+                  //Config.ignoreBlacklistedFiles = config.ignoreBlacklistedFiles;
                   quality = config.quality;
                   seed = config.seed;
                   caching = config.caching;
@@ -83,13 +86,34 @@ namespace Geometry_Dash_Randomiser {
                         Convert.ToInt32(effectTextures.enabled) +
                         Convert.ToInt32(miscTextures.enabled);
             }
+
+            public static OutputFolder GetOutputDirectoryStatus() {
+                  if (outputDirectory == string.Empty)
+                        return OutputFolder.Default;
+
+                  if (Directory.Exists(outputDirectory) == false) {
+
+                        int index = outputDirectory.IndexOf("\\");
+                        string dir = outputDirectory.Substring(0, index);
+                        if (Directory.Exists(dir) == true) {
+                              // Folder entered by user does not exist, but the folder can be created
+                              return OutputFolder.Creatable;
+                        }
+
+                        return OutputFolder.Invalid;
+
+                  } else {
+                        // Folder does exist and was entered by user
+                        return OutputFolder.Overwritten;
+                  }
+            }
       }
 
       internal class Serialised_Config {
 
             public string gameDirectory { get; set; }
-            //public bool ignoreBlacklistedFiles { get; set; }
-
+            public string outputDirectory { get; set; }
+            
             public RandomisationGroup iconTextures { get; set; }
             public RandomisationGroup menuTextures { get; set; }
             public RandomisationGroup shopTextures { get; set; }
@@ -101,6 +125,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomisationGroup effectTextures { get; set; }
             public RandomisationGroup miscTextures { get; set; }
 
+            //public bool ignoreBlacklistedFiles { get; set; }
             public GameFiles.Quality quality { get; set; }
             public int seed { get; set; }
 
@@ -108,8 +133,8 @@ namespace Geometry_Dash_Randomiser {
 
             public Serialised_Config() {
                   this.gameDirectory = Config.gameDirectory;
-                  //this.ignoreBlacklistedFiles = Config.ignoreBlacklistedFiles;
-
+                  this.outputDirectory = Config.outputDirectory;
+                  
                   this.iconTextures = Config.iconTextures;
                   this.menuTextures = Config.menuTextures;
                   this.shopTextures = Config.shopTextures;
@@ -121,6 +146,7 @@ namespace Geometry_Dash_Randomiser {
                   this.effectTextures = Config.effectTextures;
                   this.miscTextures = Config.miscTextures;
 
+                  //this.ignoreBlacklistedFiles = Config.ignoreBlacklistedFiles;
                   this.quality = Config.quality;
                   this.seed = Config.seed;
                   this.caching = Config.caching;

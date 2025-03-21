@@ -24,7 +24,6 @@
             /// </summary>
             private void InitializeComponent() {
                   this.components = new System.ComponentModel.Container();
-                  System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GDR_Form));
                   this.IconTexturesCheckbox = new System.Windows.Forms.CheckBox();
                   this.MenuTexturesCheckbox = new System.Windows.Forms.CheckBox();
                   this.EditorTexturesCheckbox = new System.Windows.Forms.CheckBox();
@@ -49,7 +48,7 @@
                   this.EffectsGroupDisplay = new System.Windows.Forms.NumericUpDown();
                   this.label1 = new System.Windows.Forms.Label();
                   this.label2 = new System.Windows.Forms.Label();
-                  this.GameFolderTextBox = new System.Windows.Forms.TextBox();
+                  this.gameFolderTextBox = new System.Windows.Forms.TextBox();
                   this.GameFolderLabel = new System.Windows.Forms.Label();
                   this.gameFolderSelectorButton = new System.Windows.Forms.Button();
                   this.textureCachingCheckbox = new System.Windows.Forms.CheckBox();
@@ -61,9 +60,14 @@
                   this.label5 = new System.Windows.Forms.Label();
                   this.allFilesProgressBar = new System.Windows.Forms.ProgressBar();
                   this.fileProgressBar = new System.Windows.Forms.ProgressBar();
-                  this.SeedInput = new System.Windows.Forms.NumericUpDown();
+                  this.seedInput = new System.Windows.Forms.NumericUpDown();
                   this.qualitySelector = new System.Windows.Forms.DomainUpDown();
                   this.randomSeedButton = new System.Windows.Forms.Button();
+                  this.groupInfoHelpButton = new System.Windows.Forms.Button();
+                  this.label6 = new System.Windows.Forms.Label();
+                  this.outputFolderTextBox = new System.Windows.Forms.TextBox();
+                  this.outputFolderSelectorButton = new System.Windows.Forms.Button();
+                  this.pictureBox1 = new System.Windows.Forms.PictureBox();
                   ((System.ComponentModel.ISupportInitialize)(this.IconTexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.MenuTexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.EditorTexturesGroupDisplay)).BeginInit();
@@ -74,7 +78,8 @@
                   ((System.ComponentModel.ISupportInitialize)(this.BlocksGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.MiscGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.EffectsGroupDisplay)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.SeedInput)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.seedInput)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
                   this.SuspendLayout();
                   // 
                   // IconTexturesCheckbox
@@ -219,7 +224,6 @@
                   this.GroupLabel.Size = new System.Drawing.Size(72, 26);
                   this.GroupLabel.TabIndex = 30;
                   this.GroupLabel.Text = "Group";
-                  this.toolTip.SetToolTip(this.GroupLabel, resources.GetString("GroupLabel.ToolTip"));
                   // 
                   // IconTexturesGroupDisplay
                   // 
@@ -231,7 +235,7 @@
             0,
             0});
                   this.IconTexturesGroupDisplay.Name = "IconTexturesGroupDisplay";
-                  this.IconTexturesGroupDisplay.Size = new System.Drawing.Size(67, 26);
+                  this.IconTexturesGroupDisplay.Size = new System.Drawing.Size(69, 26);
                   this.IconTexturesGroupDisplay.TabIndex = 31;
                   this.IconTexturesGroupDisplay.ValueChanged += new System.EventHandler(this.IconTexturesSettingsChanged);
                   // 
@@ -245,7 +249,7 @@
             0,
             0});
                   this.MenuTexturesGroupDisplay.Name = "MenuTexturesGroupDisplay";
-                  this.MenuTexturesGroupDisplay.Size = new System.Drawing.Size(67, 26);
+                  this.MenuTexturesGroupDisplay.Size = new System.Drawing.Size(69, 26);
                   this.MenuTexturesGroupDisplay.TabIndex = 32;
                   this.MenuTexturesGroupDisplay.ValueChanged += new System.EventHandler(this.MenuTexturesSettingsChanged);
                   // 
@@ -259,7 +263,7 @@
             0,
             0});
                   this.EditorTexturesGroupDisplay.Name = "EditorTexturesGroupDisplay";
-                  this.EditorTexturesGroupDisplay.Size = new System.Drawing.Size(67, 26);
+                  this.EditorTexturesGroupDisplay.Size = new System.Drawing.Size(69, 26);
                   this.EditorTexturesGroupDisplay.TabIndex = 34;
                   this.EditorTexturesGroupDisplay.ValueChanged += new System.EventHandler(this.EditorTexturesSettingsChanged);
                   // 
@@ -273,7 +277,7 @@
             0,
             0});
                   this.ShopTexturesGroupDisplay.Name = "ShopTexturesGroupDisplay";
-                  this.ShopTexturesGroupDisplay.Size = new System.Drawing.Size(67, 26);
+                  this.ShopTexturesGroupDisplay.Size = new System.Drawing.Size(69, 26);
                   this.ShopTexturesGroupDisplay.TabIndex = 33;
                   this.ShopTexturesGroupDisplay.ValueChanged += new System.EventHandler(this.ShopTexturesSettingsChanged);
                   // 
@@ -287,7 +291,7 @@
             0,
             0});
                   this.ParticleTexturesGroupDisplay.Name = "ParticleTexturesGroupDisplay";
-                  this.ParticleTexturesGroupDisplay.Size = new System.Drawing.Size(67, 26);
+                  this.ParticleTexturesGroupDisplay.Size = new System.Drawing.Size(69, 26);
                   this.ParticleTexturesGroupDisplay.TabIndex = 38;
                   this.ParticleTexturesGroupDisplay.ValueChanged += new System.EventHandler(this.ParticleTexturesSettingsChanged);
                   // 
@@ -301,7 +305,7 @@
             0,
             0});
                   this.OrbsAndPadsGroupDisplay.Name = "OrbsAndPadsGroupDisplay";
-                  this.OrbsAndPadsGroupDisplay.Size = new System.Drawing.Size(67, 26);
+                  this.OrbsAndPadsGroupDisplay.Size = new System.Drawing.Size(69, 26);
                   this.OrbsAndPadsGroupDisplay.TabIndex = 37;
                   this.OrbsAndPadsGroupDisplay.ValueChanged += new System.EventHandler(this.OrbsAndPadsSettingsChanged);
                   // 
@@ -315,7 +319,7 @@
             0,
             0});
                   this.PortalTexturesGroupDisplay.Name = "PortalTexturesGroupDisplay";
-                  this.PortalTexturesGroupDisplay.Size = new System.Drawing.Size(67, 26);
+                  this.PortalTexturesGroupDisplay.Size = new System.Drawing.Size(69, 26);
                   this.PortalTexturesGroupDisplay.TabIndex = 36;
                   this.PortalTexturesGroupDisplay.ValueChanged += new System.EventHandler(this.PortalTexturesSettingsChanged);
                   // 
@@ -329,7 +333,7 @@
             0,
             0});
                   this.BlocksGroupDisplay.Name = "BlocksGroupDisplay";
-                  this.BlocksGroupDisplay.Size = new System.Drawing.Size(67, 26);
+                  this.BlocksGroupDisplay.Size = new System.Drawing.Size(69, 26);
                   this.BlocksGroupDisplay.TabIndex = 35;
                   this.BlocksGroupDisplay.ValueChanged += new System.EventHandler(this.TilesTexturesSettingsChanged);
                   // 
@@ -343,7 +347,7 @@
             0,
             0});
                   this.MiscGroupDisplay.Name = "MiscGroupDisplay";
-                  this.MiscGroupDisplay.Size = new System.Drawing.Size(67, 26);
+                  this.MiscGroupDisplay.Size = new System.Drawing.Size(69, 26);
                   this.MiscGroupDisplay.TabIndex = 40;
                   this.MiscGroupDisplay.ValueChanged += new System.EventHandler(this.MiscSettingsChanged);
                   // 
@@ -357,7 +361,7 @@
             0,
             0});
                   this.EffectsGroupDisplay.Name = "EffectsGroupDisplay";
-                  this.EffectsGroupDisplay.Size = new System.Drawing.Size(67, 26);
+                  this.EffectsGroupDisplay.Size = new System.Drawing.Size(69, 26);
                   this.EffectsGroupDisplay.TabIndex = 39;
                   this.EffectsGroupDisplay.ValueChanged += new System.EventHandler(this.EffectsSettingsChanged);
                   // 
@@ -379,22 +383,22 @@
                   this.label2.Name = "label2";
                   this.label2.Size = new System.Drawing.Size(59, 20);
                   this.label2.TabIndex = 42;
-                  this.label2.Text = "V 2.0.0";
+                  this.label2.Text = "V 2.0.1";
                   // 
-                  // GameFolderTextBox
+                  // gameFolderTextBox
                   // 
-                  this.GameFolderTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.GameFolderTextBox.Location = new System.Drawing.Point(426, 144);
-                  this.GameFolderTextBox.Name = "GameFolderTextBox";
-                  this.GameFolderTextBox.Size = new System.Drawing.Size(298, 23);
-                  this.GameFolderTextBox.TabIndex = 43;
-                  this.GameFolderTextBox.TextChanged += new System.EventHandler(this.GameFolderTextBox_TextChanged);
+                  this.gameFolderTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.gameFolderTextBox.Location = new System.Drawing.Point(440, 132);
+                  this.gameFolderTextBox.Name = "gameFolderTextBox";
+                  this.gameFolderTextBox.Size = new System.Drawing.Size(298, 23);
+                  this.gameFolderTextBox.TabIndex = 43;
+                  this.gameFolderTextBox.TextChanged += new System.EventHandler(this.GameFolderTextBox_TextChanged);
                   // 
                   // GameFolderLabel
                   // 
                   this.GameFolderLabel.AutoSize = true;
                   this.GameFolderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.GameFolderLabel.Location = new System.Drawing.Point(434, 121);
+                  this.GameFolderLabel.Location = new System.Drawing.Point(448, 109);
                   this.GameFolderLabel.Name = "GameFolderLabel";
                   this.GameFolderLabel.Size = new System.Drawing.Size(102, 20);
                   this.GameFolderLabel.TabIndex = 44;
@@ -402,7 +406,7 @@
                   // 
                   // gameFolderSelectorButton
                   // 
-                  this.gameFolderSelectorButton.Location = new System.Drawing.Point(724, 144);
+                  this.gameFolderSelectorButton.Location = new System.Drawing.Point(738, 132);
                   this.gameFolderSelectorButton.Name = "gameFolderSelectorButton";
                   this.gameFolderSelectorButton.Size = new System.Drawing.Size(24, 23);
                   this.gameFolderSelectorButton.TabIndex = 45;
@@ -415,7 +419,7 @@
                   this.textureCachingCheckbox.AutoSize = true;
                   this.textureCachingCheckbox.Enabled = false;
                   this.textureCachingCheckbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.textureCachingCheckbox.Location = new System.Drawing.Point(426, 271);
+                  this.textureCachingCheckbox.Location = new System.Drawing.Point(452, 308);
                   this.textureCachingCheckbox.Name = "textureCachingCheckbox";
                   this.textureCachingCheckbox.Size = new System.Drawing.Size(197, 24);
                   this.textureCachingCheckbox.TabIndex = 46;
@@ -424,6 +428,7 @@
         " 50-100MB of space up on your disk. Especially useful for Medium and High Qualit" +
         "y");
                   this.textureCachingCheckbox.UseVisualStyleBackColor = true;
+                  this.textureCachingCheckbox.Visible = false;
                   this.textureCachingCheckbox.Click += new System.EventHandler(this.CachingSettingChanged);
                   // 
                   // label3
@@ -467,7 +472,7 @@
                   // 
                   this.label4.AutoSize = true;
                   this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.label4.Location = new System.Drawing.Point(434, 219);
+                  this.label4.Location = new System.Drawing.Point(448, 256);
                   this.label4.Name = "label4";
                   this.label4.Size = new System.Drawing.Size(114, 20);
                   this.label4.TabIndex = 53;
@@ -479,7 +484,7 @@
                   // 
                   this.label5.AutoSize = true;
                   this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.label5.Location = new System.Drawing.Point(434, 170);
+                  this.label5.Location = new System.Drawing.Point(448, 207);
                   this.label5.Name = "label5";
                   this.label5.Size = new System.Drawing.Size(158, 20);
                   this.label5.TabIndex = 55;
@@ -502,30 +507,30 @@
                   this.fileProgressBar.TabIndex = 51;
                   this.fileProgressBar.Visible = false;
                   // 
-                  // SeedInput
+                  // seedInput
                   // 
-                  this.SeedInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.SeedInput.Location = new System.Drawing.Point(427, 193);
-                  this.SeedInput.Maximum = new decimal(new int[] {
+                  this.seedInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.seedInput.Location = new System.Drawing.Point(440, 230);
+                  this.seedInput.Maximum = new decimal(new int[] {
             2147483647,
             0,
             0,
             0});
-                  this.SeedInput.Minimum = new decimal(new int[] {
+                  this.seedInput.Minimum = new decimal(new int[] {
             -2147483648,
             0,
             0,
             -2147483648});
-                  this.SeedInput.Name = "SeedInput";
-                  this.SeedInput.Size = new System.Drawing.Size(166, 23);
-                  this.SeedInput.TabIndex = 54;
-                  this.SeedInput.ThousandsSeparator = true;
-                  this.SeedInput.ValueChanged += new System.EventHandler(this.SeedValueChanged);
+                  this.seedInput.Name = "seedInput";
+                  this.seedInput.Size = new System.Drawing.Size(166, 23);
+                  this.seedInput.TabIndex = 54;
+                  this.seedInput.ThousandsSeparator = true;
+                  this.seedInput.ValueChanged += new System.EventHandler(this.SeedValueChanged);
                   // 
                   // qualitySelector
                   // 
                   this.qualitySelector.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.qualitySelector.Location = new System.Drawing.Point(426, 242);
+                  this.qualitySelector.Location = new System.Drawing.Point(440, 279);
                   this.qualitySelector.Name = "qualitySelector";
                   this.qualitySelector.ReadOnly = true;
                   this.qualitySelector.Size = new System.Drawing.Size(167, 23);
@@ -536,25 +541,79 @@
                   // randomSeedButton
                   // 
                   this.randomSeedButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.randomSeedButton.Location = new System.Drawing.Point(596, 193);
+                  this.randomSeedButton.Location = new System.Drawing.Point(610, 230);
                   this.randomSeedButton.Name = "randomSeedButton";
-                  this.randomSeedButton.Size = new System.Drawing.Size(75, 24);
+                  this.randomSeedButton.Size = new System.Drawing.Size(98, 24);
                   this.randomSeedButton.TabIndex = 58;
-                  this.randomSeedButton.Text = "Random";
+                  this.randomSeedButton.Text = "Random Seed";
                   this.randomSeedButton.UseVisualStyleBackColor = true;
                   this.randomSeedButton.Click += new System.EventHandler(this.randomSeedButton_Click);
+                  // 
+                  // groupInfoHelpButton
+                  // 
+                  this.groupInfoHelpButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.groupInfoHelpButton.Location = new System.Drawing.Point(305, 76);
+                  this.groupInfoHelpButton.Name = "groupInfoHelpButton";
+                  this.groupInfoHelpButton.Size = new System.Drawing.Size(24, 24);
+                  this.groupInfoHelpButton.TabIndex = 59;
+                  this.groupInfoHelpButton.Text = "?";
+                  this.groupInfoHelpButton.UseVisualStyleBackColor = true;
+                  this.groupInfoHelpButton.Click += new System.EventHandler(this.groupInfoHelpButton_Click);
+                  // 
+                  // label6
+                  // 
+                  this.label6.AutoSize = true;
+                  this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.label6.Location = new System.Drawing.Point(448, 158);
+                  this.label6.Name = "label6";
+                  this.label6.Size = new System.Drawing.Size(107, 20);
+                  this.label6.TabIndex = 60;
+                  this.label6.Text = "Output Folder";
+                  // 
+                  // outputFolderTextBox
+                  // 
+                  this.outputFolderTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.outputFolderTextBox.Location = new System.Drawing.Point(440, 181);
+                  this.outputFolderTextBox.Name = "outputFolderTextBox";
+                  this.outputFolderTextBox.Size = new System.Drawing.Size(298, 23);
+                  this.outputFolderTextBox.TabIndex = 61;
+                  this.outputFolderTextBox.TextChanged += new System.EventHandler(this.outputFolderTextBox_TextChanged);
+                  // 
+                  // outputFolderSelectorButton
+                  // 
+                  this.outputFolderSelectorButton.Location = new System.Drawing.Point(738, 181);
+                  this.outputFolderSelectorButton.Name = "outputFolderSelectorButton";
+                  this.outputFolderSelectorButton.Size = new System.Drawing.Size(24, 23);
+                  this.outputFolderSelectorButton.TabIndex = 62;
+                  this.outputFolderSelectorButton.Text = "...";
+                  this.outputFolderSelectorButton.UseVisualStyleBackColor = true;
+                  this.outputFolderSelectorButton.Click += new System.EventHandler(this.SetOutputFolder);
+                  // 
+                  // pictureBox1
+                  // 
+                  this.pictureBox1.Image = global::Geometry_Dash_Randomiser.Properties.Resources.GDR_Logo_60px;
+                  this.pictureBox1.Location = new System.Drawing.Point(12, 9);
+                  this.pictureBox1.Name = "pictureBox1";
+                  this.pictureBox1.Size = new System.Drawing.Size(60, 60);
+                  this.pictureBox1.TabIndex = 63;
+                  this.pictureBox1.TabStop = false;
                   // 
                   // GDR_Form
                   // 
                   this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
                   this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
                   this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-                  this.BackColor = System.Drawing.SystemColors.ScrollBar;
+                  this.BackColor = System.Drawing.SystemColors.ButtonShadow;
                   this.ClientSize = new System.Drawing.Size(774, 527);
+                  this.Controls.Add(this.pictureBox1);
+                  this.Controls.Add(this.outputFolderSelectorButton);
+                  this.Controls.Add(this.outputFolderTextBox);
+                  this.Controls.Add(this.label6);
+                  this.Controls.Add(this.groupInfoHelpButton);
                   this.Controls.Add(this.randomSeedButton);
                   this.Controls.Add(this.qualitySelector);
                   this.Controls.Add(this.label5);
-                  this.Controls.Add(this.SeedInput);
+                  this.Controls.Add(this.seedInput);
                   this.Controls.Add(this.label4);
                   this.Controls.Add(this.fileProgressBar);
                   this.Controls.Add(this.allFilesProgressBar);
@@ -564,7 +623,7 @@
                   this.Controls.Add(this.textureCachingCheckbox);
                   this.Controls.Add(this.gameFolderSelectorButton);
                   this.Controls.Add(this.GameFolderLabel);
-                  this.Controls.Add(this.GameFolderTextBox);
+                  this.Controls.Add(this.gameFolderTextBox);
                   this.Controls.Add(this.label2);
                   this.Controls.Add(this.label1);
                   this.Controls.Add(this.MiscGroupDisplay);
@@ -591,6 +650,7 @@
                   this.Controls.Add(this.IconTexturesCheckbox);
                   this.Name = "GDR_Form";
                   this.Text = "Geometry Dash Randomiser";
+                  this.Load += new System.EventHandler(this.GDR_Form_Load);
                   ((System.ComponentModel.ISupportInitialize)(this.IconTexturesGroupDisplay)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.MenuTexturesGroupDisplay)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.EditorTexturesGroupDisplay)).EndInit();
@@ -601,7 +661,8 @@
                   ((System.ComponentModel.ISupportInitialize)(this.BlocksGroupDisplay)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.MiscGroupDisplay)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.EffectsGroupDisplay)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.SeedInput)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.seedInput)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
                   this.ResumeLayout(false);
                   this.PerformLayout();
 
@@ -632,7 +693,7 @@
             private System.Windows.Forms.NumericUpDown EffectsGroupDisplay;
             private System.Windows.Forms.Label label1;
             private System.Windows.Forms.Label label2;
-            private System.Windows.Forms.TextBox GameFolderTextBox;
+            private System.Windows.Forms.TextBox gameFolderTextBox;
             private System.Windows.Forms.Label GameFolderLabel;
             private System.Windows.Forms.Button gameFolderSelectorButton;
             private System.Windows.Forms.CheckBox textureCachingCheckbox;
@@ -643,10 +704,15 @@
             private System.Windows.Forms.ProgressBar allFilesProgressBar;
             private System.Windows.Forms.ProgressBar fileProgressBar;
             private System.Windows.Forms.Label label4;
-            private System.Windows.Forms.NumericUpDown SeedInput;
+            private System.Windows.Forms.NumericUpDown seedInput;
             private System.Windows.Forms.Label label5;
             private System.Windows.Forms.DomainUpDown qualitySelector;
             private System.Windows.Forms.Button randomSeedButton;
+            private System.Windows.Forms.Button groupInfoHelpButton;
+            private System.Windows.Forms.Label label6;
+            private System.Windows.Forms.TextBox outputFolderTextBox;
+            private System.Windows.Forms.Button outputFolderSelectorButton;
+            private System.Windows.Forms.PictureBox pictureBox1;
       }
 }
 
