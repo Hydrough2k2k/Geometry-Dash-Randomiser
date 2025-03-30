@@ -5,8 +5,6 @@ using System;
 using System.Drawing;
 using System.Text.Json;
 using RectpackSharp;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
 using System.Diagnostics;
 
 namespace Geometry_Dash_Randomiser {
@@ -30,10 +28,9 @@ namespace Geometry_Dash_Randomiser {
             static readonly string cachedFilesFolderName = "Cached Game Files";
             static readonly string resourcesFolderName = "Resources";
             static readonly string iconsFolderName = "icons";
-            static readonly string sfxFolderName = "sfx";
 
-            static readonly string randomisedFilesFolderName = "Randomised Files";
-            static readonly string unalteredFilesFolderName = "Unaltered Files";
+            static readonly string randomisedFiles = "Randomised Files";
+            static readonly string unalteredFiles = "Unaltered Files";
 
             public const string lowQualityName = "Low Quality";
             public const string mediumQualityName = "Medium Quality";
@@ -43,21 +40,21 @@ namespace Geometry_Dash_Randomiser {
 
             static readonly string gameFilesFolder = Config.gameDirectory;
             static readonly string gameResourcesFolder = Path.Combine(gameFilesFolder, resourcesFolderName);
-            static readonly string gameIconsFolder = Path.Combine(gameResourcesFolder, iconsFolderName);
-            static readonly string gameSfxFolder = Path.Combine(gameResourcesFolder, sfxFolderName);
+            static readonly string gameIconsFolder = Path.Combine(gameFilesFolder, resourcesFolderName, iconsFolderName);
 
             // ----------------------------------------------------------
 
-            static readonly string localCachedFilesFolder = cachedFilesFolderName;
-            static readonly string localResourcesFolder = Path.Combine(localCachedFilesFolder, resourcesFolderName);
-            static readonly string localIconsFolder = Path.Combine(localCachedFilesFolder, iconsFolderName);
-            static readonly string localSfxFolder = Path.Combine(localCachedFilesFolder, sfxFolderName);
+            string localUnalteredIconsFolder => Path.Combine(unalteredFiles, currentQualityFolder, resourcesFolderName, iconsFolderName);
+            string localUnalteredResourcesFolder => Path.Combine(unalteredFiles, currentQualityFolder, resourcesFolderName);
 
-            static readonly string localIconsOutputFolder = Path.Combine(randomisedFilesFolderName, iconsFolderName);
-            static readonly string localResourcesOutputFolder = Path.Combine(randomisedFilesFolderName, resourcesFolderName);
+            string localIconsOutputFolder => Path.Combine(randomisedFiles, currentQualityFolder, resourcesFolderName, iconsFolderName);
+            string localResourcesOutputFolder => Path.Combine(randomisedFiles, currentQualityFolder, resourcesFolderName);
 
-            static readonly string localUnalteredIconsFolder = Path.Combine(unalteredFilesFolderName, iconsFolderName);
-            static readonly string localUnalteredResourcesFolder = Path.Combine(unalteredFilesFolderName, resourcesFolderName);
+            string remoteIconsOutputFolder => Path.Combine(Config.outputDirectory, currentQualityFolder, resourcesFolderName, iconsFolderName);
+            string remoteResourcesOutputFolder => Path.Combine(Config.outputDirectory, currentQualityFolder, resourcesFolderName, iconsFolderName);
+
+            //static readonly string localUnalteredIconsFolder = Path.Combine(unalteredFilesFolderName, iconsFolderName);
+            //static readonly string localUnalteredResourcesFolder = Path.Combine(unalteredFilesFolderName, resourcesFolderName);
 
             // ----------------------------------------------------------
 
@@ -73,21 +70,18 @@ namespace Geometry_Dash_Randomiser {
             int mainPrintDelta = 33;
             int secondaryPrintDelta = 33;
 
-            /// <summary>
-            /// Name of the folder where the cached rescources will go
-            /// </summary>
-            string currentCachedQualityFolder;
+            string currentQualityFolder;
 
             public void setQuality(Quality quality) {
                   switch (quality) {
                         case Quality.Low:
-                              currentCachedQualityFolder = Path.Combine(localCachedFilesFolder, lowQualityName);
+                              currentQualityFolder = lowQualityName;
                               break;
                         case Quality.Medium:
-                              currentCachedQualityFolder = Path.Combine(localCachedFilesFolder, mediumQualityName);
+                              currentQualityFolder = mediumQualityName;
                               break;
                         case Quality.High:
-                              currentCachedQualityFolder = Path.Combine(localCachedFilesFolder, highQualityName);
+                              currentQualityFolder = highQualityName;
                               break;
                         default:
                               break;
@@ -215,9 +209,9 @@ namespace Geometry_Dash_Randomiser {
             }
 
             // Very simple right now, will be more complex when new features require complexity
-            bool verifyCacheIntegrity() {
-                  return File.Exists(Path.Combine(currentCachedQualityFolder, localCachedTexturesJson));
-            }
+            //bool verifyCacheIntegrity() {
+            //      return File.Exists(Path.Combine(currentCachedQualityFolder, localCachedTexturesJson));
+            //}
 
             public void StartRandomising(int seed) {
 
@@ -232,7 +226,7 @@ namespace Geometry_Dash_Randomiser {
 
                   // Caching is disabled for the time being
                   //if (Config.caching == true && verifyCacheIntegrity() == false) {
-                        //CacheGameFiles();
+                  //CacheGameFiles();
                   //}
 
                   changeDisplayedTextEvent?.Invoke(this, "Randomising data...");
@@ -248,17 +242,17 @@ namespace Geometry_Dash_Randomiser {
                         .Distinct()
                         .ToArray();
 
-                  string outputPath;
+                  string iconsOutputFolder = localIconsOutputFolder;
+                  string resourcesOutputFolder = localResourcesOutputFolder;
 
-                  if (Config.outputDirectory == string.Empty) {
-                        outputPath = randomisedFilesFolderName;
-
-                  } else {
-                        outputPath = Config.outputDirectory;
+                  // If the user defined a target folder, that should be the output folder, if the string is empty make it default
+                  if (Config.outputDirectory != string.Empty) {
+                        iconsOutputFolder = remoteIconsOutputFolder;
+                        resourcesOutputFolder = remoteResourcesOutputFolder;
                   }
 
-                  Directory.CreateDirectory(Path.Combine(outputPath, iconsFolderName));
-                  Directory.CreateDirectory(Path.Combine(outputPath, resourcesFolderName));
+                  Directory.CreateDirectory(iconsOutputFolder);
+                  Directory.CreateDirectory(resourcesOutputFolder);
 
                   for (int i = 0; i < gameSheetFiles.Length; i++) {
                         if (mainUpdateTimer.ElapsedMilliseconds > mainPrintDelta) {
@@ -283,8 +277,7 @@ namespace Geometry_Dash_Randomiser {
                         string[] plistFile = Plist.Serialise(sprites, rects, gameSheetFiles[i], new Size(finalGameSheet.Width, finalGameSheet.Height));
 
                         bool isIconsFile = sprites.Any(s => s.type == Sprite.Type.Icon);
-                        string outputFolder = isIconsFile ? iconsFolderName : resourcesFolderName;
-                        outputFolder = Path.Combine(outputPath, outputFolder);
+                        string outputFolder = isIconsFile ? iconsOutputFolder : resourcesOutputFolder;
 
                         finalGameSheet.Save(Path.Combine(outputFolder, gameSheetFiles[i] + ".png"));
                         File.WriteAllLines(Path.Combine(outputFolder, gameSheetFiles[i] + ".plist"), plistFile);
@@ -429,60 +422,59 @@ namespace Geometry_Dash_Randomiser {
                   return Directory.GetFiles(gameResourcesFolder).filterByQuality(Config.quality).blacklistFilter();
             }
 
-            public void CacheGameFiles() {
-                  if (Config.caching == false)
-                        return;
+            //public void CacheGameFiles() {
+            //      if (Config.caching == false)
+            //            return;
 
-                  Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, resourcesFolderName));
-                  Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, iconsFolderName));
-                  Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, sfxFolderName));
+            //      Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, resourcesFolderName));
+            //      Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, iconsFolderName));
 
-                  updateEvent?.Invoke(this, new ProgressUpdate("", 0, Stage.Caching));
-                  changeDisplayedTextEvent?.Invoke(this, "Caching files...");
+            //      updateEvent?.Invoke(this, new ProgressUpdate("", 0, Stage.Caching));
+            //      changeDisplayedTextEvent?.Invoke(this, "Caching files...");
 
-                  // Create all folders for all icon gamesheets
-                  string[] iconFolders = spriteList
-                        .Where(s => s.type == Sprite.Type.Icon)
-                        .Select(s => s.sourceFile)
-                        .Distinct()
-                        .ToArray();
+            //      // Create all folders for all icon gamesheets
+            //      string[] iconFolders = spriteList
+            //            .Where(s => s.type == Sprite.Type.Icon)
+            //            .Select(s => s.sourceFile)
+            //            .Distinct()
+            //            .ToArray();
 
-                  string[] resourceFolders = spriteList
-                        .Where(s => s.type != Sprite.Type.Icon)
-                        .Select(s => s.sourceFile)
-                        .Distinct()
-                        .ToArray();
+            //      string[] resourceFolders = spriteList
+            //            .Where(s => s.type != Sprite.Type.Icon)
+            //            .Select(s => s.sourceFile)
+            //            .Distinct()
+            //            .ToArray();
 
-                  changeDisplayedTextEvent?.Invoke(this, "Creating folders for cached files...");
+            //      changeDisplayedTextEvent?.Invoke(this, "Creating folders for cached files...");
 
-                  for (int i = 0; i < iconFolders.Length; i++)
-                        Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, iconsFolderName, iconFolders[i]));
+            //      for (int i = 0; i < iconFolders.Length; i++)
+            //            Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, iconsFolderName, iconFolders[i]));
 
-                  for (int i = 0; i < resourceFolders.Length; i++)
-                        Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, resourcesFolderName, resourceFolders[i]));
+            //      for (int i = 0; i < resourceFolders.Length; i++)
+            //            Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, resourcesFolderName, resourceFolders[i]));
 
-                  changeDisplayedTextEvent?.Invoke(this, "Backing up files...");
+            //      changeDisplayedTextEvent?.Invoke(this, "Backing up files...");
 
-                  for (int i = 0; i < spriteList.Count; i++) {
+            //      for (int i = 0; i < spriteList.Count; i++) {
 
-                        int progressPercent = (int)Math.Ceiling((float)i / spriteList.Count * 100);
-                        updateTotalProgressEvent?.Invoke(this, progressPercent);
+            //            int progressPercent = (int)Math.Ceiling((float)i / spriteList.Count * 100);
+            //            updateTotalProgressEvent?.Invoke(this, progressPercent);
 
-                        string fileName = string.Empty;
-                        if (spriteList[i].type == Sprite.Type.Icon) {
-                              fileName = Path.Combine(currentCachedQualityFolder, iconsFolderName, spriteList[i].sourceFile, spriteList[i].spriteName);
-                        } else {
-                              fileName = Path.Combine(currentCachedQualityFolder, resourcesFolderName, spriteList[i].sourceFile, spriteList[i].spriteName);
-                        }
-                        spriteList[i].texture.Save(fileName);
-                  }
+            //            string fileName = string.Empty;
+            //            if (spriteList[i].type == Sprite.Type.Icon) {
+            //                  fileName = Path.Combine(currentCachedQualityFolder, iconsFolderName, spriteList[i].sourceFile, spriteList[i].spriteName);
+            //            } else {
+            //                  fileName = Path.Combine(currentCachedQualityFolder, resourcesFolderName, spriteList[i].sourceFile, spriteList[i].spriteName);
+            //            }
+            //            spriteList[i].texture.Save(fileName);
+            //      }
 
-                  JsonSerializerOptions options = new JsonSerializerOptions();
-                  options.WriteIndented = true;
-                  string outStream = JsonSerializer.Serialize(spriteList, options);
+            //      JsonSerializerOptions options = new JsonSerializerOptions();
+            //      options.WriteIndented = true;
+            //      string outStream = JsonSerializer.Serialize(spriteList, options);
 
-                  File.WriteAllText(Path.Combine(currentCachedQualityFolder, localCachedTexturesJson), outStream);
-            }
+            //      File.WriteAllText(Path.Combine(currentCachedQualityFolder, localCachedTexturesJson), outStream);
+            //}
 
             public List<Sprite> getAllSpritesOfType(Sprite.Type type) {
                   return spriteList.Where(s => s.type == type).ToList();
@@ -501,7 +493,7 @@ namespace Geometry_Dash_Randomiser {
 
                   List<Sprite> sprites = Plist.BulkDeserialise(data);
 
-                  int subdivideSize = 500;
+                  int subdivideSize = 1000;
 
                   // If the gamesheet is over a certain size, slice it to make the unpacking faster
                   if (gamesheet.Width < (subdivideSize * 1.5f) || gamesheet.Height < (subdivideSize * 1.5f)) {

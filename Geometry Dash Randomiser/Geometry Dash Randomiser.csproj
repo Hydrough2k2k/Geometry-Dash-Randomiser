@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>GDR Logo 256px.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Chasm.Compatibility.HashCode, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Chasm.Compatibility.HashCode.2.1.2\lib\net461\Chasm.Compatibility.HashCode.dll</HintPath>
@@ -195,10 +198,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="GDR Logo.png" />
+    <None Include="GDR Logo 60px.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="GDR Logo 60px.png" />
+    <Content Include="GDR Logo 256px.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

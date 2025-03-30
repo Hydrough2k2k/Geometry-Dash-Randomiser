@@ -19,6 +19,7 @@ namespace Geometry_Dash_Randomiser {
                   
                   Config.ReadFile();
                   GameFiles = new GameFiles(this);
+                  GameFiles.setQuality(Config.quality);
 
                   qualitySelector.Items.Add(GameFiles.highQualityName);
                   qualitySelector.Items.Add(GameFiles.mediumQualityName);

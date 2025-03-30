@@ -60,9 +60,6 @@ namespace Geometry_Dash_Randomiser {
                   "</plist>"
             };
 
-            static readonly string dictStart = "<dict>";
-            static readonly string dictEnd = "</dict>";
-
             internal enum dataType { Unknown, Key, String, Bool }
 
             public static List<Sprite> BulkDeserialise(List<string> source) {
