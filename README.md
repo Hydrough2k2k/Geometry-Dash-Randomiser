@@ -23,7 +23,7 @@ This application is fully compatible with Geometry Dash v2.206 as of 31/Mar/2025
 - Launch Geometry Dash Randomiser.exe
 - Enable the settings you want, and paste the location of your game into "Game Folder". A restart might be required if it detects an issue
 - When the randomisation is done, copy the "Resources" folder from the Randomised Files folder and paste to where Geometry Dash is installed.
-- Click accep on overwriting all the files
+- Click accept on overwriting all the files
 - Finally, launch the game and enjoy the chaos!
 - To revert the files to the original ones you can copy the "Resources" folder from "Unaltered Files", do the same as when you randomised the files
 
