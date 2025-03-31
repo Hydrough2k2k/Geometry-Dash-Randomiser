@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using System.Drawing;
-using System.Text.Json;
 using RectpackSharp;
 using System.Diagnostics;
 
@@ -38,9 +37,9 @@ namespace Geometry_Dash_Randomiser {
 
             // ----------------------------------------------------------
 
-            static readonly string gameFilesFolder = Config.gameDirectory;
-            static readonly string gameResourcesFolder = Path.Combine(gameFilesFolder, resourcesFolderName);
-            static readonly string gameIconsFolder = Path.Combine(gameFilesFolder, resourcesFolderName, iconsFolderName);
+            string gameFilesFolder => Config.gameDirectory;
+            string gameIconsFolder => Path.Combine(Config.gameDirectory, resourcesFolderName, iconsFolderName);
+            string gameResourcesFolder => Path.Combine(Config.gameDirectory, resourcesFolderName);
 
             // ----------------------------------------------------------
 
@@ -50,25 +49,10 @@ namespace Geometry_Dash_Randomiser {
             string localIconsOutputFolder => Path.Combine(randomisedFiles, currentQualityFolder, resourcesFolderName, iconsFolderName);
             string localResourcesOutputFolder => Path.Combine(randomisedFiles, currentQualityFolder, resourcesFolderName);
 
-            string remoteIconsOutputFolder => Path.Combine(Config.outputDirectory, currentQualityFolder, resourcesFolderName, iconsFolderName);
-            string remoteResourcesOutputFolder => Path.Combine(Config.outputDirectory, currentQualityFolder, resourcesFolderName, iconsFolderName);
-
-            //static readonly string localUnalteredIconsFolder = Path.Combine(unalteredFilesFolderName, iconsFolderName);
-            //static readonly string localUnalteredResourcesFolder = Path.Combine(unalteredFilesFolderName, resourcesFolderName);
+            string remoteIconsOutputFolder => Path.Combine(Config.outputDirectory, randomisedFiles, currentQualityFolder, resourcesFolderName, iconsFolderName);
+            string remoteResourcesOutputFolder => Path.Combine(Config.outputDirectory, randomisedFiles, currentQualityFolder, resourcesFolderName);
 
             // ----------------------------------------------------------
-
-            static readonly string localCachedTexturesJson = "cachedTextures.json";
-
-            // ----------------------------------------------------------
-
-            Stopwatch mainUpdateTimer = Stopwatch.StartNew();
-            Stopwatch secondaryUpdateTimer = Stopwatch.StartNew();
-            /// <summary>
-            /// Minimum time that needs to elapse in millisec between prints
-            /// </summary>
-            int mainPrintDelta = 33;
-            int secondaryPrintDelta = 33;
 
             string currentQualityFolder;
 
@@ -87,6 +71,21 @@ namespace Geometry_Dash_Randomiser {
                               break;
                   }
             }
+
+            // ----------------------------------------------------------
+
+            static readonly string localCachedTexturesJson = "cachedTextures.json";
+            static readonly string localCachedFntJson = "cachedFntFiles.json";
+
+            // ----------------------------------------------------------
+
+            Stopwatch mainUpdateTimer = Stopwatch.StartNew();
+            Stopwatch secondaryUpdateTimer = Stopwatch.StartNew();
+            /// <summary>
+            /// Minimum time that needs to elapse in millisec between prints
+            /// </summary>
+            int mainPrintDelta = 33;
+            int secondaryPrintDelta = 33;
 
             // ----------------------------------------------------------
 
@@ -113,7 +112,7 @@ namespace Geometry_Dash_Randomiser {
                   "The application is not ready due to an unknown error",
                   "The randomisation is ready to start",
                   "The randomisation is ready to start\n - Data may need to be cached first, it might take a few minutes",
-                  "The given folder doesn't exist",
+                  "The given game folder doesn't exist",
                   "The \"Recources\" folder could not be found in the given game path",
                   "The \"Recources\\icons\" folder could not be found in the given game path",
                   "The executable \"GeometryDash.exe\" could not be found in the given path",
@@ -233,71 +232,7 @@ namespace Geometry_Dash_Randomiser {
                   randomiseData(seed);
             }
 
-            void randomiseData(int seed) {
-                  Randomiser random = new Randomiser(this, seed);
-                  List<Sprite> randomisedSprites = random.RandomiseData();
-
-                  string[] gameSheetFiles = randomisedSprites
-                        .Select(s => s.sourceFile)
-                        .Distinct()
-                        .ToArray();
-
-                  string iconsOutputFolder = localIconsOutputFolder;
-                  string resourcesOutputFolder = localResourcesOutputFolder;
-
-                  // If the user defined a target folder, that should be the output folder, if the string is empty make it default
-                  if (Config.outputDirectory != string.Empty) {
-                        iconsOutputFolder = remoteIconsOutputFolder;
-                        resourcesOutputFolder = remoteResourcesOutputFolder;
-                  }
-
-                  Directory.CreateDirectory(iconsOutputFolder);
-                  Directory.CreateDirectory(resourcesOutputFolder);
-
-                  for (int i = 0; i < gameSheetFiles.Length; i++) {
-                        if (mainUpdateTimer.ElapsedMilliseconds > mainPrintDelta) {
-                              int ProgressPercent = (int)Math.Ceiling((float)i / gameSheetFiles.Length * 100);
-                              updateEvent?.Invoke(this, new ProgressUpdate(gameSheetFiles[i], ProgressPercent, Stage.Repackaging));
-
-                              mainUpdateTimer.Restart();
-                        }
-
-                        Sprite[] sprites = randomisedSprites
-                              .Where(s => s.sourceFile == gameSheetFiles[i])
-                              .ToArray();
-
-                        updateFileProgressEvent?.Invoke(this, 0);
-
-                        PackingRectangle bounds;
-                        PackingRectangle[] rects = getPackingRects(ref sprites, out bounds);
-
-                        Bitmap finalGameSheet = GameSheet.Assemble(sprites, rects, bounds);
-                        updateFileProgressEvent?.Invoke(this, 50);
-
-                        string[] plistFile = Plist.Serialise(sprites, rects, gameSheetFiles[i], new Size(finalGameSheet.Width, finalGameSheet.Height));
-
-                        bool isIconsFile = sprites.Any(s => s.type == Sprite.Type.Icon);
-                        string outputFolder = isIconsFile ? iconsOutputFolder : resourcesOutputFolder;
-
-                        finalGameSheet.Save(Path.Combine(outputFolder, gameSheetFiles[i] + ".png"));
-                        File.WriteAllLines(Path.Combine(outputFolder, gameSheetFiles[i] + ".plist"), plistFile);
-
-                        updateFileProgressEvent?.Invoke(this, 100);
-                  }
-            }
-
-            PackingRectangle[] getPackingRects(ref Sprite[] sprites, out PackingRectangle bounds) {
-
-                  PackingRectangle[] rects = new PackingRectangle[sprites.Length];
-
-                  for (int j = 0; j < sprites.Length; j++) {
-                        rects[j] = new PackingRectangle(0, 0, (uint)sprites[j].textureRect.Width, (uint)sprites[j].textureRect.Height, j);
-                  }
-                  RectanglePacker.Pack(rects, out bounds, PackingHints.TryByArea, 1, 2);
-                  Array.Sort(rects, (x, y) => x.Id.CompareTo(y.Id));
-
-                  return rects;
-            }
+          
 
             void backupUnalteredFiles() {
                   int matches = 0;
@@ -480,6 +415,10 @@ namespace Geometry_Dash_Randomiser {
                   return spriteList.Where(s => s.type == type).ToList();
             }
 
+            public List<Sprite> getAllSpritesOfType(Sprite.IconType iconType) {
+                  return spriteList.Where(s => s.iconType == iconType).ToList();
+            }
+
             List<Sprite> getAllSpritesFromGameFile(string path) {
                   string textFile = path + ".plist";
                   string imageFile = path + ".png";
@@ -638,6 +577,88 @@ namespace Geometry_Dash_Randomiser {
                   }
 
                   return texture;
+            }
+
+            void randomiseData(int seed) {
+                  Randomiser random = new Randomiser(this, seed);
+                  List<Sprite> randomisedSprites = random.RandomiseData();
+
+                  string[] gameSheetFiles = randomisedSprites
+                        .Select(s => s.sourceFile)
+                        .Distinct()
+                        .ToArray();
+
+                  string iconsOutputFolder = localIconsOutputFolder;
+                  string resourcesOutputFolder = localResourcesOutputFolder;
+
+                  // If the user defined a target folder, that should be the output folder, if the string is empty make it default
+                  if (Config.outputDirectory != string.Empty) {
+                        iconsOutputFolder = remoteIconsOutputFolder;
+                        resourcesOutputFolder = remoteResourcesOutputFolder;
+                  }
+
+                  Directory.CreateDirectory(iconsOutputFolder);
+                  Directory.CreateDirectory(resourcesOutputFolder);
+
+                  for (int i = 0; i < gameSheetFiles.Length; i++) {
+                        if (mainUpdateTimer.ElapsedMilliseconds > mainPrintDelta) {
+                              int ProgressPercent = (int)Math.Ceiling((float)i / gameSheetFiles.Length * 100);
+                              updateEvent?.Invoke(this, new ProgressUpdate(gameSheetFiles[i], ProgressPercent, Stage.Repackaging));
+
+                              mainUpdateTimer.Restart();
+                        }
+
+                        Sprite[] sprites = randomisedSprites
+                              .Where(s => s.sourceFile == gameSheetFiles[i])
+                              .ToArray();
+
+                        updateFileProgressEvent?.Invoke(this, 0);
+
+                        PackingRectangle[] rects = new PackingRectangle[sprites.Length];
+
+                        // Populate rects array with sprite data
+                        // Add 2 to both width and height to give 1 pixel on all 4 sides of sprites to help avoid glitches
+                        for (int j = 0; j < sprites.Length; j++) {
+                              rects[j] = new PackingRectangle(0, 0, (uint)sprites[j].textureRect.Width + 2, (uint)sprites[j].textureRect.Height, j + 2);
+                        }
+
+                        getPackingRects(ref rects, out PackingRectangle bounds);
+
+                        for (int j = 0; j < sprites.Length; j++) {
+                              sprites[j].textureRect = new Rectangle((int)rects[j].X + 1, (int)rects[j].Y + 1, (int)rects[j].Width - 2, (int)rects[j].Height - 2);
+                        }
+
+                        Bitmap finalGameSheet = GameSheet.Assemble(sprites, rects, bounds);
+                        updateFileProgressEvent?.Invoke(this, 50);
+
+                        string[] plistFile = Plist.Serialise(sprites, rects, gameSheetFiles[i], new Size(finalGameSheet.Width, finalGameSheet.Height));
+
+                        bool isIconsFile = sprites.Any(s => s.type == Sprite.Type.Icon);
+                        string outputFolder = isIconsFile ? iconsOutputFolder : resourcesOutputFolder;
+
+                        finalGameSheet.Save(Path.Combine(outputFolder, gameSheetFiles[i] + ".png"));
+                        File.WriteAllLines(Path.Combine(outputFolder, gameSheetFiles[i] + ".plist"), plistFile);
+
+                        updateFileProgressEvent?.Invoke(this, 100);
+                  }
+            }
+
+            PackingRectangle[] getPackingRects(ref Sprite[] sprites, out PackingRectangle bounds) {
+
+                  PackingRectangle[] rects = new PackingRectangle[sprites.Length];
+
+                  for (int j = 0; j < sprites.Length; j++) {
+                        rects[j] = new PackingRectangle(0, 0, (uint)sprites[j].textureRect.Width, (uint)sprites[j].textureRect.Height, j);
+                  }
+                  RectanglePacker.Pack(rects, out bounds, PackingHints.TryByArea, 1, 2);
+                  Array.Sort(rects, (x, y) => x.Id.CompareTo(y.Id));
+
+                  return rects;
+            }
+
+            void getPackingRects(ref PackingRectangle[] rects, out PackingRectangle bounds) {
+                  RectanglePacker.Pack(rects, out bounds, PackingHints.TryByArea, 1, 2);
+                  Array.Sort(rects, (x, y) => x.Id.CompareTo(y.Id));
             }
       }
 }

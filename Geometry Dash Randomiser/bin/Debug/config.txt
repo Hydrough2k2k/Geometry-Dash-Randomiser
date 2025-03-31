@@ -1,0 +1,87 @@
+{
+  "gameDirectory": "",
+  "outputDirectory": "",
+  "iconTextures": {
+    "enabled": true,
+    "group": 1,
+    "cube": {
+      "group": 1,
+      "enabled": true
+    },
+    "ship": {
+      "group": 1,
+      "enabled": true
+    },
+    "ball": {
+      "group": 1,
+      "enabled": true
+    },
+    "ufo": {
+      "group": 1,
+      "enabled": true
+    },
+    "wave": {
+      "group": 1,
+      "enabled": true
+    },
+    "robot": {
+      "group": 1,
+      "enabled": true
+    },
+    "spider": {
+      "group": 1,
+      "enabled": true
+    },
+    "swing": {
+      "group": 1,
+      "enabled": true
+    },
+    "jetpack": {
+      "group": 1,
+      "enabled": true
+    }
+  },
+  "menuTextures": {
+    "group": 2,
+    "enabled": true
+  },
+  "shopTextures": {
+    "group": 0,
+    "enabled": false
+  },
+  "editorTextures": {
+    "group": 0,
+    "enabled": false
+  },
+  "tileTextures": {
+    "group": 3,
+    "enabled": true
+  },
+  "portalTextures": {
+    "group": 0,
+    "enabled": false
+  },
+  "orbTextures": {
+    "group": 0,
+    "enabled": false
+  },
+  "padTextures": {
+    "group": 0,
+    "enabled": false
+  },
+  "particleTextures": {
+    "group": 4,
+    "enabled": true
+  },
+  "effectTextures": {
+    "group": 0,
+    "enabled": false
+  },
+  "miscTextures": {
+    "group": 0,
+    "enabled": false
+  },
+  "quality": 0,
+  "seed": 0,
+  "caching": true
+}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -37,6 +38,66 @@ namespace Geometry_Dash_Randomiser {
                   this.IconTexturesGroupDisplay.Value = Config.iconTextures.group;
                   this.IconTexturesGroupDisplay.Enabled = this.IconTexturesCheckbox.Checked;
 
+                  if (this.IconTexturesCheckbox.Checked == false) {
+                        this.CubeTexturesCheckbox.Enabled = false;
+                        this.CubeTexturesGroupDisplay.Enabled = false;
+                        this.ShipTexturesCheckbox.Enabled = false;
+                        this.ShipTexturesGroupDisplay.Enabled = false;
+                        this.BallTexturesCheckbox.Enabled = false;
+                        this.BallTexturesGroupDisplay.Enabled = false;
+                        this.UFO_TexturesCheckbox.Enabled = false;
+                        this.UFO_TexturesGroupDisplay.Enabled = false;
+                        this.WaveTexturesCheckbox.Enabled = false;
+                        this.WaveTexturesGroupDisplay.Enabled = false;
+                        this.RobotTexturesCheckbox.Enabled = false;
+                        this.RobotTexturesGroupDisplay.Enabled = false;
+                        this.SpiderTexturesCheckbox.Enabled = false;
+                        this.SpiderTexturesGroupDisplay.Enabled = false;
+                        this.SwingTexturesCheckbox.Enabled = false;
+                        this.SwingTexturesGroupDisplay.Enabled = false;
+                        this.JetpackTexturesCheckbox.Enabled = false;
+                        this.JetpackTexturesGroupDisplay.Enabled = false;
+
+                  } else {
+                        this.CubeTexturesCheckbox.Enabled = true;
+                        this.CubeTexturesGroupDisplay.Enabled = Config.iconTextures.cube.enabled;
+                        this.ShipTexturesCheckbox.Enabled = true;
+                        this.ShipTexturesGroupDisplay.Enabled = Config.iconTextures.ship.enabled;
+                        this.BallTexturesCheckbox.Enabled = true;
+                        this.BallTexturesGroupDisplay.Enabled = Config.iconTextures.ball.enabled;
+                        this.UFO_TexturesCheckbox.Enabled = true;
+                        this.UFO_TexturesGroupDisplay.Enabled = Config.iconTextures.ufo.enabled;
+                        this.WaveTexturesCheckbox.Enabled = true;
+                        this.WaveTexturesGroupDisplay.Enabled = Config.iconTextures.wave.enabled;
+                        this.RobotTexturesCheckbox.Enabled = true;
+                        this.RobotTexturesGroupDisplay.Enabled = Config.iconTextures.robot.enabled;
+                        this.SpiderTexturesCheckbox.Enabled = true;
+                        this.SpiderTexturesGroupDisplay.Enabled = Config.iconTextures.spider.enabled;
+                        this.SwingTexturesCheckbox.Enabled = true;
+                        this.SwingTexturesGroupDisplay.Enabled = Config.iconTextures.swing.enabled;
+                        this.JetpackTexturesCheckbox.Enabled = true;
+                        this.JetpackTexturesGroupDisplay.Enabled = Config.iconTextures.jetpack.enabled;
+                  }
+
+                  this.CubeTexturesCheckbox.Checked = Config.iconTextures.cube.enabled;
+                  this.CubeTexturesGroupDisplay.Value = Config.iconTextures.cube.group;
+                  this.ShipTexturesCheckbox.Checked = Config.iconTextures.ship.enabled;
+                  this.ShipTexturesGroupDisplay.Value = Config.iconTextures.ship.group;
+                  this.BallTexturesCheckbox.Checked = Config.iconTextures.ball.enabled;
+                  this.BallTexturesGroupDisplay.Value = Config.iconTextures.ball.group;
+                  this.UFO_TexturesCheckbox.Checked = Config.iconTextures.ufo.enabled;
+                  this.UFO_TexturesGroupDisplay.Value = Config.iconTextures.ufo.group;
+                  this.WaveTexturesCheckbox.Checked = Config.iconTextures.wave.enabled;
+                  this.WaveTexturesGroupDisplay.Value = Config.iconTextures.wave.group;
+                  this.RobotTexturesCheckbox.Checked = Config.iconTextures.robot.enabled;
+                  this.RobotTexturesGroupDisplay.Value = Config.iconTextures.robot.group;
+                  this.SpiderTexturesCheckbox.Checked = Config.iconTextures.spider.enabled;
+                  this.SpiderTexturesGroupDisplay.Value = Config.iconTextures.spider.group;
+                  this.SwingTexturesCheckbox.Checked = Config.iconTextures.swing.enabled;
+                  this.SwingTexturesGroupDisplay.Value = Config.iconTextures.swing.group;
+                  this.JetpackTexturesCheckbox.Checked = Config.iconTextures.jetpack.enabled;
+                  this.JetpackTexturesGroupDisplay.Value = Config.iconTextures.jetpack.group;
+
                   this.MenuTexturesCheckbox.Checked = Config.menuTextures.enabled;
                   this.MenuTexturesGroupDisplay.Value = Config.menuTextures.group;
                   this.MenuTexturesGroupDisplay.Enabled = this.MenuTexturesCheckbox.Checked;
@@ -57,9 +118,13 @@ namespace Geometry_Dash_Randomiser {
                   this.PortalTexturesGroupDisplay.Value = Config.portalTextures.group;
                   this.PortalTexturesGroupDisplay.Enabled = this.PortalTexturesCheckbox.Checked;
 
-                  this.OrbsAndPadsCheckbox.Checked = Config.orbTextures.enabled;
-                  this.OrbsAndPadsGroupDisplay.Value = Config.orbTextures.group;
-                  this.OrbsAndPadsGroupDisplay.Enabled = this.OrbsAndPadsCheckbox.Checked;
+                  this.OrbsCheckbox.Checked = Config.orbTextures.enabled;
+                  this.OrbsGroupDisplay.Value = Config.orbTextures.group;
+                  this.OrbsGroupDisplay.Enabled = this.OrbsCheckbox.Checked;
+
+                  this.PadsCheckbox.Checked = Config.padTextures.enabled;
+                  this.PadsGroupDisplay.Value = Config.padTextures.group;
+                  this.PadsGroupDisplay.Enabled = this.PadsCheckbox.Checked;
 
                   this.ParticleTexturesCheckbox.Checked = Config.particleTextures.enabled;
                   this.ParticleTexturesGroupDisplay.Value = Config.particleTextures.group;
@@ -85,9 +150,135 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void IconTexturesSettingsChanged(object sender, EventArgs e) {
-                  Config.iconTextures.enabled = this.IconTexturesCheckbox.Checked;
-                  Config.iconTextures.group = (int)this.IconTexturesGroupDisplay.Value;
+                  bool enabled = this.IconTexturesCheckbox.Checked;
+
+                  Config.iconTextures.enabled = enabled;
+
+                  Config.iconTextures.cube.enabled = enabled;
+                  Config.iconTextures.ship.enabled = enabled;
+                  Config.iconTextures.ball.enabled = enabled;
+                  Config.iconTextures.ufo.enabled = enabled;
+                  Config.iconTextures.wave.enabled = enabled;
+                  Config.iconTextures.robot.enabled = enabled;
+                  Config.iconTextures.spider.enabled = enabled;
+                  Config.iconTextures.swing.enabled = enabled;
+                  Config.iconTextures.jetpack.enabled = enabled;
                   ApplyAllSettings();
+            }
+
+            private void CubeTexturesEnabledChanged(object sender, EventArgs e) {
+                  CheckBox checkBox = sender as CheckBox;
+                  Config.iconTextures.cube.enabled = checkBox.Checked;
+                  ApplyAllSettings();
+            }
+
+            private void ShipTexturesEnabledChanged(object sender, EventArgs e) {
+                  CheckBox checkBox = sender as CheckBox;
+                  Config.iconTextures.ship.enabled = checkBox.Checked;
+                  ApplyAllSettings();
+            }
+
+            private void BallTexturesEnabledChanged(object sender, EventArgs e) {
+                  CheckBox checkBox = sender as CheckBox;
+                  Config.iconTextures.ball.enabled = checkBox.Checked;
+                  ApplyAllSettings();
+            }
+
+            private void UFO_TexturesEnabledChanged(object sender, EventArgs e) {
+                  CheckBox checkBox = sender as CheckBox;
+                  Config.iconTextures.ufo.enabled = checkBox.Checked;
+                  ApplyAllSettings();
+            }
+
+            private void WaveTexturesEnabledChanged(object sender, EventArgs e) {
+                  CheckBox checkBox = sender as CheckBox;
+                  Config.iconTextures.wave.enabled = checkBox.Checked;
+                  ApplyAllSettings();
+            }
+
+            private void RobotTexturesEnabledChanged(object sender, EventArgs e) {
+                  CheckBox checkBox = sender as CheckBox;
+                  Config.iconTextures.robot.enabled = checkBox.Checked;
+                  ApplyAllSettings();
+            }
+
+            private void SpiderTexturesEnabledChanged(object sender, EventArgs e) {
+                  CheckBox checkBox = sender as CheckBox;
+                  Config.iconTextures.spider.enabled = checkBox.Checked;
+                  ApplyAllSettings();
+            }
+
+            private void SwingTexturesEnabledChanged(object sender, EventArgs e) {
+                  CheckBox checkBox = sender as CheckBox;
+                  Config.iconTextures.swing.enabled = checkBox.Checked;
+                  ApplyAllSettings();
+            }
+
+            private void JetpackTexturesEnabledChanged(object sender, EventArgs e) {
+                  CheckBox checkBox = sender as CheckBox;
+                  Config.iconTextures.jetpack.enabled = checkBox.Checked;
+                  ApplyAllSettings();
+            }
+
+            private void IconTexturesGroupChanged(object sender, EventArgs e) {
+                  NumericUpDown numericUpDown = sender as NumericUpDown;
+                  Config.iconTextures.group = (int)numericUpDown.Value;
+                  CubeTexturesGroupChanged(sender, null);
+                  ShipTexturesGroupChanged(sender, null);
+                  BallTexturesGroupChanged(sender, null);
+                  UFO_TexturesGroupChanged(sender, null);
+                  WaveTexturesGroupChanged(sender, null);
+                  RobotTexturesGroupChanged(sender, null);
+                  SpiderTexturesGroupChanged(sender, null);
+                  SwingTexturesGroupChanged(sender, null);
+                  JetpackTexturesGroupChanged(sender, null);
+
+                  ApplyAllSettings();
+            }
+
+            private void CubeTexturesGroupChanged(object sender, EventArgs e) {
+                  NumericUpDown numericUpDown = sender as NumericUpDown;
+                  Config.iconTextures.cube.group = (int)numericUpDown.Value;
+            }
+
+            private void ShipTexturesGroupChanged(object sender, EventArgs e) {
+                  NumericUpDown numericUpDown = sender as NumericUpDown;
+                  Config.iconTextures.ship.group = (int)numericUpDown.Value;
+            }
+
+            private void BallTexturesGroupChanged(object sender, EventArgs e) {
+                  NumericUpDown numericUpDown = sender as NumericUpDown;
+                  Config.iconTextures.ball.group = (int)numericUpDown.Value;
+            }
+
+            private void UFO_TexturesGroupChanged(object sender, EventArgs e) {
+                  NumericUpDown numericUpDown = sender as NumericUpDown;
+                  Config.iconTextures.ufo.group = (int)numericUpDown.Value;
+            }
+
+            private void WaveTexturesGroupChanged(object sender, EventArgs e) {
+                  NumericUpDown numericUpDown = sender as NumericUpDown;
+                  Config.iconTextures.wave.group = (int)numericUpDown.Value;
+            }
+
+            private void RobotTexturesGroupChanged(object sender, EventArgs e) {
+                  NumericUpDown numericUpDown = sender as NumericUpDown;
+                  Config.iconTextures.robot.group = (int)numericUpDown.Value;
+            }
+
+            private void SpiderTexturesGroupChanged(object sender, EventArgs e) {
+                  NumericUpDown numericUpDown = sender as NumericUpDown;
+                  Config.iconTextures.spider.group = (int)numericUpDown.Value;
+            }
+
+            private void SwingTexturesGroupChanged(object sender, EventArgs e) {
+                  NumericUpDown numericUpDown = sender as NumericUpDown;
+                  Config.iconTextures.swing.group = (int)numericUpDown.Value;
+            }
+
+            private void JetpackTexturesGroupChanged(object sender, EventArgs e) {
+                  NumericUpDown numericUpDown = sender as NumericUpDown;
+                  Config.iconTextures.jetpack.group = (int)numericUpDown.Value;
             }
 
             private void MenuTexturesSettingsChanged(object sender, EventArgs e) {
@@ -120,9 +311,15 @@ namespace Geometry_Dash_Randomiser {
                   ApplyAllSettings();
             }
 
-            private void OrbsAndPadsSettingsChanged(object sender, EventArgs e) {
-                  Config.orbTextures.enabled = this.OrbsAndPadsCheckbox.Checked;
-                  Config.orbTextures.group = (int)this.OrbsAndPadsGroupDisplay.Value;
+            private void OrbsSettingsChanged(object sender, EventArgs e) {
+                  Config.orbTextures.enabled = this.OrbsCheckbox.Checked;
+                  Config.orbTextures.group = (int)this.OrbsGroupDisplay.Value;
+                  ApplyAllSettings();
+            }
+
+            private void PadsSettingChanged(object sender, EventArgs e) {
+                  Config.padTextures.enabled = this.PadsCheckbox.Checked;
+                  Config.padTextures.group = (int)this.PadsGroupDisplay.Value;
                   ApplyAllSettings();
             }
 
@@ -194,10 +391,6 @@ namespace Geometry_Dash_Randomiser {
                   return string.Empty;
             }
 
-            public void SetStartButtonState(bool state) {
-                  startButton.Enabled = state;
-            }
-
             private void updateProgress(object sender, ProgressUpdate update) {
                   if (update.currentFile != string.Empty) {
 
@@ -267,11 +460,28 @@ namespace Geometry_Dash_Randomiser {
                   ApplyAllSettings();
             }
 
-            private void SetUI_ReadonlyState(bool readOnly) {
-                  bool enabled = !readOnly;
-
+            private void SetUI_EnabledState(bool enabled) {
                   this.IconTexturesCheckbox.Enabled = enabled;
                   this.IconTexturesGroupDisplay.Enabled = enabled;
+                  this.CubeTexturesCheckbox.Enabled = enabled;
+                  this.CubeTexturesGroupDisplay.Enabled = enabled;
+                  this.ShipTexturesCheckbox.Enabled = enabled;
+                  this.ShipTexturesGroupDisplay.Enabled = enabled;
+                  this.BallTexturesCheckbox.Enabled = enabled;
+                  this.BallTexturesGroupDisplay.Enabled = enabled;
+                  this.UFO_TexturesCheckbox.Enabled = enabled;
+                  this.UFO_TexturesGroupDisplay.Enabled = enabled;
+                  this.WaveTexturesCheckbox.Enabled = enabled;
+                  this.WaveTexturesGroupDisplay.Enabled = enabled;
+                  this.RobotTexturesCheckbox.Enabled = enabled;
+                  this.RobotTexturesGroupDisplay.Enabled = enabled;
+                  this.SpiderTexturesCheckbox.Enabled = enabled;
+                  this.SpiderTexturesGroupDisplay.Enabled = enabled;
+                  this.SwingTexturesCheckbox.Enabled = enabled;
+                  this.SwingTexturesGroupDisplay.Enabled = enabled;
+                  this.JetpackTexturesCheckbox.Enabled = enabled;
+                  this.JetpackTexturesGroupDisplay.Enabled = enabled;
+                  
                   this.MenuTexturesCheckbox.Enabled = enabled;
                   this.MenuTexturesGroupDisplay.Enabled = enabled;
                   this.ShopTexturesCheckbox.Enabled = enabled;
@@ -282,8 +492,10 @@ namespace Geometry_Dash_Randomiser {
                   this.BlocksGroupDisplay.Enabled = enabled;
                   this.PortalTexturesCheckbox.Enabled = enabled;
                   this.PortalTexturesGroupDisplay.Enabled = enabled;
-                  this.OrbsAndPadsCheckbox.Enabled = enabled;
-                  this.OrbsAndPadsGroupDisplay.Enabled = enabled;
+                  this.OrbsCheckbox.Enabled = enabled;
+                  this.OrbsGroupDisplay.Enabled = enabled;
+                  this.PadsCheckbox.Enabled = enabled;
+                  this.PadsGroupDisplay.Enabled = enabled;
                   this.ParticleTexturesCheckbox.Enabled = enabled;
                   this.ParticleTexturesGroupDisplay.Enabled = enabled;
                   this.EffectsCheckbox.Enabled = enabled;
@@ -329,11 +541,11 @@ namespace Geometry_Dash_Randomiser {
                   if (ready == false)
                         return;
 
-                  SetUI_ReadonlyState(true);
+                  SetUI_EnabledState(false);
 
                   this.startButton.Visible = false;
                   this.infoDisplay.Location = new Point(12, 421);
-                  this.infoDisplay.Width = 750;
+                  this.infoDisplay.Width = 984;
                   this.allFilesProgressBar.Visible = true;
                   this.fileProgressBar.Visible = true;
 
@@ -355,7 +567,7 @@ namespace Geometry_Dash_Randomiser {
 
                   this.startButton.Visible = true;
                   this.infoDisplay.Location = new Point(12, 450);
-                  this.infoDisplay.Width = 611;
+                  this.infoDisplay.Width = 846;
                   this.allFilesProgressBar.Visible = false;
                   this.fileProgressBar.Visible = false;
 
@@ -366,7 +578,7 @@ namespace Geometry_Dash_Randomiser {
 
                   GameSheet.changeDisplayedTextEvent -= (eventSender, args) => { this.infoDisplay.Text = args; };
 
-                  SetUI_ReadonlyState(false);
+                  SetUI_EnabledState(true);
 
                   ApplyAllSettings();
 

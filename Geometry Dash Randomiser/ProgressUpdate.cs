@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Geometry_Dash_Randomiser.GameFiles;
+﻿using static Geometry_Dash_Randomiser.GameFiles;
 
 namespace Geometry_Dash_Randomiser {
 

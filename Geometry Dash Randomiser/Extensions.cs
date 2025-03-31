@@ -33,6 +33,10 @@ namespace Geometry_Dash_Randomiser {
                   return Regex.Replace(str, "[^0-9,]+", "", RegexOptions.Compiled);
             }
 
+            public static string FilterDigits(this string str) {
+                  return Regex.Replace(str, "[^0-9]+", "", RegexOptions.Compiled);
+            }
+
             public static string GetFirstLine(this string[] str) {
                   if (str.Length == 0) return string.Empty;
                   return str[0];

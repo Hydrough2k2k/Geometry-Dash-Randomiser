@@ -244,5 +244,42 @@ namespace Geometry_Dash_Randomiser {
                   ret.AddRange(ending);
                   return ret.ToArray();
             }
+
+            public static string[] Serialise(Sprite[] sprites, string fileName, Size bitmapSize) {
+                  List<string> ret = new List<string>();
+                  ret.AddRange(fileBegin);
+
+                  for (int i = 0; i < sprites.Length; i++) {
+                        string[] data = (string[])spriteBase.Clone();
+
+                        data[0] += sprites[i].spriteName.ConvertToKey();
+                        data[5] += sprites[i].spriteOffset.ConvertToString();
+                        data[7] += sprites[i].spriteSize.ConvertToString();
+                        data[9] += sprites[i].spriteSourceSize.ConvertToString();
+
+                        if (sprites[i].textureRotated == true) {
+                              data[13] += "<true/>";
+                              Point point = new Point(sprites[i].textureRect.X, sprites[i].textureRect.Y);
+                              // Flip width and height if texture is rotated
+                              Size size = new Size(sprites[i].textureRect.Height, sprites[i].textureRect.Width);
+
+                              data[11] += new Rectangle(point, size).ConvertToString();
+
+                        } else {
+                              data[13] += "<false/>";
+                              data[11] += sprites[i].textureRect.ConvertToString();
+                        }
+                        ret.AddRange(data);
+                  }
+
+                  // Add the custom metadata
+                  string[] ending = (string[])fileEnd.Clone();
+                  ending[11] += (fileName + ".png").ConvertToString();
+                  ending[13] += bitmapSize.ConvertToString();
+                  ending[18] += (fileName + ".png").ConvertToString();
+
+                  ret.AddRange(ending);
+                  return ret.ToArray();
+            }
       }
 }

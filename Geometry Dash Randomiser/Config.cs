@@ -8,23 +8,24 @@ namespace Geometry_Dash_Randomiser {
 
             public enum OutputFolder { Unknown, Default, Overwritten, Invalid, Creatable };
 
-            static string configFileName = "config.txt";
+            static readonly string configFileName = "config.txt";
 
             // This is where the default values are defined
             public static string gameDirectory = "";
             public static string outputDirectory = "";
             
-            // Configs for every randomisation type. More might be added later
-            public static RandomisationGroup iconTextures = new RandomisationGroup(1, true);
-            public static RandomisationGroup menuTextures = new RandomisationGroup(2, true);
-            public static RandomisationGroup shopTextures = new RandomisationGroup(0, false);
-            public static RandomisationGroup editorTextures = new RandomisationGroup(0, false);
-            public static RandomisationGroup tileTextures = new RandomisationGroup(3, true);
-            public static RandomisationGroup portalTextures = new RandomisationGroup(0, false);
-            public static RandomisationGroup orbTextures = new RandomisationGroup(0, false);
-            public static RandomisationGroup particleTextures = new RandomisationGroup(4, true);
-            public static RandomisationGroup effectTextures = new RandomisationGroup(0, false);
-            public static RandomisationGroup miscTextures = new RandomisationGroup(0, false);
+            // Configs for every randomisation type
+            public static IconRandSettings iconTextures = new IconRandSettings();
+            public static RandSetting menuTextures = new RandSetting(2, true);
+            public static RandSetting shopTextures = new RandSetting(0, false);
+            public static RandSetting editorTextures = new RandSetting(0, false);
+            public static RandSetting tileTextures = new RandSetting(3, true);
+            public static RandSetting portalTextures = new RandSetting(0, false);
+            public static RandSetting orbTextures = new RandSetting(0, false);
+            public static RandSetting padTextures = new RandSetting(0, false);
+            public static RandSetting particleTextures = new RandSetting(4, true);
+            public static RandSetting effectTextures = new RandSetting(0, false);
+            public static RandSetting miscTextures = new RandSetting(0, false);
 
             //public static bool ignoreBlacklistedFiles = true; // Not functional, but will work. Also add a warning for "this will cause extra chaos"
             public static GameFiles.Quality quality = GameFiles.Quality.High;
@@ -43,6 +44,7 @@ namespace Geometry_Dash_Randomiser {
                   tileTextures = config.tileTextures;
                   portalTextures = config.portalTextures;
                   orbTextures = config.orbTextures;
+                  padTextures = config.padTextures;
                   particleTextures = config.particleTextures;
                   effectTextures = config.effectTextures;
                   miscTextures = config.miscTextures;
@@ -82,6 +84,7 @@ namespace Geometry_Dash_Randomiser {
                         Convert.ToInt32(tileTextures.enabled) +
                         Convert.ToInt32(portalTextures.enabled) +
                         Convert.ToInt32(orbTextures.enabled) +
+                        Convert.ToInt32(padTextures.enabled) +
                         Convert.ToInt32(particleTextures.enabled) +
                         Convert.ToInt32(effectTextures.enabled) +
                         Convert.ToInt32(miscTextures.enabled);
@@ -114,16 +117,17 @@ namespace Geometry_Dash_Randomiser {
             public string gameDirectory { get; set; }
             public string outputDirectory { get; set; }
             
-            public RandomisationGroup iconTextures { get; set; }
-            public RandomisationGroup menuTextures { get; set; }
-            public RandomisationGroup shopTextures { get; set; }
-            public RandomisationGroup editorTextures { get; set; }
-            public RandomisationGroup tileTextures { get; set; }
-            public RandomisationGroup portalTextures { get; set; }
-            public RandomisationGroup orbTextures { get; set; }
-            public RandomisationGroup particleTextures { get; set; }
-            public RandomisationGroup effectTextures { get; set; }
-            public RandomisationGroup miscTextures { get; set; }
+            public IconRandSettings iconTextures { get; set; }
+            public RandSetting menuTextures { get; set; }
+            public RandSetting shopTextures { get; set; }
+            public RandSetting editorTextures { get; set; }
+            public RandSetting tileTextures { get; set; }
+            public RandSetting portalTextures { get; set; }
+            public RandSetting orbTextures { get; set; }
+            public RandSetting padTextures { get; set; }
+            public RandSetting particleTextures { get; set; }
+            public RandSetting effectTextures { get; set; }
+            public RandSetting miscTextures { get; set; }
 
             //public bool ignoreBlacklistedFiles { get; set; }
             public GameFiles.Quality quality { get; set; }
@@ -142,6 +146,7 @@ namespace Geometry_Dash_Randomiser {
                   this.tileTextures = Config.tileTextures;
                   this.portalTextures = Config.portalTextures;
                   this.orbTextures = Config.orbTextures;
+                  this.padTextures = Config.padTextures;
                   this.particleTextures = Config.particleTextures;
                   this.effectTextures = Config.effectTextures;
                   this.miscTextures = Config.miscTextures;

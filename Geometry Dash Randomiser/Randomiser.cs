@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using static Geometry_Dash_Randomiser.Config;
+using static Geometry_Dash_Randomiser.Sprite.Type;
+using static Geometry_Dash_Randomiser.Sprite.IconType;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -19,7 +22,7 @@ namespace Geometry_Dash_Randomiser {
             GameFiles gameFiles;
             Random random;
 
-            public readonly int maxGroups = 10;
+            public static readonly int maxGroups = 10;
 
             public List<Sprite> RandomiseData() {
                   List<Sprite> randomisedSprites = new List<Sprite>();
@@ -27,37 +30,50 @@ namespace Geometry_Dash_Randomiser {
 
                   // This starts at 1, because 0 is a special case, read below the for loop
                   for (int i = 1; i <= maxGroups; i++) {
+
+                        // Grab all of the sprites with the given group ID if the sgroup is enabled, put them all in the list
                         selectedSprites = new List<Sprite>();
 
-                        // Grab all of the sprites with the given group ID, put them all in the list
-                        if (Config.iconTextures.group == i && Config.iconTextures.enabled)
-                              selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Icon));
+                        // Get all relevant icon types
+                        if (Config.iconTextures.cube.IsEnabledAndGroupMatches(i))
+                              selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.IconType.Cube));
+                        if (Config.iconTextures.ship.IsEnabledAndGroupMatches(i))
+                              selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.IconType.Ship));
+                        if (Config.iconTextures.ball.IsEnabledAndGroupMatches(i))
+                              selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.IconType.Ball));
+                        if (Config.iconTextures.ufo.IsEnabledAndGroupMatches(i))
+                              selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.IconType.UFO));
+                        if (Config.iconTextures.wave.IsEnabledAndGroupMatches(i))
+                              selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.IconType.Wave));
+                        if (Config.iconTextures.robot.IsEnabledAndGroupMatches(i))
+                              selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.IconType.Robot));
+                        if (Config.iconTextures.spider.IsEnabledAndGroupMatches(i))
+                              selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.IconType.Spider));
+                        if (Config.iconTextures.swing.IsEnabledAndGroupMatches(i))
+                              selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.IconType.Swing));
+                        if (Config.iconTextures.jetpack.IsEnabledAndGroupMatches(i))
+                              selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.IconType.Jetpack));
 
-                        if (Config.menuTextures.group == i && Config.menuTextures.enabled)
+                        // Get all relevant textures of different groups
+                        if (Config.menuTextures.IsEnabledAndGroupMatches(i))
                               selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Menu));
-
-                        if (Config.shopTextures.group == i && Config.shopTextures.enabled)
+                        if (Config.shopTextures.IsEnabledAndGroupMatches(i))
                               selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Shop));
-
-                        if (Config.editorTextures.group == i && Config.editorTextures.enabled)
+                        if (Config.editorTextures.IsEnabledAndGroupMatches(i))
                               selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Editor));
-
-                        if (Config.tileTextures.group == i && Config.tileTextures.enabled)
+                        if (Config.tileTextures.IsEnabledAndGroupMatches(i))
                               selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Block));
-
-                        if (Config.portalTextures.group == i && Config.portalTextures.enabled)
+                        if (Config.portalTextures.IsEnabledAndGroupMatches(i))
                               selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Portal));
-
-                        if (Config.orbTextures.group == i && Config.orbTextures.enabled)
-                              selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.OrbsAndPads));
-
-                        if (Config.particleTextures.group == i && Config.particleTextures.enabled)
+                        if (Config.orbTextures.IsEnabledAndGroupMatches(i))
+                              selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Orb));
+                        if (Config.orbTextures.IsEnabledAndGroupMatches(i))
+                              selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Pad));
+                        if (Config.particleTextures.IsEnabledAndGroupMatches(i))
                               selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Particle));
-
-                        if (Config.effectTextures.group == i && Config.effectTextures.enabled)
+                        if (Config.effectTextures.IsEnabledAndGroupMatches(i))
                               selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Effect));
-
-                        if (Config.miscTextures.group == i && Config.miscTextures.enabled)
+                        if (Config.miscTextures.IsEnabledAndGroupMatches(i))
                               selectedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Miscellaneous));
 
                         // Shuffle them, then add them to the randomised list
@@ -67,91 +83,60 @@ namespace Geometry_Dash_Randomiser {
 
                   // Finally get all of the groups that are enabled and have a group of 0
                   // Multiple groups with group ID 0 will not be pooled then shuffled, instead they are all shuffled in isolation
-                  if (Config.iconTextures.enabled) {
-                        if (Config.iconTextures.group == 0)
-                              randomisedSprites.AddRange(ShuffleSpritesOfType(Sprite.Type.Icon));
-                  } else {
-                        randomisedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Icon));
-                  }
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.iconTextures.cube, Sprite.IconType.Cube));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.iconTextures.ship, Sprite.IconType.Ship));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.iconTextures.ball, Sprite.IconType.Ball));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.iconTextures.ufo, Sprite.IconType.UFO));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.iconTextures.wave, Sprite.IconType.Wave));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.iconTextures.robot, Sprite.IconType.Robot));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.iconTextures.spider, Sprite.IconType.Spider));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.iconTextures.swing, Sprite.IconType.Swing));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.iconTextures.jetpack, Sprite.IconType.Jetpack));
 
-                  if (Config.menuTextures.enabled) {
-                        if (Config.menuTextures.group == 0)
-                              randomisedSprites.AddRange(ShuffleSpritesOfType(Sprite.Type.Menu));
-                  } else {
-                        randomisedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Menu));
-                  }
-
-                  if (Config.shopTextures.enabled) {
-                        if (Config.shopTextures.group == 0)
-                              randomisedSprites.AddRange(ShuffleSpritesOfType(Sprite.Type.Shop));
-                  } else {
-                        randomisedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Shop));
-                  }
-
-                  if (Config.editorTextures.enabled) {
-                        if (Config.editorTextures.group == 0)
-                              randomisedSprites.AddRange(ShuffleSpritesOfType(Sprite.Type.Editor));
-                  } else {
-                        randomisedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Editor));
-                  }
-
-                  if (Config.tileTextures.enabled) {
-                        if (Config.tileTextures.group == 0)
-                              randomisedSprites.AddRange(ShuffleSpritesOfType(Sprite.Type.Block));
-                  } else {
-                        randomisedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Block));
-                  }
-
-                  if (Config.portalTextures.enabled) {
-                        if (Config.portalTextures.group == 0)
-                              randomisedSprites.AddRange(ShuffleSpritesOfType(Sprite.Type.Portal));
-                  } else {
-                        randomisedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Portal));
-                  }
-
-                  if (Config.orbTextures.enabled) {
-                        if (Config.orbTextures.group == 0)
-                              randomisedSprites.AddRange(ShuffleSpritesOfType(Sprite.Type.OrbsAndPads));
-                  } else {
-                        randomisedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.OrbsAndPads));
-                  }
-
-                  if (Config.particleTextures.enabled) {
-                        if (Config.particleTextures.group == 0)
-                              randomisedSprites.AddRange(ShuffleSpritesOfType(Sprite.Type.Particle));
-                  } else {
-                        randomisedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Particle));
-                  }
-
-                  if (Config.effectTextures.enabled) {
-                        if (Config.effectTextures.group == 0)
-                              randomisedSprites.AddRange(ShuffleSpritesOfType(Sprite.Type.Effect));
-                  } else {
-                        randomisedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Effect));
-                  }
-
-                  if (Config.miscTextures.enabled) {
-                        if (Config.miscTextures.group == 0)
-                              randomisedSprites.AddRange(ShuffleSpritesOfType(Sprite.Type.Miscellaneous));
-                  } else {
-                        randomisedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Miscellaneous));
-                  }
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.menuTextures, Sprite.Type.Menu));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.shopTextures, Sprite.Type.Shop));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.editorTextures, Sprite.Type.Editor));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.tileTextures, Sprite.Type.Block));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.portalTextures, Sprite.Type.Portal));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.orbTextures, Sprite.Type.Orb));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.padTextures, Sprite.Type.Pad));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.particleTextures, Sprite.Type.Particle));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.effectTextures, Sprite.Type.Effect));
+                  randomisedSprites.AddRange(ShuffleOrReturnOriginalSpritesOfType(Config.miscTextures, Sprite.Type.Miscellaneous));
 
                   return randomisedSprites;
+            }
 
-                  // Sample Switch/case code that might replace the hell above
-                  //switch (Config.iconTextures.enabled) {
-                  //      case true:
-                  //            if (Config.iconTextures.group == 0)
-                  //                  randomisedSprites.AddRange(ShuffleSpritesOfType(Sprite.Type.Icon));
-                  //            break;
-                  //      case false:
-                  //            randomisedSprites.AddRange(gameFiles.getAllSpritesOfType(Sprite.Type.Icon));
-                  //            break;
-                  //}
+            List<Sprite> ShuffleOrReturnOriginalSpritesOfType(RandSetting setting, Sprite.IconType iconType) {
+                  if (setting.enabled == false) {
+                        // If the setting is disabled return all sprites unaltered
+                        return gameFiles.getAllSpritesOfType(iconType);
+                  } else if (setting.isEnabledAndGroupIsZero() == true) {
+                        // If the group is 0 and the setting is enabled shuffle the sprites and return them
+                        return ShuffleSpritesOfType(iconType);
+                  }
+                  // If neither condition came tre the textures have already been randomised, nothing will be returned
+                  return new List<Sprite>();
+            }
+
+            List<Sprite> ShuffleOrReturnOriginalSpritesOfType(RandSetting setting, Sprite.Type type) {
+                  if (setting.enabled == false) {
+                        // If the setting is disabled return all sprites unaltered
+                        return gameFiles.getAllSpritesOfType(type);
+                  } else if (setting.isEnabledAndGroupIsZero() == true) {
+                        // If the group is 0 and the setting is enabled shuffle the sprites and return them
+                        return ShuffleSpritesOfType(type);
+                  }
+                  // If neither condition came tre the textures have already been randomised, nothing will be returned
+                  return new List<Sprite>();
             }
 
             List<Sprite> ShuffleSpritesOfType(Sprite.Type type) {
+                  List<Sprite> sprites = gameFiles.getAllSpritesOfType(type);
+                  return ShuffleSprites(sprites);
+            }
+
+            List<Sprite> ShuffleSpritesOfType(Sprite.IconType type) {
                   List<Sprite> sprites = gameFiles.getAllSpritesOfType(type);
                   return ShuffleSprites(sprites);
             }
