@@ -59,6 +59,7 @@
                   this.toolTip = new System.Windows.Forms.ToolTip(this.components);
                   this.label4 = new System.Windows.Forms.Label();
                   this.label5 = new System.Windows.Forms.Label();
+                  this.checkBox1 = new System.Windows.Forms.CheckBox();
                   this.allFilesProgressBar = new System.Windows.Forms.ProgressBar();
                   this.fileProgressBar = new System.Windows.Forms.ProgressBar();
                   this.seedInput = new System.Windows.Forms.NumericUpDown();
@@ -93,7 +94,7 @@
                   this.label8 = new System.Windows.Forms.Label();
                   this.PadsGroupDisplay = new System.Windows.Forms.NumericUpDown();
                   this.PadsCheckbox = new System.Windows.Forms.CheckBox();
-                  this.checkBox1 = new System.Windows.Forms.CheckBox();
+                  this.checkBox2 = new System.Windows.Forms.CheckBox();
                   ((System.ComponentModel.ISupportInitialize)(this.IconTexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.MenuTexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.EditorTexturesGroupDisplay)).BeginInit();
@@ -418,9 +419,9 @@
                   this.label2.Font = new System.Drawing.Font("High Tower Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.label2.Location = new System.Drawing.Point(802, 45);
                   this.label2.Name = "label2";
-                  this.label2.Size = new System.Drawing.Size(63, 22);
+                  this.label2.Size = new System.Drawing.Size(55, 22);
                   this.label2.TabIndex = 42;
-                  this.label2.Text = "V 2.1.0";
+                  this.label2.Text = "V2.1.1";
                   // 
                   // gameFolderTextBox
                   // 
@@ -528,6 +529,22 @@
                   this.label5.Text = "Randomisation Seed";
                   this.toolTip.SetToolTip(this.label5, "Leave this value at 0 for a random seed");
                   // 
+                  // checkBox1
+                  // 
+                  this.checkBox1.AutoSize = true;
+                  this.checkBox1.Enabled = false;
+                  this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.checkBox1.Location = new System.Drawing.Point(687, 211);
+                  this.checkBox1.Name = "checkBox1";
+                  this.checkBox1.Size = new System.Drawing.Size(264, 24);
+                  this.checkBox1.TabIndex = 89;
+                  this.checkBox1.Text = "Auto-Overwrite Randomised Files";
+                  this.toolTip.SetToolTip(this.checkBox1, "(Not available currently) Speeds up the randomisation on every run, but does take" +
+        " 50-100MB of space up on your disk. Especially useful for Medium and High Qualit" +
+        "y");
+                  this.checkBox1.UseVisualStyleBackColor = true;
+                  this.checkBox1.Visible = false;
+                  // 
                   // allFilesProgressBar
                   // 
                   this.allFilesProgressBar.Location = new System.Drawing.Point(12, 492);
@@ -547,6 +564,7 @@
                   // seedInput
                   // 
                   this.seedInput.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.seedInput.ForeColor = System.Drawing.SystemColors.MenuText;
                   this.seedInput.Location = new System.Drawing.Point(675, 235);
                   this.seedInput.Maximum = new decimal(new int[] {
             2147483647,
@@ -935,21 +953,21 @@
                   this.PadsCheckbox.UseVisualStyleBackColor = true;
                   this.PadsCheckbox.Click += new System.EventHandler(this.PadsSettingChanged);
                   // 
-                  // checkBox1
+                  // checkBox2
                   // 
-                  this.checkBox1.AutoSize = true;
-                  this.checkBox1.Enabled = false;
-                  this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.checkBox1.Location = new System.Drawing.Point(681, 210);
-                  this.checkBox1.Name = "checkBox1";
-                  this.checkBox1.Size = new System.Drawing.Size(264, 24);
-                  this.checkBox1.TabIndex = 89;
-                  this.checkBox1.Text = "Auto-Overwrite Randomised Files";
-                  this.toolTip.SetToolTip(this.checkBox1, "(Not available currently) Speeds up the randomisation on every run, but does take" +
+                  this.checkBox2.AutoSize = true;
+                  this.checkBox2.Enabled = false;
+                  this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.checkBox2.Location = new System.Drawing.Point(687, 338);
+                  this.checkBox2.Name = "checkBox2";
+                  this.checkBox2.Size = new System.Drawing.Size(191, 24);
+                  this.checkBox2.TabIndex = 90;
+                  this.checkBox2.Text = "Ignore Blacklisted Files";
+                  this.toolTip.SetToolTip(this.checkBox2, "(Not available currently) Speeds up the randomisation on every run, but does take" +
         " 50-100MB of space up on your disk. Especially useful for Medium and High Qualit" +
         "y");
-                  this.checkBox1.UseVisualStyleBackColor = true;
-                  this.checkBox1.Visible = false;
+                  this.checkBox2.UseVisualStyleBackColor = true;
+                  this.checkBox2.Visible = false;
                   // 
                   // GDR_Form
                   // 
@@ -958,6 +976,7 @@
                   this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
                   this.BackColor = System.Drawing.SystemColors.ButtonShadow;
                   this.ClientSize = new System.Drawing.Size(1008, 527);
+                  this.Controls.Add(this.checkBox2);
                   this.Controls.Add(this.checkBox1);
                   this.Controls.Add(this.PadsGroupDisplay);
                   this.Controls.Add(this.PadsCheckbox);
@@ -1127,6 +1146,7 @@
             private System.Windows.Forms.NumericUpDown PadsGroupDisplay;
             private System.Windows.Forms.CheckBox PadsCheckbox;
             private System.Windows.Forms.CheckBox checkBox1;
+            private System.Windows.Forms.CheckBox checkBox2;
       }
 }
 

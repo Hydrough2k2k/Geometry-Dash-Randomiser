@@ -10,6 +10,10 @@ namespace Geometry_Dash_Randomiser {
 
       public class GameFiles {
 
+            public List<string> debugLog = new List<string>();
+
+            // -----------------------------------------------------------------------------------------------
+
             public enum Quality { High, Medium, Low }
 
             public enum Stage { BackingUp, Reading, Unpacking, Caching, Randomising, Repackaging }
@@ -35,13 +39,13 @@ namespace Geometry_Dash_Randomiser {
             public const string mediumQualityName = "Medium Quality";
             public const string highQualityName = "High Quality";
 
-            // ----------------------------------------------------------
+            // -----------------------------------------------------------------------------------------------
 
             string gameFilesFolder => Config.gameDirectory;
             string gameIconsFolder => Path.Combine(Config.gameDirectory, resourcesFolderName, iconsFolderName);
             string gameResourcesFolder => Path.Combine(Config.gameDirectory, resourcesFolderName);
 
-            // ----------------------------------------------------------
+            // -----------------------------------------------------------------------------------------------
 
             string localUnalteredIconsFolder => Path.Combine(unalteredFiles, currentQualityFolder, resourcesFolderName, iconsFolderName);
             string localUnalteredResourcesFolder => Path.Combine(unalteredFiles, currentQualityFolder, resourcesFolderName);
@@ -52,7 +56,7 @@ namespace Geometry_Dash_Randomiser {
             string remoteIconsOutputFolder => Path.Combine(Config.outputDirectory, randomisedFiles, currentQualityFolder, resourcesFolderName, iconsFolderName);
             string remoteResourcesOutputFolder => Path.Combine(Config.outputDirectory, randomisedFiles, currentQualityFolder, resourcesFolderName);
 
-            // ----------------------------------------------------------
+            // -----------------------------------------------------------------------------------------------
 
             string currentQualityFolder;
 
@@ -72,12 +76,12 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            // ----------------------------------------------------------
+            // -----------------------------------------------------------------------------------------------
 
             static readonly string localCachedTexturesJson = "cachedTextures.json";
             static readonly string localCachedFntJson = "cachedFntFiles.json";
 
-            // ----------------------------------------------------------
+            // -----------------------------------------------------------------------------------------------
 
             Stopwatch mainUpdateTimer = Stopwatch.StartNew();
             Stopwatch secondaryUpdateTimer = Stopwatch.StartNew();
@@ -87,7 +91,7 @@ namespace Geometry_Dash_Randomiser {
             int mainPrintDelta = 33;
             int secondaryPrintDelta = 33;
 
-            // ----------------------------------------------------------
+            // -----------------------------------------------------------------------------------------------
 
             public static readonly string[] fileBlacklist = {
                   "CCControlColourPickerSpriteSheet",
@@ -232,9 +236,9 @@ namespace Geometry_Dash_Randomiser {
                   randomiseData(seed);
             }
 
-          
-
             void backupUnalteredFiles() {
+                  //debugLog.Add(Extensions.GetUtcDateTime());
+
                   int matches = 0;
                   string[] iconsFileNames = getAllIconsGameFilesFromGameDir();
                   

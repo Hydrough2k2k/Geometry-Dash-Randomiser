@@ -26,6 +26,8 @@ namespace Geometry_Dash_Randomiser {
                   qualitySelector.Items.Add(GameFiles.mediumQualityName);
                   qualitySelector.Items.Add(GameFiles.lowQualityName);
 
+                  this.seedInput.Value = Config.seed;
+
                   ApplyAllSettings();
             }
 
@@ -141,8 +143,9 @@ namespace Geometry_Dash_Randomiser {
 
                   this.gameFolderTextBox.Text = Config.gameDirectory;
                   this.outputFolderTextBox.Text = Config.outputDirectory;
+
                   this.seedInput.Text = Config.seed.ToString();
-                  this.seedInput.ForeColor = Color.Black;
+
                   this.qualitySelector.SelectedIndex = (int)Config.quality;
                   this.textureCachingCheckbox.Checked = Config.caching;
 
@@ -375,12 +378,6 @@ namespace Geometry_Dash_Randomiser {
                   ApplyAllSettings();
             }
 
-            private void SeedValueChanged(object sender, EventArgs e) {
-                  NumericUpDown nud = sender as NumericUpDown;
-                  Config.seed = (int)nud.Value;
-                  ApplyAllSettings();
-            }
-
             private string GetFolderViaExplorer(string InitialDirectory, bool IsFolderPicker) {
                   CommonOpenFileDialog dialog = new CommonOpenFileDialog();
                   dialog.InitialDirectory = InitialDirectory;
@@ -456,6 +453,7 @@ namespace Geometry_Dash_Randomiser {
                   Random random = new Random(Guid.NewGuid().GetHashCode());
                   int value = random.Next(int.MinValue, int.MaxValue);
                   this.seedInput.Value = value;
+                  Config.seed = value;
 
                   ApplyAllSettings();
             }
@@ -557,11 +555,10 @@ namespace Geometry_Dash_Randomiser {
                   GameSheet.changeDisplayedTextEvent += (eventSender, args) => { this.infoDisplay.Text = args; };
 
                   // Create a new random seed if the input value is 0
-                  int seed = Config.seed == 0 ? Guid.NewGuid().GetHashCode() : Config.seed;
-
-                  // Overwrite the seed input value until the randomisation starts again or the user overwrites it to show what the seed was
-                  this.seedInput.Value = seed;
-                  this.seedInput.ForeColor = Color.Gray;
+                  int seed = Config.seed;
+                  if (seed == 0) {
+                        seed = Guid.NewGuid().GetHashCode();
+                  }
 
                   await Task.Run(() => GameFiles.StartRandomising(seed));
 
@@ -585,13 +582,22 @@ namespace Geometry_Dash_Randomiser {
                   this.infoDisplay.Text = "Randomisation complete.\n";
                   switch (Config.GetOutputDirectoryStatus()) {
                         case Config.OutputFolder.Default:
-                              this.infoDisplay.Text += " - You can find the new files in the \"Randomised Files\" folder.\n";
+                              this.infoDisplay.Text += " - You can find the new files in the \"Randomised Files\" folder.";
                               break;
                         case Config.OutputFolder.Overwritten:
-                              this.infoDisplay.Text += " - You can find the new files in the given output folder.\n";
+                              this.infoDisplay.Text += " - You can find the new files in the given output folder.";
                               break;
                   }
-                  this.infoDisplay.Text += " - To reset them copy the files from the \"Unaltered Files\" folder. Have fun!";
+                  if (Config.seed != seed)
+                        this.infoDisplay.Text += " The used seed was " + seed.ToString("N0");
+
+                  this.infoDisplay.Text += "\n - To reset them copy the files from the \"Unaltered Files\" folder. Have fun!";
+            }
+
+            private void SeedValueChanged(object sender, EventArgs e) {
+                  NumericUpDown nud = sender as NumericUpDown;
+                  Config.seed = (int)nud.Value;
+                  ApplyAllSettings();
             }
       }
 }

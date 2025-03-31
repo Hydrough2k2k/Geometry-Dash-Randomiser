@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using Microsoft.WindowsAPICodePack.Sensors;
+using System;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace Geometry_Dash_Randomiser {
@@ -40,6 +42,11 @@ namespace Geometry_Dash_Randomiser {
             public static string GetFirstLine(this string[] str) {
                   if (str.Length == 0) return string.Empty;
                   return str[0];
+            }
+
+            public static string GetUtcDateTime() {
+                  DateTime dt = DateTime.UtcNow;
+                  return dt.Year + "/" + dt.Month + "/" + dt.Day + " " + dt.Hour + ":" + dt.Minute + ":" + dt.Second + "." + dt.Millisecond;
             }
       }
 }

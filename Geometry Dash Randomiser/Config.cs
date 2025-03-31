@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Sensors;
+using System;
 using System.IO;
 using System.Text.Json;
 
@@ -13,6 +14,7 @@ namespace Geometry_Dash_Randomiser {
             // This is where the default values are defined
             public static string gameDirectory = "";
             public static string outputDirectory = "";
+            public static bool fileAutoOverwrite = false;
             
             // Configs for every randomisation type
             public static IconRandSettings iconTextures = new IconRandSettings();
@@ -27,7 +29,7 @@ namespace Geometry_Dash_Randomiser {
             public static RandSetting effectTextures = new RandSetting(0, false);
             public static RandSetting miscTextures = new RandSetting(0, false);
 
-            //public static bool ignoreBlacklistedFiles = true; // Not functional, but will work. Also add a warning for "this will cause extra chaos"
+            public static bool ignoreBlacklistedFiles = true; // Not functional. Add a warning for "this will cause extra chaos"
             public static GameFiles.Quality quality = GameFiles.Quality.High;
             public static int seed = 0;
 
@@ -36,7 +38,8 @@ namespace Geometry_Dash_Randomiser {
             public static void ApplySettings(Serialised_Config config) {
                   gameDirectory = config.gameDirectory;
                   outputDirectory = config.outputDirectory;
-                  
+                  fileAutoOverwrite = config.fileAutoOverwrite;
+
                   iconTextures = config.iconTextures;
                   menuTextures = config.menuTextures;
                   shopTextures = config.shopTextures;
@@ -49,7 +52,7 @@ namespace Geometry_Dash_Randomiser {
                   effectTextures = config.effectTextures;
                   miscTextures = config.miscTextures;
 
-                  //Config.ignoreBlacklistedFiles = config.ignoreBlacklistedFiles;
+                  Config.ignoreBlacklistedFiles = config.ignoreBlacklistedFiles;
                   quality = config.quality;
                   seed = config.seed;
                   caching = config.caching;
@@ -116,7 +119,9 @@ namespace Geometry_Dash_Randomiser {
 
             public string gameDirectory { get; set; }
             public string outputDirectory { get; set; }
-            
+            public bool fileAutoOverwrite { get; set; }
+
+
             public IconRandSettings iconTextures { get; set; }
             public RandSetting menuTextures { get; set; }
             public RandSetting shopTextures { get; set; }
@@ -129,7 +134,7 @@ namespace Geometry_Dash_Randomiser {
             public RandSetting effectTextures { get; set; }
             public RandSetting miscTextures { get; set; }
 
-            //public bool ignoreBlacklistedFiles { get; set; }
+            public bool ignoreBlacklistedFiles { get; set; }
             public GameFiles.Quality quality { get; set; }
             public int seed { get; set; }
 
@@ -138,7 +143,8 @@ namespace Geometry_Dash_Randomiser {
             public Serialised_Config() {
                   this.gameDirectory = Config.gameDirectory;
                   this.outputDirectory = Config.outputDirectory;
-                  
+                  this.fileAutoOverwrite = Config.fileAutoOverwrite;
+
                   this.iconTextures = Config.iconTextures;
                   this.menuTextures = Config.menuTextures;
                   this.shopTextures = Config.shopTextures;
@@ -151,7 +157,7 @@ namespace Geometry_Dash_Randomiser {
                   this.effectTextures = Config.effectTextures;
                   this.miscTextures = Config.miscTextures;
 
-                  //this.ignoreBlacklistedFiles = Config.ignoreBlacklistedFiles;
+                  this.ignoreBlacklistedFiles = Config.ignoreBlacklistedFiles;
                   this.quality = Config.quality;
                   this.seed = Config.seed;
                   this.caching = Config.caching;
