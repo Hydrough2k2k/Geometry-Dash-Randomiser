@@ -2,7 +2,7 @@
 This application stating with version 2.0.x supports Geometry Dash 2.2
 Many new configuration settings were added, the whole app was rebuilt from the ground up
 
-# Geometry-Dash-Randomiser
+# Geometry Dash Randomiser
 An application to mess with Geometry Dash's files
 
 # With this app you can mess with game file in various ways.
