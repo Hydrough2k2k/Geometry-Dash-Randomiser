@@ -1,0 +1,9 @@
+Changelog for V2.1.2:
+
+What's new?
+      - Added a Changelog button, woohoo!
+      - Added a top sneaky button. Where could it be?
+
+Bugfixes:
+      - Fixed most of the glitched and cut off textures when remaking gamesheets
+      - Lowered memory usage of program from 1.5GB to under 1GB after randomisation

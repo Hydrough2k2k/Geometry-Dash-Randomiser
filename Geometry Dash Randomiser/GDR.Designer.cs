@@ -71,7 +71,7 @@
                   this.outputFolderTextBox = new System.Windows.Forms.TextBox();
                   this.outputFolderSelectorButton = new System.Windows.Forms.Button();
                   this.CubeTexturesCheckbox = new System.Windows.Forms.CheckBox();
-                  this.pictureBox1 = new System.Windows.Forms.PictureBox();
+                  this.Logo = new System.Windows.Forms.PictureBox();
                   this.ShipTexturesCheckbox = new System.Windows.Forms.CheckBox();
                   this.pictureBox2 = new System.Windows.Forms.PictureBox();
                   this.BallTexturesCheckbox = new System.Windows.Forms.CheckBox();
@@ -107,7 +107,7 @@
                   ((System.ComponentModel.ISupportInitialize)(this.MiscGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.EffectsGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.seedInput)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.CubeTexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.ShipTexturesGroupDisplay)).BeginInit();
@@ -673,14 +673,15 @@
                   this.CubeTexturesCheckbox.UseVisualStyleBackColor = true;
                   this.CubeTexturesCheckbox.Click += new System.EventHandler(this.CubeTexturesEnabledChanged);
                   // 
-                  // pictureBox1
+                  // Logo
                   // 
-                  this.pictureBox1.Image = global::Geometry_Dash_Randomiser.Properties.Resources.GDR_Logo_60px;
-                  this.pictureBox1.Location = new System.Drawing.Point(8, 8);
-                  this.pictureBox1.Name = "pictureBox1";
-                  this.pictureBox1.Size = new System.Drawing.Size(60, 60);
-                  this.pictureBox1.TabIndex = 63;
-                  this.pictureBox1.TabStop = false;
+                  this.Logo.Image = global::Geometry_Dash_Randomiser.Properties.Resources.GDR_Logo_60px;
+                  this.Logo.Location = new System.Drawing.Point(8, 8);
+                  this.Logo.Name = "Logo";
+                  this.Logo.Size = new System.Drawing.Size(60, 60);
+                  this.Logo.TabIndex = 63;
+                  this.Logo.TabStop = false;
+                  this.Logo.Click += new System.EventHandler(this.Logo_Click);
                   // 
                   // ShipTexturesCheckbox
                   // 
@@ -1015,7 +1016,7 @@
                   this.Controls.Add(this.pictureBox2);
                   this.Controls.Add(this.ShipTexturesCheckbox);
                   this.Controls.Add(this.CubeTexturesCheckbox);
-                  this.Controls.Add(this.pictureBox1);
+                  this.Controls.Add(this.Logo);
                   this.Controls.Add(this.outputFolderSelectorButton);
                   this.Controls.Add(this.outputFolderTextBox);
                   this.Controls.Add(this.label6);
@@ -1072,7 +1073,7 @@
                   ((System.ComponentModel.ISupportInitialize)(this.MiscGroupDisplay)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.EffectsGroupDisplay)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.seedInput)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.CubeTexturesGroupDisplay)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.ShipTexturesGroupDisplay)).EndInit();
@@ -1133,7 +1134,7 @@
             private System.Windows.Forms.Label label6;
             private System.Windows.Forms.TextBox outputFolderTextBox;
             private System.Windows.Forms.Button outputFolderSelectorButton;
-            private System.Windows.Forms.PictureBox pictureBox1;
+            private System.Windows.Forms.PictureBox Logo;
             private System.Windows.Forms.CheckBox CubeTexturesCheckbox;
             private System.Windows.Forms.CheckBox ShipTexturesCheckbox;
             private System.Windows.Forms.PictureBox pictureBox2;

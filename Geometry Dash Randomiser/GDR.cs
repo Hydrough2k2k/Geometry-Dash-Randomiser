@@ -511,14 +511,15 @@ namespace Geometry_Dash_Randomiser {
 
             private void ChangelogButton_Click(object sender, EventArgs e) {
 
-                  // Initializes the variables to pass to the MessageBox.Show method.
                   const string caption = "Changelog v2.1.2";
                   string[] message = new string[] {
                         "What's new?",
-                        " - Added a Changelog button, woohoo!\n",
+                        " - Added a Changelog button, woohoo!",
+                        " - Added a top sneaky button. Where could it be?\n",
 
                         "Bugfixes:",
                         " - Fixed most of the glitched and cut off textures when remaking gamesheets",
+                        " - Lowered memory usage of program from 1.5GB to under 1GB after randomisation"
                   };
 
                   MessageBoxButtons buttons = MessageBoxButtons.OK;
@@ -534,7 +535,6 @@ namespace Geometry_Dash_Randomiser {
 
             private void groupInfoHelpButton_Click(object sender, EventArgs e) {
 
-                  // Initializes the variables to pass to the MessageBox.Show method.
                   const string caption = "Texture Group Help";
                   string[] message = {
                         "You can add texture groups to randomisation groups via the number boxes.",
@@ -543,6 +543,35 @@ namespace Geometry_Dash_Randomiser {
                         "Some elements from the menu will appear in the editor and vica-versa.\n",
                         "If you add a texture group to group 0, they will not be mixed together, but rather each group will be shuffled separately.\n",
                         "If you add everything to group 1, the game will become very chaotic :)"
+                  };
+
+                  MessageBoxButtons buttons = MessageBoxButtons.OK;
+                  DialogResult result;
+
+                  // Displays the MessageBox.
+                  result = MessageBox.Show(string.Join("\n", message), caption, buttons);
+                  if (result == System.Windows.Forms.DialogResult.Yes) {
+                        // Closes the parent form.
+                        this.Close();
+                  }
+            }
+
+            private void Logo_Click(object sender, EventArgs e) {
+
+                  const string caption = "About this app";
+                  string[] message = {
+                        "You found a sneaky button :)\n",
+
+                        "This app (and it's many horrible past variants) were born from passion.",
+                        "This version of GDR is compatible with Geometry Dash version 2.207\n",
+
+                        "Developer: Hydrough",
+                        "Logo created by: Hydrough",
+                        "Contact me:",
+                        " - Discord: hydrough_7165",
+                        " - GitHub: https://github.com/Hydrough2k2k\n",
+
+                        "Special thanks to Danny for helping keep my sanity in tact while working on this project!"
                   };
 
                   MessageBoxButtons buttons = MessageBoxButtons.OK;
