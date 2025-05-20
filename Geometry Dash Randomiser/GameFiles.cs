@@ -470,8 +470,19 @@ namespace Geometry_Dash_Randomiser {
                         extractSprites(ref sprites, path, gamesheet);
 
                   } else {
-                        extractSprites(ref sprites, path, gamesheet.Subdivide(subdivideSize), subdivideSize);
+                        Bitmap[,] submaps = gamesheet.Subdivide(subdivideSize);
+
+                        extractSprites(ref sprites, path, submaps, subdivideSize);
+
+                        // Free memory. Might not be worth doing, but who knows
+                        for (int i = 0; i < submaps.GetLength(0); i++) {
+                              for (int j = 0; j < submaps.GetLength(1); j++) {
+                                    submaps[i, j].Dispose();
+                              }
+                        }
                   }
+                  // Free memory
+                  gamesheet.Dispose();
 
                   return sprites;
             }
@@ -669,8 +680,10 @@ namespace Geometry_Dash_Randomiser {
                         bool isIconsFile = sprites.Any(s => s.type == Sprite.Type.Icon);
                         string outputFolder = isIconsFile ? iconsOutputFolder : resourcesOutputFolder;
 
-                        finalGameSheet.Save(Path.Combine(outputFolder, gameSheetFiles[i] + ".png"));
                         File.WriteAllLines(Path.Combine(outputFolder, gameSheetFiles[i] + ".plist"), plistFile);
+                        finalGameSheet.Save(Path.Combine(outputFolder, gameSheetFiles[i] + ".png"));
+                        // Get rid of the bitmap once it is saved
+                        finalGameSheet.Dispose();
 
                         updateFileProgressEvent?.Invoke(this, 100);
                   }
