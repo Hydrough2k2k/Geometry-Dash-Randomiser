@@ -1,5 +1,4 @@
-﻿using Microsoft.WindowsAPICodePack.Sensors;
-using System;
+﻿using System;
 using System.IO;
 using System.Text.Json;
 
@@ -23,7 +22,7 @@ namespace Geometry_Dash_Randomiser {
             public static RandSetting editorTextures = new RandSetting(0, false);
             public static RandSetting tileTextures = new RandSetting(3, true);
             public static RandSetting portalTextures = new RandSetting(0, false);
-            public static RandSetting orbTextures = new RandSetting(0, false);
+            public static RandSetting orbTextures = new RandSetting(0, true);
             public static RandSetting padTextures = new RandSetting(0, false);
             public static RandSetting particleTextures = new RandSetting(4, true);
             public static RandSetting effectTextures = new RandSetting(0, false);

@@ -163,6 +163,7 @@ namespace Geometry_Dash_Randomiser {
                         newSprite.spriteSize = sprites[randomInt].spriteSize;
                         newSprite.spriteSourceSize = sprites[randomInt].spriteSourceSize;
                         newSprite.textureRect = sprites[randomInt].textureRect;
+                        newSprite.cropRect = sprites[randomInt].cropRect;
                         newSprite.textureRotated = sprites[randomInt].textureRotated;
                         newSprite.texture = (Bitmap)sprites[randomInt].texture.Clone();
 

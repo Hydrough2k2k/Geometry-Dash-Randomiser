@@ -1,13 +1,11 @@
 ﻿using RectpackSharp;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace Geometry_Dash_Randomiser {
 
       internal static class GameSheet {
-
-            public delegate void ChangeDisplayedText(object sender, string s);
-            public static event ChangeDisplayedText changeDisplayedTextEvent;
 
             public static Bitmap Assemble(Sprite[] sprites, PackingRectangle[] rects, PackingRectangle bounds) {
 

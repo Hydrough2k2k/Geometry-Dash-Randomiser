@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.Design;
-using System.Drawing;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Drawing;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -20,13 +18,14 @@ namespace Geometry_Dash_Randomiser {
             public Point spriteSize { get; set; } = new Point();
             public Point spriteSourceSize { get; set; } = new Point();
             public Rectangle textureRect { get; set; } = new Rectangle();
+            public Rectangle cropRect { get; set; } = new Rectangle();
             public bool textureRotated { get; set; } = false;
             public Type type { get; set; } = Sprite.Type.Unknown;
 
             // This should only be used and accessed if type == Sprite.Type.Icon, and check if it is not invalid
             public IconType iconType { get; set; } = Sprite.IconType.Invalid;
 
-            // The cropper bitmap for the sprite
+            // The cropped bitmap for the sprite
             public Bitmap texture = null;
 
             public Sprite() { }

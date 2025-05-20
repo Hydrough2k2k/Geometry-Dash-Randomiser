@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -510,10 +509,33 @@ namespace Geometry_Dash_Randomiser {
                   this.qualitySelector.Enabled = enabled;
             }
 
+            private void ChangelogButton_Click(object sender, EventArgs e) {
+
+                  // Initializes the variables to pass to the MessageBox.Show method.
+                  const string caption = "Changelog v2.1.2";
+                  string[] message = new string[] {
+                        "What's new?",
+                        " - Added a Changelog button, woohoo!\n",
+
+                        "Bugfixes:",
+                        " - Fixed most of the glitched and cut off textures when remaking gamesheets",
+                  };
+
+                  MessageBoxButtons buttons = MessageBoxButtons.OK;
+                  DialogResult result;
+
+                  // Displays the MessageBox.
+                  result = MessageBox.Show(string.Join("\n", message), caption, buttons);
+                  if (result == System.Windows.Forms.DialogResult.Yes) {
+                        // Closes the parent form.
+                        this.Close();
+                  }
+            }
+
             private void groupInfoHelpButton_Click(object sender, EventArgs e) {
 
                   // Initializes the variables to pass to the MessageBox.Show method.
-                  string caption = "Texture Group Help";
+                  const string caption = "Texture Group Help";
                   string[] message = {
                         "You can add texture groups to randomisation groups via the number boxes.",
                         "If you have more than 1 texture group in a group, their textures will be mixed together.\n",
@@ -552,8 +574,6 @@ namespace Geometry_Dash_Randomiser {
                   GameFiles.updateFileProgressEvent += (eventSender, args) => { this.fileProgressBar.Value = args; };
                   GameFiles.updateTotalProgressEvent += (eventSender, args) => { this.allFilesProgressBar.Value = args; };
 
-                  GameSheet.changeDisplayedTextEvent += (eventSender, args) => { this.infoDisplay.Text = args; };
-
                   // Create a new random seed if the input value is 0
                   int seed = Config.seed;
                   if (seed == 0) {
@@ -572,8 +592,6 @@ namespace Geometry_Dash_Randomiser {
                   GameFiles.changeDisplayedTextEvent -= (eventSender, args) => { this.infoDisplay.Text = args; };
                   GameFiles.updateFileProgressEvent -= (eventSender, args) => { this.fileProgressBar.Value = args; };
                   GameFiles.updateTotalProgressEvent -= (eventSender, args) => { this.allFilesProgressBar.Value = args; };
-
-                  GameSheet.changeDisplayedTextEvent -= (eventSender, args) => { this.infoDisplay.Text = args; };
 
                   SetUI_EnabledState(true);
 

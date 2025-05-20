@@ -223,14 +223,13 @@ namespace Geometry_Dash_Randomiser {
 
                         if (sprites[i].textureRotated == true) {
                               data[13] +=  "<true/>";
-                              Point point = new Point((int)newRects[i].X, (int)newRects[i].Y);
-                              Size size = new Size((int)newRects[i].Height, (int)newRects[i].Width);
-
-                              data[11] += new Rectangle(point, size).ConvertToString();
+                              Rectangle rect = new Rectangle((int)newRects[i].X + 1, (int)newRects[i].Y + 1, sprites[i].textureRect.Height, sprites[i].textureRect.Width);
+                              data[11] += rect.ConvertToString();
 
                         } else {
                               data[13] += "<false/>";
-                              data[11] += newRects[i].ConvertToString();
+                              Rectangle rect = new Rectangle((int)newRects[i].X + 1, (int)newRects[i].Y + 1, sprites[i].textureRect.Width, sprites[i].textureRect.Height);
+                              data[11] += rect.ConvertToString();
                         }
                         ret.AddRange(data);
                   }
@@ -259,15 +258,13 @@ namespace Geometry_Dash_Randomiser {
 
                         if (sprites[i].textureRotated == true) {
                               data[13] += "<true/>";
-                              Point point = new Point(sprites[i].textureRect.X, sprites[i].textureRect.Y);
-                              // Flip width and height if texture is rotated
-                              Size size = new Size(sprites[i].textureRect.Height, sprites[i].textureRect.Width);
-
-                              data[11] += new Rectangle(point, size).ConvertToString();
+                              Rectangle rect = new Rectangle(sprites[i].textureRect.X, sprites[i].textureRect.Y, sprites[i].textureRect.Height, sprites[i].textureRect.Width);
+                              data[11] += rect.ConvertToString();
 
                         } else {
                               data[13] += "<false/>";
-                              data[11] += sprites[i].textureRect.ConvertToString();
+                              Rectangle rect = new Rectangle(sprites[i].textureRect.X, sprites[i].textureRect.Y, sprites[i].textureRect.Width, sprites[i].textureRect.Height);
+                              data[11] += rect.ConvertToString();
                         }
                         ret.AddRange(data);
                   }

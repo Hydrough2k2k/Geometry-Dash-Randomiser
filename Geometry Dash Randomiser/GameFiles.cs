@@ -28,12 +28,12 @@ namespace Geometry_Dash_Randomiser {
 
             public List<Sprite> spriteList = new List<Sprite>();
 
-            static readonly string cachedFilesFolderName = "Cached Game Files";
-            static readonly string resourcesFolderName = "Resources";
-            static readonly string iconsFolderName = "icons";
+            const string cachedFilesFolderName = "Cached Game Files";
+            const string resourcesFolderName = "Resources";
+            const string iconsFolderName = "icons";
 
-            static readonly string randomisedFiles = "Randomised Files";
-            static readonly string unalteredFiles = "Unaltered Files";
+            const string randomisedFiles = "Randomised Files";
+            const string unalteredFiles = "Unaltered Files";
 
             public const string lowQualityName = "Low Quality";
             public const string mediumQualityName = "Medium Quality";
@@ -98,6 +98,14 @@ namespace Geometry_Dash_Randomiser {
                   "DungeonSheet",
                   "PlayerExplosion"
             };
+
+            // Will replace "ReadyState"
+            public enum NewReadyState {
+                  Ready = 1,
+                  GameFolderOrExeNotFound = 2,
+                  NoSettingsEnabled = 4,
+                  CacheIsMissing = 8,
+            }
 
             public enum ReadyState {
                   Unknown,
@@ -214,6 +222,60 @@ namespace Geometry_Dash_Randomiser {
             // Very simple right now, will be more complex when new features require complexity
             //bool verifyCacheIntegrity() {
             //      return File.Exists(Path.Combine(currentCachedQualityFolder, localCachedTexturesJson));
+            //}
+
+            //public void CacheGameFiles() {
+            //      if (Config.caching == false)
+            //            return;
+
+            //      Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, resourcesFolderName));
+            //      Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, iconsFolderName));
+
+            //      updateEvent?.Invoke(this, new ProgressUpdate("", 0, Stage.Caching));
+            //      changeDisplayedTextEvent?.Invoke(this, "Caching files...");
+
+            //      // Create all folders for all icon gamesheets
+            //      string[] iconFolders = spriteList
+            //            .Where(s => s.type == Sprite.Type.Icon)
+            //            .Select(s => s.sourceFile)
+            //            .Distinct()
+            //            .ToArray();
+
+            //      string[] resourceFolders = spriteList
+            //            .Where(s => s.type != Sprite.Type.Icon)
+            //            .Select(s => s.sourceFile)
+            //            .Distinct()
+            //            .ToArray();
+
+            //      changeDisplayedTextEvent?.Invoke(this, "Creating folders for cached files...");
+
+            //      for (int i = 0; i < iconFolders.Length; i++)
+            //            Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, iconsFolderName, iconFolders[i]));
+
+            //      for (int i = 0; i < resourceFolders.Length; i++)
+            //            Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, resourcesFolderName, resourceFolders[i]));
+
+            //      changeDisplayedTextEvent?.Invoke(this, "Backing up files...");
+
+            //      for (int i = 0; i < spriteList.Count; i++) {
+
+            //            int progressPercent = (int)Math.Ceiling((float)i / spriteList.Count * 100);
+            //            updateTotalProgressEvent?.Invoke(this, progressPercent);
+
+            //            string fileName = string.Empty;
+            //            if (spriteList[i].type == Sprite.Type.Icon) {
+            //                  fileName = Path.Combine(currentCachedQualityFolder, iconsFolderName, spriteList[i].sourceFile, spriteList[i].spriteName);
+            //            } else {
+            //                  fileName = Path.Combine(currentCachedQualityFolder, resourcesFolderName, spriteList[i].sourceFile, spriteList[i].spriteName);
+            //            }
+            //            spriteList[i].texture.Save(fileName);
+            //      }
+
+            //      JsonSerializerOptions options = new JsonSerializerOptions();
+            //      options.WriteIndented = true;
+            //      string outStream = JsonSerializer.Serialize(spriteList, options);
+
+            //      File.WriteAllText(Path.Combine(currentCachedQualityFolder, localCachedTexturesJson), outStream);
             //}
 
             public void StartRandomising(int seed) {
@@ -361,60 +423,6 @@ namespace Geometry_Dash_Randomiser {
                   return Directory.GetFiles(gameResourcesFolder).filterByQuality(Config.quality).blacklistFilter();
             }
 
-            //public void CacheGameFiles() {
-            //      if (Config.caching == false)
-            //            return;
-
-            //      Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, resourcesFolderName));
-            //      Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, iconsFolderName));
-
-            //      updateEvent?.Invoke(this, new ProgressUpdate("", 0, Stage.Caching));
-            //      changeDisplayedTextEvent?.Invoke(this, "Caching files...");
-
-            //      // Create all folders for all icon gamesheets
-            //      string[] iconFolders = spriteList
-            //            .Where(s => s.type == Sprite.Type.Icon)
-            //            .Select(s => s.sourceFile)
-            //            .Distinct()
-            //            .ToArray();
-
-            //      string[] resourceFolders = spriteList
-            //            .Where(s => s.type != Sprite.Type.Icon)
-            //            .Select(s => s.sourceFile)
-            //            .Distinct()
-            //            .ToArray();
-
-            //      changeDisplayedTextEvent?.Invoke(this, "Creating folders for cached files...");
-
-            //      for (int i = 0; i < iconFolders.Length; i++)
-            //            Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, iconsFolderName, iconFolders[i]));
-
-            //      for (int i = 0; i < resourceFolders.Length; i++)
-            //            Directory.CreateDirectory(Path.Combine(currentCachedQualityFolder, resourcesFolderName, resourceFolders[i]));
-
-            //      changeDisplayedTextEvent?.Invoke(this, "Backing up files...");
-
-            //      for (int i = 0; i < spriteList.Count; i++) {
-
-            //            int progressPercent = (int)Math.Ceiling((float)i / spriteList.Count * 100);
-            //            updateTotalProgressEvent?.Invoke(this, progressPercent);
-
-            //            string fileName = string.Empty;
-            //            if (spriteList[i].type == Sprite.Type.Icon) {
-            //                  fileName = Path.Combine(currentCachedQualityFolder, iconsFolderName, spriteList[i].sourceFile, spriteList[i].spriteName);
-            //            } else {
-            //                  fileName = Path.Combine(currentCachedQualityFolder, resourcesFolderName, spriteList[i].sourceFile, spriteList[i].spriteName);
-            //            }
-            //            spriteList[i].texture.Save(fileName);
-            //      }
-
-            //      JsonSerializerOptions options = new JsonSerializerOptions();
-            //      options.WriteIndented = true;
-            //      string outStream = JsonSerializer.Serialize(spriteList, options);
-
-            //      File.WriteAllText(Path.Combine(currentCachedQualityFolder, localCachedTexturesJson), outStream);
-            //}
-
             public List<Sprite> getAllSpritesOfType(Sprite.Type type) {
                   return spriteList.Where(s => s.type == type).ToList();
             }
@@ -436,18 +444,33 @@ namespace Geometry_Dash_Randomiser {
 
                   List<Sprite> sprites = Plist.BulkDeserialise(data);
 
+                  string fileName = Path.GetFileName(path).RemoveExtension();
+
+                  for (int i = 0; i < sprites.Count; i++) {
+                        sprites[i].sourceFile = fileName;
+                        sprites[i].AssignType();
+
+                        sprites[i].cropRect = sprites[i].textureRect;
+                  }
+
+                  if (fileName.StartsWith("GJ_GameSheet03") == false &&
+                        fileName.StartsWith("PixelSheet_01") == false) {
+
+                        for (int i = 0; i < sprites.Count; i++) {
+                              sprites[i].cropRect = new Rectangle(
+                                    sprites[i].textureRect.X - 1, sprites[i].textureRect.Y - 1,
+                                    sprites[i].textureRect.Width + 2, sprites[i].textureRect.Height + 2);
+                        }
+                  }
+
                   int subdivideSize = 1000;
 
-                  // If the gamesheet is over a certain size, slice it to make the unpacking faster
-                  if (gamesheet.Width < (subdivideSize * 1.5f) || gamesheet.Height < (subdivideSize * 1.5f)) {
+                  //If the gamesheet is over a certain size, slice it to make the unpacking faster
+                  if (gamesheet.Width < subdivideSize || gamesheet.Height < subdivideSize) {
                         extractSprites(ref sprites, path, gamesheet);
 
                   } else {
                         extractSprites(ref sprites, path, gamesheet.Subdivide(subdivideSize), subdivideSize);
-                  }
-
-                  for (int i = 0; i < sprites.Count; i++) {
-                        sprites[i].AssignType();
                   }
 
                   return sprites;
@@ -464,8 +487,7 @@ namespace Geometry_Dash_Randomiser {
                               secondaryUpdateTimer.Restart();
                         }
 
-                        sprites[i].sourceFile = Path.GetFileName(path).RemoveExtension();
-                        sprites[i].texture = gamesheet.cropImage(sprites[i].textureRect);
+                        sprites[i].texture = gamesheet.cropImage(sprites[i].cropRect);
                   }
                   return sprites;
             }
@@ -483,26 +505,28 @@ namespace Geometry_Dash_Randomiser {
                               secondaryUpdateTimer.Restart();
                         }
 
-                        sprites[i].sourceFile = Path.GetFileName(path).RemoveExtension();
-
-                        int column = sprites[i].textureRect.X / subdivideSize;
-                        int row = sprites[i].textureRect.Y / subdivideSize;
+                        Rectangle cropRect = sprites[i].cropRect;
 
                         // Modulo is important to make sure the coordinates are inside of the subsheet
-                        Point point = new Point(sprites[i].textureRect.X % subdivideSize, sprites[i].textureRect.Y % subdivideSize);
-                        Size size = new Size(sprites[i].textureRect.Width, sprites[i].textureRect.Height);
-
-                        Rectangle cropRect = new Rectangle(point, size);
+                        Point point = new Point(cropRect.X % subdivideSize, cropRect.Y % subdivideSize);
+                        Size size = new Size(cropRect.Width, cropRect.Height);
 
                         Bitmap texture = new Bitmap(sprites[i].spriteSize.X, sprites[i].spriteSize.Y);
 
+                        // Check if the are you need to crop fits into a subsheet on both X and Y axes
                         if (point.X + size.Width <= subdivideSize && point.Y + size.Height <= subdivideSize) {
+                              // Get what subsheet you need to crop the image from
+                              int column = cropRect.X / subdivideSize;
+                              int row = cropRect.Y / subdivideSize;
+
+                              cropRect = new Rectangle(point, size);
+
                               // Crop the image from a subsheet, since it's entirely within it
                               sprites[i].texture = subsheets[column, row].cropImage(cropRect); // Crashes sometimes, debugging necessary
 
                         } else {
                               // Cropping from the subsheets. Way faster than copying from the big gamesheet
-                              sprites[i].texture = getSpriteFromMultipleSubsheets(sprites[i].textureRect, subsheets, subdivideSize);
+                              sprites[i].texture = getSpriteFromMultipleSubsheets(cropRect, subsheets, subdivideSize);
                         }
                   }
                   updateFileProgressEvent?.Invoke(this, 100);
@@ -621,21 +645,26 @@ namespace Geometry_Dash_Randomiser {
                         PackingRectangle[] rects = new PackingRectangle[sprites.Length];
 
                         // Populate rects array with sprite data
-                        // Add 2 to both width and height to give 1 pixel on all 4 sides of sprites to help avoid glitches
                         for (int j = 0; j < sprites.Length; j++) {
-                              rects[j] = new PackingRectangle(0, 0, (uint)sprites[j].textureRect.Width + 2, (uint)sprites[j].textureRect.Height, j + 2);
+                              rects[j] = new PackingRectangle(0, 0, (uint)sprites[j].cropRect.Width, (uint)sprites[j].cropRect.Height, j);
                         }
 
                         getPackingRects(ref rects, out PackingRectangle bounds);
 
                         for (int j = 0; j < sprites.Length; j++) {
-                              sprites[j].textureRect = new Rectangle((int)rects[j].X + 1, (int)rects[j].Y + 1, (int)rects[j].Width - 2, (int)rects[j].Height - 2);
+                              // If the texture is offset by 1 pixel on either side at least
+                              if (sprites[j].textureRect.X != sprites[j].cropRect.X || sprites[j].textureRect.Y != sprites[j].cropRect.Y) {
+                                    sprites[j].textureRect = new Rectangle((int)rects[j].X + 1, (int)rects[j].Y + 1, (int)rects[j].Width, (int)rects[j].Height);
+
+                              } else {
+                                    sprites[j].textureRect = new Rectangle((int)rects[j].X, (int)rects[j].Y, (int)rects[j].Width, (int)rects[j].Height);
+                              }  
                         }
 
                         Bitmap finalGameSheet = GameSheet.Assemble(sprites, rects, bounds);
                         updateFileProgressEvent?.Invoke(this, 50);
 
-                        string[] plistFile = Plist.Serialise(sprites, rects, gameSheetFiles[i], new Size(finalGameSheet.Width, finalGameSheet.Height));
+                        string[] plistFile = Plist.Serialise(sprites, gameSheetFiles[i], new Size(finalGameSheet.Width, finalGameSheet.Height));
 
                         bool isIconsFile = sprites.Any(s => s.type == Sprite.Type.Icon);
                         string outputFolder = isIconsFile ? iconsOutputFolder : resourcesOutputFolder;

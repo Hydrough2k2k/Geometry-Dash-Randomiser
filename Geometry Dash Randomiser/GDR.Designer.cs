@@ -60,6 +60,7 @@
                   this.label4 = new System.Windows.Forms.Label();
                   this.label5 = new System.Windows.Forms.Label();
                   this.checkBox1 = new System.Windows.Forms.CheckBox();
+                  this.checkBox2 = new System.Windows.Forms.CheckBox();
                   this.allFilesProgressBar = new System.Windows.Forms.ProgressBar();
                   this.fileProgressBar = new System.Windows.Forms.ProgressBar();
                   this.seedInput = new System.Windows.Forms.NumericUpDown();
@@ -94,7 +95,7 @@
                   this.label8 = new System.Windows.Forms.Label();
                   this.PadsGroupDisplay = new System.Windows.Forms.NumericUpDown();
                   this.PadsCheckbox = new System.Windows.Forms.CheckBox();
-                  this.checkBox2 = new System.Windows.Forms.CheckBox();
+                  this.ChangelogButton = new System.Windows.Forms.Button();
                   ((System.ComponentModel.ISupportInitialize)(this.IconTexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.MenuTexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.EditorTexturesGroupDisplay)).BeginInit();
@@ -419,9 +420,9 @@
                   this.label2.Font = new System.Drawing.Font("High Tower Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.label2.Location = new System.Drawing.Point(802, 45);
                   this.label2.Name = "label2";
-                  this.label2.Size = new System.Drawing.Size(55, 22);
+                  this.label2.Size = new System.Drawing.Size(57, 22);
                   this.label2.TabIndex = 42;
-                  this.label2.Text = "V2.1.1";
+                  this.label2.Text = "V2.1.2";
                   // 
                   // gameFolderTextBox
                   // 
@@ -444,9 +445,9 @@
                   // 
                   // gameFolderSelectorButton
                   // 
-                  this.gameFolderSelectorButton.Location = new System.Drawing.Point(971, 135);
+                  this.gameFolderSelectorButton.Location = new System.Drawing.Point(972, 134);
                   this.gameFolderSelectorButton.Name = "gameFolderSelectorButton";
-                  this.gameFolderSelectorButton.Size = new System.Drawing.Size(25, 25);
+                  this.gameFolderSelectorButton.Size = new System.Drawing.Size(27, 27);
                   this.gameFolderSelectorButton.TabIndex = 45;
                   this.gameFolderSelectorButton.Text = "...";
                   this.gameFolderSelectorButton.UseVisualStyleBackColor = true;
@@ -545,6 +546,22 @@
                   this.checkBox1.UseVisualStyleBackColor = true;
                   this.checkBox1.Visible = false;
                   // 
+                  // checkBox2
+                  // 
+                  this.checkBox2.AutoSize = true;
+                  this.checkBox2.Enabled = false;
+                  this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.checkBox2.Location = new System.Drawing.Point(687, 338);
+                  this.checkBox2.Name = "checkBox2";
+                  this.checkBox2.Size = new System.Drawing.Size(191, 24);
+                  this.checkBox2.TabIndex = 90;
+                  this.checkBox2.Text = "Ignore Blacklisted Files";
+                  this.toolTip.SetToolTip(this.checkBox2, "(Not available currently) Speeds up the randomisation on every run, but does take" +
+        " 50-100MB of space up on your disk. Especially useful for Medium and High Qualit" +
+        "y");
+                  this.checkBox2.UseVisualStyleBackColor = true;
+                  this.checkBox2.Visible = false;
+                  // 
                   // allFilesProgressBar
                   // 
                   this.allFilesProgressBar.Location = new System.Drawing.Point(12, 492);
@@ -596,9 +613,9 @@
                   // randomSeedButton
                   // 
                   this.randomSeedButton.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.randomSeedButton.Location = new System.Drawing.Point(847, 235);
+                  this.randomSeedButton.Location = new System.Drawing.Point(840, 234);
                   this.randomSeedButton.Name = "randomSeedButton";
-                  this.randomSeedButton.Size = new System.Drawing.Size(98, 25);
+                  this.randomSeedButton.Size = new System.Drawing.Size(98, 27);
                   this.randomSeedButton.TabIndex = 58;
                   this.randomSeedButton.Text = "Random Seed";
                   this.randomSeedButton.UseVisualStyleBackColor = true;
@@ -607,7 +624,7 @@
                   // groupInfoHelpButton
                   // 
                   this.groupInfoHelpButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.groupInfoHelpButton.Location = new System.Drawing.Point(315, 75);
+                  this.groupInfoHelpButton.Location = new System.Drawing.Point(313, 81);
                   this.groupInfoHelpButton.Name = "groupInfoHelpButton";
                   this.groupInfoHelpButton.Size = new System.Drawing.Size(24, 24);
                   this.groupInfoHelpButton.TabIndex = 59;
@@ -636,9 +653,9 @@
                   // 
                   // outputFolderSelectorButton
                   // 
-                  this.outputFolderSelectorButton.Location = new System.Drawing.Point(971, 184);
+                  this.outputFolderSelectorButton.Location = new System.Drawing.Point(972, 183);
                   this.outputFolderSelectorButton.Name = "outputFolderSelectorButton";
-                  this.outputFolderSelectorButton.Size = new System.Drawing.Size(25, 25);
+                  this.outputFolderSelectorButton.Size = new System.Drawing.Size(27, 27);
                   this.outputFolderSelectorButton.TabIndex = 62;
                   this.outputFolderSelectorButton.Text = "...";
                   this.outputFolderSelectorButton.UseVisualStyleBackColor = true;
@@ -899,7 +916,7 @@
                   // button1
                   // 
                   this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.button1.Location = new System.Drawing.Point(622, 75);
+                  this.button1.Location = new System.Drawing.Point(621, 81);
                   this.button1.Name = "button1";
                   this.button1.Size = new System.Drawing.Size(24, 24);
                   this.button1.TabIndex = 86;
@@ -953,21 +970,16 @@
                   this.PadsCheckbox.UseVisualStyleBackColor = true;
                   this.PadsCheckbox.Click += new System.EventHandler(this.PadsSettingChanged);
                   // 
-                  // checkBox2
+                  // ChangelogButton
                   // 
-                  this.checkBox2.AutoSize = true;
-                  this.checkBox2.Enabled = false;
-                  this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.checkBox2.Location = new System.Drawing.Point(687, 338);
-                  this.checkBox2.Name = "checkBox2";
-                  this.checkBox2.Size = new System.Drawing.Size(191, 24);
-                  this.checkBox2.TabIndex = 90;
-                  this.checkBox2.Text = "Ignore Blacklisted Files";
-                  this.toolTip.SetToolTip(this.checkBox2, "(Not available currently) Speeds up the randomisation on every run, but does take" +
-        " 50-100MB of space up on your disk. Especially useful for Medium and High Qualit" +
-        "y");
-                  this.checkBox2.UseVisualStyleBackColor = true;
-                  this.checkBox2.Visible = false;
+                  this.ChangelogButton.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.ChangelogButton.Location = new System.Drawing.Point(863, 44);
+                  this.ChangelogButton.Name = "ChangelogButton";
+                  this.ChangelogButton.Size = new System.Drawing.Size(88, 27);
+                  this.ChangelogButton.TabIndex = 91;
+                  this.ChangelogButton.Text = "Changelog";
+                  this.ChangelogButton.UseVisualStyleBackColor = true;
+                  this.ChangelogButton.Click += new System.EventHandler(this.ChangelogButton_Click);
                   // 
                   // GDR_Form
                   // 
@@ -976,6 +988,7 @@
                   this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
                   this.BackColor = System.Drawing.SystemColors.ButtonShadow;
                   this.ClientSize = new System.Drawing.Size(1008, 527);
+                  this.Controls.Add(this.ChangelogButton);
                   this.Controls.Add(this.checkBox2);
                   this.Controls.Add(this.checkBox1);
                   this.Controls.Add(this.PadsGroupDisplay);
@@ -1147,6 +1160,7 @@
             private System.Windows.Forms.CheckBox PadsCheckbox;
             private System.Windows.Forms.CheckBox checkBox1;
             private System.Windows.Forms.CheckBox checkBox2;
+            private System.Windows.Forms.Button ChangelogButton;
       }
 }
 
