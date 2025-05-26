@@ -628,10 +628,6 @@ namespace Geometry_Dash_Randomiser {
 
                   // Displays the MessageBox.
                   result = MessageBox.Show(string.Join("\n", message), caption, buttons);
-                  if (result == System.Windows.Forms.DialogResult.Yes) {
-                        // Closes the parent form.
-                        this.Close();
-                  }
             }
 
             private void groupInfoHelpButton_Click(object sender, EventArgs e) {
@@ -651,10 +647,6 @@ namespace Geometry_Dash_Randomiser {
 
                   // Displays the MessageBox.
                   result = MessageBox.Show(string.Join("\n", message), caption, buttons);
-                  if (result == System.Windows.Forms.DialogResult.Yes) {
-                        // Closes the parent form.
-                        this.Close();
-                  }
             }
 
             private void Logo_Click(object sender, EventArgs e) {
@@ -680,10 +672,6 @@ namespace Geometry_Dash_Randomiser {
 
                   // Displays the MessageBox.
                   result = MessageBox.Show(string.Join("\n", message), caption, buttons);
-                  if (result == System.Windows.Forms.DialogResult.Yes) {
-                        // Closes the parent form.
-                        this.Close();
-                  }
             }
 
             private async void startButton_Click(object sender, EventArgs e) {
