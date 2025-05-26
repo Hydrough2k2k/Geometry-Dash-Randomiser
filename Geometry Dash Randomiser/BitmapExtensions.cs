@@ -2,8 +2,6 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using static Geometry_Dash_Randomiser.GameFiles;
-using System.IO;
 
 #pragma warning disable
 

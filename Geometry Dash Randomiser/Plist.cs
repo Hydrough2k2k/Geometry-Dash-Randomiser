@@ -60,8 +60,6 @@ namespace Geometry_Dash_Randomiser {
                   "</plist>"
             };
 
-            internal enum dataType { Unknown, Key, String, Bool }
-
             public static List<Sprite> BulkDeserialise(List<string> source) {
                   return BulkDeserialise(source);
             }
@@ -120,21 +118,17 @@ namespace Geometry_Dash_Randomiser {
                   for (int i = 0; i < source.Length; i++) {
                         string line = source[i].Trim();
 
-                        dataType type = dataType.Unknown;
-                        if (line.StartsWith("<key>")) {
+                        if (line.StartsWith("<key>")) { 
                               line = line.GetKey();
-                              type = dataType.Key;
-                        }
 
-                        if (type == dataType.Key) {
                               if (line.StartsWith("spriteOffset")) {
-                                    sprite.spriteOffset = PointExtension.Parse(source[i + 1].GetString());
+                                    sprite.spriteOffset = Parse.Point(source[i + 1].GetString());
 
                               } else if (line.StartsWith("spriteSize")) {
-                                    sprite.spriteSize = PointExtension.Parse(source[i + 1].GetString());
+                                    sprite.spriteSize = Parse.Size(source[i + 1].GetString());
 
                               } else if (line.StartsWith("spriteSourceSize")) {
-                                    sprite.spriteSourceSize = PointExtension.Parse(source[i + 1].GetString());
+                                    sprite.spriteSourceSize = Parse.Size(source[i + 1].GetString());
 
                               } else if (line.StartsWith("textureRect")) {
                                     string data = source[i + 1].GetString();

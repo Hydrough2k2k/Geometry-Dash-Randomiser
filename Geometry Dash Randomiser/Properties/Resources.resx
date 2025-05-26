@@ -121,4 +121,10 @@
   <data name="GDR Logo 60px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\GDR Logo 60px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ConnectorBeamBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ConnectorBeamBlack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ConnectorBeamWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ConnectorBeamWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

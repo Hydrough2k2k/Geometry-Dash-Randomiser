@@ -16,7 +16,7 @@ namespace Geometry_Dash_Randomiser {
 
             public enum Quality { High, Medium, Low }
 
-            public enum Stage { BackingUp, Reading, Unpacking, Caching, Randomising, Repackaging }
+            public enum Stage { Idle, BackingUp, Reading, Unpacking, Caching, Randomising, Repackaging }
 
             public GameFiles(GDR_Form creator) {
                   GDR = creator;
@@ -299,8 +299,6 @@ namespace Geometry_Dash_Randomiser {
             }
 
             void backupUnalteredFiles() {
-                  //debugLog.Add(Extensions.GetUtcDateTime());
-
                   int matches = 0;
                   string[] iconsFileNames = getAllIconsGameFilesFromGameDir();
                   
@@ -470,16 +468,7 @@ namespace Geometry_Dash_Randomiser {
                         extractSprites(ref sprites, path, gamesheet);
 
                   } else {
-                        Bitmap[,] submaps = gamesheet.Subdivide(subdivideSize);
-
-                        extractSprites(ref sprites, path, submaps, subdivideSize);
-
-                        // Free memory. Might not be worth doing, but who knows
-                        for (int i = 0; i < submaps.GetLength(0); i++) {
-                              for (int j = 0; j < submaps.GetLength(1); j++) {
-                                    submaps[i, j].Dispose();
-                              }
-                        }
+                        extractSprites(ref sprites, path, gamesheet.Subdivide(subdivideSize), subdivideSize);
                   }
                   // Free memory
                   gamesheet.Dispose();
@@ -505,9 +494,6 @@ namespace Geometry_Dash_Randomiser {
 
             List<Sprite> extractSprites(ref List<Sprite> sprites, string path, Bitmap[,] subsheets, int subdivideSize) {
 
-                  int horizontalSlices = subsheets.GetLength(0);
-                  int verticalSlices = subsheets.GetLength(1);
-
                   for (int i = 0; i < sprites.Count; i++) {
                         if (secondaryUpdateTimer.ElapsedMilliseconds > secondaryPrintDelta) {
                               int progressPercent = (int)Math.Ceiling((float)i / sprites.Count * 100);
@@ -521,8 +507,6 @@ namespace Geometry_Dash_Randomiser {
                         // Modulo is important to make sure the coordinates are inside of the subsheet
                         Point point = new Point(cropRect.X % subdivideSize, cropRect.Y % subdivideSize);
                         Size size = new Size(cropRect.Width, cropRect.Height);
-
-                        Bitmap texture = new Bitmap(sprites[i].spriteSize.X, sprites[i].spriteSize.Y);
 
                         // Check if the are you need to crop fits into a subsheet on both X and Y axes
                         if (point.X + size.Width <= subdivideSize && point.Y + size.Height <= subdivideSize) {
@@ -571,6 +555,7 @@ namespace Geometry_Dash_Randomiser {
                   int[] columnWidths = Enumerable.Repeat(subdivideSize, columns).ToArray();
                   int[] rowHeights = Enumerable.Repeat(subdivideSize, rows).ToArray();
 
+                  // Set the first and last column widths separately
                   if (columnWidths.Length > 1) {
                         columnWidths[0] = subdivideSize - (imageStartX % subdivideSize);
                         columnWidths[columns - 1] = imageEndX % subdivideSize;
@@ -583,6 +568,7 @@ namespace Geometry_Dash_Randomiser {
                         columnWidths[0] = cropRect.Width;
                   }
 
+                  // Set the first and last row heights separately
                   if (rowHeights.Length > 1) {
                         rowHeights[0] = subdivideSize - (imageStartY % subdivideSize);
                         rowHeights[rows - 1] = imageEndY % subdivideSize;
@@ -622,6 +608,7 @@ namespace Geometry_Dash_Randomiser {
                   Randomiser random = new Randomiser(this, seed);
                   List<Sprite> randomisedSprites = random.RandomiseData();
 
+                  // Get all distint source files from all the sprites
                   string[] gameSheetFiles = randomisedSprites
                         .Select(s => s.sourceFile)
                         .Distinct()
@@ -647,6 +634,7 @@ namespace Geometry_Dash_Randomiser {
                               mainUpdateTimer.Restart();
                         }
 
+                        // Get all sprites that go into this file
                         Sprite[] sprites = randomisedSprites
                               .Where(s => s.sourceFile == gameSheetFiles[i])
                               .ToArray();
@@ -657,26 +645,32 @@ namespace Geometry_Dash_Randomiser {
 
                         // Populate rects array with sprite data
                         for (int j = 0; j < sprites.Length; j++) {
-                              rects[j] = new PackingRectangle(0, 0, (uint)sprites[j].cropRect.Width, (uint)sprites[j].cropRect.Height, j);
+                              // Add 1 pixel on every side of all sprites to not make them flow into each other
+                              rects[j] = new PackingRectangle(0, 0, (uint)sprites[j].cropRect.Width + 2, (uint)sprites[j].cropRect.Height + 2, j);
                         }
 
+                        // Get new rectangles for how to rearrange the sprites
                         getPackingRects(ref rects, out PackingRectangle bounds);
 
                         for (int j = 0; j < sprites.Length; j++) {
-                              // If the texture is offset by 1 pixel on either side at least
+                              // If the texture is offset by 2 pixel on either side at least (1 + 1)
                               if (sprites[j].textureRect.X != sprites[j].cropRect.X || sprites[j].textureRect.Y != sprites[j].cropRect.Y) {
-                                    sprites[j].textureRect = new Rectangle((int)rects[j].X + 1, (int)rects[j].Y + 1, (int)rects[j].Width, (int)rects[j].Height);
+                                    sprites[j].textureRect = new Rectangle((int)rects[j].X + 2, (int)rects[j].Y + 2, (int)rects[j].Width, (int)rects[j].Height);
 
                               } else {
-                                    sprites[j].textureRect = new Rectangle((int)rects[j].X, (int)rects[j].Y, (int)rects[j].Width, (int)rects[j].Height);
+                                    // Otherwise add just 1 pixel to account for sprites flowing into each other
+                                    sprites[j].textureRect = new Rectangle((int)rects[j].X + 1, (int)rects[j].Y + 1, (int)rects[j].Width, (int)rects[j].Height);
                               }  
                         }
 
+                        // Assemble new gamesheet
                         Bitmap finalGameSheet = GameSheet.Assemble(sprites, rects, bounds);
                         updateFileProgressEvent?.Invoke(this, 50);
 
+                        // Compile the new plist file
                         string[] plistFile = Plist.Serialise(sprites, gameSheetFiles[i], new Size(finalGameSheet.Width, finalGameSheet.Height));
 
+                        // Determine if the gamesheet contains icons to determine where the new files need to be saved
                         bool isIconsFile = sprites.Any(s => s.type == Sprite.Type.Icon);
                         string outputFolder = isIconsFile ? iconsOutputFolder : resourcesOutputFolder;
 
@@ -687,19 +681,6 @@ namespace Geometry_Dash_Randomiser {
 
                         updateFileProgressEvent?.Invoke(this, 100);
                   }
-            }
-
-            PackingRectangle[] getPackingRects(ref Sprite[] sprites, out PackingRectangle bounds) {
-
-                  PackingRectangle[] rects = new PackingRectangle[sprites.Length];
-
-                  for (int j = 0; j < sprites.Length; j++) {
-                        rects[j] = new PackingRectangle(0, 0, (uint)sprites[j].textureRect.Width, (uint)sprites[j].textureRect.Height, j);
-                  }
-                  RectanglePacker.Pack(rects, out bounds, PackingHints.TryByArea, 1, 2);
-                  Array.Sort(rects, (x, y) => x.Id.CompareTo(y.Id));
-
-                  return rects;
             }
 
             void getPackingRects(ref PackingRectangle[] rects, out PackingRectangle bounds) {

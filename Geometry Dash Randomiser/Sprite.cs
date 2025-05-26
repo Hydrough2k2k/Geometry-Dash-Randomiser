@@ -15,15 +15,15 @@ namespace Geometry_Dash_Randomiser {
             public string spriteName { get; set; } = string.Empty;
 
             public Point spriteOffset { get; set; } = new Point();
-            public Point spriteSize { get; set; } = new Point();
-            public Point spriteSourceSize { get; set; } = new Point();
+            public Size spriteSize { get; set; } = new Size();
+            public Size spriteSourceSize { get; set; } = new Size();
             public Rectangle textureRect { get; set; } = new Rectangle();
             public Rectangle cropRect { get; set; } = new Rectangle();
             public bool textureRotated { get; set; } = false;
-            public Type type { get; set; } = Sprite.Type.Unknown;
+            public Type type { get; set; } = Type.Unknown;
 
             // This should only be used and accessed if type == Sprite.Type.Icon, and check if it is not invalid
-            public IconType iconType { get; set; } = Sprite.IconType.Invalid;
+            public IconType iconType { get; set; } = IconType.Invalid;
 
             // The cropped bitmap for the sprite
             public Bitmap texture = null;
@@ -31,7 +31,7 @@ namespace Geometry_Dash_Randomiser {
             public Sprite() { }
 
             public Sprite(string sourceFile, string spriteName, Point spriteOffset,
-                  Point spriteSize, Point spriteSourceSize, Rectangle textureRect,
+                  Size spriteSize, Size spriteSourceSize, Rectangle textureRect,
                   bool textureRotated, Type type, Bitmap texture) {
 
                   this.sourceFile = sourceFile;
@@ -49,6 +49,14 @@ namespace Geometry_Dash_Randomiser {
                   this.sourceFile = sourceFile;
                   this.spriteName = spriteName;
                   this.type = type;
+            }
+
+            public float getArea() {
+                  return spriteSize.Width * spriteSize.Height;
+            }
+
+            public float getBitmapArea() {
+                  return texture.Width * texture.Height;
             }
 
             /// <summary>

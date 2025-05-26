@@ -1,6 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.Json;
+using static Geometry_Dash_Randomiser.Randomiser;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -13,7 +16,7 @@ namespace Geometry_Dash_Randomiser {
             // This is where the default values are defined
             public static string gameDirectory = "";
             public static string outputDirectory = "";
-            public static bool fileAutoOverwrite = false;
+            //public static bool fileAutoOverwrite = false;
             
             // Configs for every randomisation type
             public static IconRandSettings iconTextures = new IconRandSettings();
@@ -28,16 +31,22 @@ namespace Geometry_Dash_Randomiser {
             public static RandSetting effectTextures = new RandSetting(0, false);
             public static RandSetting miscTextures = new RandSetting(0, false);
 
-            public static bool ignoreBlacklistedFiles = true; // Not functional. Add a warning for "this will cause extra chaos"
+            public static float maxSpriteMultiplier = 1.25f; // Min: 1.05x, Max: 100x, Increment: +/- 0.01
+            //public static SpriteMultiplierMode spriteMultiplierMode = SpriteMultiplierMode.Area;
+            public static bool allowDuplicates = false;
+
+            //public static bool ignoreBlacklistedFiles = true; // Not functional. Add a warning for "this will cause extra chaos"
             public static GameFiles.Quality quality = GameFiles.Quality.High;
             public static int seed = 0;
 
-            public static bool caching = true;
+            //public static bool caching = true;
+
+            public static ThemeController.Theme theme = ThemeController.Theme.Dark;
 
             public static void ApplySettings(Serialised_Config config) {
                   gameDirectory = config.gameDirectory;
                   outputDirectory = config.outputDirectory;
-                  fileAutoOverwrite = config.fileAutoOverwrite;
+                  //fileAutoOverwrite = config.fileAutoOverwrite;
 
                   iconTextures = config.iconTextures;
                   menuTextures = config.menuTextures;
@@ -51,10 +60,16 @@ namespace Geometry_Dash_Randomiser {
                   effectTextures = config.effectTextures;
                   miscTextures = config.miscTextures;
 
-                  Config.ignoreBlacklistedFiles = config.ignoreBlacklistedFiles;
+                  maxSpriteMultiplier = config.maxSpriteMultiplier;
+                  //spriteMultiplierMode = config.spriteMultiplierMode;
+                  allowDuplicates = config.allowDuplicates;
+
+                  //ignoreBlacklistedFiles = config.ignoreBlacklistedFiles;
                   quality = config.quality;
                   seed = config.seed;
-                  caching = config.caching;
+                  //caching = config.caching;
+
+                  theme = config.theme;
             }
 
             public static void ReadFile() {
@@ -116,10 +131,9 @@ namespace Geometry_Dash_Randomiser {
 
       internal class Serialised_Config {
 
-            public string gameDirectory { get; set; }
-            public string outputDirectory { get; set; }
-            public bool fileAutoOverwrite { get; set; }
-
+            public string gameDirectory { get; set; } = string.Empty;
+            public string outputDirectory { get; set; } = string.Empty;
+            //public bool fileAutoOverwrite { get; set; }
 
             public IconRandSettings iconTextures { get; set; }
             public RandSetting menuTextures { get; set; }
@@ -133,16 +147,22 @@ namespace Geometry_Dash_Randomiser {
             public RandSetting effectTextures { get; set; }
             public RandSetting miscTextures { get; set; }
 
-            public bool ignoreBlacklistedFiles { get; set; }
+            public float maxSpriteMultiplier { get; set; }
+            //public SpriteMultiplierMode spriteMultiplierMode { get; set; }
+            public bool allowDuplicates { get; set; }
+
+            //public bool ignoreBlacklistedFiles { get; set; }
             public GameFiles.Quality quality { get; set; }
             public int seed { get; set; }
 
-            public bool caching { get; set; }
+            //public bool caching { get; set; }
+
+            public ThemeController.Theme theme { get; set; } = ThemeController.Theme.Dark;
 
             public Serialised_Config() {
                   this.gameDirectory = Config.gameDirectory;
                   this.outputDirectory = Config.outputDirectory;
-                  this.fileAutoOverwrite = Config.fileAutoOverwrite;
+                  //this.fileAutoOverwrite = Config.fileAutoOverwrite;
 
                   this.iconTextures = Config.iconTextures;
                   this.menuTextures = Config.menuTextures;
@@ -156,10 +176,16 @@ namespace Geometry_Dash_Randomiser {
                   this.effectTextures = Config.effectTextures;
                   this.miscTextures = Config.miscTextures;
 
-                  this.ignoreBlacklistedFiles = Config.ignoreBlacklistedFiles;
+                  this.maxSpriteMultiplier = Config.maxSpriteMultiplier;
+                  //this.spriteMultiplierMode = Config.spriteMultiplierMode;
+                  this.allowDuplicates = Config.allowDuplicates;
+
+                  //this.ignoreBlacklistedFiles = Config.ignoreBlacklistedFiles;
                   this.quality = Config.quality;
                   this.seed = Config.seed;
-                  this.caching = Config.caching;
+                  //this.caching = Config.caching;
+
+                  this.theme = Config.theme;
             }
       }
 }

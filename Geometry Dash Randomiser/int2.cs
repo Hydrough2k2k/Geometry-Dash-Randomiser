@@ -13,7 +13,7 @@ namespace Geometry_Dash_Randomiser {
             int x { get; set; }
             int y { get; set; }
 
-            public int2(string data) {
+            public static int2 Parse(string data) {
                   data = Regex.Replace(data, "[^0-9-,]+", "", RegexOptions.Compiled);
                   string[] vals = data.Split(',');
                   Array.Resize(ref vals, 2);
@@ -23,8 +23,7 @@ namespace Geometry_Dash_Randomiser {
                               vals[i] = "0";
                   }
 
-                  this.x = Int32.Parse(vals[0]);
-                  this.y = Int32.Parse(vals[1]);
+                  return new int2(Int32.Parse(vals[0]), Int32.Parse(vals[1]));
             }
       }
 }

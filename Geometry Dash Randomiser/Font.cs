@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -70,9 +66,9 @@ namespace Geometry_Dash_Randomiser {
                         } else if (pairs[i].name == "aa") {
                               this.aa = parsed;
                         } else if (pairs[i].name == "padding") {
-                              this.padding = new int4(pairs[i].data);
+                              this.padding = int4.Parse(pairs[i].data);
                         } else if (pairs[i].name == "spacing") {
-                              this.spacing = new int2(pairs[i].data);
+                              this.spacing = int2.Parse(pairs[i].data);
                         }
                   }
             }

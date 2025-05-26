@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitmapExtensions.cs" />
+    <Compile Include="ColorExtension.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FntSerialiser.cs" />
@@ -157,7 +158,7 @@
     <Compile Include="PackingException.cs" />
     <Compile Include="PackingHints.cs" />
     <Compile Include="PackingRectangle.cs" />
-    <Compile Include="PointExtension.cs" />
+    <Compile Include="Parse.cs" />
     <Compile Include="GameFiles.cs" />
     <Compile Include="GDR.cs">
       <SubType>Form</SubType>
@@ -178,7 +179,7 @@
     <Compile Include="Randomiser.cs" />
     <Compile Include="RectanglePacker.cs" />
     <Compile Include="Sprite.cs" />
-    <Compile Include="WinformsObjExtension.cs" />
+    <Compile Include="ThemeController.cs" />
     <EmbeddedResource Include="GameFiles.resx">
       <DependentUpon>GameFiles.cs</DependentUpon>
     </EmbeddedResource>
@@ -208,6 +209,8 @@
     <None Include="GDR Logo 60px.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ConnectorBeamBlack.png" />
+    <None Include="ConnectorBeamWhite.png" />
     <Content Include="GDR Logo 256px.ico" />
   </ItemGroup>
   <ItemGroup>

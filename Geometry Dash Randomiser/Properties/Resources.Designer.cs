@@ -63,6 +63,26 @@ namespace Geometry_Dash_Randomiser.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ConnectorBeamBlack {
+            get {
+                object obj = ResourceManager.GetObject("ConnectorBeamBlack", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ConnectorBeamWhite {
+            get {
+                object obj = ResourceManager.GetObject("ConnectorBeamWhite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap GDR_Logo_60px {
             get {
                 object obj = ResourceManager.GetObject("GDR Logo 60px", resourceCulture);

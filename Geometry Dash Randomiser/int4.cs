@@ -17,7 +17,7 @@ namespace Geometry_Dash_Randomiser {
             int z { get; set; }
             int w { get; set; }
 
-            public int4(string data) {
+            public static int4 Parse(string data) {
                   data = Regex.Replace(data, "[^0-9-,]+", "", RegexOptions.Compiled);
                   string[] vals = data.Split(',');
                   Array.Resize(ref vals, 4);
@@ -27,10 +27,7 @@ namespace Geometry_Dash_Randomiser {
                               vals[i] = "0";
                   }
 
-                  this.x = Int32.Parse(vals[0]);
-                  this.y = Int32.Parse(vals[1]);
-                  this.z = Int32.Parse(vals[2]);
-                  this.w = Int32.Parse(vals[3]);
+                  return new int4(Int32.Parse(vals[0]), Int32.Parse(vals[1]), Int32.Parse(vals[2]), Int32.Parse(vals[3]));
             }
       }
 }
