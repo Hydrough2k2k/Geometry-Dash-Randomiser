@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Microsoft.WindowsAPICodePack.ShellExtensions;
 using static Geometry_Dash_Randomiser.GameFiles;
 
 namespace Geometry_Dash_Randomiser {
@@ -43,7 +46,7 @@ namespace Geometry_Dash_Randomiser {
                         SetRandomisationSettingsVisibility(false);
                   }
 
-                  SetTheme_Instant(Config.theme);
+                  SetTheme(Config.theme);
             }
 
             private void GDR_Form_Load(object sender, EventArgs e) { }
@@ -660,11 +663,14 @@ namespace Geometry_Dash_Randomiser {
 
                         "Developer: Hydrough",
                         "Logo created by: Hydrough",
+                        "RectpackSharp library made by ThomasMiz:",
+                        " - https://github.com/ThomasMiz/RectpackSharp\n",
+
                         "Contact me:",
                         " - Discord: hydrough_7165",
                         " - GitHub: https://github.com/Hydrough2k2k\n",
 
-                        "Special thanks to Danny for helping keep my sanity in tact while working on this project!"
+                        "Special thanks to Danny for helping keep my sanity in tact while working on this project!",
                   };
 
                   MessageBoxButtons buttons = MessageBoxButtons.OK;
@@ -779,6 +785,8 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private async Task SetTheme_Transition(ThemeController.Theme oldTheme, ThemeController.Theme newTheme, float transitionTime = 0.75f) {
+                  if (oldTheme == newTheme) return;
+
                   themeTransitionInProgress = true;
 
                   int transitionSteps = 25;
@@ -799,31 +807,43 @@ namespace Geometry_Dash_Randomiser {
                   Color newMenuElementForeColour = this.themeController.GetMenuElementForeColour();
 
                   await Task.Run(() => {
-
                         for (int i = 1; i < transitionSteps; i++) {
-                              Color tempFormColour = ColorExtension.Interpolate(oldFormColour, newFormColour, (float)i / transitionSteps);
+                              float interValue = (float)i / transitionSteps;
+
+                              Color tempFormColour = ColorExtension.Interpolate(oldFormColour, newFormColour, interValue);
                               SetFormColours(tempFormColour);
 
-                              Color tempTextColour = ColorExtension.Interpolate(oldTextColour, newTextColour, (float)i / transitionSteps);
+                              Color tempTextColour = ColorExtension.Interpolate(oldTextColour, newTextColour, interValue);
                               SetTextColours(tempTextColour);
 
-                              Color tempMenuElementBackColour = ColorExtension.Interpolate(oldMenuElementBackColour, newMenuElementBackColour, (float)i / transitionSteps);
-                              Color tempMenuElementForeColour = ColorExtension.Interpolate(oldMenuElementForeColour, newMenuElementForeColour, (float)i / transitionSteps);
+                              SetCheckboxColours(tempTextColour);
+
+                              Color tempMenuElementBackColour = ColorExtension.Interpolate(oldMenuElementBackColour, newMenuElementBackColour, interValue);
+                              Color tempMenuElementForeColour = ColorExtension.Interpolate(oldMenuElementForeColour, newMenuElementForeColour, interValue);
                               SetMenuElementColours(tempMenuElementBackColour, tempMenuElementForeColour);
+
+                              if (i == transitionSteps / 2) {
+                                    UpdateImageTheme(newTheme);
+                              }
 
                               Thread.Sleep((int)(tickDuration * 1000));
                         }
                   });
 
-                  SetTheme_Instant(newTheme);
+                  SetTheme(newTheme);
 
                   themeTransitionInProgress = false;
             }
 
-            private void SetTheme_Instant(ThemeController.Theme theme) {
-                  SetFormColours(this.themeController.GetFormBackgroundColour());
+            private void SetTheme(ThemeController.Theme theme) {
+                  Color formBackColour = this.themeController.GetFormBackgroundColour();
+                  Color TextColor = this.themeController.GetTextColour();
 
-                  SetTextColours(this.themeController.GetTextColour());
+                  SetFormColours(formBackColour);
+
+                  SetTextColours(TextColor);
+
+                  SetCheckboxColours(TextColor);
 
                   SetMenuElementColours(this.themeController.GetMenuElementBackColour(), this.themeController.GetMenuElementForeColour());
 
@@ -835,123 +855,49 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void SetTextColours(Color color) {
-                  GDR_HeaderLabel.ForeColor = color;
-                  versionLabel.ForeColor = color;
+                  Control[] labels = GetAll(this, typeof(Label)).ToArray();
+                  for (int i = 0; i < labels.Length; i++) {
+                        labels[i].ForeColor = color;
+                  }
+            }
 
-                  IconsTexturesHeaderLabel.ForeColor = color;
-                  IconTexturesCheckbox.ForeColor = color;
-                  CubeTexturesCheckbox.ForeColor = color;
-                  ShipTexturesCheckbox.ForeColor = color;
-                  BallTexturesCheckbox.ForeColor = color;
-                  UFO_TexturesCheckbox.ForeColor = color;
-                  WaveTexturesCheckbox.ForeColor = color;
-                  RobotTexturesCheckbox.ForeColor = color;
-                  SpiderTexturesCheckbox.ForeColor = color;
-                  SwingTexturesCheckbox.ForeColor = color;
-                  JetpackTexturesCheckbox.ForeColor = color;
-                  IconTexturesGroupHeaderLabel.ForeColor = color;
-
-                  TexturesHeaderLabel.ForeColor = color;
-                  MenuTexturesCheckbox.ForeColor = color;
-                  ShopTexturesCheckbox.ForeColor = color;
-                  EditorTexturesCheckbox.ForeColor = color;
-                  BlockTexturesCheckbox.ForeColor = color;
-                  PortalTexturesCheckbox.ForeColor = color;
-                  OrbsCheckbox.ForeColor = color;
-                  PadsCheckbox.ForeColor = color;
-                  ParticleTexturesCheckbox.ForeColor = color;
-                  EffectsCheckbox.ForeColor = color;
-                  MiscCheckbox.ForeColor = color;
-                  TexturesGroupHeaderLabel.ForeColor = color;
-
-                  applicationSettingsHeaderLabel.ForeColor = color;
-                  gameFolderLabel.ForeColor = color;
-                  outputFolderLabel.ForeColor = color;
-                  textureQualityLabel.ForeColor = color;
-                  ThemeLabel.ForeColor = color;
-
-                  randomisationSettingsHeaderLabel.ForeColor = color;
-                  randomisationSeedLabel.ForeColor = color;
-                  spriteSizeMultiplierLabel.ForeColor = color;
-                  allowDuplicatesCheckbox.ForeColor = color;
+            private void SetCheckboxColours(Color fore) {
+                  Control[] checkBoxes = GetAll(this, typeof(CheckBox)).ToArray();
+                  for (int i = 0; i < checkBoxes.Length; i++) {
+                        checkBoxes[i].ForeColor = fore;
+                  }
             }
 
             private void SetMenuElementColours(Color back, Color fore) {
-                  ChangeColours(ChangelogButton, back, fore);
+                  Control[] buttons = GetAll(this, typeof(Button)).ToArray();
+                  for (int i = 0; i < buttons.Length; i++) {
+                        buttons[i].BackColor = back;
+                        buttons[i].ForeColor = fore;
+                  }
 
-                  ChangeColours(IconTexturesGroupDisplay, back, fore);
-                  ChangeColours(CubeTexturesGroupDisplay, back, fore);
-                  ChangeColours(ShipTexturesGroupDisplay, back, fore);
-                  ChangeColours(BallTexturesGroupDisplay, back, fore);
-                  ChangeColours(UFO_TexturesGroupDisplay, back, fore);
-                  ChangeColours(WaveTexturesGroupDisplay, back, fore);
-                  ChangeColours(RobotTexturesGroupDisplay, back, fore);
-                  ChangeColours(SpiderTexturesGroupDisplay, back, fore);
-                  ChangeColours(SwingTexturesGroupDisplay, back, fore);
-                  ChangeColours(JetpackTexturesGroupDisplay, back, fore);
-                  ChangeColours(groupInfoHelpButton1, back, fore);
+                  Control[] numericUpDowns = GetAll(this, typeof(NumericUpDown)).ToArray();
+                  for (int i = 0; i < numericUpDowns.Length; i++) {
+                        numericUpDowns[i].BackColor = back;
+                        numericUpDowns[i].ForeColor = fore;
+                  }
 
-                  ChangeColours(MenuTexturesGroupDisplay, back, fore);
-                  ChangeColours(ShopTexturesGroupDisplay, back, fore);
-                  ChangeColours(EditorTexturesGroupDisplay, back, fore);
-                  ChangeColours(BlockTexturesGroupDisplay, back, fore);
-                  ChangeColours(PortalTexturesGroupDisplay, back, fore);
-                  ChangeColours(OrbsGroupDisplay, back, fore);
-                  ChangeColours(PadsGroupDisplay, back, fore);
-                  ChangeColours(ParticleTexturesGroupDisplay, back, fore);
-                  ChangeColours(EffectsGroupDisplay, back, fore);
-                  ChangeColours(MiscGroupDisplay, back, fore);
-                  ChangeColours(groupInfoHelpButton2, back, fore);
+                  Control[] textBoxes = GetAll(this, typeof(TextBox)).ToArray();
+                  for (int i = 0; i < textBoxes.Length; i++) {
+                        textBoxes[i].BackColor = back;
+                        textBoxes[i].ForeColor = fore;
+                  }
 
-                  ChangeColours(ApplicationSettingButton, back, fore);
-                  ChangeColours(gameFolderTextBox, back, fore);
-                  ChangeColours(gameFolderSelectorButton, back, fore);
-                  ChangeColours(outputFolderTextBox, back, fore);
-                  ChangeColours(outputFolderSelectorButton, back, fore);
-                  ChangeColours(textureQualitySelectorBox, back, fore);
-                  ChangeColours(applicationThemeSelectorBox, back, fore);
+                  Control[] domainUpDowns = GetAll(this, typeof(DomainUpDown)).ToArray();
+                  for (int i = 0; i < domainUpDowns.Length; i++) {
+                        domainUpDowns[i].BackColor = back;
+                        domainUpDowns[i].ForeColor = fore;
+                  }
 
-                  ChangeColours(RandomisationSettingButton, back, fore);
-                  ChangeColours(seedInputBox, back, fore);
-                  ChangeColours(randomSeedButton, back, fore);
-                  ChangeColours(spriteSizeMultiplierTextbox, back, fore);
-
-                  ChangeColours(infoDisplay, back, fore);
-                  ChangeColours(startButton, back, fore);
-
-                  ChangeColours(allFilesProgressBar, back, fore);
-                  ChangeColours(fileProgressBar, back, fore);
-            }
-
-            private void ChangeColours(NumericUpDown numericUpDown, Color back, Color fore) {
-                  numericUpDown.BackColor = back;
-                  numericUpDown.ForeColor = fore;
-            }
-
-            private void ChangeColours(Button button, Color back, Color fore) {
-                  button.BackColor = back;
-                  button.ForeColor = fore;
-            }
-
-            private void ChangeColours(TextBox textBox, Color back, Color fore) {
-                  textBox.BackColor = back;
-                  textBox.ForeColor = fore;
-            }
-
-            private void ChangeColours(DomainUpDown domainUpDown, Color back, Color fore) {
-                  domainUpDown.BackColor = back;
-                  domainUpDown.ForeColor = fore;
-            }
-
-            private void ChangeColours(RichTextBox richTextBox, Color back, Color fore) {
-                  richTextBox.BackColor = back;
-                  richTextBox.ForeColor = fore;
-            }
-
-            // I'm not sure if this does anything to be honest
-            private void ChangeColours(ProgressBar progressBar, Color back, Color fore) {
-                  progressBar.BackColor = back;
-                  progressBar.ForeColor = fore;
+                  Control[] richTextBoxes = GetAll(this, typeof(RichTextBox)).ToArray();
+                  for (int i = 0; i < richTextBoxes.Length; i++) {
+                        richTextBoxes[i].BackColor = back;
+                        richTextBoxes[i].ForeColor = fore;
+                  }
             }
 
             private void UpdateImageTheme(ThemeController.Theme theme) {
@@ -987,6 +933,15 @@ namespace Geometry_Dash_Randomiser {
                               break;
                   }
                   SetTheme_Transition(oldTheme, newTheme, 0.75f);
+            }
+
+            public IEnumerable<Control> GetAll(Control control, Type type) {
+                  var controls = control.Controls.Cast<Control>();
+
+                  return controls
+                        .SelectMany(ctrl => GetAll(ctrl, type))
+                        .Concat(controls)
+                        .Where(c => c.GetType() == type);
             }
       }
 }

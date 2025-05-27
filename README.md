@@ -1,7 +1,3 @@
-# What's New:
-This application stating with version 2.0.x supports Geometry Dash 2.2
-Many new configuration settings were added, the whole app was rebuilt from the ground up
-
 # Geometry Dash Randomiser
 An application to mess with Geometry Dash's files
 
@@ -17,6 +13,13 @@ An application to mess with Geometry Dash's files
  - Alternatively click on Releases on the right side, and download the RAR from the most recent one
 
 This application is fully compatible with Geometry Dash v2.206 as of 31/Mar/2025
+
+# NOTE: If the application doesn't launch after the .msi file is insatelled, try and launch it in Administrator mode first.
+You might not need to do that after the first time, I am looking into the reason for why it doesn't work properly
+
+# What's New:
+This application stating with version 2.0.x supports Geometry Dash 2.2
+Many new configuration settings were added, the whole app was rebuilt from the ground up
 
 # How to use the app:
 - Download the most recent version from "Releases" on the right side or using the link above
@@ -35,14 +38,12 @@ This application is fully compatible with Geometry Dash v2.206 as of 31/Mar/2025
 - 4GB RAM or more
 
 # Report Bugs:
-
 If the app or the game crashes, feel free to bug report it to me directly
+ - When reporting bugs please specify what crashed and when
+ - If the game crashed, tell me what your randomisation settings and seed were
 
 My socials if you want to reach out, or report a bug:
  - Add me on discord: hydrough_7165
  - Youtube: https://tinyurl.com/Hydrough
  - Discord Server: https://discord.gg/GNQkgRN
  - Github: GitHub/Hydrough2k2k
-
-When reporting bugs please specify what crashed and when
- - If the game crashed, tell me what your randomisation settings and seed were

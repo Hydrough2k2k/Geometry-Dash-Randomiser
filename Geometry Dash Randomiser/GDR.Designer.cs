@@ -135,102 +135,111 @@
                   // IconTexturesCheckbox
                   // 
                   this.IconTexturesCheckbox.AutoSize = true;
+                  this.IconTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.IconTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.IconTexturesCheckbox.Location = new System.Drawing.Point(55, 110);
                   this.IconTexturesCheckbox.Name = "IconTexturesCheckbox";
                   this.IconTexturesCheckbox.Size = new System.Drawing.Size(131, 27);
                   this.IconTexturesCheckbox.TabIndex = 10;
                   this.IconTexturesCheckbox.Text = "Icon Textures";
-                  this.IconTexturesCheckbox.UseVisualStyleBackColor = true;
+                  this.IconTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.IconTexturesCheckbox.Click += new System.EventHandler(this.IconTexturesSettingsChanged);
                   // 
                   // MenuTexturesCheckbox
                   // 
                   this.MenuTexturesCheckbox.AutoSize = true;
+                  this.MenuTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.MenuTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.MenuTexturesCheckbox.Location = new System.Drawing.Point(373, 110);
                   this.MenuTexturesCheckbox.Name = "MenuTexturesCheckbox";
                   this.MenuTexturesCheckbox.Size = new System.Drawing.Size(142, 27);
                   this.MenuTexturesCheckbox.TabIndex = 11;
                   this.MenuTexturesCheckbox.Text = "Menu Textures";
-                  this.MenuTexturesCheckbox.UseVisualStyleBackColor = true;
+                  this.MenuTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.MenuTexturesCheckbox.Click += new System.EventHandler(this.MenuTexturesSettingsChanged);
                   // 
                   // EditorTexturesCheckbox
                   // 
                   this.EditorTexturesCheckbox.AutoSize = true;
+                  this.EditorTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.EditorTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.EditorTexturesCheckbox.Location = new System.Drawing.Point(373, 170);
                   this.EditorTexturesCheckbox.Name = "EditorTexturesCheckbox";
                   this.EditorTexturesCheckbox.Size = new System.Drawing.Size(143, 27);
                   this.EditorTexturesCheckbox.TabIndex = 15;
                   this.EditorTexturesCheckbox.Text = "Editor Textures";
-                  this.EditorTexturesCheckbox.UseVisualStyleBackColor = true;
+                  this.EditorTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.EditorTexturesCheckbox.Click += new System.EventHandler(this.EditorTexturesSettingsChanged);
                   // 
                   // ShopTexturesCheckbox
                   // 
                   this.ShopTexturesCheckbox.AutoSize = true;
+                  this.ShopTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.ShopTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.ShopTexturesCheckbox.Location = new System.Drawing.Point(373, 140);
                   this.ShopTexturesCheckbox.Name = "ShopTexturesCheckbox";
                   this.ShopTexturesCheckbox.Size = new System.Drawing.Size(136, 27);
                   this.ShopTexturesCheckbox.TabIndex = 14;
                   this.ShopTexturesCheckbox.Text = "Shop Textures";
-                  this.ShopTexturesCheckbox.UseVisualStyleBackColor = true;
+                  this.ShopTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.ShopTexturesCheckbox.Click += new System.EventHandler(this.ShopTexturesSettingsChanged);
                   // 
                   // PortalTexturesCheckbox
                   // 
                   this.PortalTexturesCheckbox.AutoSize = true;
+                  this.PortalTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.PortalTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.PortalTexturesCheckbox.Location = new System.Drawing.Point(373, 230);
                   this.PortalTexturesCheckbox.Name = "PortalTexturesCheckbox";
                   this.PortalTexturesCheckbox.Size = new System.Drawing.Size(143, 27);
                   this.PortalTexturesCheckbox.TabIndex = 19;
                   this.PortalTexturesCheckbox.Text = "Portal Textures";
-                  this.PortalTexturesCheckbox.UseVisualStyleBackColor = true;
+                  this.PortalTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.PortalTexturesCheckbox.Click += new System.EventHandler(this.PortalTexturesSettingsChanged);
                   // 
                   // BlockTexturesCheckbox
                   // 
                   this.BlockTexturesCheckbox.AutoSize = true;
+                  this.BlockTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.BlockTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.BlockTexturesCheckbox.Location = new System.Drawing.Point(373, 199);
                   this.BlockTexturesCheckbox.Name = "BlockTexturesCheckbox";
                   this.BlockTexturesCheckbox.Size = new System.Drawing.Size(184, 27);
                   this.BlockTexturesCheckbox.TabIndex = 18;
                   this.BlockTexturesCheckbox.Text = "Blocks, Spikes, Saws";
-                  this.BlockTexturesCheckbox.UseVisualStyleBackColor = true;
+                  this.BlockTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.BlockTexturesCheckbox.Click += new System.EventHandler(this.TilesTexturesSettingsChanged);
                   // 
                   // ParticleTexturesCheckbox
                   // 
                   this.ParticleTexturesCheckbox.AutoSize = true;
+                  this.ParticleTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.ParticleTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.ParticleTexturesCheckbox.Location = new System.Drawing.Point(373, 320);
                   this.ParticleTexturesCheckbox.Name = "ParticleTexturesCheckbox";
                   this.ParticleTexturesCheckbox.Size = new System.Drawing.Size(155, 27);
                   this.ParticleTexturesCheckbox.TabIndex = 23;
                   this.ParticleTexturesCheckbox.Text = "Particle Textures";
-                  this.ParticleTexturesCheckbox.UseVisualStyleBackColor = true;
+                  this.ParticleTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.ParticleTexturesCheckbox.Click += new System.EventHandler(this.ParticleTexturesSettingsChanged);
                   // 
                   // OrbsCheckbox
                   // 
                   this.OrbsCheckbox.AutoSize = true;
+                  this.OrbsCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.OrbsCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.OrbsCheckbox.Location = new System.Drawing.Point(373, 260);
                   this.OrbsCheckbox.Name = "OrbsCheckbox";
                   this.OrbsCheckbox.Size = new System.Drawing.Size(127, 27);
                   this.OrbsCheckbox.TabIndex = 22;
                   this.OrbsCheckbox.Text = "Orb Textures";
-                  this.OrbsCheckbox.UseVisualStyleBackColor = true;
+                  this.OrbsCheckbox.UseVisualStyleBackColor = false;
                   this.OrbsCheckbox.Click += new System.EventHandler(this.OrbsSettingsChanged);
                   // 
                   // MiscCheckbox
                   // 
                   this.MiscCheckbox.AutoSize = true;
+                  this.MiscCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.MiscCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.MiscCheckbox.Location = new System.Drawing.Point(373, 380);
                   this.MiscCheckbox.Name = "MiscCheckbox";
@@ -238,12 +247,13 @@
                   this.MiscCheckbox.TabIndex = 27;
                   this.MiscCheckbox.Text = "Miscellaneous";
                   this.toolTip.SetToolTip(this.MiscCheckbox, "Checkpoints, coins and a few menu elements are in this category");
-                  this.MiscCheckbox.UseVisualStyleBackColor = true;
+                  this.MiscCheckbox.UseVisualStyleBackColor = false;
                   this.MiscCheckbox.Click += new System.EventHandler(this.MiscSettingsChanged);
                   // 
                   // EffectsCheckbox
                   // 
                   this.EffectsCheckbox.AutoSize = true;
+                  this.EffectsCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.EffectsCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.EffectsCheckbox.Location = new System.Drawing.Point(373, 350);
                   this.EffectsCheckbox.Name = "EffectsCheckbox";
@@ -252,7 +262,7 @@
                   this.EffectsCheckbox.Text = "Effects";
                   this.toolTip.SetToolTip(this.EffectsCheckbox, "Sprider teleport effects and the default player explosion textures are i this cat" +
         "egory");
-                  this.EffectsCheckbox.UseVisualStyleBackColor = true;
+                  this.EffectsCheckbox.UseVisualStyleBackColor = false;
                   this.EffectsCheckbox.Click += new System.EventHandler(this.EffectsSettingsChanged);
                   // 
                   // IconsTexturesHeaderLabel
@@ -675,109 +685,118 @@
                   // CubeTexturesCheckbox
                   // 
                   this.CubeTexturesCheckbox.AutoSize = true;
+                  this.CubeTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.CubeTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.CubeTexturesCheckbox.Location = new System.Drawing.Point(79, 140);
                   this.CubeTexturesCheckbox.Name = "CubeTexturesCheckbox";
                   this.CubeTexturesCheckbox.Size = new System.Drawing.Size(136, 27);
                   this.CubeTexturesCheckbox.TabIndex = 64;
                   this.CubeTexturesCheckbox.Text = "Cube Textures";
-                  this.CubeTexturesCheckbox.UseVisualStyleBackColor = true;
+                  this.CubeTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.CubeTexturesCheckbox.Click += new System.EventHandler(this.CubeTexturesEnabledChanged);
                   // 
                   // ShipTexturesCheckbox
                   // 
                   this.ShipTexturesCheckbox.AutoSize = true;
+                  this.ShipTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.ShipTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.ShipTexturesCheckbox.Location = new System.Drawing.Point(79, 170);
                   this.ShipTexturesCheckbox.Name = "ShipTexturesCheckbox";
                   this.ShipTexturesCheckbox.Size = new System.Drawing.Size(130, 27);
                   this.ShipTexturesCheckbox.TabIndex = 66;
                   this.ShipTexturesCheckbox.Text = "Ship Textures";
-                  this.ShipTexturesCheckbox.UseVisualStyleBackColor = true;
+                  this.ShipTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.ShipTexturesCheckbox.Click += new System.EventHandler(this.ShipTexturesEnabledChanged);
                   // 
                   // BallTexturesCheckbox
                   // 
                   this.BallTexturesCheckbox.AutoSize = true;
+                  this.BallTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.BallTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.BallTexturesCheckbox.Location = new System.Drawing.Point(79, 200);
                   this.BallTexturesCheckbox.Name = "BallTexturesCheckbox";
                   this.BallTexturesCheckbox.Size = new System.Drawing.Size(124, 27);
                   this.BallTexturesCheckbox.TabIndex = 68;
                   this.BallTexturesCheckbox.Text = "Ball Textures";
-                  this.BallTexturesCheckbox.UseVisualStyleBackColor = true;
+                  this.BallTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.BallTexturesCheckbox.Click += new System.EventHandler(this.BallTexturesEnabledChanged);
                   // 
                   // UFO_TexturesCheckbox
                   // 
                   this.UFO_TexturesCheckbox.AutoSize = true;
+                  this.UFO_TexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.UFO_TexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.UFO_TexturesCheckbox.Location = new System.Drawing.Point(79, 230);
                   this.UFO_TexturesCheckbox.Name = "UFO_TexturesCheckbox";
                   this.UFO_TexturesCheckbox.Size = new System.Drawing.Size(131, 27);
                   this.UFO_TexturesCheckbox.TabIndex = 69;
                   this.UFO_TexturesCheckbox.Text = "UFO Textures";
-                  this.UFO_TexturesCheckbox.UseVisualStyleBackColor = true;
+                  this.UFO_TexturesCheckbox.UseVisualStyleBackColor = false;
                   this.UFO_TexturesCheckbox.Click += new System.EventHandler(this.UFO_TexturesEnabledChanged);
                   // 
                   // WaveTexturesCheckbox
                   // 
                   this.WaveTexturesCheckbox.AutoSize = true;
+                  this.WaveTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.WaveTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.WaveTexturesCheckbox.Location = new System.Drawing.Point(79, 260);
                   this.WaveTexturesCheckbox.Name = "WaveTexturesCheckbox";
                   this.WaveTexturesCheckbox.Size = new System.Drawing.Size(140, 27);
                   this.WaveTexturesCheckbox.TabIndex = 70;
                   this.WaveTexturesCheckbox.Text = "Wave Textures";
-                  this.WaveTexturesCheckbox.UseVisualStyleBackColor = true;
+                  this.WaveTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.WaveTexturesCheckbox.Click += new System.EventHandler(this.WaveTexturesEnabledChanged);
                   // 
                   // RobotTexturesCheckbox
                   // 
                   this.RobotTexturesCheckbox.AutoSize = true;
+                  this.RobotTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.RobotTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.RobotTexturesCheckbox.Location = new System.Drawing.Point(79, 290);
                   this.RobotTexturesCheckbox.Name = "RobotTexturesCheckbox";
                   this.RobotTexturesCheckbox.Size = new System.Drawing.Size(143, 27);
                   this.RobotTexturesCheckbox.TabIndex = 71;
                   this.RobotTexturesCheckbox.Text = "Robot Textures";
-                  this.RobotTexturesCheckbox.UseVisualStyleBackColor = true;
+                  this.RobotTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.RobotTexturesCheckbox.Click += new System.EventHandler(this.RobotTexturesEnabledChanged);
                   // 
                   // SpiderTexturesCheckbox
                   // 
                   this.SpiderTexturesCheckbox.AutoSize = true;
+                  this.SpiderTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.SpiderTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.SpiderTexturesCheckbox.Location = new System.Drawing.Point(79, 320);
                   this.SpiderTexturesCheckbox.Name = "SpiderTexturesCheckbox";
                   this.SpiderTexturesCheckbox.Size = new System.Drawing.Size(146, 27);
                   this.SpiderTexturesCheckbox.TabIndex = 72;
                   this.SpiderTexturesCheckbox.Text = "Spider Textures";
-                  this.SpiderTexturesCheckbox.UseVisualStyleBackColor = true;
+                  this.SpiderTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.SpiderTexturesCheckbox.Click += new System.EventHandler(this.SpiderTexturesEnabledChanged);
                   // 
                   // SwingTexturesCheckbox
                   // 
                   this.SwingTexturesCheckbox.AutoSize = true;
+                  this.SwingTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.SwingTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.SwingTexturesCheckbox.Location = new System.Drawing.Point(79, 350);
                   this.SwingTexturesCheckbox.Name = "SwingTexturesCheckbox";
                   this.SwingTexturesCheckbox.Size = new System.Drawing.Size(143, 27);
                   this.SwingTexturesCheckbox.TabIndex = 73;
                   this.SwingTexturesCheckbox.Text = "Swing Textures";
-                  this.SwingTexturesCheckbox.UseVisualStyleBackColor = true;
+                  this.SwingTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.SwingTexturesCheckbox.Click += new System.EventHandler(this.SwingTexturesEnabledChanged);
                   // 
                   // JetpackTexturesCheckbox
                   // 
                   this.JetpackTexturesCheckbox.AutoSize = true;
+                  this.JetpackTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.JetpackTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.JetpackTexturesCheckbox.Location = new System.Drawing.Point(79, 380);
                   this.JetpackTexturesCheckbox.Name = "JetpackTexturesCheckbox";
                   this.JetpackTexturesCheckbox.Size = new System.Drawing.Size(154, 27);
                   this.JetpackTexturesCheckbox.TabIndex = 74;
                   this.JetpackTexturesCheckbox.Text = "Jetpack Textures";
-                  this.JetpackTexturesCheckbox.UseVisualStyleBackColor = true;
+                  this.JetpackTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.JetpackTexturesCheckbox.Click += new System.EventHandler(this.JetpackTexturesEnabledChanged);
                   // 
                   // CubeTexturesGroupDisplay
@@ -954,13 +973,14 @@
                   // PadsCheckbox
                   // 
                   this.PadsCheckbox.AutoSize = true;
+                  this.PadsCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.PadsCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.PadsCheckbox.Location = new System.Drawing.Point(373, 290);
                   this.PadsCheckbox.Name = "PadsCheckbox";
                   this.PadsCheckbox.Size = new System.Drawing.Size(126, 27);
                   this.PadsCheckbox.TabIndex = 87;
                   this.PadsCheckbox.Text = "Pad Textures";
-                  this.PadsCheckbox.UseVisualStyleBackColor = true;
+                  this.PadsCheckbox.UseVisualStyleBackColor = false;
                   this.PadsCheckbox.Click += new System.EventHandler(this.PadsSettingChanged);
                   // 
                   // ChangelogButton
@@ -1030,13 +1050,14 @@
                   // allowDuplicatesCheckbox
                   // 
                   this.allowDuplicatesCheckbox.AutoSize = true;
+                  this.allowDuplicatesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.allowDuplicatesCheckbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.allowDuplicatesCheckbox.Location = new System.Drawing.Point(675, 250);
                   this.allowDuplicatesCheckbox.Name = "allowDuplicatesCheckbox";
                   this.allowDuplicatesCheckbox.Size = new System.Drawing.Size(201, 24);
                   this.allowDuplicatesCheckbox.TabIndex = 99;
                   this.allowDuplicatesCheckbox.Text = "Allow Duplicate Textures";
-                  this.allowDuplicatesCheckbox.UseVisualStyleBackColor = true;
+                  this.allowDuplicatesCheckbox.UseVisualStyleBackColor = false;
                   this.allowDuplicatesCheckbox.Click += new System.EventHandler(this.allowDuplicatesCheckbox_Click);
                   // 
                   // randomisationSettingsHeaderLabel

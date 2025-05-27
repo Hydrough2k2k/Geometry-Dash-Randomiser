@@ -189,13 +189,13 @@ namespace Geometry_Dash_Randomiser {
                         return Type.Menu;
                   } else if (spriteName.Contains("delete")) {
                         return Type.Editor;
-                  } else if (spriteName.StartsWith("edit")) {
-                        return Type.Editor;
-                  } else if (spriteName.Contains("editBtn")) {
-                        return Type.Menu;
                   } else if (spriteName.Contains("edit")) {
-                        return Type.Editor;
-                  } else if (spriteName.Contains("link")) {
+                        if (spriteName.Contains("editBtn")) {
+                              return Type.Menu;
+                        } else {
+                              return Type.Editor;
+                        }
+                  }else if (spriteName.Contains("link")) {
                         return Type.Editor;
                   } else if (spriteName.Contains("removeCheckBtn")) {
                         return Type.Miscellaneous;

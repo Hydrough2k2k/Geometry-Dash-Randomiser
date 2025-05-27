@@ -16,7 +16,7 @@ namespace Geometry_Dash_Randomiser {
 
             public enum Quality { High, Medium, Low }
 
-            public enum Stage { Idle, BackingUp, Reading, Unpacking, Caching, Randomising, Repackaging }
+            public enum Stage { Idle, SettingUp, BackingUp, Reading, Unpacking, Caching, Randomising, Repackaging, FinishingUp, Restoring }
 
             public GameFiles(GDR_Form creator) {
                   GDR = creator;
