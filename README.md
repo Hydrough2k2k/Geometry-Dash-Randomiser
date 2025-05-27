@@ -14,7 +14,8 @@ An application to mess with Geometry Dash's files
 
 This application is fully compatible with Geometry Dash v2.206 as of 31/Mar/2025
 
-# NOTE: If the application doesn't launch after the .msi file is insatelled, try and launch it in Administrator mode first.
+# NOTE:
+If the application doesn't launch after the .msi file is installed, try and launch it in Administrator mode first.
 You might not need to do that after the first time, I am looking into the reason for why it doesn't work properly
 
 # What's New:
