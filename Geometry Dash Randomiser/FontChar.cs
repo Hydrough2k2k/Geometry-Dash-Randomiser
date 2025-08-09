@@ -1,33 +1,67 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RectpackSharp;
+using System.Drawing;
 
 namespace Geometry_Dash_Randomiser {
 
+      public class FontChar {
 
-      internal class FontChar {
+            public int charID { get; set; } = -1;
+            public int x { get; set; }
+            public int y { get; set; }
+            public int width { get; set; }
+            public int height { get; set; }
+            public int xOffset { get; set; }
+            public int yOffset { get; set; }
+            public int xAdvance { get; set; }
+            public int page { get; set; }
+            public int channel { get; set; }
+            public char letter { get; set; }
+            public Bitmap texture { get; set; }
+            public Rectangle rectangle => new Rectangle(x, y, width, height);
 
-            public int charID { get; set; } = 0;
-            public int x { get; set; } = 0;
-            public int y { get; set; } = 0;
-            public int width { get; set; } = 0;
-            public int height { get; set; } = 0;
-            public int xOffset { get; set; } = 0;
-            public int yOffset { get; set; } = 0;
-            public int xAdvance { get; set; } = 0;
-            public int page { get; set; } = 0;
-            public int channel { get; set; } = 0;
-            public int letter { get; set; } = 0;
+            public FontChar() { }
 
-            public FontChar (Font.PropertyPair[] pairs) {
+            public string Serialise() {
+                  return FontSerialiser.SerialiseFontChar(this);
+            }
+
+            public FontChar DeepCopy() {
+                  FontChar copy = new FontChar();
+
+                  copy.charID = this.charID;
+                  copy.x = this.x;
+                  copy.y = this.y;
+                  copy.width = this.width;
+                  copy.height = this.height;
+                  copy.xOffset = this.xOffset;
+                  copy.yOffset = this.yOffset;
+                  copy.xAdvance = this.xAdvance;
+                  copy.page = this.page;
+                  copy.channel = this.channel;
+                  copy.letter = this.letter;
+                  copy.texture = this.texture;
+
+                  return copy;
+            }
+
+            public PackingRectangle GetPackingRect(int ID = 0) {
+                  return new PackingRectangle((uint)x, (uint)y, (uint)width, (uint)height, ID);
+            }
+
+            public void ReplaceTexture(Bitmap newTexture) {
+                  texture = (Bitmap)newTexture.Clone();
+
+                  this.width = newTexture.Width;
+                  this.height = newTexture.Height;
+            }
+
+            internal FontChar(Font.PropertyPair[] pairs) {
 
                   for (int i = 0; i < pairs.Length; i++) {
                         string filtered = pairs[i].data.FilterDigits();
                         int parsed = 0;
                         if (filtered.Length != 0) {
-                              parsed = Int32.Parse(filtered);
+                              parsed = Parse.Int(filtered);
                         }
 
                         if (pairs[i].name == "id") {
@@ -51,10 +85,11 @@ namespace Geometry_Dash_Randomiser {
                         } else if (pairs[i].name == "chnl") {
                               this.channel = parsed;
                         } else if (pairs[i].name == "letter") {
+
                               if (pairs[i].data == "space") {
-                                    this.letter = (int)' ';
+                                    this.letter = ' ';
                               } else {
-                                    this.letter = (int)pairs[i].data[0];
+                                    this.letter = pairs[i].data[0];
                               }
                         }
                   }

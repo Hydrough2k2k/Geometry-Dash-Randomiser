@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
-using System.Text;
 using System.Drawing;
 using RectpackSharp;
 
@@ -25,15 +24,15 @@ namespace Geometry_Dash_Randomiser {
                   "\t\t\t\t<key>aliases</key>",
                   "\t\t\t\t<array/>", // Really though, what is the point of this?
                   "\t\t\t\t<key>spriteOffset</key>",
-                  "\t\t\t\t",
+                  "\t\t\t\t", // Offset
                   "\t\t\t\t<key>spriteSize</key>",
-                  "\t\t\t\t",
+                  "\t\t\t\t", // SpriteSize
                   "\t\t\t\t<key>spriteSourceSize</key>",
-                  "\t\t\t\t",
+                  "\t\t\t\t", // SpriteSourceSize
                   "\t\t\t\t<key>textureRect</key>",
-                  "\t\t\t\t",
+                  "\t\t\t\t", // TextureRect
                   "\t\t\t\t<key>textureRotated</key>",
-                  "\t\t\t\t",
+                  "\t\t\t\t", // TextureRotated
                   "\t\t\t</dict>"
             };
 
@@ -54,7 +53,7 @@ namespace Geometry_Dash_Randomiser {
                   "\t\t\t<key>smartupdate</key>",
                   "\t\t\t<string>$TexturePacker:SmartUpdate:f04f37b874d8b8386f838f35c29e543d:8606c60fb83119d8c73595d14512ae5f:cd3ab045ff8ec89044c566bf3c4878b7$</string>",
                   "\t\t\t<key>textureFileName</key>",
-                  "\t\t\t", // To be populated by <string>fileName.png</string> again
+                  "\t\t\t", // To be populated by <string>fileName.png</string>
                   "\t\t</dict>",
                   "\t</dict>",
                   "</plist>"
@@ -139,7 +138,7 @@ namespace Geometry_Dash_Randomiser {
 
                                     int[] values = vals.Select(v => Int32.Parse(v)).ToArray();
 
-                                    sprite.textureRect = new System.Drawing.Rectangle(new System.Drawing.Point(values[0], values[1]), new System.Drawing.Size(values[2], values[3]));
+                                    sprite.textureRect = new Rectangle(values[0], values[1], values[2], values[3]);
 
                               } else if (line.StartsWith("textureRotated")) {
                                     if (source[i + 1] == "<true/>")
@@ -149,7 +148,7 @@ namespace Geometry_Dash_Randomiser {
                   }
 
                   if (sprite.textureRotated) {
-                        sprite.textureRect = new System.Drawing.Rectangle(sprite.textureRect.X, sprite.textureRect.Y, sprite.textureRect.Height, sprite.textureRect.Width);
+                        sprite.textureRect = new Rectangle(sprite.textureRect.X, sprite.textureRect.Y, sprite.textureRect.Height, sprite.textureRect.Width);
                   }
 
                   return sprite;

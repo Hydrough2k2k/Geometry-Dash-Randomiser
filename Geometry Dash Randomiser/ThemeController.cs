@@ -1,58 +1,133 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Geometry_Dash_Randomiser {
 
       public class ThemeController {
 
-            public enum Theme { Dark, Light }
+            private const string themeFolderPath = "Themes";
 
-            public Theme theme = Theme.Dark;
-
-            public ThemeController() { }
-
-            public ThemeController(Theme theme) {
-                  this.theme = theme;
+            public ThemeController(bool getDefaultThemes = true) {
+                  if (getDefaultThemes) {
+                        themes.AddRange(GetDefaultThemes());
+                  }
             }
 
-            readonly Color[] formBackColours = new Color[] {
-                  Color.FromArgb(30, 30, 30),
-                  Color.FromArgb(175, 175, 175)
-            };
+            List<Theme> themes = new List<Theme>();
 
-            readonly Color[] fontColours = new Color[] {
-                  Color.FromArgb(255, 255, 255),
-                  Color.FromArgb(0, 0, 0),
-            };
+            public int activeThemeID { get; set; }
+            public int themeCount => themes.Count;
 
-            readonly Color[] menuElementBackColours = new Color[] {
-                  Color.FromArgb(65, 65, 65),
-                  Color.FromArgb(255, 255, 255),
-            };
+            public Theme current => GetActiveTheme();
 
-            readonly Color[] menuElementForeColours = new Color[] {
-                  Color.FromArgb(255, 255, 255),
-                  Color.FromArgb(0, 0, 0),
-            };
+            public void AddTheme(Theme theme) {
+                  themes.Add(theme);
+            }
+
+            public void AddThemes(Theme[] theme) {
+                  themes.AddRange(theme);
+            }
+
+            public void AddThemes(List<Theme> theme) {
+                  themes.AddRange(theme);
+            }
+
+            public Theme GetActiveTheme() {
+                  if (activeThemeID >= themes.Count) {
+                        Console.WriteLine("Failed to get Active Theme ID {0}, ID parameter was out of range. Total themes count: {1}", activeThemeID, this.themes.Count);
+                        activeThemeID = activeThemeID % themes.Count;
+                        Config.themeID = activeThemeID;
+                        return themes[0];
+                  }
+                  return themes[activeThemeID];
+            }
+
+            public Theme GetThemeByID(int ID) {
+                  if (ID > themes.Count) {
+                        Console.WriteLine("Failed to get Theme ID {0}, ID parameter was out of range. Total themes count: {1}", ID, this.themes.Count);
+                        return themes[0];
+                  }
+                  return themes[ID];
+            }
+
+            public int GetThemeCount() {
+                  return themes.Count;
+            }
+
+            public string[] GetAllThemeNames() {
+                  return this.themes.Select(t => t.name).ToArray();
+            }
+
+            public string GetThemeName() {
+                  return current.name;
+            }
 
             public Color GetFormBackgroundColour() {
-                  return formBackColours[(int)this.theme];
+                  return current.formBackColour;
             }
 
-            public Color GetTextColour() {
-                  return fontColours[(int)this.theme];
+            public Color GetDefaultTextColour() {
+                  return current.defaultTextColour;
             }
 
             public Color GetMenuElementBackColour() {
-                  return menuElementBackColours[(int)this.theme];
+                  return current.menuElementBackColour;
             }
 
             public Color GetMenuElementForeColour() {
-                  return menuElementForeColours[(int)this.theme];
+                  return current.menuElementForeColour;
+            }
+
+            public Color GetBeamColour() {
+                  return current.beamColour;
+            }
+
+            public static Theme[] GetDefaultThemes() {
+                  return new Theme[] {
+                        new Theme(
+                              name: "Wisteria",
+                              formBackColour: ColorExt.FromHex("7B60AC"),
+                              defaultTextColour: ColorExt.FromHex("F9E6FF"),
+                              menuElementBackColour: ColorExt.FromHex("664D91"),
+                              menuElementForeColour: ColorExt.FromHex("F9E6FF"),
+                              beamColour: ColorExt.FromHex("D2BEE6")
+                        ),
+                        new Theme(
+                              name: "Night Theme",
+                              formBackColour: Color.FromArgb(0, 7, 33),
+                              defaultTextColour: Color.FromArgb(200, 225, 255),
+                              menuElementBackColour: Color.FromArgb(60, 71, 115),
+                              menuElementForeColour: Color.FromArgb(200, 225, 255),
+                              beamColour: Color.FromArgb(200, 225, 255)
+                        ),
+                        new Theme(
+                              name: "Dark Theme",
+                              formBackColour: ColorExt.FromHex("121212"),
+                              defaultTextColour: ColorExt.FromHex("E6E6E6"),
+                              menuElementBackColour: ColorExt.FromHex("222222"),
+                              menuElementForeColour: ColorExt.FromHex("FFFFFF"),
+                              beamColour: ColorExt.FromHex("888888")
+                        ),
+                        new Theme(
+                              name: "Light Theme",
+                              formBackColour : Color.FromArgb(175, 175, 175),
+                              defaultTextColour: Color.FromArgb(0, 0, 0),
+                              menuElementBackColour: Color.FromArgb(255, 255, 255),
+                              menuElementForeColour: Color.FromArgb(0, 0, 0),
+                              beamColour: Color.FromArgb(0, 0, 0)
+                        ),
+                        new Theme(
+                              name: "Random Theme",
+                              formBackColour : Color.FromArgb(0, 0, 0),
+                              defaultTextColour: Color.FromArgb(0, 0, 0),
+                              menuElementBackColour: Color.FromArgb(0, 0, 0),
+                              menuElementForeColour: Color.FromArgb(0, 0, 0),
+                              beamColour: Color.FromArgb(0, 0, 0)
+                        )
+                  };
             }
       }
 }

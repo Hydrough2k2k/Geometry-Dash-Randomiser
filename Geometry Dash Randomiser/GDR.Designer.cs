@@ -34,8 +34,6 @@
                   this.OrbsCheckbox = new System.Windows.Forms.CheckBox();
                   this.MiscCheckbox = new System.Windows.Forms.CheckBox();
                   this.EffectsCheckbox = new System.Windows.Forms.CheckBox();
-                  this.IconsTexturesHeaderLabel = new System.Windows.Forms.Label();
-                  this.IconTexturesGroupHeaderLabel = new System.Windows.Forms.Label();
                   this.IconTexturesGroupDisplay = new System.Windows.Forms.NumericUpDown();
                   this.MenuTexturesGroupDisplay = new System.Windows.Forms.NumericUpDown();
                   this.EditorTexturesGroupDisplay = new System.Windows.Forms.NumericUpDown();
@@ -51,24 +49,13 @@
                   this.gameFolderTextBox = new System.Windows.Forms.TextBox();
                   this.gameFolderLabel = new System.Windows.Forms.Label();
                   this.gameFolderSelectorButton = new System.Windows.Forms.Button();
-                  this.textureCachingCheckbox = new System.Windows.Forms.CheckBox();
-                  this.applicationSettingsHeaderLabel = new System.Windows.Forms.Label();
                   this.startButton = new System.Windows.Forms.Button();
-                  this.infoDisplay = new System.Windows.Forms.RichTextBox();
                   this.toolTip = new System.Windows.Forms.ToolTip(this.components);
                   this.textureQualityLabel = new System.Windows.Forms.Label();
                   this.randomisationSeedLabel = new System.Windows.Forms.Label();
-                  this.checkBox1 = new System.Windows.Forms.CheckBox();
-                  this.checkBox2 = new System.Windows.Forms.CheckBox();
-                  this.allFilesProgressBar = new System.Windows.Forms.ProgressBar();
-                  this.fileProgressBar = new System.Windows.Forms.ProgressBar();
                   this.seedInputBox = new System.Windows.Forms.NumericUpDown();
                   this.textureQualitySelectorBox = new System.Windows.Forms.DomainUpDown();
                   this.randomSeedButton = new System.Windows.Forms.Button();
-                  this.groupInfoHelpButton1 = new System.Windows.Forms.Button();
-                  this.outputFolderLabel = new System.Windows.Forms.Label();
-                  this.outputFolderTextBox = new System.Windows.Forms.TextBox();
-                  this.outputFolderSelectorButton = new System.Windows.Forms.Button();
                   this.CubeTexturesCheckbox = new System.Windows.Forms.CheckBox();
                   this.ShipTexturesCheckbox = new System.Windows.Forms.CheckBox();
                   this.BallTexturesCheckbox = new System.Windows.Forms.CheckBox();
@@ -88,23 +75,39 @@
                   this.WaveTexturesGroupDisplay = new System.Windows.Forms.NumericUpDown();
                   this.UFO_TexturesGroupDisplay = new System.Windows.Forms.NumericUpDown();
                   this.groupInfoHelpButton2 = new System.Windows.Forms.Button();
-                  this.TexturesGroupHeaderLabel = new System.Windows.Forms.Label();
-                  this.TexturesHeaderLabel = new System.Windows.Forms.Label();
                   this.PadsGroupDisplay = new System.Windows.Forms.NumericUpDown();
                   this.PadsCheckbox = new System.Windows.Forms.CheckBox();
                   this.ChangelogButton = new System.Windows.Forms.Button();
                   this.spriteSizeMultiplierTrackbar = new System.Windows.Forms.TrackBar();
-                  this.RandomisationSettingButton = new System.Windows.Forms.Button();
-                  this.ApplicationSettingButton = new System.Windows.Forms.Button();
                   this.spriteSizeMultiplierLabel = new System.Windows.Forms.Label();
-                  this.spriteSizeMultiplierTextbox = new System.Windows.Forms.TextBox();
                   this.allowDuplicatesCheckbox = new System.Windows.Forms.CheckBox();
-                  this.randomisationSettingsHeaderLabel = new System.Windows.Forms.Label();
-                  this.settingsSeparatorBeam = new System.Windows.Forms.PictureBox();
                   this.Logo = new System.Windows.Forms.PictureBox();
                   this.ThemeLabel = new System.Windows.Forms.Label();
                   this.applicationThemeSelectorBox = new System.Windows.Forms.DomainUpDown();
+                  this.spriteSizeMultiplierTextbox = new System.Windows.Forms.TextBox();
+                  this.groupBox1 = new System.Windows.Forms.GroupBox();
+                  this.label4 = new System.Windows.Forms.Label();
+                  this.label3 = new System.Windows.Forms.Label();
                   this.iconsConnectorBeam = new System.Windows.Forms.PictureBox();
+                  this.groupBox2 = new System.Windows.Forms.GroupBox();
+                  this.label2 = new System.Windows.Forms.Label();
+                  this.label1 = new System.Windows.Forms.Label();
+                  this.groupBox5 = new System.Windows.Forms.GroupBox();
+                  this.fontPerFontRandomisationButton = new System.Windows.Forms.RadioButton();
+                  this.fontPerLetterRandomisationButton = new System.Windows.Forms.RadioButton();
+                  this.shuffleFontsConnectorBeam = new System.Windows.Forms.PictureBox();
+                  this.fontRandomiseLettersCheckbox = new System.Windows.Forms.CheckBox();
+                  this.fontShuffleStylesCheckbox = new System.Windows.Forms.CheckBox();
+                  this.fontRandEnabledCheckbox = new System.Windows.Forms.CheckBox();
+                  this.restoreFilesButton = new System.Windows.Forms.Button();
+                  this.groupBox3 = new System.Windows.Forms.GroupBox();
+                  this.checkBox4 = new System.Windows.Forms.CheckBox();
+                  this.groupBox4 = new System.Windows.Forms.GroupBox();
+                  this.button2 = new System.Windows.Forms.Button();
+                  this.button3 = new System.Windows.Forms.Button();
+                  this.RandomisingProgressBar = new System.Windows.Forms.ProgressBar();
+                  this.RandomisingProgressDisplay = new System.Windows.Forms.Label();
+                  this.ReadyStatusDisplay = new System.Windows.Forms.Label();
                   ((System.ComponentModel.ISupportInitialize)(this.IconTexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.MenuTexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.EditorTexturesGroupDisplay)).BeginInit();
@@ -127,9 +130,14 @@
                   ((System.ComponentModel.ISupportInitialize)(this.UFO_TexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.PadsGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.spriteSizeMultiplierTrackbar)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.settingsSeparatorBeam)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
+                  this.groupBox1.SuspendLayout();
                   ((System.ComponentModel.ISupportInitialize)(this.iconsConnectorBeam)).BeginInit();
+                  this.groupBox2.SuspendLayout();
+                  this.groupBox5.SuspendLayout();
+                  ((System.ComponentModel.ISupportInitialize)(this.shuffleFontsConnectorBeam)).BeginInit();
+                  this.groupBox3.SuspendLayout();
+                  this.groupBox4.SuspendLayout();
                   this.SuspendLayout();
                   // 
                   // IconTexturesCheckbox
@@ -137,11 +145,12 @@
                   this.IconTexturesCheckbox.AutoSize = true;
                   this.IconTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.IconTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.IconTexturesCheckbox.Location = new System.Drawing.Point(55, 110);
+                  this.IconTexturesCheckbox.Location = new System.Drawing.Point(6, 52);
                   this.IconTexturesCheckbox.Name = "IconTexturesCheckbox";
                   this.IconTexturesCheckbox.Size = new System.Drawing.Size(131, 27);
                   this.IconTexturesCheckbox.TabIndex = 10;
                   this.IconTexturesCheckbox.Text = "Icon Textures";
+                  this.toolTip.SetToolTip(this.IconTexturesCheckbox, "Randomise the textures for player icons");
                   this.IconTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.IconTexturesCheckbox.Click += new System.EventHandler(this.IconTexturesSettingsChanged);
                   // 
@@ -150,11 +159,13 @@
                   this.MenuTexturesCheckbox.AutoSize = true;
                   this.MenuTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.MenuTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.MenuTexturesCheckbox.Location = new System.Drawing.Point(373, 110);
+                  this.MenuTexturesCheckbox.Location = new System.Drawing.Point(6, 52);
                   this.MenuTexturesCheckbox.Name = "MenuTexturesCheckbox";
                   this.MenuTexturesCheckbox.Size = new System.Drawing.Size(142, 27);
                   this.MenuTexturesCheckbox.TabIndex = 11;
                   this.MenuTexturesCheckbox.Text = "Menu Textures";
+                  this.toolTip.SetToolTip(this.MenuTexturesCheckbox, "Randomise everything that appears in the menus outside of normal gameplay and the" +
+        " editor");
                   this.MenuTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.MenuTexturesCheckbox.Click += new System.EventHandler(this.MenuTexturesSettingsChanged);
                   // 
@@ -163,11 +174,12 @@
                   this.EditorTexturesCheckbox.AutoSize = true;
                   this.EditorTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.EditorTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.EditorTexturesCheckbox.Location = new System.Drawing.Point(373, 170);
+                  this.EditorTexturesCheckbox.Location = new System.Drawing.Point(6, 112);
                   this.EditorTexturesCheckbox.Name = "EditorTexturesCheckbox";
                   this.EditorTexturesCheckbox.Size = new System.Drawing.Size(143, 27);
                   this.EditorTexturesCheckbox.TabIndex = 15;
                   this.EditorTexturesCheckbox.Text = "Editor Textures";
+                  this.toolTip.SetToolTip(this.EditorTexturesCheckbox, "Randomise everything that appears in the editor");
                   this.EditorTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.EditorTexturesCheckbox.Click += new System.EventHandler(this.EditorTexturesSettingsChanged);
                   // 
@@ -176,11 +188,12 @@
                   this.ShopTexturesCheckbox.AutoSize = true;
                   this.ShopTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.ShopTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.ShopTexturesCheckbox.Location = new System.Drawing.Point(373, 140);
+                  this.ShopTexturesCheckbox.Location = new System.Drawing.Point(6, 82);
                   this.ShopTexturesCheckbox.Name = "ShopTexturesCheckbox";
                   this.ShopTexturesCheckbox.Size = new System.Drawing.Size(136, 27);
                   this.ShopTexturesCheckbox.TabIndex = 14;
                   this.ShopTexturesCheckbox.Text = "Shop Textures";
+                  this.toolTip.SetToolTip(this.ShopTexturesCheckbox, "Randomise everything that appears in the shops");
                   this.ShopTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.ShopTexturesCheckbox.Click += new System.EventHandler(this.ShopTexturesSettingsChanged);
                   // 
@@ -189,11 +202,12 @@
                   this.PortalTexturesCheckbox.AutoSize = true;
                   this.PortalTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.PortalTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.PortalTexturesCheckbox.Location = new System.Drawing.Point(373, 230);
+                  this.PortalTexturesCheckbox.Location = new System.Drawing.Point(6, 172);
                   this.PortalTexturesCheckbox.Name = "PortalTexturesCheckbox";
                   this.PortalTexturesCheckbox.Size = new System.Drawing.Size(143, 27);
                   this.PortalTexturesCheckbox.TabIndex = 19;
                   this.PortalTexturesCheckbox.Text = "Portal Textures";
+                  this.toolTip.SetToolTip(this.PortalTexturesCheckbox, "Randomise Portal textures");
                   this.PortalTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.PortalTexturesCheckbox.Click += new System.EventHandler(this.PortalTexturesSettingsChanged);
                   // 
@@ -202,11 +216,12 @@
                   this.BlockTexturesCheckbox.AutoSize = true;
                   this.BlockTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.BlockTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.BlockTexturesCheckbox.Location = new System.Drawing.Point(373, 199);
+                  this.BlockTexturesCheckbox.Location = new System.Drawing.Point(6, 142);
                   this.BlockTexturesCheckbox.Name = "BlockTexturesCheckbox";
                   this.BlockTexturesCheckbox.Size = new System.Drawing.Size(184, 27);
                   this.BlockTexturesCheckbox.TabIndex = 18;
                   this.BlockTexturesCheckbox.Text = "Blocks, Spikes, Saws";
+                  this.toolTip.SetToolTip(this.BlockTexturesCheckbox, "Randomise objects that most commonly appear while playing levels");
                   this.BlockTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.BlockTexturesCheckbox.Click += new System.EventHandler(this.TilesTexturesSettingsChanged);
                   // 
@@ -215,11 +230,12 @@
                   this.ParticleTexturesCheckbox.AutoSize = true;
                   this.ParticleTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.ParticleTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.ParticleTexturesCheckbox.Location = new System.Drawing.Point(373, 320);
+                  this.ParticleTexturesCheckbox.Location = new System.Drawing.Point(6, 262);
                   this.ParticleTexturesCheckbox.Name = "ParticleTexturesCheckbox";
                   this.ParticleTexturesCheckbox.Size = new System.Drawing.Size(155, 27);
                   this.ParticleTexturesCheckbox.TabIndex = 23;
                   this.ParticleTexturesCheckbox.Text = "Particle Textures";
+                  this.toolTip.SetToolTip(this.ParticleTexturesCheckbox, "Randomise Particle textures");
                   this.ParticleTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.ParticleTexturesCheckbox.Click += new System.EventHandler(this.ParticleTexturesSettingsChanged);
                   // 
@@ -228,11 +244,12 @@
                   this.OrbsCheckbox.AutoSize = true;
                   this.OrbsCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.OrbsCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.OrbsCheckbox.Location = new System.Drawing.Point(373, 260);
+                  this.OrbsCheckbox.Location = new System.Drawing.Point(6, 202);
                   this.OrbsCheckbox.Name = "OrbsCheckbox";
                   this.OrbsCheckbox.Size = new System.Drawing.Size(127, 27);
                   this.OrbsCheckbox.TabIndex = 22;
                   this.OrbsCheckbox.Text = "Orb Textures";
+                  this.toolTip.SetToolTip(this.OrbsCheckbox, "Randomise Orb textures");
                   this.OrbsCheckbox.UseVisualStyleBackColor = false;
                   this.OrbsCheckbox.Click += new System.EventHandler(this.OrbsSettingsChanged);
                   // 
@@ -241,7 +258,7 @@
                   this.MiscCheckbox.AutoSize = true;
                   this.MiscCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.MiscCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.MiscCheckbox.Location = new System.Drawing.Point(373, 380);
+                  this.MiscCheckbox.Location = new System.Drawing.Point(6, 322);
                   this.MiscCheckbox.Name = "MiscCheckbox";
                   this.MiscCheckbox.Size = new System.Drawing.Size(138, 27);
                   this.MiscCheckbox.TabIndex = 27;
@@ -255,40 +272,20 @@
                   this.EffectsCheckbox.AutoSize = true;
                   this.EffectsCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.EffectsCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.EffectsCheckbox.Location = new System.Drawing.Point(373, 350);
+                  this.EffectsCheckbox.Location = new System.Drawing.Point(6, 292);
                   this.EffectsCheckbox.Name = "EffectsCheckbox";
                   this.EffectsCheckbox.Size = new System.Drawing.Size(79, 27);
                   this.EffectsCheckbox.TabIndex = 26;
                   this.EffectsCheckbox.Text = "Effects";
-                  this.toolTip.SetToolTip(this.EffectsCheckbox, "Sprider teleport effects and the default player explosion textures are i this cat" +
-        "egory");
+                  this.toolTip.SetToolTip(this.EffectsCheckbox, "Spider teleport effects, the default player explosion textures and more are in th" +
+        "is category");
                   this.EffectsCheckbox.UseVisualStyleBackColor = false;
                   this.EffectsCheckbox.Click += new System.EventHandler(this.EffectsSettingsChanged);
-                  // 
-                  // IconsTexturesHeaderLabel
-                  // 
-                  this.IconsTexturesHeaderLabel.AutoSize = true;
-                  this.IconsTexturesHeaderLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.IconsTexturesHeaderLabel.Location = new System.Drawing.Point(74, 76);
-                  this.IconsTexturesHeaderLabel.Name = "IconsTexturesHeaderLabel";
-                  this.IconsTexturesHeaderLabel.Size = new System.Drawing.Size(138, 29);
-                  this.IconsTexturesHeaderLabel.TabIndex = 30;
-                  this.IconsTexturesHeaderLabel.Text = "Texture Type";
-                  // 
-                  // IconTexturesGroupHeaderLabel
-                  // 
-                  this.IconTexturesGroupHeaderLabel.AutoSize = true;
-                  this.IconTexturesGroupHeaderLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.IconTexturesGroupHeaderLabel.Location = new System.Drawing.Point(245, 76);
-                  this.IconTexturesGroupHeaderLabel.Name = "IconTexturesGroupHeaderLabel";
-                  this.IconTexturesGroupHeaderLabel.Size = new System.Drawing.Size(75, 29);
-                  this.IconTexturesGroupHeaderLabel.TabIndex = 30;
-                  this.IconTexturesGroupHeaderLabel.Text = "Group";
                   // 
                   // IconTexturesGroupDisplay
                   // 
                   this.IconTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.IconTexturesGroupDisplay.Location = new System.Drawing.Point(250, 107);
+                  this.IconTexturesGroupDisplay.Location = new System.Drawing.Point(225, 50);
                   this.IconTexturesGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -302,7 +299,7 @@
                   // MenuTexturesGroupDisplay
                   // 
                   this.MenuTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.MenuTexturesGroupDisplay.Location = new System.Drawing.Point(558, 107);
+                  this.MenuTexturesGroupDisplay.Location = new System.Drawing.Point(225, 50);
                   this.MenuTexturesGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -316,7 +313,7 @@
                   // EditorTexturesGroupDisplay
                   // 
                   this.EditorTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.EditorTexturesGroupDisplay.Location = new System.Drawing.Point(558, 167);
+                  this.EditorTexturesGroupDisplay.Location = new System.Drawing.Point(225, 110);
                   this.EditorTexturesGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -330,7 +327,7 @@
                   // ShopTexturesGroupDisplay
                   // 
                   this.ShopTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.ShopTexturesGroupDisplay.Location = new System.Drawing.Point(558, 137);
+                  this.ShopTexturesGroupDisplay.Location = new System.Drawing.Point(225, 80);
                   this.ShopTexturesGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -344,7 +341,7 @@
                   // ParticleTexturesGroupDisplay
                   // 
                   this.ParticleTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.ParticleTexturesGroupDisplay.Location = new System.Drawing.Point(558, 317);
+                  this.ParticleTexturesGroupDisplay.Location = new System.Drawing.Point(225, 260);
                   this.ParticleTexturesGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -358,7 +355,7 @@
                   // OrbsGroupDisplay
                   // 
                   this.OrbsGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.OrbsGroupDisplay.Location = new System.Drawing.Point(558, 257);
+                  this.OrbsGroupDisplay.Location = new System.Drawing.Point(225, 200);
                   this.OrbsGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -372,7 +369,7 @@
                   // PortalTexturesGroupDisplay
                   // 
                   this.PortalTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.PortalTexturesGroupDisplay.Location = new System.Drawing.Point(558, 227);
+                  this.PortalTexturesGroupDisplay.Location = new System.Drawing.Point(225, 170);
                   this.PortalTexturesGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -386,7 +383,7 @@
                   // BlockTexturesGroupDisplay
                   // 
                   this.BlockTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.BlockTexturesGroupDisplay.Location = new System.Drawing.Point(558, 197);
+                  this.BlockTexturesGroupDisplay.Location = new System.Drawing.Point(225, 140);
                   this.BlockTexturesGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -400,7 +397,7 @@
                   // MiscGroupDisplay
                   // 
                   this.MiscGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.MiscGroupDisplay.Location = new System.Drawing.Point(558, 377);
+                  this.MiscGroupDisplay.Location = new System.Drawing.Point(225, 320);
                   this.MiscGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -414,7 +411,7 @@
                   // EffectsGroupDisplay
                   // 
                   this.EffectsGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.EffectsGroupDisplay.Location = new System.Drawing.Point(558, 347);
+                  this.EffectsGroupDisplay.Location = new System.Drawing.Point(225, 290);
                   this.EffectsGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -429,28 +426,29 @@
                   // 
                   this.GDR_HeaderLabel.AutoSize = true;
                   this.GDR_HeaderLabel.Font = new System.Drawing.Font("High Tower Text", 39.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.GDR_HeaderLabel.Location = new System.Drawing.Point(171, 7);
+                  this.GDR_HeaderLabel.Location = new System.Drawing.Point(107, 6);
                   this.GDR_HeaderLabel.Name = "GDR_HeaderLabel";
                   this.GDR_HeaderLabel.Size = new System.Drawing.Size(645, 62);
                   this.GDR_HeaderLabel.TabIndex = 41;
                   this.GDR_HeaderLabel.Text = "Geometry Dash Randomiser";
+                  this.GDR_HeaderLabel.Click += new System.EventHandler(this.GDR_HeaderLabel_Click);
                   // 
                   // versionLabel
                   // 
                   this.versionLabel.AutoSize = true;
                   this.versionLabel.Font = new System.Drawing.Font("High Tower Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.versionLabel.Location = new System.Drawing.Point(802, 45);
+                  this.versionLabel.Location = new System.Drawing.Point(738, 44);
                   this.versionLabel.Name = "versionLabel";
-                  this.versionLabel.Size = new System.Drawing.Size(60, 22);
+                  this.versionLabel.Size = new System.Drawing.Size(59, 22);
                   this.versionLabel.TabIndex = 42;
-                  this.versionLabel.Text = "V2.2.0";
+                  this.versionLabel.Text = "V_._._";
                   // 
                   // gameFolderTextBox
                   // 
                   this.gameFolderTextBox.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.gameFolderTextBox.Location = new System.Drawing.Point(675, 164);
+                  this.gameFolderTextBox.Location = new System.Drawing.Point(6, 42);
                   this.gameFolderTextBox.Name = "gameFolderTextBox";
-                  this.gameFolderTextBox.Size = new System.Drawing.Size(295, 25);
+                  this.gameFolderTextBox.Size = new System.Drawing.Size(483, 25);
                   this.gameFolderTextBox.TabIndex = 43;
                   this.gameFolderTextBox.TextChanged += new System.EventHandler(this.GameFolderTextBox_TextChanged);
                   // 
@@ -458,7 +456,7 @@
                   // 
                   this.gameFolderLabel.AutoSize = true;
                   this.gameFolderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.gameFolderLabel.Location = new System.Drawing.Point(683, 141);
+                  this.gameFolderLabel.Location = new System.Drawing.Point(13, 19);
                   this.gameFolderLabel.Name = "gameFolderLabel";
                   this.gameFolderLabel.Size = new System.Drawing.Size(102, 20);
                   this.gameFolderLabel.TabIndex = 44;
@@ -466,61 +464,25 @@
                   // 
                   // gameFolderSelectorButton
                   // 
-                  this.gameFolderSelectorButton.Location = new System.Drawing.Point(970, 163);
+                  this.gameFolderSelectorButton.Location = new System.Drawing.Point(490, 41);
                   this.gameFolderSelectorButton.Name = "gameFolderSelectorButton";
-                  this.gameFolderSelectorButton.Size = new System.Drawing.Size(27, 27);
+                  this.gameFolderSelectorButton.Size = new System.Drawing.Size(28, 27);
                   this.gameFolderSelectorButton.TabIndex = 45;
                   this.gameFolderSelectorButton.Text = "...";
                   this.gameFolderSelectorButton.UseVisualStyleBackColor = true;
                   this.gameFolderSelectorButton.Click += new System.EventHandler(this.SetGameFolder);
                   // 
-                  // textureCachingCheckbox
-                  // 
-                  this.textureCachingCheckbox.AutoSize = true;
-                  this.textureCachingCheckbox.Enabled = false;
-                  this.textureCachingCheckbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.textureCachingCheckbox.Location = new System.Drawing.Point(687, 293);
-                  this.textureCachingCheckbox.Name = "textureCachingCheckbox";
-                  this.textureCachingCheckbox.Size = new System.Drawing.Size(197, 24);
-                  this.textureCachingCheckbox.TabIndex = 46;
-                  this.textureCachingCheckbox.Text = "Enable Texture Caching";
-                  this.toolTip.SetToolTip(this.textureCachingCheckbox, "(Not available currently) Speeds up the randomisation on every run, but does take" +
-        " 50-100MB of space up on your disk. Especially useful for Medium and High Qualit" +
-        "y");
-                  this.textureCachingCheckbox.UseVisualStyleBackColor = true;
-                  this.textureCachingCheckbox.Visible = false;
-                  this.textureCachingCheckbox.Click += new System.EventHandler(this.CachingSettingChanged);
-                  // 
-                  // applicationSettingsHeaderLabel
-                  // 
-                  this.applicationSettingsHeaderLabel.AutoSize = true;
-                  this.applicationSettingsHeaderLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.applicationSettingsHeaderLabel.Location = new System.Drawing.Point(733, 76);
-                  this.applicationSettingsHeaderLabel.Name = "applicationSettingsHeaderLabel";
-                  this.applicationSettingsHeaderLabel.Size = new System.Drawing.Size(208, 29);
-                  this.applicationSettingsHeaderLabel.TabIndex = 47;
-                  this.applicationSettingsHeaderLabel.Text = "Application Settings";
-                  // 
                   // startButton
                   // 
-                  this.startButton.Font = new System.Drawing.Font("Calibri", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.startButton.Location = new System.Drawing.Point(863, 450);
+                  this.startButton.Font = new System.Drawing.Font("Calibri", 20F);
+                  this.startButton.Location = new System.Drawing.Point(742, 630);
                   this.startButton.Name = "startButton";
-                  this.startButton.Size = new System.Drawing.Size(133, 65);
+                  this.startButton.Size = new System.Drawing.Size(182, 51);
                   this.startButton.TabIndex = 48;
-                  this.startButton.Text = "Start";
+                  this.startButton.Text = "Randomise";
+                  this.toolTip.SetToolTip(this.startButton, "Start randomsing the textures");
                   this.startButton.UseVisualStyleBackColor = true;
                   this.startButton.Click += new System.EventHandler(this.startButton_Click);
-                  // 
-                  // infoDisplay
-                  // 
-                  this.infoDisplay.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.infoDisplay.Location = new System.Drawing.Point(12, 450);
-                  this.infoDisplay.Name = "infoDisplay";
-                  this.infoDisplay.ReadOnly = true;
-                  this.infoDisplay.Size = new System.Drawing.Size(846, 65);
-                  this.infoDisplay.TabIndex = 49;
-                  this.infoDisplay.Text = "";
                   // 
                   // toolTip
                   // 
@@ -532,7 +494,7 @@
                   // 
                   this.textureQualityLabel.AutoSize = true;
                   this.textureQualityLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.textureQualityLabel.Location = new System.Drawing.Point(683, 241);
+                  this.textureQualityLabel.Location = new System.Drawing.Point(543, 19);
                   this.textureQualityLabel.Name = "textureQualityLabel";
                   this.textureQualityLabel.Size = new System.Drawing.Size(114, 20);
                   this.textureQualityLabel.TabIndex = 53;
@@ -544,66 +506,19 @@
                   // 
                   this.randomisationSeedLabel.AutoSize = true;
                   this.randomisationSeedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.randomisationSeedLabel.Location = new System.Drawing.Point(683, 141);
+                  this.randomisationSeedLabel.Location = new System.Drawing.Point(13, 19);
                   this.randomisationSeedLabel.Name = "randomisationSeedLabel";
-                  this.randomisationSeedLabel.Size = new System.Drawing.Size(158, 20);
+                  this.randomisationSeedLabel.Size = new System.Drawing.Size(47, 20);
                   this.randomisationSeedLabel.TabIndex = 55;
-                  this.randomisationSeedLabel.Text = "Randomisation Seed";
-                  this.toolTip.SetToolTip(this.randomisationSeedLabel, "Leave this value at 0 for a random seed");
-                  // 
-                  // checkBox1
-                  // 
-                  this.checkBox1.AutoSize = true;
-                  this.checkBox1.Enabled = false;
-                  this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.checkBox1.Location = new System.Drawing.Point(687, 293);
-                  this.checkBox1.Name = "checkBox1";
-                  this.checkBox1.Size = new System.Drawing.Size(264, 24);
-                  this.checkBox1.TabIndex = 89;
-                  this.checkBox1.Text = "Auto-Overwrite Randomised Files";
-                  this.toolTip.SetToolTip(this.checkBox1, "(Not available currently) Speeds up the randomisation on every run, but does take" +
-        " 50-100MB of space up on your disk. Especially useful for Medium and High Qualit" +
-        "y");
-                  this.checkBox1.UseVisualStyleBackColor = true;
-                  this.checkBox1.Visible = false;
-                  // 
-                  // checkBox2
-                  // 
-                  this.checkBox2.AutoSize = true;
-                  this.checkBox2.Enabled = false;
-                  this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.checkBox2.Location = new System.Drawing.Point(687, 318);
-                  this.checkBox2.Name = "checkBox2";
-                  this.checkBox2.Size = new System.Drawing.Size(191, 24);
-                  this.checkBox2.TabIndex = 90;
-                  this.checkBox2.Text = "Ignore Blacklisted Files";
-                  this.toolTip.SetToolTip(this.checkBox2, "(Not available currently) Speeds up the randomisation on every run, but does take" +
-        " 50-100MB of space up on your disk. Especially useful for Medium and High Qualit" +
-        "y");
-                  this.checkBox2.UseVisualStyleBackColor = true;
-                  this.checkBox2.Visible = false;
-                  // 
-                  // allFilesProgressBar
-                  // 
-                  this.allFilesProgressBar.Location = new System.Drawing.Point(12, 492);
-                  this.allFilesProgressBar.Name = "allFilesProgressBar";
-                  this.allFilesProgressBar.Size = new System.Drawing.Size(489, 23);
-                  this.allFilesProgressBar.TabIndex = 50;
-                  this.allFilesProgressBar.Visible = false;
-                  // 
-                  // fileProgressBar
-                  // 
-                  this.fileProgressBar.Location = new System.Drawing.Point(507, 492);
-                  this.fileProgressBar.Name = "fileProgressBar";
-                  this.fileProgressBar.Size = new System.Drawing.Size(489, 23);
-                  this.fileProgressBar.TabIndex = 51;
-                  this.fileProgressBar.Visible = false;
+                  this.randomisationSeedLabel.Text = "Seed";
+                  this.toolTip.SetToolTip(this.randomisationSeedLabel, "This value controls the randomisation. The same seed ith identical settings will " +
+        "(almost) always give the same results");
                   // 
                   // seedInputBox
                   // 
                   this.seedInputBox.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.seedInputBox.ForeColor = System.Drawing.SystemColors.MenuText;
-                  this.seedInputBox.Location = new System.Drawing.Point(675, 164);
+                  this.seedInputBox.Location = new System.Drawing.Point(5, 42);
                   this.seedInputBox.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -615,83 +530,45 @@
             0,
             -2147483648});
                   this.seedInputBox.Name = "seedInputBox";
-                  this.seedInputBox.Size = new System.Drawing.Size(166, 25);
+                  this.seedInputBox.Size = new System.Drawing.Size(132, 25);
                   this.seedInputBox.TabIndex = 54;
                   this.seedInputBox.ThousandsSeparator = true;
+                  this.toolTip.SetToolTip(this.seedInputBox, "Leave this value at 0 for a random seed");
                   this.seedInputBox.ValueChanged += new System.EventHandler(this.SeedValueChanged);
                   // 
                   // textureQualitySelectorBox
                   // 
                   this.textureQualitySelectorBox.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.textureQualitySelectorBox.Location = new System.Drawing.Point(675, 264);
+                  this.textureQualitySelectorBox.Location = new System.Drawing.Point(535, 42);
                   this.textureQualitySelectorBox.Name = "textureQualitySelectorBox";
                   this.textureQualitySelectorBox.ReadOnly = true;
-                  this.textureQualitySelectorBox.Size = new System.Drawing.Size(201, 25);
+                  this.textureQualitySelectorBox.Size = new System.Drawing.Size(180, 25);
                   this.textureQualitySelectorBox.TabIndex = 57;
                   this.textureQualitySelectorBox.Text = "High Quality";
-                  this.textureQualitySelectorBox.SelectedItemChanged += new System.EventHandler(this.qualityOptionChanged);
+                  this.textureQualitySelectorBox.SelectedItemChanged += new System.EventHandler(this.CachingSettingChanged);
                   // 
                   // randomSeedButton
                   // 
                   this.randomSeedButton.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.randomSeedButton.Location = new System.Drawing.Point(842, 163);
+                  this.randomSeedButton.Location = new System.Drawing.Point(137, 41);
                   this.randomSeedButton.Name = "randomSeedButton";
-                  this.randomSeedButton.Size = new System.Drawing.Size(110, 27);
+                  this.randomSeedButton.Size = new System.Drawing.Size(97, 27);
                   this.randomSeedButton.TabIndex = 58;
                   this.randomSeedButton.Text = "Random Seed";
                   this.randomSeedButton.UseVisualStyleBackColor = true;
                   this.randomSeedButton.Click += new System.EventHandler(this.randomSeedButton_Click);
-                  // 
-                  // groupInfoHelpButton1
-                  // 
-                  this.groupInfoHelpButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.groupInfoHelpButton1.Location = new System.Drawing.Point(313, 81);
-                  this.groupInfoHelpButton1.Name = "groupInfoHelpButton1";
-                  this.groupInfoHelpButton1.Size = new System.Drawing.Size(24, 24);
-                  this.groupInfoHelpButton1.TabIndex = 59;
-                  this.groupInfoHelpButton1.Text = "?";
-                  this.groupInfoHelpButton1.UseVisualStyleBackColor = true;
-                  this.groupInfoHelpButton1.Click += new System.EventHandler(this.groupInfoHelpButton_Click);
-                  // 
-                  // outputFolderLabel
-                  // 
-                  this.outputFolderLabel.AutoSize = true;
-                  this.outputFolderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.outputFolderLabel.Location = new System.Drawing.Point(683, 190);
-                  this.outputFolderLabel.Name = "outputFolderLabel";
-                  this.outputFolderLabel.Size = new System.Drawing.Size(107, 20);
-                  this.outputFolderLabel.TabIndex = 60;
-                  this.outputFolderLabel.Text = "Output Folder";
-                  // 
-                  // outputFolderTextBox
-                  // 
-                  this.outputFolderTextBox.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.outputFolderTextBox.Location = new System.Drawing.Point(675, 213);
-                  this.outputFolderTextBox.Name = "outputFolderTextBox";
-                  this.outputFolderTextBox.Size = new System.Drawing.Size(295, 25);
-                  this.outputFolderTextBox.TabIndex = 61;
-                  this.outputFolderTextBox.TextChanged += new System.EventHandler(this.outputFolderTextBox_TextChanged);
-                  // 
-                  // outputFolderSelectorButton
-                  // 
-                  this.outputFolderSelectorButton.Location = new System.Drawing.Point(970, 212);
-                  this.outputFolderSelectorButton.Name = "outputFolderSelectorButton";
-                  this.outputFolderSelectorButton.Size = new System.Drawing.Size(27, 27);
-                  this.outputFolderSelectorButton.TabIndex = 62;
-                  this.outputFolderSelectorButton.Text = "...";
-                  this.outputFolderSelectorButton.UseVisualStyleBackColor = true;
-                  this.outputFolderSelectorButton.Click += new System.EventHandler(this.SetOutputFolder);
                   // 
                   // CubeTexturesCheckbox
                   // 
                   this.CubeTexturesCheckbox.AutoSize = true;
                   this.CubeTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.CubeTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.CubeTexturesCheckbox.Location = new System.Drawing.Point(79, 140);
+                  this.CubeTexturesCheckbox.Location = new System.Drawing.Point(30, 82);
                   this.CubeTexturesCheckbox.Name = "CubeTexturesCheckbox";
                   this.CubeTexturesCheckbox.Size = new System.Drawing.Size(136, 27);
                   this.CubeTexturesCheckbox.TabIndex = 64;
                   this.CubeTexturesCheckbox.Text = "Cube Textures";
+                  this.toolTip.SetToolTip(this.CubeTexturesCheckbox, "Randomise the textures for the Cube gamemode");
                   this.CubeTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.CubeTexturesCheckbox.Click += new System.EventHandler(this.CubeTexturesEnabledChanged);
                   // 
@@ -700,11 +577,12 @@
                   this.ShipTexturesCheckbox.AutoSize = true;
                   this.ShipTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.ShipTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.ShipTexturesCheckbox.Location = new System.Drawing.Point(79, 170);
+                  this.ShipTexturesCheckbox.Location = new System.Drawing.Point(30, 112);
                   this.ShipTexturesCheckbox.Name = "ShipTexturesCheckbox";
                   this.ShipTexturesCheckbox.Size = new System.Drawing.Size(130, 27);
                   this.ShipTexturesCheckbox.TabIndex = 66;
                   this.ShipTexturesCheckbox.Text = "Ship Textures";
+                  this.toolTip.SetToolTip(this.ShipTexturesCheckbox, "Randomise the textures for the Ship gamemode");
                   this.ShipTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.ShipTexturesCheckbox.Click += new System.EventHandler(this.ShipTexturesEnabledChanged);
                   // 
@@ -713,11 +591,12 @@
                   this.BallTexturesCheckbox.AutoSize = true;
                   this.BallTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.BallTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.BallTexturesCheckbox.Location = new System.Drawing.Point(79, 200);
+                  this.BallTexturesCheckbox.Location = new System.Drawing.Point(30, 142);
                   this.BallTexturesCheckbox.Name = "BallTexturesCheckbox";
                   this.BallTexturesCheckbox.Size = new System.Drawing.Size(124, 27);
                   this.BallTexturesCheckbox.TabIndex = 68;
                   this.BallTexturesCheckbox.Text = "Ball Textures";
+                  this.toolTip.SetToolTip(this.BallTexturesCheckbox, "Randomise the textures for the Ball gamemode");
                   this.BallTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.BallTexturesCheckbox.Click += new System.EventHandler(this.BallTexturesEnabledChanged);
                   // 
@@ -726,11 +605,12 @@
                   this.UFO_TexturesCheckbox.AutoSize = true;
                   this.UFO_TexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.UFO_TexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.UFO_TexturesCheckbox.Location = new System.Drawing.Point(79, 230);
+                  this.UFO_TexturesCheckbox.Location = new System.Drawing.Point(30, 172);
                   this.UFO_TexturesCheckbox.Name = "UFO_TexturesCheckbox";
                   this.UFO_TexturesCheckbox.Size = new System.Drawing.Size(131, 27);
                   this.UFO_TexturesCheckbox.TabIndex = 69;
                   this.UFO_TexturesCheckbox.Text = "UFO Textures";
+                  this.toolTip.SetToolTip(this.UFO_TexturesCheckbox, "Randomise the textures for the UFO gamemode");
                   this.UFO_TexturesCheckbox.UseVisualStyleBackColor = false;
                   this.UFO_TexturesCheckbox.Click += new System.EventHandler(this.UFO_TexturesEnabledChanged);
                   // 
@@ -739,11 +619,12 @@
                   this.WaveTexturesCheckbox.AutoSize = true;
                   this.WaveTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.WaveTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.WaveTexturesCheckbox.Location = new System.Drawing.Point(79, 260);
+                  this.WaveTexturesCheckbox.Location = new System.Drawing.Point(30, 202);
                   this.WaveTexturesCheckbox.Name = "WaveTexturesCheckbox";
                   this.WaveTexturesCheckbox.Size = new System.Drawing.Size(140, 27);
                   this.WaveTexturesCheckbox.TabIndex = 70;
                   this.WaveTexturesCheckbox.Text = "Wave Textures";
+                  this.toolTip.SetToolTip(this.WaveTexturesCheckbox, "Randomise the textures for the Wave gamemode");
                   this.WaveTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.WaveTexturesCheckbox.Click += new System.EventHandler(this.WaveTexturesEnabledChanged);
                   // 
@@ -752,11 +633,12 @@
                   this.RobotTexturesCheckbox.AutoSize = true;
                   this.RobotTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.RobotTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.RobotTexturesCheckbox.Location = new System.Drawing.Point(79, 290);
+                  this.RobotTexturesCheckbox.Location = new System.Drawing.Point(30, 232);
                   this.RobotTexturesCheckbox.Name = "RobotTexturesCheckbox";
                   this.RobotTexturesCheckbox.Size = new System.Drawing.Size(143, 27);
                   this.RobotTexturesCheckbox.TabIndex = 71;
                   this.RobotTexturesCheckbox.Text = "Robot Textures";
+                  this.toolTip.SetToolTip(this.RobotTexturesCheckbox, "Randomise the textures for the Robot gamemode");
                   this.RobotTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.RobotTexturesCheckbox.Click += new System.EventHandler(this.RobotTexturesEnabledChanged);
                   // 
@@ -765,11 +647,12 @@
                   this.SpiderTexturesCheckbox.AutoSize = true;
                   this.SpiderTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.SpiderTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.SpiderTexturesCheckbox.Location = new System.Drawing.Point(79, 320);
+                  this.SpiderTexturesCheckbox.Location = new System.Drawing.Point(30, 262);
                   this.SpiderTexturesCheckbox.Name = "SpiderTexturesCheckbox";
                   this.SpiderTexturesCheckbox.Size = new System.Drawing.Size(146, 27);
                   this.SpiderTexturesCheckbox.TabIndex = 72;
                   this.SpiderTexturesCheckbox.Text = "Spider Textures";
+                  this.toolTip.SetToolTip(this.SpiderTexturesCheckbox, "Randomise the textures for the Spider gamemode");
                   this.SpiderTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.SpiderTexturesCheckbox.Click += new System.EventHandler(this.SpiderTexturesEnabledChanged);
                   // 
@@ -778,11 +661,12 @@
                   this.SwingTexturesCheckbox.AutoSize = true;
                   this.SwingTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.SwingTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.SwingTexturesCheckbox.Location = new System.Drawing.Point(79, 350);
+                  this.SwingTexturesCheckbox.Location = new System.Drawing.Point(30, 292);
                   this.SwingTexturesCheckbox.Name = "SwingTexturesCheckbox";
                   this.SwingTexturesCheckbox.Size = new System.Drawing.Size(143, 27);
                   this.SwingTexturesCheckbox.TabIndex = 73;
                   this.SwingTexturesCheckbox.Text = "Swing Textures";
+                  this.toolTip.SetToolTip(this.SwingTexturesCheckbox, "Randomise the textures for the Swing gamemode");
                   this.SwingTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.SwingTexturesCheckbox.Click += new System.EventHandler(this.SwingTexturesEnabledChanged);
                   // 
@@ -791,18 +675,19 @@
                   this.JetpackTexturesCheckbox.AutoSize = true;
                   this.JetpackTexturesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.JetpackTexturesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.JetpackTexturesCheckbox.Location = new System.Drawing.Point(79, 380);
+                  this.JetpackTexturesCheckbox.Location = new System.Drawing.Point(30, 322);
                   this.JetpackTexturesCheckbox.Name = "JetpackTexturesCheckbox";
                   this.JetpackTexturesCheckbox.Size = new System.Drawing.Size(154, 27);
                   this.JetpackTexturesCheckbox.TabIndex = 74;
                   this.JetpackTexturesCheckbox.Text = "Jetpack Textures";
+                  this.toolTip.SetToolTip(this.JetpackTexturesCheckbox, "Randomise the textures for the Jetpack gamemode");
                   this.JetpackTexturesCheckbox.UseVisualStyleBackColor = false;
                   this.JetpackTexturesCheckbox.Click += new System.EventHandler(this.JetpackTexturesEnabledChanged);
                   // 
                   // CubeTexturesGroupDisplay
                   // 
                   this.CubeTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.CubeTexturesGroupDisplay.Location = new System.Drawing.Point(250, 137);
+                  this.CubeTexturesGroupDisplay.Location = new System.Drawing.Point(225, 80);
                   this.CubeTexturesGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -816,7 +701,7 @@
                   // ShipTexturesGroupDisplay
                   // 
                   this.ShipTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.ShipTexturesGroupDisplay.Location = new System.Drawing.Point(250, 167);
+                  this.ShipTexturesGroupDisplay.Location = new System.Drawing.Point(225, 110);
                   this.ShipTexturesGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -830,7 +715,7 @@
                   // BallTexturesGroupDisplay
                   // 
                   this.BallTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.BallTexturesGroupDisplay.Location = new System.Drawing.Point(250, 197);
+                  this.BallTexturesGroupDisplay.Location = new System.Drawing.Point(225, 140);
                   this.BallTexturesGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -844,7 +729,7 @@
                   // JetpackTexturesGroupDisplay
                   // 
                   this.JetpackTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.JetpackTexturesGroupDisplay.Location = new System.Drawing.Point(250, 377);
+                  this.JetpackTexturesGroupDisplay.Location = new System.Drawing.Point(225, 320);
                   this.JetpackTexturesGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -858,7 +743,7 @@
                   // SwingTexturesGroupDisplay
                   // 
                   this.SwingTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.SwingTexturesGroupDisplay.Location = new System.Drawing.Point(250, 347);
+                  this.SwingTexturesGroupDisplay.Location = new System.Drawing.Point(225, 290);
                   this.SwingTexturesGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -872,7 +757,7 @@
                   // SpiderTexturesGroupDisplay
                   // 
                   this.SpiderTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.SpiderTexturesGroupDisplay.Location = new System.Drawing.Point(250, 317);
+                  this.SpiderTexturesGroupDisplay.Location = new System.Drawing.Point(225, 260);
                   this.SpiderTexturesGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -886,7 +771,7 @@
                   // RobotTexturesGroupDisplay
                   // 
                   this.RobotTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.RobotTexturesGroupDisplay.Location = new System.Drawing.Point(250, 287);
+                  this.RobotTexturesGroupDisplay.Location = new System.Drawing.Point(225, 230);
                   this.RobotTexturesGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -900,7 +785,7 @@
                   // WaveTexturesGroupDisplay
                   // 
                   this.WaveTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.WaveTexturesGroupDisplay.Location = new System.Drawing.Point(250, 257);
+                  this.WaveTexturesGroupDisplay.Location = new System.Drawing.Point(225, 200);
                   this.WaveTexturesGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -914,7 +799,7 @@
                   // UFO_TexturesGroupDisplay
                   // 
                   this.UFO_TexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.UFO_TexturesGroupDisplay.Location = new System.Drawing.Point(250, 227);
+                  this.UFO_TexturesGroupDisplay.Location = new System.Drawing.Point(225, 170);
                   this.UFO_TexturesGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -928,38 +813,18 @@
                   // groupInfoHelpButton2
                   // 
                   this.groupInfoHelpButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.groupInfoHelpButton2.Location = new System.Drawing.Point(621, 81);
+                  this.groupInfoHelpButton2.Location = new System.Drawing.Point(873, 12);
                   this.groupInfoHelpButton2.Name = "groupInfoHelpButton2";
-                  this.groupInfoHelpButton2.Size = new System.Drawing.Size(24, 24);
+                  this.groupInfoHelpButton2.Size = new System.Drawing.Size(51, 24);
                   this.groupInfoHelpButton2.TabIndex = 86;
-                  this.groupInfoHelpButton2.Text = "?";
+                  this.groupInfoHelpButton2.Text = "Help";
                   this.groupInfoHelpButton2.UseVisualStyleBackColor = true;
                   this.groupInfoHelpButton2.Click += new System.EventHandler(this.groupInfoHelpButton_Click);
-                  // 
-                  // TexturesGroupHeaderLabel
-                  // 
-                  this.TexturesGroupHeaderLabel.AutoSize = true;
-                  this.TexturesGroupHeaderLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.TexturesGroupHeaderLabel.Location = new System.Drawing.Point(553, 76);
-                  this.TexturesGroupHeaderLabel.Name = "TexturesGroupHeaderLabel";
-                  this.TexturesGroupHeaderLabel.Size = new System.Drawing.Size(75, 29);
-                  this.TexturesGroupHeaderLabel.TabIndex = 84;
-                  this.TexturesGroupHeaderLabel.Text = "Group";
-                  // 
-                  // TexturesHeaderLabel
-                  // 
-                  this.TexturesHeaderLabel.AutoSize = true;
-                  this.TexturesHeaderLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.TexturesHeaderLabel.Location = new System.Drawing.Point(390, 76);
-                  this.TexturesHeaderLabel.Name = "TexturesHeaderLabel";
-                  this.TexturesHeaderLabel.Size = new System.Drawing.Size(138, 29);
-                  this.TexturesHeaderLabel.TabIndex = 85;
-                  this.TexturesHeaderLabel.Text = "Texture Type";
                   // 
                   // PadsGroupDisplay
                   // 
                   this.PadsGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.PadsGroupDisplay.Location = new System.Drawing.Point(558, 287);
+                  this.PadsGroupDisplay.Location = new System.Drawing.Point(225, 230);
                   this.PadsGroupDisplay.Maximum = new decimal(new int[] {
             10,
             0,
@@ -975,18 +840,19 @@
                   this.PadsCheckbox.AutoSize = true;
                   this.PadsCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.PadsCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.PadsCheckbox.Location = new System.Drawing.Point(373, 290);
+                  this.PadsCheckbox.Location = new System.Drawing.Point(6, 232);
                   this.PadsCheckbox.Name = "PadsCheckbox";
                   this.PadsCheckbox.Size = new System.Drawing.Size(126, 27);
                   this.PadsCheckbox.TabIndex = 87;
                   this.PadsCheckbox.Text = "Pad Textures";
+                  this.toolTip.SetToolTip(this.PadsCheckbox, "Randomise Pad textures");
                   this.PadsCheckbox.UseVisualStyleBackColor = false;
                   this.PadsCheckbox.Click += new System.EventHandler(this.PadsSettingChanged);
                   // 
                   // ChangelogButton
                   // 
                   this.ChangelogButton.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.ChangelogButton.Location = new System.Drawing.Point(863, 44);
+                  this.ChangelogButton.Location = new System.Drawing.Point(818, 43);
                   this.ChangelogButton.Name = "ChangelogButton";
                   this.ChangelogButton.Size = new System.Drawing.Size(88, 27);
                   this.ChangelogButton.TabIndex = 91;
@@ -996,90 +862,44 @@
                   // 
                   // spriteSizeMultiplierTrackbar
                   // 
-                  this.spriteSizeMultiplierTrackbar.Location = new System.Drawing.Point(667, 215);
+                  this.spriteSizeMultiplierTrackbar.Location = new System.Drawing.Point(242, 38);
                   this.spriteSizeMultiplierTrackbar.Maximum = 331;
                   this.spriteSizeMultiplierTrackbar.Minimum = 1;
                   this.spriteSizeMultiplierTrackbar.Name = "spriteSizeMultiplierTrackbar";
-                  this.spriteSizeMultiplierTrackbar.Size = new System.Drawing.Size(236, 45);
+                  this.spriteSizeMultiplierTrackbar.Size = new System.Drawing.Size(357, 45);
                   this.spriteSizeMultiplierTrackbar.TabIndex = 92;
-                  this.spriteSizeMultiplierTrackbar.TickFrequency = 33;
+                  this.spriteSizeMultiplierTrackbar.TickFrequency = 15;
+                  this.toolTip.SetToolTip(this.spriteSizeMultiplierTrackbar, "Minimum: 1.01x, Maximum: Unlimited");
                   this.spriteSizeMultiplierTrackbar.Value = 1;
                   this.spriteSizeMultiplierTrackbar.Scroll += new System.EventHandler(this.spriteSizeMultiplierTrackbar_Scroll);
-                  // 
-                  // RandomisationSettingButton
-                  // 
-                  this.RandomisationSettingButton.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.RandomisationSettingButton.Location = new System.Drawing.Point(836, 108);
-                  this.RandomisationSettingButton.Name = "RandomisationSettingButton";
-                  this.RandomisationSettingButton.Size = new System.Drawing.Size(133, 28);
-                  this.RandomisationSettingButton.TabIndex = 93;
-                  this.RandomisationSettingButton.Text = "Randomisation";
-                  this.RandomisationSettingButton.UseVisualStyleBackColor = true;
-                  this.RandomisationSettingButton.Click += new System.EventHandler(this.RandomisationSettingButton_Click);
-                  // 
-                  // ApplicationSettingButton
-                  // 
-                  this.ApplicationSettingButton.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.ApplicationSettingButton.Location = new System.Drawing.Point(703, 108);
-                  this.ApplicationSettingButton.Name = "ApplicationSettingButton";
-                  this.ApplicationSettingButton.Size = new System.Drawing.Size(133, 28);
-                  this.ApplicationSettingButton.TabIndex = 95;
-                  this.ApplicationSettingButton.Text = "Application";
-                  this.ApplicationSettingButton.UseVisualStyleBackColor = true;
-                  this.ApplicationSettingButton.Click += new System.EventHandler(this.ApplicationSettingButton_Click);
                   // 
                   // spriteSizeMultiplierLabel
                   // 
                   this.spriteSizeMultiplierLabel.AutoSize = true;
                   this.spriteSizeMultiplierLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.spriteSizeMultiplierLabel.Location = new System.Drawing.Point(683, 192);
+                  this.spriteSizeMultiplierLabel.Location = new System.Drawing.Point(254, 18);
                   this.spriteSizeMultiplierLabel.Name = "spriteSizeMultiplierLabel";
-                  this.spriteSizeMultiplierLabel.Size = new System.Drawing.Size(152, 20);
+                  this.spriteSizeMultiplierLabel.Size = new System.Drawing.Size(163, 20);
                   this.spriteSizeMultiplierLabel.TabIndex = 97;
-                  this.spriteSizeMultiplierLabel.Text = "Sprite Size Multiplier";
-                  // 
-                  // spriteSizeMultiplierTextbox
-                  // 
-                  this.spriteSizeMultiplierTextbox.Font = new System.Drawing.Font("Cambria", 11.25F);
-                  this.spriteSizeMultiplierTextbox.Location = new System.Drawing.Point(901, 215);
-                  this.spriteSizeMultiplierTextbox.Name = "spriteSizeMultiplierTextbox";
-                  this.spriteSizeMultiplierTextbox.ReadOnly = true;
-                  this.spriteSizeMultiplierTextbox.Size = new System.Drawing.Size(95, 25);
-                  this.spriteSizeMultiplierTextbox.TabIndex = 98;
+                  this.spriteSizeMultiplierLabel.Text = "Texture Size Multiplier";
+                  this.toolTip.SetToolTip(this.spriteSizeMultiplierLabel, "This changes when 2 textures can be swapped. Having the value at 2x will only swa" +
+        "p textures that are between 2x smaller or 2x bigger. Bigger value = more chaotic" +
+        " game");
                   // 
                   // allowDuplicatesCheckbox
                   // 
                   this.allowDuplicatesCheckbox.AutoSize = true;
                   this.allowDuplicatesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.allowDuplicatesCheckbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.allowDuplicatesCheckbox.Location = new System.Drawing.Point(675, 250);
+                  this.allowDuplicatesCheckbox.Location = new System.Drawing.Point(705, 18);
                   this.allowDuplicatesCheckbox.Name = "allowDuplicatesCheckbox";
                   this.allowDuplicatesCheckbox.Size = new System.Drawing.Size(201, 24);
                   this.allowDuplicatesCheckbox.TabIndex = 99;
                   this.allowDuplicatesCheckbox.Text = "Allow Duplicate Textures";
+                  this.toolTip.SetToolTip(this.allowDuplicatesCheckbox, "If this is enabled a texture can apprear in multiple times, and others will not a" +
+        "ppear at all");
                   this.allowDuplicatesCheckbox.UseVisualStyleBackColor = false;
                   this.allowDuplicatesCheckbox.Click += new System.EventHandler(this.allowDuplicatesCheckbox_Click);
-                  // 
-                  // randomisationSettingsHeaderLabel
-                  // 
-                  this.randomisationSettingsHeaderLabel.AutoSize = true;
-                  this.randomisationSettingsHeaderLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.randomisationSettingsHeaderLabel.Location = new System.Drawing.Point(714, 76);
-                  this.randomisationSettingsHeaderLabel.Name = "randomisationSettingsHeaderLabel";
-                  this.randomisationSettingsHeaderLabel.Size = new System.Drawing.Size(244, 29);
-                  this.randomisationSettingsHeaderLabel.TabIndex = 96;
-                  this.randomisationSettingsHeaderLabel.Text = "Randomisation Settings";
-                  this.randomisationSettingsHeaderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-                  this.randomisationSettingsHeaderLabel.Visible = false;
-                  // 
-                  // settingsSeparatorBeam
-                  // 
-                  this.settingsSeparatorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.ConnectorBeamBlack;
-                  this.settingsSeparatorBeam.Location = new System.Drawing.Point(656, 81);
-                  this.settingsSeparatorBeam.Name = "settingsSeparatorBeam";
-                  this.settingsSeparatorBeam.Size = new System.Drawing.Size(3, 326);
-                  this.settingsSeparatorBeam.TabIndex = 94;
-                  this.settingsSeparatorBeam.TabStop = false;
                   // 
                   // Logo
                   // 
@@ -1095,7 +915,7 @@
                   // 
                   this.ThemeLabel.AutoSize = true;
                   this.ThemeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.ThemeLabel.Location = new System.Drawing.Point(683, 292);
+                  this.ThemeLabel.Location = new System.Drawing.Point(543, 68);
                   this.ThemeLabel.Name = "ThemeLabel";
                   this.ThemeLabel.Size = new System.Drawing.Size(140, 20);
                   this.ThemeLabel.TabIndex = 101;
@@ -1104,24 +924,340 @@
                   // applicationThemeSelectorBox
                   // 
                   this.applicationThemeSelectorBox.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.applicationThemeSelectorBox.Items.Add("Dark Mode");
-                  this.applicationThemeSelectorBox.Items.Add("Light Mode");
-                  this.applicationThemeSelectorBox.Location = new System.Drawing.Point(675, 315);
+                  this.applicationThemeSelectorBox.Location = new System.Drawing.Point(535, 91);
                   this.applicationThemeSelectorBox.Name = "applicationThemeSelectorBox";
                   this.applicationThemeSelectorBox.ReadOnly = true;
-                  this.applicationThemeSelectorBox.Size = new System.Drawing.Size(201, 25);
+                  this.applicationThemeSelectorBox.Size = new System.Drawing.Size(180, 25);
                   this.applicationThemeSelectorBox.TabIndex = 102;
-                  this.applicationThemeSelectorBox.Text = "Dark Mode";
+                  this.applicationThemeSelectorBox.Wrap = true;
                   this.applicationThemeSelectorBox.Click += new System.EventHandler(this.applicationThemeSelectorBox_Click);
+                  // 
+                  // spriteSizeMultiplierTextbox
+                  // 
+                  this.spriteSizeMultiplierTextbox.Font = new System.Drawing.Font("Cambria", 11.25F);
+                  this.spriteSizeMultiplierTextbox.Location = new System.Drawing.Point(603, 41);
+                  this.spriteSizeMultiplierTextbox.Name = "spriteSizeMultiplierTextbox";
+                  this.spriteSizeMultiplierTextbox.ReadOnly = true;
+                  this.spriteSizeMultiplierTextbox.Size = new System.Drawing.Size(81, 25);
+                  this.spriteSizeMultiplierTextbox.TabIndex = 103;
+                  // 
+                  // groupBox1
+                  // 
+                  this.groupBox1.Controls.Add(this.label4);
+                  this.groupBox1.Controls.Add(this.label3);
+                  this.groupBox1.Controls.Add(this.iconsConnectorBeam);
+                  this.groupBox1.Controls.Add(this.IconTexturesCheckbox);
+                  this.groupBox1.Controls.Add(this.IconTexturesGroupDisplay);
+                  this.groupBox1.Controls.Add(this.CubeTexturesCheckbox);
+                  this.groupBox1.Controls.Add(this.ShipTexturesCheckbox);
+                  this.groupBox1.Controls.Add(this.BallTexturesCheckbox);
+                  this.groupBox1.Controls.Add(this.UFO_TexturesCheckbox);
+                  this.groupBox1.Controls.Add(this.WaveTexturesCheckbox);
+                  this.groupBox1.Controls.Add(this.RobotTexturesCheckbox);
+                  this.groupBox1.Controls.Add(this.SpiderTexturesCheckbox);
+                  this.groupBox1.Controls.Add(this.SwingTexturesCheckbox);
+                  this.groupBox1.Controls.Add(this.JetpackTexturesCheckbox);
+                  this.groupBox1.Controls.Add(this.CubeTexturesGroupDisplay);
+                  this.groupBox1.Controls.Add(this.ShipTexturesGroupDisplay);
+                  this.groupBox1.Controls.Add(this.BallTexturesGroupDisplay);
+                  this.groupBox1.Controls.Add(this.JetpackTexturesGroupDisplay);
+                  this.groupBox1.Controls.Add(this.SwingTexturesGroupDisplay);
+                  this.groupBox1.Controls.Add(this.SpiderTexturesGroupDisplay);
+                  this.groupBox1.Controls.Add(this.RobotTexturesGroupDisplay);
+                  this.groupBox1.Controls.Add(this.UFO_TexturesGroupDisplay);
+                  this.groupBox1.Controls.Add(this.WaveTexturesGroupDisplay);
+                  this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+                  this.groupBox1.Location = new System.Drawing.Point(12, 76);
+                  this.groupBox1.Name = "groupBox1";
+                  this.groupBox1.Size = new System.Drawing.Size(300, 356);
+                  this.groupBox1.TabIndex = 104;
+                  this.groupBox1.TabStop = false;
+                  this.groupBox1.Text = "Icon Texture Randomisation";
+                  // 
+                  // label4
+                  // 
+                  this.label4.AutoSize = true;
+                  this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+                  this.label4.Location = new System.Drawing.Point(50, 25);
+                  this.label4.Name = "label4";
+                  this.label4.Size = new System.Drawing.Size(118, 22);
+                  this.label4.TabIndex = 107;
+                  this.label4.Text = "Texture Type";
+                  // 
+                  // label3
+                  // 
+                  this.label3.AutoSize = true;
+                  this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+                  this.label3.Location = new System.Drawing.Point(229, 25);
+                  this.label3.Name = "label3";
+                  this.label3.Size = new System.Drawing.Size(60, 22);
+                  this.label3.TabIndex = 107;
+                  this.label3.Text = "Group";
                   // 
                   // iconsConnectorBeam
                   // 
                   this.iconsConnectorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.ConnectorBeamBlack;
-                  this.iconsConnectorBeam.Location = new System.Drawing.Point(60, 132);
+                  this.iconsConnectorBeam.Location = new System.Drawing.Point(11, 73);
                   this.iconsConnectorBeam.Name = "iconsConnectorBeam";
                   this.iconsConnectorBeam.Size = new System.Drawing.Size(17, 262);
-                  this.iconsConnectorBeam.TabIndex = 67;
+                  this.iconsConnectorBeam.TabIndex = 84;
                   this.iconsConnectorBeam.TabStop = false;
+                  // 
+                  // groupBox2
+                  // 
+                  this.groupBox2.Controls.Add(this.label2);
+                  this.groupBox2.Controls.Add(this.label1);
+                  this.groupBox2.Controls.Add(this.MenuTexturesCheckbox);
+                  this.groupBox2.Controls.Add(this.ShopTexturesCheckbox);
+                  this.groupBox2.Controls.Add(this.EditorTexturesCheckbox);
+                  this.groupBox2.Controls.Add(this.BlockTexturesCheckbox);
+                  this.groupBox2.Controls.Add(this.PortalTexturesCheckbox);
+                  this.groupBox2.Controls.Add(this.OrbsCheckbox);
+                  this.groupBox2.Controls.Add(this.ParticleTexturesCheckbox);
+                  this.groupBox2.Controls.Add(this.EffectsCheckbox);
+                  this.groupBox2.Controls.Add(this.MiscCheckbox);
+                  this.groupBox2.Controls.Add(this.MenuTexturesGroupDisplay);
+                  this.groupBox2.Controls.Add(this.ShopTexturesGroupDisplay);
+                  this.groupBox2.Controls.Add(this.EditorTexturesGroupDisplay);
+                  this.groupBox2.Controls.Add(this.BlockTexturesGroupDisplay);
+                  this.groupBox2.Controls.Add(this.PortalTexturesGroupDisplay);
+                  this.groupBox2.Controls.Add(this.OrbsGroupDisplay);
+                  this.groupBox2.Controls.Add(this.PadsGroupDisplay);
+                  this.groupBox2.Controls.Add(this.ParticleTexturesGroupDisplay);
+                  this.groupBox2.Controls.Add(this.PadsCheckbox);
+                  this.groupBox2.Controls.Add(this.EffectsGroupDisplay);
+                  this.groupBox2.Controls.Add(this.MiscGroupDisplay);
+                  this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+                  this.groupBox2.Location = new System.Drawing.Point(318, 76);
+                  this.groupBox2.Name = "groupBox2";
+                  this.groupBox2.Size = new System.Drawing.Size(300, 356);
+                  this.groupBox2.TabIndex = 105;
+                  this.groupBox2.TabStop = false;
+                  this.groupBox2.Text = "Game Texture Randomisation";
+                  // 
+                  // label2
+                  // 
+                  this.label2.AutoSize = true;
+                  this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+                  this.label2.Location = new System.Drawing.Point(45, 25);
+                  this.label2.Name = "label2";
+                  this.label2.Size = new System.Drawing.Size(118, 22);
+                  this.label2.TabIndex = 106;
+                  this.label2.Text = "Texture Type";
+                  // 
+                  // label1
+                  // 
+                  this.label1.AutoSize = true;
+                  this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+                  this.label1.Location = new System.Drawing.Point(229, 25);
+                  this.label1.Name = "label1";
+                  this.label1.Size = new System.Drawing.Size(60, 22);
+                  this.label1.TabIndex = 105;
+                  this.label1.Text = "Group";
+                  // 
+                  // groupBox5
+                  // 
+                  this.groupBox5.Controls.Add(this.fontPerFontRandomisationButton);
+                  this.groupBox5.Controls.Add(this.fontPerLetterRandomisationButton);
+                  this.groupBox5.Controls.Add(this.shuffleFontsConnectorBeam);
+                  this.groupBox5.Controls.Add(this.fontRandomiseLettersCheckbox);
+                  this.groupBox5.Controls.Add(this.fontShuffleStylesCheckbox);
+                  this.groupBox5.Controls.Add(this.fontRandEnabledCheckbox);
+                  this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+                  this.groupBox5.Location = new System.Drawing.Point(624, 76);
+                  this.groupBox5.Name = "groupBox5";
+                  this.groupBox5.Size = new System.Drawing.Size(300, 356);
+                  this.groupBox5.TabIndex = 110;
+                  this.groupBox5.TabStop = false;
+                  this.groupBox5.Text = "Font Randomisation";
+                  // 
+                  // fontPerFontRandomisationButton
+                  // 
+                  this.fontPerFontRandomisationButton.AutoSize = true;
+                  this.fontPerFontRandomisationButton.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.fontPerFontRandomisationButton.Location = new System.Drawing.Point(30, 81);
+                  this.fontPerFontRandomisationButton.Name = "fontPerFontRandomisationButton";
+                  this.fontPerFontRandomisationButton.Size = new System.Drawing.Size(213, 27);
+                  this.fontPerFontRandomisationButton.TabIndex = 88;
+                  this.fontPerFontRandomisationButton.TabStop = true;
+                  this.fontPerFontRandomisationButton.Text = "Per Font Randomisation";
+                  this.toolTip.SetToolTip(this.fontPerFontRandomisationButton, "All letters in a font will get their textures from the same fon when possible");
+                  this.fontPerFontRandomisationButton.UseVisualStyleBackColor = true;
+                  this.fontPerFontRandomisationButton.CheckedChanged += new System.EventHandler(this.fontPerFontRandomisationButton_CheckedChanged);
+                  // 
+                  // fontPerLetterRandomisationButton
+                  // 
+                  this.fontPerLetterRandomisationButton.AutoSize = true;
+                  this.fontPerLetterRandomisationButton.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.fontPerLetterRandomisationButton.Location = new System.Drawing.Point(30, 111);
+                  this.fontPerLetterRandomisationButton.Name = "fontPerLetterRandomisationButton";
+                  this.fontPerLetterRandomisationButton.Size = new System.Drawing.Size(223, 27);
+                  this.fontPerLetterRandomisationButton.TabIndex = 87;
+                  this.fontPerLetterRandomisationButton.TabStop = true;
+                  this.fontPerLetterRandomisationButton.Text = "Per Letter Randomisation";
+                  this.toolTip.SetToolTip(this.fontPerLetterRandomisationButton, "Every character will get a texture from a random font. Very chaotic");
+                  this.fontPerLetterRandomisationButton.UseVisualStyleBackColor = true;
+                  this.fontPerLetterRandomisationButton.CheckedChanged += new System.EventHandler(this.fontPerLetterRandomisationButton_CheckedChanged);
+                  // 
+                  // shuffleFontsConnectorBeam
+                  // 
+                  this.shuffleFontsConnectorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.ConnectorBeamBlack;
+                  this.shuffleFontsConnectorBeam.Location = new System.Drawing.Point(11, 74);
+                  this.shuffleFontsConnectorBeam.Name = "shuffleFontsConnectorBeam";
+                  this.shuffleFontsConnectorBeam.Size = new System.Drawing.Size(17, 52);
+                  this.shuffleFontsConnectorBeam.TabIndex = 85;
+                  this.shuffleFontsConnectorBeam.TabStop = false;
+                  // 
+                  // fontRandomiseLettersCheckbox
+                  // 
+                  this.fontRandomiseLettersCheckbox.AutoSize = true;
+                  this.fontRandomiseLettersCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.fontRandomiseLettersCheckbox.Location = new System.Drawing.Point(6, 142);
+                  this.fontRandomiseLettersCheckbox.Name = "fontRandomiseLettersCheckbox";
+                  this.fontRandomiseLettersCheckbox.Size = new System.Drawing.Size(171, 27);
+                  this.fontRandomiseLettersCheckbox.TabIndex = 2;
+                  this.fontRandomiseLettersCheckbox.Text = "Randomise Letters";
+                  this.toolTip.SetToolTip(this.fontRandomiseLettersCheckbox, "Swap letters around, say the letter \'a\' will look like a \'c\'");
+                  this.fontRandomiseLettersCheckbox.UseVisualStyleBackColor = true;
+                  this.fontRandomiseLettersCheckbox.CheckedChanged += new System.EventHandler(this.fontRandomiseLettersCheckbox_CheckedChanged);
+                  // 
+                  // fontShuffleStylesCheckbox
+                  // 
+                  this.fontShuffleStylesCheckbox.AutoSize = true;
+                  this.fontShuffleStylesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.fontShuffleStylesCheckbox.Location = new System.Drawing.Point(6, 52);
+                  this.fontShuffleStylesCheckbox.Name = "fontShuffleStylesCheckbox";
+                  this.fontShuffleStylesCheckbox.Size = new System.Drawing.Size(170, 27);
+                  this.fontShuffleStylesCheckbox.TabIndex = 1;
+                  this.fontShuffleStylesCheckbox.Text = "Shuffle Font Styles";
+                  this.toolTip.SetToolTip(this.fontShuffleStylesCheckbox, "Randomise the way the characters look in the game");
+                  this.fontShuffleStylesCheckbox.UseVisualStyleBackColor = true;
+                  this.fontShuffleStylesCheckbox.CheckedChanged += new System.EventHandler(this.fontShuffleStylesCheckbox_CheckedChanged);
+                  // 
+                  // fontRandEnabledCheckbox
+                  // 
+                  this.fontRandEnabledCheckbox.AutoSize = true;
+                  this.fontRandEnabledCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.fontRandEnabledCheckbox.Location = new System.Drawing.Point(6, 22);
+                  this.fontRandEnabledCheckbox.Name = "fontRandEnabledCheckbox";
+                  this.fontRandEnabledCheckbox.Size = new System.Drawing.Size(90, 27);
+                  this.fontRandEnabledCheckbox.TabIndex = 0;
+                  this.fontRandEnabledCheckbox.Text = "Enabled";
+                  this.toolTip.SetToolTip(this.fontRandEnabledCheckbox, "Enable/Disable font randomisation");
+                  this.fontRandEnabledCheckbox.UseVisualStyleBackColor = true;
+                  this.fontRandEnabledCheckbox.CheckedChanged += new System.EventHandler(this.fontRandEnabledCheckbox_CheckedChanged);
+                  // 
+                  // restoreFilesButton
+                  // 
+                  this.restoreFilesButton.Font = new System.Drawing.Font("Calibri", 14F);
+                  this.restoreFilesButton.Location = new System.Drawing.Point(788, 585);
+                  this.restoreFilesButton.Name = "restoreFilesButton";
+                  this.restoreFilesButton.Size = new System.Drawing.Size(136, 40);
+                  this.restoreFilesButton.TabIndex = 111;
+                  this.restoreFilesButton.Text = "Restore Files";
+                  this.toolTip.SetToolTip(this.restoreFilesButton, "Revert the game\'s files to normal. If this setting fails, clear the \"Backup Folde" +
+        "r\" \'s contents, and verify your game\'s files on Steam");
+                  this.restoreFilesButton.UseVisualStyleBackColor = true;
+                  this.restoreFilesButton.Click += new System.EventHandler(this.restoreFilesButton_Click);
+                  // 
+                  // groupBox3
+                  // 
+                  this.groupBox3.Controls.Add(this.checkBox4);
+                  this.groupBox3.Controls.Add(this.randomisationSeedLabel);
+                  this.groupBox3.Controls.Add(this.seedInputBox);
+                  this.groupBox3.Controls.Add(this.spriteSizeMultiplierTrackbar);
+                  this.groupBox3.Controls.Add(this.spriteSizeMultiplierTextbox);
+                  this.groupBox3.Controls.Add(this.spriteSizeMultiplierLabel);
+                  this.groupBox3.Controls.Add(this.randomSeedButton);
+                  this.groupBox3.Controls.Add(this.allowDuplicatesCheckbox);
+                  this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+                  this.groupBox3.Location = new System.Drawing.Point(12, 438);
+                  this.groupBox3.Name = "groupBox3";
+                  this.groupBox3.Size = new System.Drawing.Size(912, 86);
+                  this.groupBox3.TabIndex = 112;
+                  this.groupBox3.TabStop = false;
+                  this.groupBox3.Text = "Randomisation Settings";
+                  // 
+                  // checkBox4
+                  // 
+                  this.checkBox4.AutoSize = true;
+                  this.checkBox4.BackColor = System.Drawing.Color.Transparent;
+                  this.checkBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.checkBox4.Location = new System.Drawing.Point(705, 48);
+                  this.checkBox4.Name = "checkBox4";
+                  this.checkBox4.Size = new System.Drawing.Size(189, 24);
+                  this.checkBox4.TabIndex = 104;
+                  this.checkBox4.Text = "Force Shuffle Textures";
+                  this.checkBox4.UseVisualStyleBackColor = false;
+                  this.checkBox4.Visible = false;
+                  // 
+                  // groupBox4
+                  // 
+                  this.groupBox4.Controls.Add(this.gameFolderLabel);
+                  this.groupBox4.Controls.Add(this.applicationThemeSelectorBox);
+                  this.groupBox4.Controls.Add(this.textureQualitySelectorBox);
+                  this.groupBox4.Controls.Add(this.gameFolderSelectorButton);
+                  this.groupBox4.Controls.Add(this.gameFolderTextBox);
+                  this.groupBox4.Controls.Add(this.ThemeLabel);
+                  this.groupBox4.Controls.Add(this.textureQualityLabel);
+                  this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+                  this.groupBox4.Location = new System.Drawing.Point(12, 530);
+                  this.groupBox4.Name = "groupBox4";
+                  this.groupBox4.Size = new System.Drawing.Size(722, 124);
+                  this.groupBox4.TabIndex = 113;
+                  this.groupBox4.TabStop = false;
+                  this.groupBox4.Text = "Application Settings";
+                  // 
+                  // button2
+                  // 
+                  this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+                  this.button2.Location = new System.Drawing.Point(742, 530);
+                  this.button2.Name = "button2";
+                  this.button2.Size = new System.Drawing.Size(88, 42);
+                  this.button2.TabIndex = 114;
+                  this.button2.Text = "Import Config";
+                  this.button2.UseVisualStyleBackColor = true;
+                  this.button2.Visible = false;
+                  // 
+                  // button3
+                  // 
+                  this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+                  this.button3.Location = new System.Drawing.Point(836, 530);
+                  this.button3.Name = "button3";
+                  this.button3.Size = new System.Drawing.Size(88, 42);
+                  this.button3.TabIndex = 115;
+                  this.button3.Text = "Export Config";
+                  this.button3.UseVisualStyleBackColor = true;
+                  this.button3.Visible = false;
+                  // 
+                  // RandomisingProgressBar
+                  // 
+                  this.RandomisingProgressBar.Location = new System.Drawing.Point(12, 663);
+                  this.RandomisingProgressBar.Name = "RandomisingProgressBar";
+                  this.RandomisingProgressBar.Size = new System.Drawing.Size(200, 20);
+                  this.RandomisingProgressBar.TabIndex = 117;
+                  this.RandomisingProgressBar.Visible = false;
+                  // 
+                  // RandomisingProgressDisplay
+                  // 
+                  this.RandomisingProgressDisplay.AutoSize = true;
+                  this.RandomisingProgressDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.RandomisingProgressDisplay.Location = new System.Drawing.Point(218, 663);
+                  this.RandomisingProgressDisplay.Name = "RandomisingProgressDisplay";
+                  this.RandomisingProgressDisplay.Size = new System.Drawing.Size(183, 20);
+                  this.RandomisingProgressDisplay.TabIndex = 104;
+                  this.RandomisingProgressDisplay.Text = "Unpacking: blahblahblah";
+                  this.RandomisingProgressDisplay.Visible = false;
+                  // 
+                  // ReadyStatusDisplay
+                  // 
+                  this.ReadyStatusDisplay.AutoSize = true;
+                  this.ReadyStatusDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+                  this.ReadyStatusDisplay.Location = new System.Drawing.Point(9, 661);
+                  this.ReadyStatusDisplay.Name = "ReadyStatusDisplay";
+                  this.ReadyStatusDisplay.Size = new System.Drawing.Size(182, 22);
+                  this.ReadyStatusDisplay.TabIndex = 118;
+                  this.ReadyStatusDisplay.Text = "Ready Status Display";
                   // 
                   // GDR_Form
                   // 
@@ -1129,90 +1265,28 @@
                   this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
                   this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
                   this.BackColor = System.Drawing.SystemColors.ButtonShadow;
-                  this.ClientSize = new System.Drawing.Size(1008, 527);
-                  this.Controls.Add(this.applicationThemeSelectorBox);
-                  this.Controls.Add(this.ThemeLabel);
-                  this.Controls.Add(this.allowDuplicatesCheckbox);
-                  this.Controls.Add(this.spriteSizeMultiplierTextbox);
-                  this.Controls.Add(this.spriteSizeMultiplierLabel);
-                  this.Controls.Add(this.randomisationSettingsHeaderLabel);
-                  this.Controls.Add(this.ApplicationSettingButton);
-                  this.Controls.Add(this.settingsSeparatorBeam);
-                  this.Controls.Add(this.RandomisationSettingButton);
-                  this.Controls.Add(this.spriteSizeMultiplierTrackbar);
-                  this.Controls.Add(this.ChangelogButton);
-                  this.Controls.Add(this.checkBox2);
-                  this.Controls.Add(this.checkBox1);
-                  this.Controls.Add(this.PadsGroupDisplay);
-                  this.Controls.Add(this.PadsCheckbox);
-                  this.Controls.Add(this.groupInfoHelpButton2);
-                  this.Controls.Add(this.TexturesGroupHeaderLabel);
-                  this.Controls.Add(this.TexturesHeaderLabel);
-                  this.Controls.Add(this.UFO_TexturesGroupDisplay);
-                  this.Controls.Add(this.WaveTexturesGroupDisplay);
-                  this.Controls.Add(this.RobotTexturesGroupDisplay);
-                  this.Controls.Add(this.SpiderTexturesGroupDisplay);
-                  this.Controls.Add(this.SwingTexturesGroupDisplay);
-                  this.Controls.Add(this.JetpackTexturesGroupDisplay);
-                  this.Controls.Add(this.BallTexturesGroupDisplay);
-                  this.Controls.Add(this.ShipTexturesGroupDisplay);
-                  this.Controls.Add(this.CubeTexturesGroupDisplay);
-                  this.Controls.Add(this.JetpackTexturesCheckbox);
-                  this.Controls.Add(this.SwingTexturesCheckbox);
-                  this.Controls.Add(this.SpiderTexturesCheckbox);
-                  this.Controls.Add(this.RobotTexturesCheckbox);
-                  this.Controls.Add(this.WaveTexturesCheckbox);
-                  this.Controls.Add(this.UFO_TexturesCheckbox);
-                  this.Controls.Add(this.BallTexturesCheckbox);
-                  this.Controls.Add(this.iconsConnectorBeam);
-                  this.Controls.Add(this.ShipTexturesCheckbox);
-                  this.Controls.Add(this.CubeTexturesCheckbox);
-                  this.Controls.Add(this.Logo);
-                  this.Controls.Add(this.outputFolderSelectorButton);
-                  this.Controls.Add(this.outputFolderTextBox);
-                  this.Controls.Add(this.outputFolderLabel);
-                  this.Controls.Add(this.groupInfoHelpButton1);
-                  this.Controls.Add(this.randomSeedButton);
-                  this.Controls.Add(this.textureQualitySelectorBox);
-                  this.Controls.Add(this.randomisationSeedLabel);
-                  this.Controls.Add(this.seedInputBox);
-                  this.Controls.Add(this.textureQualityLabel);
-                  this.Controls.Add(this.fileProgressBar);
-                  this.Controls.Add(this.allFilesProgressBar);
-                  this.Controls.Add(this.infoDisplay);
+                  this.ClientSize = new System.Drawing.Size(936, 693);
+                  this.Controls.Add(this.ReadyStatusDisplay);
+                  this.Controls.Add(this.RandomisingProgressDisplay);
+                  this.Controls.Add(this.RandomisingProgressBar);
+                  this.Controls.Add(this.button3);
+                  this.Controls.Add(this.button2);
+                  this.Controls.Add(this.groupBox4);
                   this.Controls.Add(this.startButton);
-                  this.Controls.Add(this.applicationSettingsHeaderLabel);
-                  this.Controls.Add(this.textureCachingCheckbox);
-                  this.Controls.Add(this.gameFolderSelectorButton);
-                  this.Controls.Add(this.gameFolderLabel);
-                  this.Controls.Add(this.gameFolderTextBox);
+                  this.Controls.Add(this.groupBox3);
+                  this.Controls.Add(this.groupBox5);
+                  this.Controls.Add(this.groupBox2);
+                  this.Controls.Add(this.groupBox1);
+                  this.Controls.Add(this.ChangelogButton);
+                  this.Controls.Add(this.groupInfoHelpButton2);
+                  this.Controls.Add(this.Logo);
                   this.Controls.Add(this.versionLabel);
                   this.Controls.Add(this.GDR_HeaderLabel);
-                  this.Controls.Add(this.MiscGroupDisplay);
-                  this.Controls.Add(this.EffectsGroupDisplay);
-                  this.Controls.Add(this.ParticleTexturesGroupDisplay);
-                  this.Controls.Add(this.OrbsGroupDisplay);
-                  this.Controls.Add(this.PortalTexturesGroupDisplay);
-                  this.Controls.Add(this.BlockTexturesGroupDisplay);
-                  this.Controls.Add(this.EditorTexturesGroupDisplay);
-                  this.Controls.Add(this.ShopTexturesGroupDisplay);
-                  this.Controls.Add(this.MenuTexturesGroupDisplay);
-                  this.Controls.Add(this.IconTexturesGroupDisplay);
-                  this.Controls.Add(this.IconTexturesGroupHeaderLabel);
-                  this.Controls.Add(this.IconsTexturesHeaderLabel);
-                  this.Controls.Add(this.MiscCheckbox);
-                  this.Controls.Add(this.EffectsCheckbox);
-                  this.Controls.Add(this.ParticleTexturesCheckbox);
-                  this.Controls.Add(this.OrbsCheckbox);
-                  this.Controls.Add(this.PortalTexturesCheckbox);
-                  this.Controls.Add(this.BlockTexturesCheckbox);
-                  this.Controls.Add(this.EditorTexturesCheckbox);
-                  this.Controls.Add(this.ShopTexturesCheckbox);
-                  this.Controls.Add(this.MenuTexturesCheckbox);
-                  this.Controls.Add(this.IconTexturesCheckbox);
+                  this.Controls.Add(this.restoreFilesButton);
                   this.Name = "GDR_Form";
                   this.Text = "Geometry Dash Randomiser";
                   this.Load += new System.EventHandler(this.GDR_Form_Load);
+                  this.Shown += new System.EventHandler(this.GDR_Form_Shown);
                   ((System.ComponentModel.ISupportInitialize)(this.IconTexturesGroupDisplay)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.MenuTexturesGroupDisplay)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.EditorTexturesGroupDisplay)).EndInit();
@@ -1235,9 +1309,19 @@
                   ((System.ComponentModel.ISupportInitialize)(this.UFO_TexturesGroupDisplay)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.PadsGroupDisplay)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.spriteSizeMultiplierTrackbar)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.settingsSeparatorBeam)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
+                  this.groupBox1.ResumeLayout(false);
+                  this.groupBox1.PerformLayout();
                   ((System.ComponentModel.ISupportInitialize)(this.iconsConnectorBeam)).EndInit();
+                  this.groupBox2.ResumeLayout(false);
+                  this.groupBox2.PerformLayout();
+                  this.groupBox5.ResumeLayout(false);
+                  this.groupBox5.PerformLayout();
+                  ((System.ComponentModel.ISupportInitialize)(this.shuffleFontsConnectorBeam)).EndInit();
+                  this.groupBox3.ResumeLayout(false);
+                  this.groupBox3.PerformLayout();
+                  this.groupBox4.ResumeLayout(false);
+                  this.groupBox4.PerformLayout();
                   this.ResumeLayout(false);
                   this.PerformLayout();
 
@@ -1254,8 +1338,6 @@
             private System.Windows.Forms.CheckBox OrbsCheckbox;
             private System.Windows.Forms.CheckBox MiscCheckbox;
             private System.Windows.Forms.CheckBox EffectsCheckbox;
-            private System.Windows.Forms.Label IconsTexturesHeaderLabel;
-            private System.Windows.Forms.Label IconTexturesGroupHeaderLabel;
             private System.Windows.Forms.NumericUpDown IconTexturesGroupDisplay;
             private System.Windows.Forms.NumericUpDown MenuTexturesGroupDisplay;
             private System.Windows.Forms.NumericUpDown EditorTexturesGroupDisplay;
@@ -1271,22 +1353,13 @@
             private System.Windows.Forms.TextBox gameFolderTextBox;
             private System.Windows.Forms.Label gameFolderLabel;
             private System.Windows.Forms.Button gameFolderSelectorButton;
-            private System.Windows.Forms.CheckBox textureCachingCheckbox;
-            private System.Windows.Forms.Label applicationSettingsHeaderLabel;
             private System.Windows.Forms.Button startButton;
-            private System.Windows.Forms.RichTextBox infoDisplay;
             private System.Windows.Forms.ToolTip toolTip;
-            private System.Windows.Forms.ProgressBar allFilesProgressBar;
-            private System.Windows.Forms.ProgressBar fileProgressBar;
             private System.Windows.Forms.Label textureQualityLabel;
             private System.Windows.Forms.NumericUpDown seedInputBox;
             private System.Windows.Forms.Label randomisationSeedLabel;
             private System.Windows.Forms.DomainUpDown textureQualitySelectorBox;
             private System.Windows.Forms.Button randomSeedButton;
-            private System.Windows.Forms.Button groupInfoHelpButton1;
-            private System.Windows.Forms.Label outputFolderLabel;
-            private System.Windows.Forms.TextBox outputFolderTextBox;
-            private System.Windows.Forms.Button outputFolderSelectorButton;
             private System.Windows.Forms.PictureBox Logo;
             private System.Windows.Forms.CheckBox CubeTexturesCheckbox;
             private System.Windows.Forms.CheckBox ShipTexturesCheckbox;
@@ -1307,24 +1380,38 @@
             private System.Windows.Forms.NumericUpDown WaveTexturesGroupDisplay;
             private System.Windows.Forms.NumericUpDown UFO_TexturesGroupDisplay;
             private System.Windows.Forms.Button groupInfoHelpButton2;
-            private System.Windows.Forms.Label TexturesGroupHeaderLabel;
-            private System.Windows.Forms.Label TexturesHeaderLabel;
             private System.Windows.Forms.NumericUpDown PadsGroupDisplay;
             private System.Windows.Forms.CheckBox PadsCheckbox;
-            private System.Windows.Forms.CheckBox checkBox1;
-            private System.Windows.Forms.CheckBox checkBox2;
             private System.Windows.Forms.Button ChangelogButton;
             private System.Windows.Forms.TrackBar spriteSizeMultiplierTrackbar;
-            private System.Windows.Forms.Button RandomisationSettingButton;
-            private System.Windows.Forms.PictureBox settingsSeparatorBeam;
-            private System.Windows.Forms.Button ApplicationSettingButton;
             private System.Windows.Forms.Label spriteSizeMultiplierLabel;
-            private System.Windows.Forms.TextBox spriteSizeMultiplierTextbox;
             private System.Windows.Forms.CheckBox allowDuplicatesCheckbox;
-            private System.Windows.Forms.Label randomisationSettingsHeaderLabel;
             private System.Windows.Forms.Label ThemeLabel;
             private System.Windows.Forms.DomainUpDown applicationThemeSelectorBox;
+            private System.Windows.Forms.TextBox spriteSizeMultiplierTextbox;
+            private System.Windows.Forms.GroupBox groupBox1;
             private System.Windows.Forms.PictureBox iconsConnectorBeam;
+            private System.Windows.Forms.GroupBox groupBox2;
+            private System.Windows.Forms.GroupBox groupBox5;
+            private System.Windows.Forms.CheckBox fontShuffleStylesCheckbox;
+            private System.Windows.Forms.CheckBox fontRandEnabledCheckbox;
+            private System.Windows.Forms.Button restoreFilesButton;
+            private System.Windows.Forms.GroupBox groupBox3;
+            private System.Windows.Forms.GroupBox groupBox4;
+            private System.Windows.Forms.CheckBox fontRandomiseLettersCheckbox;
+            private System.Windows.Forms.Button button2;
+            private System.Windows.Forms.Button button3;
+            private System.Windows.Forms.ProgressBar RandomisingProgressBar;
+            private System.Windows.Forms.Label RandomisingProgressDisplay;
+            private System.Windows.Forms.CheckBox checkBox4;
+            private System.Windows.Forms.PictureBox shuffleFontsConnectorBeam;
+            private System.Windows.Forms.Label ReadyStatusDisplay;
+            private System.Windows.Forms.Label label2;
+            private System.Windows.Forms.Label label1;
+            private System.Windows.Forms.Label label4;
+            private System.Windows.Forms.Label label3;
+            private System.Windows.Forms.RadioButton fontPerFontRandomisationButton;
+            private System.Windows.Forms.RadioButton fontPerLetterRandomisationButton;
       }
 }
 

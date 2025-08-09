@@ -1,61 +1,63 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using static Geometry_Dash_Randomiser.GameFiles;
+using static Geometry_Dash_Randomiser.GameFileManager;
 
 namespace Geometry_Dash_Randomiser {
 
-      internal static class GameFilesExtension {
+      public static class GameFilesExtension {
 
-            public static string[] filterByQuality(this string[] files, Quality quality) {
-
-                  string qualityExtension = string.Empty;
-
-                  switch (quality) {
-                        case Quality.Medium:
-                              qualityExtension = "-hd";
-                              break;
-
-                        case Quality.High:
-                              qualityExtension = "-uhd";
-                              break;
-
-                        default:
-                              break;
+            public static string[] FilterFileExtensions(this string[] files, params string[] extensions) {
+                  List<string> ret = new List<string>();
+                  for (int i = 0; i < files.Count(); i++) {
+                        if (files[i].EndsWith(extensions))
+                              ret.Add(files[i]);
                   }
+                  return ret.ToArray();
+            }
 
+            public static string[] FilterFilesByQuality(this IEnumerable<string> files, Quality quality) {
+                  files = files.Select(f => f.RemoveExtension());
                   if (quality == Quality.Low) {
                         return files
-                              .Where(f => Path.GetExtension(f) == ".plist")
-                              .Select(f => f.RemoveExtension())
-                              .Where(f => f.EndsWith("-hd") == false && f.EndsWith("-uhd") == false)
-                              .Where(f => File.Exists(f + ".png") && File.Exists(f + ".plist"))
+                              .Where(f => f.EndsWith(GetQualityExtension(Quality.Medium)) == false
+                                       && f.EndsWith(GetQualityExtension(Quality.High)) == false)
                               .ToArray();
                   }
                   return files
-                        .Where(f => Path.GetExtension(f) == ".plist")
-                        .Select(f => f.RemoveExtension())
-                        .Where(f => f.EndsWith(qualityExtension) == true)
-                        .Where(f => File.Exists(f + ".png") && File.Exists(f + ".plist"))
+                        .Where(f => f.EndsWith(GetQualityExtension(quality)) == true)
                         .ToArray();
             }
 
-            public static string[] blacklistFilter(this string[] files) {
-                  List<string> ret = new List<string>();
-
-                  for (int i = 0; i < files.Length; i++) {
-                        bool found = false;
-                        for (int j = 0; j < fileBlacklist.Length; j++) {
-                              if (Path.GetFileName(files[i]).StartsWith(fileBlacklist[j])) {
-                                    found = true;
-                                    break;
-                              }
-                        }
-                        if (found == false) {
-                              ret.Add(files[i]);
-                        }
+            public static string GetQualityExtension(Quality quality) {
+                  switch (quality) {
+                        case Quality.Medium:
+                              return "-hd";
+                        case Quality.High:
+                              return "-uhd";
+                        default:
+                              return string.Empty;
                   }
-                  return ret.ToArray();
+            }
+
+            public static List<string> RemoveQualityExtension(this List<string> str) {
+                  return RemoveQualityExtension(str.ToArray()).ToList();
+            }
+
+            public static string[] RemoveQualityExtension(this string[] str) {
+                  for (int i = 0; i < str.Length; i++) {
+                        str[i] = str[i].RemoveQualityExtension();
+                  }
+                  return str;
+            }
+
+            public static string RemoveQualityExtension(this string str) {
+                  if (str.EndsWith(GetQualityExtension(Quality.High))) {
+                        return str.Substring(0, str.Length - GetQualityExtension(Quality.High).Length);
+
+                  } else if (str.EndsWith(GetQualityExtension(Quality.Medium))) {
+                        return str.Substring(0, str.Length - GetQualityExtension(Quality.Medium).Length);
+                  }
+                  return str;
             }
       }
 }

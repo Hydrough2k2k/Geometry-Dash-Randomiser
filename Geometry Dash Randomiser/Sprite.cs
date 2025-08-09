@@ -4,7 +4,7 @@ namespace Geometry_Dash_Randomiser {
 
       public class Sprite {
 
-            public enum Type { Unknown, Icon, Block, Portal, Orb, Pad, Editor, Menu, Particle, Effect, Miscellaneous, Shop }
+            public enum ResourceType { Unknown, Icon, Block, Portal, Orb, Pad, Editor, Menu, Particle, Effect, Miscellaneous, Shop }
             public enum IconType { Invalid, Cube, Ship, Ball, UFO, Wave, Robot, Spider, Swing, Jetpack }
 
             // What file did this come from, for example: "bird_01-uhd"
@@ -20,7 +20,7 @@ namespace Geometry_Dash_Randomiser {
             public Rectangle textureRect { get; set; } = new Rectangle();
             public Rectangle cropRect { get; set; } = new Rectangle();
             public bool textureRotated { get; set; } = false;
-            public Type type { get; set; } = Type.Unknown;
+            public ResourceType type { get; set; } = ResourceType.Unknown;
 
             // This should only be used and accessed if type == Sprite.Type.Icon, and check if it is not invalid
             public IconType iconType { get; set; } = IconType.Invalid;
@@ -32,7 +32,7 @@ namespace Geometry_Dash_Randomiser {
 
             public Sprite(string sourceFile, string spriteName, Point spriteOffset,
                   Size spriteSize, Size spriteSourceSize, Rectangle textureRect,
-                  bool textureRotated, Type type, Bitmap texture) {
+                  bool textureRotated, ResourceType type, Bitmap texture) {
 
                   this.sourceFile = sourceFile;
                   this.spriteName = spriteName;
@@ -45,7 +45,7 @@ namespace Geometry_Dash_Randomiser {
                   this.texture = texture;
             }
 
-            public Sprite(string sourceFile, string spriteName, Type type) {
+            public Sprite(string sourceFile, string spriteName, ResourceType type) {
                   this.sourceFile = sourceFile;
                   this.spriteName = spriteName;
                   this.type = type;
@@ -64,51 +64,51 @@ namespace Geometry_Dash_Randomiser {
             /// </summary>
             public void AssignType() {
                   if (tryGetIconType() == true) {
-                        type = Type.Icon;
+                        type = ResourceType.Icon;
                   } else if (sourceFile.StartsWith("FireSheet_01")) {
-                        type = Type.Block;
+                        type = ResourceType.Block;
                   } else if (sourceFile.StartsWith("GauntletSheet")) {
-                        type = Type.Menu;
+                        type = ResourceType.Menu;
                   } else if (sourceFile.StartsWith("GJ_GameSheetEditor")) {
-                        type = Type.Editor;
+                        type = ResourceType.Editor;
                   } else if (sourceFile.StartsWith("GJ_GameSheetGlow")) {
                         type = getTypeFromGlowSheets();
                   } else if (sourceFile.StartsWith("GJ_GameSheet")) {
                         type = getTypeFromGameSheets();
                   } else if (sourceFile.StartsWith("GJ_LaunchSheet")) {
-                        type = Type.Menu;
+                        type = ResourceType.Menu;
                   } else if (sourceFile.StartsWith("GJ_ParticleSheet")) {
-                        type = Type.Particle;
+                        type = ResourceType.Particle;
                   } else if (sourceFile.StartsWith("GJ_PathSheet")) {
-                        type = Type.Menu;
+                        type = ResourceType.Menu;
                   } else if (sourceFile.StartsWith("GJ_ShopSheet")) {
-                        type = Type.Shop;
+                        type = ResourceType.Shop;
                   } else if (sourceFile.StartsWith("PixelSheet")) {
-                        type = Type.Block;
+                        type = ResourceType.Block;
                   } else if (sourceFile.StartsWith("SecretSheet")) {
-                        type = Type.Miscellaneous;
+                        type = ResourceType.Miscellaneous;
                   } else if (sourceFile.StartsWith("TowerSheet")) {
-                        type = Type.Miscellaneous;
+                        type = ResourceType.Miscellaneous;
                   } else if (sourceFile.StartsWith("TreasureRoomSheet")) {
-                        type = Type.Miscellaneous;
+                        type = ResourceType.Miscellaneous;
                   } else if (sourceFile.StartsWith("WorldSheet")) {
-                        type = Type.Miscellaneous;
+                        type = ResourceType.Miscellaneous;
                   }
             }
 
-            Type getTypeFromGlowSheets() {
+            ResourceType getTypeFromGlowSheets() {
 
                   if (spriteName.Contains("boost")) {
-                        return Type.Portal;
+                        return ResourceType.Portal;
                   } else if (spriteName.Contains("bump") || spriteName.Contains("Bump")) {
-                        return Type.Pad;
+                        return ResourceType.Pad;
                   } else if (spriteName.Contains("ring") || spriteName.Contains("Ring")) {
-                        return Type.Orb;
+                        return ResourceType.Orb;
                   }
-                  return Type.Block;
+                  return ResourceType.Block;
             }
 
-            Type getTypeFromGameSheets() {
+            ResourceType getTypeFromGameSheets() {
                   if (sourceFile.StartsWith("GJ_GameSheet04")) {
                         return getTypeFromGameSheet_4();
                   } else if (sourceFile.StartsWith("GJ_GameSheet03")) {
@@ -120,10 +120,10 @@ namespace Geometry_Dash_Randomiser {
                   }
                   // TO-DO: Flag error for there's an unknown file
 
-                  return Type.Unknown;
+                  return ResourceType.Unknown;
             }
 
-            Type getTypeFromGameSheet_1() {
+            ResourceType getTypeFromGameSheet_1() {
                   if (spriteName.Contains("teleportRing") || // TP Orb
                         spriteName.Contains("dashRing") || // Dash Orb
                         spriteName.Contains("spiderRing") || // Spider Orb
@@ -132,34 +132,34 @@ namespace Geometry_Dash_Randomiser {
                         spriteName.Contains("ring_0") || // Yellow, Pink, Red Orbs
                         spriteName.Contains("dropRing")) { // Black Orb
 
-                        return Type.Orb;
+                        return ResourceType.Orb;
                   } else if (spriteName.Contains("bump") || // Yellow, Pink, Blue, Red Pads
                         spriteName.Contains("spiderBump")) { // TP Pad
 
-                        return Type.Pad;
+                        return ResourceType.Pad;
                   } else if (spriteName.Contains("ParticleBtn")) {
-                        return Type.Editor;
+                        return ResourceType.Editor;
                   }
-                  return Type.Block;
+                  return ResourceType.Block;
             }
 
-            Type getTypeFromGameSheet_2() {
+            ResourceType getTypeFromGameSheet_2() {
                   if (spriteName.Contains("boost")) {
-                        return Type.Portal;
+                        return ResourceType.Portal;
                   } else if (spriteName.Contains("portal")) {
-                        return Type.Portal;
+                        return ResourceType.Portal;
                   } else if (spriteName.Contains("edit")) {
-                        return Type.Editor;
+                        return ResourceType.Editor;
                   } else if (spriteName.Contains("keyframeIcon")) {
-                        return Type.Editor;
+                        return ResourceType.Editor;
                   } else if (spriteName.Contains("floorLine") ||
                         spriteName.Contains("checkpoint") ||
                         spriteName.Contains("secretCoin") ||
                         spriteName.Contains("time")) {
 
-                        return Type.Miscellaneous;
+                        return ResourceType.Miscellaneous;
                   }
-                  return Type.Block;
+                  return ResourceType.Block;
             }
 
             //  - Unknowns for GameSheet3:
@@ -172,35 +172,35 @@ namespace Geometry_Dash_Randomiser {
             // GJ_plusBtn 1, 2 and 3
             // GJ_hideBtn
 
-            Type getTypeFromGameSheet_3() {
+            ResourceType getTypeFromGameSheet_3() {
                   // The order matters, don't just group it by return type!
                   if (spriteName.Contains("arrow")) {
-                        return Type.Editor;
+                        return ResourceType.Editor;
                   } else if (spriteName.Contains("checkpointBtn") ||
                         spriteName.StartsWith("GJ_delete") ||
                         spriteName.Contains("duplicate") ||
                         spriteName.Contains("everyplayBtn")) { // Important to keep these to make sure the items are sepatrated
 
-                        return Type.Menu;
+                        return ResourceType.Menu;
 
                   } else if (spriteName.Contains("check")) {
-                        return Type.Editor;
+                        return ResourceType.Editor;
                   } else if (spriteName.StartsWith("diff")) { // Difficulty icons "diffIcon" and "difficulty" will be caught by this
-                        return Type.Menu;
+                        return ResourceType.Menu;
                   } else if (spriteName.Contains("delete")) {
-                        return Type.Editor;
+                        return ResourceType.Editor;
                   } else if (spriteName.Contains("edit")) {
                         if (spriteName.Contains("editBtn")) {
-                              return Type.Menu;
+                              return ResourceType.Menu;
                         } else {
-                              return Type.Editor;
+                              return ResourceType.Editor;
                         }
                   }else if (spriteName.Contains("link")) {
-                        return Type.Editor;
+                        return ResourceType.Editor;
                   } else if (spriteName.Contains("removeCheckBtn")) {
-                        return Type.Miscellaneous;
+                        return ResourceType.Miscellaneous;
                   } else if (spriteName.Contains("PBtn")) {
-                        return Type.Miscellaneous;
+                        return ResourceType.Miscellaneous;
                   }
 
                   // Start filtering editor buttons
@@ -246,21 +246,21 @@ namespace Geometry_Dash_Randomiser {
                         spriteName.Contains("warp") ||
                         spriteName.Contains("pause")) {
 
-                        return Type.Editor;
+                        return ResourceType.Editor;
                   }
-                  return Type.Menu;
+                  return ResourceType.Menu;
             }
 
             // Done
-            Type getTypeFromGameSheet_4() {
+            ResourceType getTypeFromGameSheet_4() {
                   if (spriteName.Contains("shine")) {
-                        return Type.Block;
+                        return ResourceType.Block;
                   } else if (spriteName.Contains("boom") ||
                         spriteName.Contains("spiderDash")) {
 
-                        return Type.Effect;
+                        return ResourceType.Effect;
                   }
-                  return Type.Menu;
+                  return ResourceType.Menu;
             }
 
             public bool tryGetIconType() {

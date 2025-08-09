@@ -2,58 +2,133 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using Microsoft.WindowsAPICodePack.ShellExtensions;
-using static Geometry_Dash_Randomiser.GameFiles;
+using System.Runtime.InteropServices;
+using System.Threading;
+using static Geometry_Dash_Randomiser.GameFileManager;
+using System.IO;
 
 namespace Geometry_Dash_Randomiser {
 
       public partial class GDR_Form : Form {
 
-            bool themeTransitionInProgress = false;
+            private const string version = "V2.3.0";
 
-            static readonly int minGroup = 0;
-            static readonly int maxGroup = 10;
+            private int textCorruptionLevel = 0;
 
-            GameFiles GameFiles;
+            PathManager pathManager;
+            GameFileManager gameFileManager;
 
             ThemeController themeController = new ThemeController();
 
+            private Label[] labels = Array.Empty<Label>();
+            private CheckBox[] checkBoxes = Array.Empty<CheckBox>();
+            private Button[] buttons = Array.Empty<Button>();
+            private NumericUpDown[] numericUpDowns = Array.Empty<NumericUpDown>();
+            private TextBox[] textBoxes = Array.Empty<TextBox>();
+            private DomainUpDown[] domainUpDowns = Array.Empty<DomainUpDown>();
+            private RichTextBox[] richTextBoxes = Array.Empty<RichTextBox>();
+            private GroupBox[] groupBoxes = Array.Empty<GroupBox>();
+            private PictureBox[] pictureBoxes = Array.Empty<PictureBox>();
+            private RadioButton[] radioButtons = Array.Empty<RadioButton>();
+
+            [DllImport("kernel32.dll", SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            static extern bool AllocConsole();
+
             public GDR_Form() {
                   InitializeComponent();
-                  
+
+                  #if DEBUG
+                        AllocConsole();
+                  #endif
+
                   Config.ReadFile();
-                  GameFiles = new GameFiles(this);
-                  GameFiles.setQuality(Config.quality);
+                  this.gameFileManager = new GameFileManager(this);
+                  this.pathManager = gameFileManager.pathManager;
+                  this.pathManager.SetQuality(Config.quality);
 
-                  textureQualitySelectorBox.Items.Add(GameFiles.highQualityName);
-                  textureQualitySelectorBox.Items.Add(GameFiles.mediumQualityName);
-                  textureQualitySelectorBox.Items.Add(GameFiles.lowQualityName);
+                  this.textureQualitySelectorBox.Items.Add(PathManager.highQualityName);
+                  this.textureQualitySelectorBox.Items.Add(PathManager.mediumQualityName);
+                  this.textureQualitySelectorBox.Items.Add(PathManager.lowQualityName);
 
-                  this.themeController.theme = Config.theme;
+                  if (this.themeController.GetThemeCount() < Config.themeID) {
+                        Config.themeID = 0;
+                  }
+
+                  this.themeController.activeThemeID = Config.themeID;
+
+                  this.applicationThemeSelectorBox.Items.AddRange(this.themeController.GetAllThemeNames());
 
                   ReadyState readyState = ApplyAllSettings();
 
-                  if (readyState == ReadyState.Ready || readyState == ReadyState.ReadyCacheIsMissing) {
-                        SetApplicationSettingsVisibility(false);
-                        SetRandomisationSettingsVisibility(true);
+                  this.versionLabel.Text = version;
+            }
 
-                  } else {
-                        SetApplicationSettingsVisibility(true);
-                        SetRandomisationSettingsVisibility(false);
-                  }
+            private void GDR_Form_Shown(object sender, EventArgs e) {
+                  // Get all controls we are interested in changing later for themes all at once to speed up later references
+                  labels = GetAll(this, typeof(Label)).Select(c => c as Label).ToArray();
+                  checkBoxes = GetAll(this, typeof(CheckBox)).Select(c => c as CheckBox).ToArray();
+                  buttons = GetAll(this, typeof(Button)).Select(c => c as Button).ToArray();
+                  numericUpDowns = GetAll(this, typeof(NumericUpDown)).Select(c => c as NumericUpDown).ToArray();
+                  textBoxes = GetAll(this, typeof(TextBox)).Select(c => c as TextBox).ToArray();
+                  domainUpDowns = GetAll(this, typeof(DomainUpDown)).Select(c => c as DomainUpDown).ToArray();
+                  richTextBoxes = GetAll(this, typeof(RichTextBox)).Select(c => c as RichTextBox).ToArray();
+                  groupBoxes = GetAll(this, typeof(GroupBox)).Select(c => c as GroupBox).ToArray();
+                  pictureBoxes = GetAll(this, typeof(PictureBox)).Select(c => c as PictureBox).ToArray();
+                  radioButtons = GetAll(this, typeof(RadioButton)).Select(c => c as RadioButton).ToArray();
 
-                  SetTheme(Config.theme);
+                  SetTheme();
             }
 
             private void GDR_Form_Load(object sender, EventArgs e) { }
 
             private ReadyState ApplyAllSettings() {
-                  ReadyState readyState = GameFiles.getReadyState();
+                  ReadyState ready = gameFileManager.getReadyState();
 
+                  SetAllIconTexturesElements();
+                  SetAllMenuTexturesElements();
+                  SetAllFontRandElements();
+
+                  this.gameFolderTextBox.Text = Config.gameDirectory;
+
+                  this.seedInputBox.Text = Config.seed.ToString();
+                  this.seedInputBox.Value = Config.seed;
+
+                  this.textureQualitySelectorBox.SelectedIndex = (int)Config.quality;
+                  this.applicationThemeSelectorBox.SelectedIndex = (int)Config.themeID;
+
+                  if (Config.maxSpriteMultiplier < 1000) {
+                        this.spriteSizeMultiplierTextbox.Text = Config.maxSpriteMultiplier.ToString() + "x";
+                  } else {
+                        this.spriteSizeMultiplierTextbox.Text = "Unlimited";
+                  }
+
+                  this.allowDuplicatesCheckbox.Checked = Config.allowDuplicates;
+
+                  this.ReadyStatusDisplay.Text = GetReadyStatusDisplayText(ready);
+                  this.startButton.Enabled = ready.HasFlag(ReadyState.Ready);
+
+                  return ready;
+            }
+
+            private string GetReadyStatusDisplayText(ReadyState ready) {
+                  if (ready.HasFlag(ReadyState.Ready)) {
+                        return "The randomisation can begin";
+
+                  } else if (ready.HasFlag(ReadyState.GameFolderNotFound)) {
+                        return "The game folder doesn't exist, or the exe can not be found";
+
+                  } else if (ready.HasFlag(ReadyState.NoSettingsEnabled)) {
+                        return "No settings are enabled for randomisation. Enable at least one setting";
+                  }
+                  Console.WriteLine("No valid state is displayable to the user");
+                  return string.Empty;
+            }
+
+            private void SetAllIconTexturesElements() {
                   this.IconTexturesCheckbox.Checked = Config.iconTextures.enabled;
                   this.IconTexturesGroupDisplay.Value = Config.iconTextures.group;
                   this.IconTexturesGroupDisplay.Enabled = this.IconTexturesCheckbox.Checked;
@@ -77,7 +152,6 @@ namespace Geometry_Dash_Randomiser {
                         this.SwingTexturesGroupDisplay.Enabled = false;
                         this.JetpackTexturesCheckbox.Enabled = false;
                         this.JetpackTexturesGroupDisplay.Enabled = false;
-
                   } else {
                         this.CubeTexturesCheckbox.Enabled = true;
                         this.CubeTexturesGroupDisplay.Enabled = Config.iconTextures.cube.enabled;
@@ -98,7 +172,6 @@ namespace Geometry_Dash_Randomiser {
                         this.JetpackTexturesCheckbox.Enabled = true;
                         this.JetpackTexturesGroupDisplay.Enabled = Config.iconTextures.jetpack.enabled;
                   }
-
                   this.CubeTexturesCheckbox.Checked = Config.iconTextures.cube.enabled;
                   this.CubeTexturesGroupDisplay.Value = Config.iconTextures.cube.group;
                   this.ShipTexturesCheckbox.Checked = Config.iconTextures.ship.enabled;
@@ -117,7 +190,9 @@ namespace Geometry_Dash_Randomiser {
                   this.SwingTexturesGroupDisplay.Value = Config.iconTextures.swing.group;
                   this.JetpackTexturesCheckbox.Checked = Config.iconTextures.jetpack.enabled;
                   this.JetpackTexturesGroupDisplay.Value = Config.iconTextures.jetpack.group;
+            }
 
+            private void SetAllMenuTexturesElements() {
                   this.MenuTexturesCheckbox.Checked = Config.menuTextures.enabled;
                   this.MenuTexturesGroupDisplay.Value = Config.menuTextures.group;
                   this.MenuTexturesGroupDisplay.Enabled = this.MenuTexturesCheckbox.Checked;
@@ -157,30 +232,43 @@ namespace Geometry_Dash_Randomiser {
                   this.MiscCheckbox.Checked = Config.miscTextures.enabled;
                   this.MiscGroupDisplay.Value = Config.miscTextures.group;
                   this.MiscGroupDisplay.Enabled = this.MiscCheckbox.Checked;
+            }
 
+            private void SetAllFontRandElements() {
+                  FontRandomisationSettings fontRand = Config.fontRand;
 
-                  this.gameFolderTextBox.Text = Config.gameDirectory;
-                  this.outputFolderTextBox.Text = Config.outputDirectory;
+                  this.fontRandEnabledCheckbox.Checked = fontRand.enabled;
 
-                  this.seedInputBox.Text = Config.seed.ToString();
-                  this.seedInputBox.Value = Config.seed;
+                  // If the randomisation is disabled, deactivate all related controls
+                  if (fontRand.enabled == false) {
+                        this.fontShuffleStylesCheckbox.Enabled = false;
+                        this.fontPerLetterRandomisationButton.Enabled = false;
+                        this.fontPerFontRandomisationButton.Enabled = false;
+                        this.fontRandomiseLettersCheckbox.Enabled = false;
+                        return;
 
-                  this.textureQualitySelectorBox.SelectedIndex = (int)Config.quality;
-                  this.applicationThemeSelectorBox.SelectedIndex = (int)Config.theme;
-                  //this.textureCachingCheckbox.Checked = Config.caching;
-
-                  if (Config.maxSpriteMultiplier < 1000) {
-                        this.spriteSizeMultiplierTextbox.Text = Config.maxSpriteMultiplier.ToString() + "x";
                   } else {
-                        this.spriteSizeMultiplierTextbox.Text = "Unlimited";
+                        this.fontShuffleStylesCheckbox.Enabled = true;
+                        this.fontPerLetterRandomisationButton.Enabled = true;
+                        this.fontPerFontRandomisationButton.Enabled = true;
+                        this.fontRandomiseLettersCheckbox.Enabled = true;
                   }
 
-                  this.allowDuplicatesCheckbox.Checked = Config.allowDuplicates;
+                  this.fontShuffleStylesCheckbox.Checked = fontRand.shuffleFontStyles;
 
-                  this.infoDisplay.Text = readyStateStrings[(int)readyState];
-                  this.startButton.Enabled = GameFiles.isReady(readyState);
+                  this.fontPerLetterRandomisationButton.Enabled = this.fontShuffleStylesCheckbox.Checked;
+                  this.fontPerFontRandomisationButton.Enabled = this.fontShuffleStylesCheckbox.Checked;
 
-                  return readyState;
+                  switch (fontRand.shufflingMode) {
+                        case FontRandomisationSettings.FontStyleShufflingMode.PerLetter:
+                              this.fontPerLetterRandomisationButton.Checked = true;
+                              break;
+                        case FontRandomisationSettings.FontStyleShufflingMode.PerFont:
+                              this.fontPerFontRandomisationButton.Checked = true;
+                              break;
+                  }
+
+                  this.fontRandomiseLettersCheckbox.Checked = fontRand.randomiseLetters;
             }
 
             private void SaveConfigFileAfterDelay(int seconds = 3) {
@@ -399,18 +487,36 @@ namespace Geometry_Dash_Randomiser {
                   SaveConfigFileAfterDelay();
             }
 
-            private void SetGameFolder(object sender, EventArgs e) {
-                  string folder = GetFolderViaExplorer(Config.gameDirectory, true);
-                  if (folder != string.Empty)
-                        Config.gameDirectory = folder;
+            private void fontRandEnabledCheckbox_CheckedChanged(object sender, EventArgs e) {
+                  Config.fontRand.enabled = (sender as CheckBox).Checked;
                   ApplyAllSettings();
                   SaveConfigFileAfterDelay();
             }
 
-            private void SetOutputFolder(object sender, EventArgs e) {
-                  string folder = GetFolderViaExplorer(Config.outputDirectory, true);
+            private void fontShuffleStylesCheckbox_CheckedChanged(object sender, EventArgs e) {
+                  Config.fontRand.shuffleFontStyles = (sender as CheckBox).Checked;
+                  ApplyAllSettings();
+                  SaveConfigFileAfterDelay();
+            }
+
+            private void fontRandomiseLettersCheckbox_CheckedChanged(object sender, EventArgs e) {
+                  Config.fontRand.randomiseLetters = (sender as CheckBox).Checked;
+                  ApplyAllSettings();
+                  SaveConfigFileAfterDelay();
+            }
+
+            private void fontPerFontRandomisationButton_CheckedChanged(object sender, EventArgs e) {
+                  Config.fontRand.shufflingMode = FontRandomisationSettings.FontStyleShufflingMode.PerFont;
+            }
+
+            private void fontPerLetterRandomisationButton_CheckedChanged(object sender, EventArgs e) {
+                  Config.fontRand.shufflingMode = FontRandomisationSettings.FontStyleShufflingMode.PerLetter;
+            }
+
+            private void SetGameFolder(object sender, EventArgs e) {
+                  string folder = GetFolderViaExplorer(Config.gameDirectory, true);
                   if (folder != string.Empty)
-                        Config.outputDirectory = folder;
+                        Config.gameDirectory = folder;
                   ApplyAllSettings();
                   SaveConfigFileAfterDelay();
             }
@@ -423,19 +529,8 @@ namespace Geometry_Dash_Randomiser {
                   SaveConfigFileAfterDelay();
             }
 
-            private void outputFolderTextBox_TextChanged(object sender, EventArgs e) {
-                  TextBox textBox = sender as TextBox;
-                  Config.outputDirectory = textBox.Text;
-
-                  ApplyAllSettings();
-                  SaveConfigFileAfterDelay();
-            }
-
             private void CachingSettingChanged(object sender, EventArgs e) {
-                  CheckBox checkBox = sender as CheckBox;
-                  //Config.caching = checkBox.Checked;
-                  ApplyAllSettings();
-                  SaveConfigFileAfterDelay();
+
             }
 
             private string GetFolderViaExplorer(string InitialDirectory, bool IsFolderPicker) {
@@ -448,50 +543,20 @@ namespace Geometry_Dash_Randomiser {
                   return string.Empty;
             }
 
-            private void updateProgress(object sender, ProgressUpdate update) {
-                  if (update.currentFile != string.Empty) {
-
-                        string newText = string.Empty;
-                        switch (update.currentStage) {
-                              case Stage.BackingUp:
-                                    newText = "Backing Up ";
-                                    break;
-                              case Stage.Unpacking:
-                                    newText = "Unpacking ";
-                                    break;
-                              case Stage.Caching:
-                                    newText = "Caching ";
-                                    break;
-                              case Stage.Randomising:
-                                    newText = "Randomising ";
-                                    break;
-                              case Stage.Repackaging:
-                                    newText = "Repackaging ";
-                                    break;
-                        }
-                        newText += update.currentFile;
-                        this.infoDisplay.Text = newText;
-                  }
-
-                  if (update.totalPercentComplete != -1) {
-                        this.allFilesProgressBar.Value = update.totalPercentComplete;
-                  }
-            }
-
             private void qualityOptionChanged(object sender, EventArgs e) {
                   DomainUpDown qualityDropdown = sender as DomainUpDown;
 
                   switch (qualityDropdown.Text) {
-                        case GameFiles.lowQualityName:
-                              GameFiles.setQuality(Quality.Low);
+                        case PathManager.lowQualityName:
+                              pathManager.SetQuality(Quality.Low);
                               Config.quality = Quality.Low;
                               break;
-                        case GameFiles.mediumQualityName:
-                              GameFiles.setQuality(Quality.Medium);
+                        case PathManager.mediumQualityName:
+                              pathManager.SetQuality(Quality.Medium);
                               Config.quality = Quality.Medium;
                               break;
-                        case GameFiles.highQualityName:
-                              GameFiles.setQuality(Quality.High);
+                        case PathManager.highQualityName:
+                              pathManager.SetQuality(Quality.High);
                               Config.quality = Quality.High;
                               break;
                         default:
@@ -556,6 +621,7 @@ namespace Geometry_Dash_Randomiser {
                   SaveConfigFileAfterDelay();
             }
 
+            // MORE THINGS NEED TO BE ADDED
             private void SetUI_EnabledState(bool enabled) {
                   this.IconTexturesCheckbox.Enabled = enabled;
                   this.IconTexturesGroupDisplay.Enabled = enabled;
@@ -601,8 +667,6 @@ namespace Geometry_Dash_Randomiser {
 
                   this.gameFolderTextBox.Enabled = enabled;
                   this.gameFolderSelectorButton.Enabled = enabled;
-                  this.outputFolderTextBox.Enabled = enabled;
-                  this.outputFolderSelectorButton.Enabled = enabled;
                   this.seedInputBox.Enabled = enabled;
                   this.randomSeedButton.Enabled = enabled;
                   this.textureQualitySelectorBox.Enabled = enabled;
@@ -614,23 +678,25 @@ namespace Geometry_Dash_Randomiser {
 
             private void ChangelogButton_Click(object sender, EventArgs e) {
 
-                  const string caption = "Changelog v2.2.0";
+                  const string caption = "Changelog v2.3.0";
                   string[] message = new string[] {
                         "What's new?",
-                        " - Added Sprite Size Multiplier setting to limit different size textures getting swapped",
-                        " - Added Allow Duplicate Textures button",
-                        " - Split the application settings into 2 smaller menus",
-                        " - There is now a Light and Dark mode selector, for you fellow eye users\n",
+                        " - Major visual overhaul, it should be easier to navigate this app now",
+                        " - Text Randomisation with a lot of settings with more to come later",
+                        " - Restore files button to quickly return the game to it's normal (boring) state",
+                        " - File for \"Blacklisted files\". Every file added to this will be ignored when randomising files",
+                        " - Some new and reworked themes. Random theme also exists for some reason\n",
+
+                        "Changes:",
+                        " - Removed the custom output directory. The backup files will always be in the application's folder\n",
 
                         "Bugfixes:",
-                        " - Fixed sprites sometimes flowing into each other and creating minor visual glitches (again)"
+                        " - Fixed crashes caused by config file writing and reading running into errors",
+                        " - Every value on the Texture Size Multiplier slider is available now\n"
                   };
 
                   MessageBoxButtons buttons = MessageBoxButtons.OK;
-                  DialogResult result;
-
-                  // Displays the MessageBox.
-                  result = MessageBox.Show(string.Join("\n", message), caption, buttons);
+                  MessageBox.Show(string.Join("\n", message), caption, buttons);
             }
 
             private void groupInfoHelpButton_Click(object sender, EventArgs e) {
@@ -639,17 +705,16 @@ namespace Geometry_Dash_Randomiser {
                   string[] message = {
                         "You can add texture groups to randomisation groups via the number boxes.",
                         "If you have more than 1 texture group in a group, their textures will be mixed together.\n",
+
                         "For example: If you add both Menu and Editor groups to group 1, then the editor and the menu elements will be randomised together.",
                         "Some elements from the menu will appear in the editor and vica-versa.\n",
+
                         "If you add a texture group to group 0, they will not be mixed together, but rather each group will be shuffled separately.\n",
                         "If you add everything to group 1, the game will become very chaotic :)"
                   };
 
-                  MessageBoxButtons buttons = MessageBoxButtons.OK;
-                  DialogResult result;
-
-                  // Displays the MessageBox.
-                  result = MessageBox.Show(string.Join("\n", message), caption, buttons);
+                  MessageBoxButtons buttons = MessageBoxButtons.OK; 
+                  MessageBox.Show(string.Join("\n", message), caption, buttons);
             }
 
             private void Logo_Click(object sender, EventArgs e) {
@@ -664,39 +729,48 @@ namespace Geometry_Dash_Randomiser {
                         "Developer: Hydrough",
                         "Logo created by: Hydrough",
                         "RectpackSharp library made by ThomasMiz:",
-                        " - https://github.com/ThomasMiz/RectpackSharp\n",
+                        " - https://github.com/ThomasMiz/RectpackSharp",
+                        "Wisteria theme made by my friend, Maya\n",
 
                         "Contact me:",
                         " - Discord: hydrough_7165",
                         " - GitHub: https://github.com/Hydrough2k2k\n",
 
-                        "Special thanks to Danny for helping keep my sanity in tact while working on this project!",
+                        "Special thanks to my friends for testing this and giving me ideas!",
                   };
 
                   MessageBoxButtons buttons = MessageBoxButtons.OK;
-                  DialogResult result;
+                  MessageBox.Show(string.Join("\n", message), caption, buttons);
+            }
 
-                  // Displays the MessageBox.
-                  result = MessageBox.Show(string.Join("\n", message), caption, buttons);
+            private void restoreFilesButton_Click(object sender, EventArgs e) {
+                  this.startButton.Enabled = false;
+                  this.restoreFilesButton.Enabled = false;
+                  this.ReadyStatusDisplay.Visible = false;
+                  this.RandomisingProgressBar.Visible = true;
+                  this.RandomisingProgressDisplay.Visible = true;
+
+                  gameFileManager.RestoreFiles();
+
+                  this.startButton.Enabled = true;
+                  this.restoreFilesButton.Enabled = false;
+                  this.ReadyStatusDisplay.Visible = true;
+                  this.RandomisingProgressBar.Visible = false;
+                  this.RandomisingProgressDisplay.Visible = false;
             }
 
             private async void startButton_Click(object sender, EventArgs e) {
-                  bool ready = GameFiles.isReady();
+                  bool ready = gameFileManager.getReadyState().HasFlag(ReadyState.Ready);
                   if (ready == false)
                         return;
 
                   SetUI_EnabledState(false);
 
-                  this.startButton.Visible = false;
-                  this.infoDisplay.Location = new Point(12, 421);
-                  this.infoDisplay.Width = 984;
-                  this.allFilesProgressBar.Visible = true;
-                  this.fileProgressBar.Visible = true;
-
-                  GameFiles.updateEvent += (eventSender, args) => { this.updateProgress(eventSender, args); };
-                  GameFiles.changeDisplayedTextEvent += (eventSender, args) => { this.infoDisplay.Text = args; };
-                  GameFiles.updateFileProgressEvent += (eventSender, args) => { this.fileProgressBar.Value = args; };
-                  GameFiles.updateTotalProgressEvent += (eventSender, args) => { this.allFilesProgressBar.Value = args; };
+                  this.startButton.Enabled = false;
+                  this.restoreFilesButton.Enabled = false;
+                  this.ReadyStatusDisplay.Visible = false;
+                  this.RandomisingProgressBar.Visible = true;
+                  this.RandomisingProgressDisplay.Visible = true;
 
                   // Create a new random seed if the input value is 0
                   int seed = Config.seed;
@@ -704,36 +778,48 @@ namespace Geometry_Dash_Randomiser {
                         seed = Guid.NewGuid().GetHashCode();
                   }
 
-                  await Task.Run(() => GameFiles.StartRandomising(seed));
+                  gameFileManager.progressState.currentStage = ApplicationState.Setting_Up;
 
-                  this.startButton.Visible = true;
-                  this.infoDisplay.Location = new Point(12, 450);
-                  this.infoDisplay.Width = 846;
-                  this.allFilesProgressBar.Visible = false;
-                  this.fileProgressBar.Visible = false;
+                  // Add the while(true) update here inline, and have the true be replaced with when the Task.Run is complete, if that's possible, or have it as a break condition
 
-                  GameFiles.updateEvent -= (eventSender, args) => { this.updateProgress(eventSender, args); };
-                  GameFiles.changeDisplayedTextEvent -= (eventSender, args) => { this.infoDisplay.Text = args; };
-                  GameFiles.updateFileProgressEvent -= (eventSender, args) => { this.fileProgressBar.Value = args; };
-                  GameFiles.updateTotalProgressEvent -= (eventSender, args) => { this.allFilesProgressBar.Value = args; };
+                  // Do NOT await, ignore green line
+                  Task.Run(() => UpdateProgressDisplay());
+                  await Task.Run(() => gameFileManager.StartRandomising(seed));
 
                   SetUI_EnabledState(true);
 
                   ApplyAllSettings();
 
-                  this.infoDisplay.Text = "Randomisation complete.\n";
-                  switch (Config.GetOutputDirectoryStatus()) {
-                        case Config.OutputFolder.Default:
-                              this.infoDisplay.Text += " - You can find the new files in the \"Randomised Files\" folder.";
-                              break;
-                        case Config.OutputFolder.Overwritten:
-                              this.infoDisplay.Text += " - You can find the new files in the given output folder.";
-                              break;
-                  }
-                  if (Config.seed != seed)
-                        this.infoDisplay.Text += " The used seed was " + seed.ToString("N0");
+                  this.ReadyStatusDisplay.Visible = true;
+                  this.RandomisingProgressBar.Visible = false;
+                  this.RandomisingProgressDisplay.Visible = false;
 
-                  this.infoDisplay.Text += "\n - To reset them copy the files from the \"Unaltered Files\" folder. Have fun!";
+                  this.ReadyStatusDisplay.Text = "Randomisation complete";
+
+                  if (Config.seed != seed) {
+                        this.ReadyStatusDisplay.Text += ". The used seed was " + seed.ToString("N0");
+                  }
+
+                  // If the game directory is valid, enable the restore button
+                  this.restoreFilesButton.Enabled = gameFileManager.IsGameDirectoryValid();
+            }
+
+            // This polls the "gameFileManager" for progress on what stage the progress is in, and updates the user
+            private async void UpdateProgressDisplay(int delayMillisec = 25) {
+                  ProgressState progressState = gameFileManager.progressState;
+
+                  string lastPrint = string.Empty;
+                  // Waits for the randomisation to be comleted
+                  while (progressState.currentStage != ApplicationState.Idle) {
+                        string newPrint = progressState.currentStage.ToString();
+
+                        if (newPrint != lastPrint) {
+                              lastPrint = newPrint;
+
+                              this.RandomisingProgressDisplay.Text = newPrint;
+                        }
+                        Thread.Sleep(delayMillisec);
+                  }
             }
 
             private void SeedValueChanged(object sender, EventArgs e) {
@@ -742,110 +828,33 @@ namespace Geometry_Dash_Randomiser {
                   ApplyAllSettings();
             }
 
-            private void ApplicationSettingButton_Click(object sender, EventArgs e) {
-                  SetApplicationSettingsVisibility(true);
-                  SetRandomisationSettingsVisibility(false);
+            private void SetTheme() {
+                  if (this.themeController.current.name == "Random Theme") {
+                        Random random = new Random(Guid.NewGuid().GetHashCode());
+
+                        // Help me, what is this
+                        SetTheme(new Theme(
+                              name: "Random Theme",
+                              formBackColour: Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)),
+                              defaultTextColour: Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)),
+                              menuElementBackColour: Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)),
+                              menuElementForeColour: Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)),
+                              beamColour: Color.FromArgb(random.Next(255), random.Next(255), random.Next(255))
+                        ));
+                  } else {
+                        SetTheme(this.themeController.current);
+                  }
             }
 
-            private void RandomisationSettingButton_Click(object sender, EventArgs e) {
-                  SetApplicationSettingsVisibility(false);
-                  SetRandomisationSettingsVisibility(true);
-            }
+            private void SetTheme(Theme theme) {
+                  SetFormColours(theme.formBackColour);
 
-            private void SetApplicationSettingsVisibility(bool visible) {
-                  this.applicationSettingsHeaderLabel.Visible = visible;
-
-                  this.gameFolderLabel.Visible = visible;
-                  this.gameFolderTextBox.Visible = visible;
-                  this.gameFolderSelectorButton.Visible = visible;
-
-                  this.outputFolderLabel.Visible = visible;
-                  this.outputFolderTextBox.Visible = visible;
-                  this.outputFolderSelectorButton.Visible = visible;
-
-                  this.textureQualityLabel.Visible = visible;
-                  this.textureQualitySelectorBox.Visible = visible;
-
-                  this.ThemeLabel.Visible = visible;
-                  this.applicationThemeSelectorBox.Visible = visible;
-            }
-
-            private void SetRandomisationSettingsVisibility(bool visible) {
-                  this.randomisationSettingsHeaderLabel.Visible = visible;
-
-                  this.randomisationSeedLabel.Visible = visible;
-                  this.seedInputBox.Visible = visible;
-                  this.randomSeedButton.Visible = visible;
-
-                  this.spriteSizeMultiplierLabel.Visible = visible;
-                  this.spriteSizeMultiplierTrackbar.Visible = visible;
-                  this.spriteSizeMultiplierTextbox.Visible = visible;
-
-                  this.allowDuplicatesCheckbox.Visible = visible;
-            }
-
-            private async Task SetTheme_Transition(ThemeController.Theme oldTheme, ThemeController.Theme newTheme, float transitionTime = 0.75f) {
-                  if (oldTheme == newTheme) return;
-
-                  themeTransitionInProgress = true;
-
-                  int transitionSteps = 25;
-                  float tickDuration = transitionTime / transitionSteps;
-
-                  ThemeController oldThemeController = new ThemeController(oldTheme);
-
-                  Color oldFormColour = oldThemeController.GetFormBackgroundColour();
-                  Color newFormColour = this.themeController.GetFormBackgroundColour();
-
-                  Color oldTextColour = oldThemeController.GetTextColour();
-                  Color newTextColour = this.themeController.GetTextColour();
-
-                  Color oldMenuElementBackColour = oldThemeController.GetMenuElementBackColour();
-                  Color newMenuElementBackColour = this.themeController.GetMenuElementBackColour();
-
-                  Color oldMenuElementForeColour = oldThemeController.GetMenuElementForeColour();
-                  Color newMenuElementForeColour = this.themeController.GetMenuElementForeColour();
-
-                  await Task.Run(() => {
-                        for (int i = 1; i < transitionSteps; i++) {
-                              float interValue = (float)i / transitionSteps;
-
-                              Color tempFormColour = ColorExtension.Interpolate(oldFormColour, newFormColour, interValue);
-                              SetFormColours(tempFormColour);
-
-                              Color tempTextColour = ColorExtension.Interpolate(oldTextColour, newTextColour, interValue);
-                              SetTextColours(tempTextColour);
-
-                              SetCheckboxColours(tempTextColour);
-
-                              Color tempMenuElementBackColour = ColorExtension.Interpolate(oldMenuElementBackColour, newMenuElementBackColour, interValue);
-                              Color tempMenuElementForeColour = ColorExtension.Interpolate(oldMenuElementForeColour, newMenuElementForeColour, interValue);
-                              SetMenuElementColours(tempMenuElementBackColour, tempMenuElementForeColour);
-
-                              if (i == transitionSteps / 2) {
-                                    UpdateImageTheme(newTheme);
-                              }
-
-                              Thread.Sleep((int)(tickDuration * 1000));
-                        }
-                  });
-
-                  SetTheme(newTheme);
-
-                  themeTransitionInProgress = false;
-            }
-
-            private void SetTheme(ThemeController.Theme theme) {
-                  Color formBackColour = this.themeController.GetFormBackgroundColour();
-                  Color TextColor = this.themeController.GetTextColour();
-
-                  SetFormColours(formBackColour);
-
+                  Color TextColor = theme.defaultTextColour;
                   SetTextColours(TextColor);
-
                   SetCheckboxColours(TextColor);
+                  SetRadioButtonColours(TextColor);
 
-                  SetMenuElementColours(this.themeController.GetMenuElementBackColour(), this.themeController.GetMenuElementForeColour());
+                  SetMenuElementColours(theme.menuElementBackColour, theme.menuElementForeColour);
 
                   UpdateImageTheme(theme);
             }
@@ -855,84 +864,84 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void SetTextColours(Color color) {
-                  Control[] labels = GetAll(this, typeof(Label)).ToArray();
                   for (int i = 0; i < labels.Length; i++) {
-                        labels[i].ForeColor = color;
+                        if (labels[i].Name.Contains("NoCol") == false) {
+                              labels[i].ForeColor = color;
+                        }
                   }
             }
 
             private void SetCheckboxColours(Color fore) {
-                  Control[] checkBoxes = GetAll(this, typeof(CheckBox)).ToArray();
                   for (int i = 0; i < checkBoxes.Length; i++) {
                         checkBoxes[i].ForeColor = fore;
                   }
             }
 
+            private void SetRadioButtonColours(Color fore) {
+                  for (int i = 0; i < radioButtons.Length; i++) {
+                        radioButtons[i].ForeColor = fore;
+                  }
+            }
+
             private void SetMenuElementColours(Color back, Color fore) {
-                  Control[] buttons = GetAll(this, typeof(Button)).ToArray();
                   for (int i = 0; i < buttons.Length; i++) {
                         buttons[i].BackColor = back;
                         buttons[i].ForeColor = fore;
                   }
 
-                  Control[] numericUpDowns = GetAll(this, typeof(NumericUpDown)).ToArray();
                   for (int i = 0; i < numericUpDowns.Length; i++) {
                         numericUpDowns[i].BackColor = back;
                         numericUpDowns[i].ForeColor = fore;
                   }
 
-                  Control[] textBoxes = GetAll(this, typeof(TextBox)).ToArray();
                   for (int i = 0; i < textBoxes.Length; i++) {
                         textBoxes[i].BackColor = back;
                         textBoxes[i].ForeColor = fore;
                   }
 
-                  Control[] domainUpDowns = GetAll(this, typeof(DomainUpDown)).ToArray();
                   for (int i = 0; i < domainUpDowns.Length; i++) {
                         domainUpDowns[i].BackColor = back;
                         domainUpDowns[i].ForeColor = fore;
                   }
 
-                  Control[] richTextBoxes = GetAll(this, typeof(RichTextBox)).ToArray();
                   for (int i = 0; i < richTextBoxes.Length; i++) {
                         richTextBoxes[i].BackColor = back;
                         richTextBoxes[i].ForeColor = fore;
                   }
+
+                  for (int i = 0; i < groupBoxes.Length; i++) {
+                        groupBoxes[i].ForeColor = fore;
+                  }
             }
 
-            private void UpdateImageTheme(ThemeController.Theme theme) {
-                  if (theme == ThemeController.Theme.Dark) {
-                        iconsConnectorBeam.Image = Properties.Resources.ConnectorBeamWhite;
-                        settingsSeparatorBeam.Image = Properties.Resources.ConnectorBeamWhite;
+            private void UpdateImageTheme(Theme theme) {
+                  Color beamColour = theme.beamColour;
+                  Bitmap connectorBeam = (Bitmap)Properties.Resources.ConnectorBeamWhite.Clone();
 
-                  } else if (theme == ThemeController.Theme.Light) {
-                        iconsConnectorBeam.Image = Properties.Resources.ConnectorBeamBlack;
-                        settingsSeparatorBeam.Image = Properties.Resources.ConnectorBeamBlack;
+                  // Get every pixel and change it to the new colour if it's white. Not efficient, but what can you do, I'm lazy
+                  for (int y = 0; y < connectorBeam.Height; y++) {
+                        for (int x = 0; x < connectorBeam.Width; x++) {
+                              Color pixel = connectorBeam.GetPixel(x, y);
+                              if (pixel == Color.FromArgb(255, 255, 255)) {
+                                    connectorBeam.SetPixel(x, y, beamColour);
+                              }
+                        }
+                  }
+
+                  for (int i = 0; i < this.pictureBoxes.Length; i++) {
+                        if (pictureBoxes[i].Name.EndsWith("ConnectorBeam")) {
+                              pictureBoxes[i].Image = (Bitmap)connectorBeam.Clone();
+                        }
                   }
             }
 
             private void applicationThemeSelectorBox_Click(object sender, EventArgs e) {
-                  if (themeTransitionInProgress) return;
-
                   DomainUpDown domainUpDown = sender as DomainUpDown;
-                  ThemeController.Theme oldTheme = Config.theme;
-                  ThemeController.Theme newTheme = ThemeController.Theme.Dark;
+                  int oldThemeID = this.themeController.activeThemeID;
+                  int newThemeID = domainUpDown.SelectedIndex;
+                  this.themeController.activeThemeID = newThemeID;
 
-                  switch (domainUpDown.Text) {
-                        case "Dark Mode":
-                              Config.theme = ThemeController.Theme.Dark;
-                              themeController.theme = ThemeController.Theme.Dark;
-                              newTheme = ThemeController.Theme.Dark;
-                              break;
-                        case "Light Mode":
-                              Config.theme = ThemeController.Theme.Light;
-                              themeController.theme = ThemeController.Theme.Light;
-                              newTheme = ThemeController.Theme.Light;
-                              break;
-                        default:
-                              break;
-                  }
-                  SetTheme_Transition(oldTheme, newTheme, 0.75f);
+                  SetTheme();
             }
 
             public IEnumerable<Control> GetAll(Control control, Type type) {
@@ -942,6 +951,45 @@ namespace Geometry_Dash_Randomiser {
                         .SelectMany(ctrl => GetAll(ctrl, type))
                         .Concat(controls)
                         .Where(c => c.GetType() == type);
+            }
+
+            private void GDR_HeaderLabel_Click(object sender, EventArgs e) {
+                  Random random = new Random(Guid.NewGuid().GetHashCode());
+                  
+                  int charAlteringProbability = 10;
+
+                  // Random chance to alter the text of most elements on screen
+                  if (random.Next(3) > 0) {
+                        for (int i = 0; i < this.labels.Length; i++)
+                              this.labels[i].Text = this.labels[i].Text.AlterRandomCharacters(charAlteringProbability);
+
+                        for (int i = 0; i < this.checkBoxes.Length; i++)
+                              this.checkBoxes[i].Text = this.checkBoxes[i].Text.AlterRandomCharacters(charAlteringProbability);
+
+                        for (int i = 0; i < this.groupBoxes.Length; i++)
+                              this.groupBoxes[i].Text = this.groupBoxes[i].Text.AlterRandomCharacters(charAlteringProbability);
+
+                        for (int i = 0; i < this.buttons.Length; i++)
+                              this.buttons[i].Text = this.buttons[i].Text.AlterRandomCharacters(charAlteringProbability);
+
+                        for (int i = 0; i < this.radioButtons.Length; i++)
+                              this.radioButtons[i].Text = this.radioButtons[i].Text.AlterRandomCharacters(charAlteringProbability);
+
+                        textCorruptionLevel++;
+                  }
+            }
+
+            private void SetStatusTextColour(Color fore) {
+                  SetColours(this.ReadyStatusDisplay, fore, Color.FromArgb(0, 0, 0, 0));
+            }
+
+            private void SetColours(Label label, Color2 colours) {
+                  SetColours(label, colours.color1, colours.color2);
+            }
+
+            private void SetColours(Label label, Color fore, Color back) {
+                  label.ForeColor = fore;
+                  label.BackColor = back;
             }
       }
 }

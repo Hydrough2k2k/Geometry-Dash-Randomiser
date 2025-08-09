@@ -2,8 +2,8 @@ Changelog for V2.2.0:
 
 What's new?
  - Added Sprite Size Multiplier setting to limit different size textures getting swapped
- - Added Allow Duplicate Textures button",
- - Split the application settings into 2 smaller menus",
+ - Added Allow Duplicate Textures button
+ - Split the application settings into 2 smaller menus
  - There is now a Light and Dark mode selector, for you fellow eye users
 
 Bugfixes:

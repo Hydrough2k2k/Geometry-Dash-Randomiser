@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Drawing;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace Geometry_Dash_Randomiser {
 
-      partial class Parse {
+      public static class Parse {
+
+            public static int Int(this string data) {
+                  Int32.TryParse(data, NumberStyles.Any, NumberFormatInfo.InvariantInfo, out int result);
+                  return result;
+            }
 
             public static Point Point(string data) {
                   data = Regex.Replace(data, "[^0-9-,]+", "", RegexOptions.Compiled);

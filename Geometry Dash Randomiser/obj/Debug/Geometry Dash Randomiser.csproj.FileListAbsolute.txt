@@ -84,9 +84,6 @@ G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geomet
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\System.Windows.Forms.xml
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\WindowsFormsIntegration.xml
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.csproj.AssemblyReference.cache
-G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.csproj.SuggestedBindingRedirects.cache
-G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.exe.config
-G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry_Dash_Randomiser.GameFiles.resources
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry_Dash_Randomiser.GDR_Form.resources
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry_Dash_Randomiser.Properties.Resources.resources
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.csproj.GenerateResource.cache
@@ -94,3 +91,8 @@ G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geomet
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry.57723067.Up2Date
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.exe
 G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.pdb
+G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\System.Drawing.Common.dll
+G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\System.Drawing.Common.pdb
+G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\System.Drawing.Common.xml
+G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry_Dash_Randomiser.GameFileManager.resources
+G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.exe.config

@@ -6,15 +6,15 @@ namespace Geometry_Dash_Randomiser {
             public bool enabled { get; set; } = true;
             public int group { get; set; } = 1;
 
-            public RandSetting cube { get; set; } = new RandSetting(1, true);
-            public RandSetting ship { get; set; } = new RandSetting(1, true);
-            public RandSetting ball { get; set; } = new RandSetting(1, true);
-            public RandSetting ufo { get; set; } = new RandSetting(1, true);
-            public RandSetting wave { get; set; } = new RandSetting(1, true);
-            public RandSetting robot { get; set; } = new RandSetting(1, true);
-            public RandSetting spider { get; set; } = new RandSetting(1, true);
-            public RandSetting swing { get; set; } = new RandSetting(1, true);
-            public RandSetting jetpack { get; set; } = new RandSetting(1, true);
+            public RandomisationSetting cube { get; set; } = new RandomisationSetting(1, true);
+            public RandomisationSetting ship { get; set; } = new RandomisationSetting(1, true);
+            public RandomisationSetting ball { get; set; } = new RandomisationSetting(1, true);
+            public RandomisationSetting ufo { get; set; } = new RandomisationSetting(1, true);
+            public RandomisationSetting wave { get; set; } = new RandomisationSetting(1, true);
+            public RandomisationSetting robot { get; set; } = new RandomisationSetting(1, true);
+            public RandomisationSetting spider { get; set; } = new RandomisationSetting(1, true);
+            public RandomisationSetting swing { get; set; } = new RandomisationSetting(1, true);
+            public RandomisationSetting jetpack { get; set; } = new RandomisationSetting(1, true);
 
             public IconRandSettings() { }
       }

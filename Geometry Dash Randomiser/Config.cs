@@ -1,52 +1,48 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.Json;
 using static Geometry_Dash_Randomiser.Randomiser;
+using static Geometry_Dash_Randomiser.FontRandomisationSettings;
 
 namespace Geometry_Dash_Randomiser {
 
       internal static class Config {
 
-            public enum OutputFolder { Unknown, Default, Overwritten, Invalid, Creatable };
-
             static readonly string configFileName = "config.txt";
 
             // This is where the default values are defined
             public static string gameDirectory = "";
-            public static string outputDirectory = "";
-            //public static bool fileAutoOverwrite = false;
             
             // Configs for every randomisation type
+            // Default: group 0, disabled
             public static IconRandSettings iconTextures = new IconRandSettings();
-            public static RandSetting menuTextures = new RandSetting(2, true);
-            public static RandSetting shopTextures = new RandSetting(0, false);
-            public static RandSetting editorTextures = new RandSetting(0, false);
-            public static RandSetting tileTextures = new RandSetting(3, true);
-            public static RandSetting portalTextures = new RandSetting(0, false);
-            public static RandSetting orbTextures = new RandSetting(4, true);
-            public static RandSetting padTextures = new RandSetting(5, true);
-            public static RandSetting particleTextures = new RandSetting(4, true);
-            public static RandSetting effectTextures = new RandSetting(0, false);
-            public static RandSetting miscTextures = new RandSetting(0, false);
+            public static RandomisationSetting menuTextures = new RandomisationSetting(group: 2, enabled: true);
+            public static RandomisationSetting shopTextures = new RandomisationSetting();
+            public static RandomisationSetting editorTextures = new RandomisationSetting();
+            public static RandomisationSetting tileTextures = new RandomisationSetting();
+            public static RandomisationSetting portalTextures = new RandomisationSetting(group: 0, true);
+            public static RandomisationSetting orbTextures = new RandomisationSetting(group: 3, enabled: true);
+            public static RandomisationSetting padTextures = new RandomisationSetting(group: 0, enabled: true);
+            public static RandomisationSetting particleTextures = new RandomisationSetting(group: 4, enabled: true);
+            public static RandomisationSetting effectTextures = new RandomisationSetting();
+            public static RandomisationSetting miscTextures = new RandomisationSetting();
+            public static FontRandomisationSettings fontRand = new FontRandomisationSettings(
+                  enabled: false,
+                  shuffleFontStyles: true,
+                  shufflingMode: FontStyleShufflingMode.PerFont,
+                  randomiseLetters: false
+            );
 
-            public static float maxSpriteMultiplier = 1.25f; // Min: 1.05x, Max: 100x, Increment: +/- 0.01
-            //public static SpriteMultiplierMode spriteMultiplierMode = SpriteMultiplierMode.Area;
+            public static float maxSpriteMultiplier = 1.10f;
             public static bool allowDuplicates = false;
 
-            //public static bool ignoreBlacklistedFiles = true; // Not functional. Add a warning for "this will cause extra chaos"
-            public static GameFiles.Quality quality = GameFiles.Quality.High;
+            public static GameFileManager.Quality quality = GameFileManager.Quality.High;
             public static int seed = 0;
 
-            //public static bool caching = true;
-
-            public static ThemeController.Theme theme = ThemeController.Theme.Dark;
+            public static int themeID = 1;
 
             public static void ApplySettings(Serialised_Config config) {
                   gameDirectory = config.gameDirectory;
-                  outputDirectory = config.outputDirectory;
-                  //fileAutoOverwrite = config.fileAutoOverwrite;
 
                   iconTextures = config.iconTextures;
                   menuTextures = config.menuTextures;
@@ -59,25 +55,27 @@ namespace Geometry_Dash_Randomiser {
                   particleTextures = config.particleTextures;
                   effectTextures = config.effectTextures;
                   miscTextures = config.miscTextures;
+                  fontRand = config.fontRand;
 
                   maxSpriteMultiplier = config.maxSpriteMultiplier;
-                  //spriteMultiplierMode = config.spriteMultiplierMode;
                   allowDuplicates = config.allowDuplicates;
 
-                  //ignoreBlacklistedFiles = config.ignoreBlacklistedFiles;
                   quality = config.quality;
                   seed = config.seed;
-                  //caching = config.caching;
 
-                  theme = config.theme;
+                  themeID = config.themeID;
             }
 
             public static void ReadFile() {
                   if (File.Exists(configFileName)) {
                         string inStream = File.ReadAllText(configFileName);
-                        Serialised_Config config = JsonSerializer.Deserialize<Serialised_Config>(inStream);
-                        Config.ApplySettings(config);
-
+                        try {
+                              Serialised_Config config = JsonSerializer.Deserialize<Serialised_Config>(inStream);
+                              Config.ApplySettings(config);
+                        } finally {
+                              // If there is an error with reading the file, write one with default settings
+                              WriteFile();
+                        }
                   } else {
                         // If the file doesn't exist, create it with default settings
                         WriteFile();
@@ -90,7 +88,15 @@ namespace Geometry_Dash_Randomiser {
                   JsonSerializerOptions options = new JsonSerializerOptions();
                   options.WriteIndented = true;
                   string outStream = JsonSerializer.Serialize(config, options);
-                  File.WriteAllText(configFileName, outStream);
+
+                  try {
+                        File.WriteAllText(configFileName, outStream);
+                  } catch (Exception e) {
+                  #if DEBUG
+                        //if (e is IOException)
+                        //      Console.WriteLine("File Write Failed. Reason:\n{0}\n\n", e);
+                  #endif
+                  }
             }
 
             public static int GetEnabledSettingsCount() {
@@ -106,63 +112,35 @@ namespace Geometry_Dash_Randomiser {
                         Convert.ToInt32(effectTextures.enabled) +
                         Convert.ToInt32(miscTextures.enabled);
             }
-
-            public static OutputFolder GetOutputDirectoryStatus() {
-                  if (outputDirectory == string.Empty)
-                        return OutputFolder.Default;
-
-                  if (Directory.Exists(outputDirectory) == false) {
-
-                        int index = outputDirectory.IndexOf("\\");
-                        string dir = outputDirectory.Substring(0, index);
-                        if (Directory.Exists(dir) == true) {
-                              // Folder entered by user does not exist, but the folder can be created
-                              return OutputFolder.Creatable;
-                        }
-
-                        return OutputFolder.Invalid;
-
-                  } else {
-                        // Folder does exist and was entered by user
-                        return OutputFolder.Overwritten;
-                  }
-            }
       }
 
       internal class Serialised_Config {
 
             public string gameDirectory { get; set; } = string.Empty;
-            public string outputDirectory { get; set; } = string.Empty;
-            //public bool fileAutoOverwrite { get; set; }
 
             public IconRandSettings iconTextures { get; set; }
-            public RandSetting menuTextures { get; set; }
-            public RandSetting shopTextures { get; set; }
-            public RandSetting editorTextures { get; set; }
-            public RandSetting tileTextures { get; set; }
-            public RandSetting portalTextures { get; set; }
-            public RandSetting orbTextures { get; set; }
-            public RandSetting padTextures { get; set; }
-            public RandSetting particleTextures { get; set; }
-            public RandSetting effectTextures { get; set; }
-            public RandSetting miscTextures { get; set; }
+            public RandomisationSetting menuTextures { get; set; }
+            public RandomisationSetting shopTextures { get; set; }
+            public RandomisationSetting editorTextures { get; set; }
+            public RandomisationSetting tileTextures { get; set; }
+            public RandomisationSetting portalTextures { get; set; }
+            public RandomisationSetting orbTextures { get; set; }
+            public RandomisationSetting padTextures { get; set; }
+            public RandomisationSetting particleTextures { get; set; }
+            public RandomisationSetting effectTextures { get; set; }
+            public RandomisationSetting miscTextures { get; set; }
+            public FontRandomisationSettings fontRand { get; set; }
 
             public float maxSpriteMultiplier { get; set; }
-            //public SpriteMultiplierMode spriteMultiplierMode { get; set; }
             public bool allowDuplicates { get; set; }
 
-            //public bool ignoreBlacklistedFiles { get; set; }
-            public GameFiles.Quality quality { get; set; }
+            public GameFileManager.Quality quality { get; set; }
             public int seed { get; set; }
 
-            //public bool caching { get; set; }
-
-            public ThemeController.Theme theme { get; set; } = ThemeController.Theme.Dark;
+            public int themeID { get; set; }
 
             public Serialised_Config() {
                   this.gameDirectory = Config.gameDirectory;
-                  this.outputDirectory = Config.outputDirectory;
-                  //this.fileAutoOverwrite = Config.fileAutoOverwrite;
 
                   this.iconTextures = Config.iconTextures;
                   this.menuTextures = Config.menuTextures;
@@ -175,17 +153,15 @@ namespace Geometry_Dash_Randomiser {
                   this.particleTextures = Config.particleTextures;
                   this.effectTextures = Config.effectTextures;
                   this.miscTextures = Config.miscTextures;
+                  this.fontRand = Config.fontRand;
 
                   this.maxSpriteMultiplier = Config.maxSpriteMultiplier;
-                  //this.spriteMultiplierMode = Config.spriteMultiplierMode;
                   this.allowDuplicates = Config.allowDuplicates;
 
-                  //this.ignoreBlacklistedFiles = Config.ignoreBlacklistedFiles;
                   this.quality = Config.quality;
                   this.seed = Config.seed;
-                  //this.caching = Config.caching;
 
-                  this.theme = Config.theme;
+                  this.themeID = Config.themeID;
             }
       }
 }

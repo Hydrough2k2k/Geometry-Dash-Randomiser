@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Geometry_Dash_Randomiser {
 
-      internal struct int4 {
+      public struct int4 {
 
             public int4(int x, int y, int z, int w) {
                   this.x = x;
@@ -12,12 +12,12 @@ namespace Geometry_Dash_Randomiser {
                   this.w = w;
             }
 
-            int x { get; set; }
-            int y { get; set; }
-            int z { get; set; }
-            int w { get; set; }
+            public int x { get; set; }
+            public int y { get; set; }
+            public int z { get; set; }
+            public int w { get; set; }
 
-            public static int4 Parse(string data) {
+            public int4(string data) {
                   data = Regex.Replace(data, "[^0-9-,]+", "", RegexOptions.Compiled);
                   string[] vals = data.Split(',');
                   Array.Resize(ref vals, 4);
@@ -27,7 +27,10 @@ namespace Geometry_Dash_Randomiser {
                               vals[i] = "0";
                   }
 
-                  return new int4(Int32.Parse(vals[0]), Int32.Parse(vals[1]), Int32.Parse(vals[2]), Int32.Parse(vals[3]));
+                  this.x = Int32.Parse(vals[0]);
+                  this.y = Int32.Parse(vals[1]);
+                  this.z = Int32.Parse(vals[2]);
+                  this.w = Int32.Parse(vals[3]);
             }
       }
 }

@@ -1,11 +1,10 @@
 ﻿using RectpackSharp;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace Geometry_Dash_Randomiser {
 
-      internal static class GameSheet {
+      public static class GameSheet {
 
             public static Bitmap Assemble(Sprite[] sprites, PackingRectangle[] rects, PackingRectangle bounds) {
 
@@ -17,6 +16,14 @@ namespace Geometry_Dash_Randomiser {
                   }
 
                   return gamesheet;
+            }
+
+            public static Bitmap Assemble(Font font) {
+
+                  return BitmapExtensions.Assemble(
+                        font.chars.Select(c => c.texture).ToArray(),
+                        font.chars.Select(c => c.rectangle).ToArray(),
+                        new Size(font.scaleW, font.scaleH));
             }
       }
 }

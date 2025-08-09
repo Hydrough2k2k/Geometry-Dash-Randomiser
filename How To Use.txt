@@ -3,38 +3,63 @@ If you are confused on how to use this application you are in the right place
 Here are a few steps for how you can use this. If you have any questions regarding something not present here, hit me up on Discord: hydrough_7165
 
 Step 1: After installation launch Geometry Dash Randomiser.exe
-Step 2: Enable the settings you want, and paste the location of your game into "Game Folder" textbox under "Application Settings".
+Step 2: Paste the location of your game into "Game Folder" textbox under "Application Settings"
 	A restart might be required if the app detects an issue
-Step 3: When the randomisation is done, copy the "Resources" folder from the Randomised Files folder and paste to where Geometry Dash is installed.
-Step 4: Click accept on overwriting all the files
-Step 5: Finally, launch the game and enjoy the chaos!
+Step 3: Look into the settinge area and see what you want to enable. Hover over some settings to see what they do
+	There is a help button at the top in case you are confused
+Step 4: Change the "Texture Quality" selector's value to the proper quality.
+	If you play on high quality, randomise high quality sprites
+Step 5: Click the randomise button at the bottom
+	If it's not clickable, look at the bottom of the application to see if there's an error
+Step 6: When the randomisation is done, copy the "Resources" folder from the "Randomised Files" folder and paste to where Geometry Dash is installed
+Step 7: Click accept on overwriting all the files
+Step 8: Finally, launch the game and enjoy the chaos!
 
-To revert the files to the original ones you can copy the "Resources" folder from "Unaltered Files", do the same as when you randomised the files
+Reverting Files:
+	Copy the "Resources" folder from "Unaltered Files", do the same as when you randomised the files
 
 
- - What are all these buttons?
+If any of your questions didn't get answered in this text file, reach out to me on Discord: hydrough_7165
 
-Don't worry, there aren't that many things to know. Almost every setting will have a checkbox and a numeric display.
-The settings are for categories of textures in the game. For example Menu Textures contain only the textures that would appear in the menu, nothing else.
+--------------------------------------------------------------------------------------------
 
-The checkbox shows if the randomisation is enabled for this category of textures. Checking it will enable the randomisation of that texture group
+Texture randomisation:
 
-Groups:
-	If you enabled a category you can see the number display. That shows the randomisation group that group of textures it is in.
-	Every texture in a group (for example group 1) will be shuffled together.
-	For example:
-		If you put Menu Textures and Editor Textures into the same group, then some textures that normally appear in the menu will appear in the editor, and vica-versa
+Almost setting has a checkbox and a numeric display.
+The settings are for categories of textures in the game.
+For example Menu Textures contain only the textures that would appear in the menu, nothing else.
+
+The checkbox shows if the randomisation is enabled for this category of textures. Checking it allows them to be shuffled.
+
+Allow Duplicate Textures makes it possible that some textures appear more than once, and other will not appear at all.
+
+--------------------------------------------------------------------------------------------
+
+Groups overview:
+
+If you enabled a category you can see the number display. That shows the randomisation group that group of textures it is in.
+Every texture in a group (for example group 1) will be shuffled together.
+For example:
+	If you put Menu Textures and Editor Textures into the same group, then some textures that normally appear in the menu will appear in the editor, and vica-versa
 	
-	The more things you put into the same group, the more chaotic the game will get
+The more things you put into the same group, the more chaotic the game will get.
 	
-	If you put a group of textures into group 0 it will behave differently:
-		Everything in that texture group will get shuffled, but if you have many texture groups in group 0 they will not be mixed together.
-		If you put everything into group 0 the game will remain sortof normal (or well, as normal as it gets with this app)
-
-Sprite Size Multiplier:
-	This limuts what size textures can be swapped with each other. If you have the multiplier at 2x, a spite with an area of 100 pixels can only be swapped with ones that are between 50 and 200 pixels in area.
-	The smaller the value, the less chaotic the randomisation gets.
-
+Group 0 behaves differently:
+	Everything group 0 will get shuffled, but if you have many texture categories in group 0 they will not be mixed together
+	If you put everything into group 0 the game will remain sortof normal (or well, as normal as it gets with this app)
 
 If you put everything into group 1 the game will be extremely chaotic, you have been warned :)
-Anyway, this is pretty much everything. Again, if you have any questions, reach out to me on Discord!
+
+--------------------------------------------------------------------------------------------
+
+Texture Size Multiplier:
+
+This limits what size textures can be swapped with each other.
+If you have the multiplier at 2x, a texture can only be swapped with ones that are 2x smaller or 2x bigger in area.
+	For example: A texture that is 100 pixels in area can be swapped with ones that are between 50 and 200 pixels in area.
+The smaller the value, the less chaotic the randomisation gets.
+
+--------------------------------------------------------------------------------------------
+
+Text Randomisation:
+
