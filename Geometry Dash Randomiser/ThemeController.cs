@@ -78,7 +78,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public Color GetMenuElementForeColour() {
-                  return current.menuElementForeColour;
+                  return current.menuElementTextColour;
             }
 
             public Color GetBeamColour() {
@@ -92,7 +92,7 @@ namespace Geometry_Dash_Randomiser {
                               formBackColour: ColorExt.FromHex("7B60AC"),
                               defaultTextColour: ColorExt.FromHex("F9E6FF"),
                               menuElementBackColour: ColorExt.FromHex("664D91"),
-                              menuElementForeColour: ColorExt.FromHex("F9E6FF"),
+                              menuElementTextColour: ColorExt.FromHex("F9E6FF"),
                               beamColour: ColorExt.FromHex("D2BEE6")
                         ),
                         new Theme(
@@ -100,7 +100,7 @@ namespace Geometry_Dash_Randomiser {
                               formBackColour: Color.FromArgb(0, 7, 33),
                               defaultTextColour: Color.FromArgb(200, 225, 255),
                               menuElementBackColour: Color.FromArgb(60, 71, 115),
-                              menuElementForeColour: Color.FromArgb(200, 225, 255),
+                              menuElementTextColour: Color.FromArgb(200, 225, 255),
                               beamColour: Color.FromArgb(200, 225, 255)
                         ),
                         new Theme(
@@ -108,7 +108,7 @@ namespace Geometry_Dash_Randomiser {
                               formBackColour: ColorExt.FromHex("121212"),
                               defaultTextColour: ColorExt.FromHex("E6E6E6"),
                               menuElementBackColour: ColorExt.FromHex("222222"),
-                              menuElementForeColour: ColorExt.FromHex("FFFFFF"),
+                              menuElementTextColour: ColorExt.FromHex("FFFFFF"),
                               beamColour: ColorExt.FromHex("888888")
                         ),
                         new Theme(
@@ -116,7 +116,7 @@ namespace Geometry_Dash_Randomiser {
                               formBackColour : Color.FromArgb(175, 175, 175),
                               defaultTextColour: Color.FromArgb(0, 0, 0),
                               menuElementBackColour: Color.FromArgb(255, 255, 255),
-                              menuElementForeColour: Color.FromArgb(0, 0, 0),
+                              menuElementTextColour: Color.FromArgb(0, 0, 0),
                               beamColour: Color.FromArgb(0, 0, 0)
                         ),
                         new Theme(
@@ -124,7 +124,7 @@ namespace Geometry_Dash_Randomiser {
                               formBackColour : Color.FromArgb(0, 0, 0),
                               defaultTextColour: Color.FromArgb(0, 0, 0),
                               menuElementBackColour: Color.FromArgb(0, 0, 0),
-                              menuElementForeColour: Color.FromArgb(0, 0, 0),
+                              menuElementTextColour: Color.FromArgb(0, 0, 0),
                               beamColour: Color.FromArgb(0, 0, 0)
                         )
                   };

@@ -2,13 +2,8 @@
 using static Geometry_Dash_Randomiser.GameFileManager;
 
 namespace Geometry_Dash_Randomiser {
-      public class PathManager {
 
-            readonly GameFileManager gameFileManager;
-
-            public PathManager(GameFileManager creator) {
-                  gameFileManager = creator;
-            }
+      public static class PathManager {
 
             public enum GDR_Path {
                   /// <summary> Resources folder where the game is installed </summary>
@@ -30,23 +25,20 @@ namespace Geometry_Dash_Randomiser {
                   LocalIconsOutputFolder
             }
 
-            public void SetQuality(Quality quality) {
+            public static string GetQualityFolderName(Quality quality) {
                   switch (quality) {
                         case Quality.Low:
-                              currentQualityFolder = lowQualityName;
-                              break;
+                              return lowQualityName;
                         case Quality.Medium:
-                              currentQualityFolder = mediumQualityName;
-                              break;
+                              return mediumQualityName;
                         case Quality.High:
-                              currentQualityFolder = highQualityName;
-                              break;
+                              return highQualityName;
                         default:
-                              break;
+                              return string.Empty;
                   }
             }
 
-            public string GetPath(GDR_Path folder) {
+            public static string GetPath(GDR_Path folder) {
                   switch (folder) {
                         case GDR_Path.GameResourcesFolder:
                               return gameResourcesFolder;
@@ -71,13 +63,11 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            public string currentQualityFolder;
-
             const string resourcesFolderName = "Resources";
             const string iconsFolderName = "icons";
 
             const string randomisedFiles = "Randomised Files";
-            const string unalteredFiles = "Unaltered Files";
+            const string unalteredFiles = "Backup Files";
 
             public const string lowQualityName = "Low Quality";
             public const string mediumQualityName = "Medium Quality";
@@ -86,23 +76,23 @@ namespace Geometry_Dash_Randomiser {
             // -------------------------------------------------------------------------------------
 
             /// <summary> Resources folder where the game is installed </summary>
-            public string gameResourcesFolder => Path.Combine(Config.gameDirectory, resourcesFolderName);
+            public static string gameResourcesFolder => Path.Combine(Config.gameDirectory, resourcesFolderName);
 
             /// <summary> Icons folder where the game is installed </summary>
-            public string gameIconsFolder => Path.Combine(Config.gameDirectory, resourcesFolderName, iconsFolderName);
+            public static string gameIconsFolder => Path.Combine(Config.gameDirectory, resourcesFolderName, iconsFolderName);
 
             // -------------------------------------------------------------------------------------
 
             /// <summary> Resources folder in the application's folder. This stores the unaltered files </summary>
-            public string backupResourcesFolder => Path.Combine(unalteredFiles, currentQualityFolder, resourcesFolderName);
+            public static string backupResourcesFolder => Path.Combine(unalteredFiles, GetQualityFolderName(Config.quality), resourcesFolderName);
 
             /// <summary> Icons folder in the application's folder. This stores the unaltered files </summary>
-            public string backupIconsFolder => Path.Combine(unalteredFiles, currentQualityFolder, resourcesFolderName, iconsFolderName);
+            public static string backupIconsFolder => Path.Combine(unalteredFiles, GetQualityFolderName(Config.quality), resourcesFolderName, iconsFolderName);
 
             /// <summary> This is where the randomised Resources files will go by default </summary>
-            public string localResourcesOutputFolder => Path.Combine(randomisedFiles, currentQualityFolder, resourcesFolderName);
+            public static string localResourcesOutputFolder => Path.Combine(randomisedFiles, GetQualityFolderName(Config.quality), resourcesFolderName);
 
             /// <summary> This is where the randomised Icons files will go by default </summary>
-            public string localIconsOutputFolder => Path.Combine(randomisedFiles, currentQualityFolder, resourcesFolderName, iconsFolderName);
+            public static string localIconsOutputFolder => Path.Combine(randomisedFiles, GetQualityFolderName(Config.quality), resourcesFolderName, iconsFolderName);
       }
 }

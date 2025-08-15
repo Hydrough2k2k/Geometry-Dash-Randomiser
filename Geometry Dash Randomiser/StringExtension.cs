@@ -43,11 +43,11 @@ namespace Geometry_Dash_Randomiser {
                   return false;
             }
 
-            public static string SubstringUntil(this string str, int until) {
-                  if (str.Length < until)
+            public static string SubstringUntil(this string str, int index) {
+                  if (str.Length < index)
                         return string.Empty;
 
-                  return str.Substring(0, str.Length - until);
+                  return str.Substring(0, str.Length - index);
             }
       }
 }

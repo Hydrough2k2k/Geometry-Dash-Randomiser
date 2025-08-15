@@ -22,10 +22,14 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public static Bitmap cropImage(this Bitmap img, Rectangle cropArea) {
-                  // TO-DO: Add safeguards by having throws or by it cropping as much as possible without an out of memory error
 
                   if (cropArea.Width <= 0 || cropArea.Height <= 0)
                         return new Bitmap(1, 1);
+
+                  if (cropArea.X + cropArea.Width > img.Width || cropArea.Y + cropArea.Height > img.Height) {
+                        Console.WriteLine($"Warning: Cropping area {cropArea} is partially out of the image {img.Size}. Adjusting crop area to fit within the image bounds.");
+                        cropArea = new Rectangle(new Point(cropArea.X, cropArea.Y), new Size(img.Width - cropArea.X, img.Height - cropArea.Y));
+                  }
 
                   return img.Clone(cropArea, img.PixelFormat);
             }

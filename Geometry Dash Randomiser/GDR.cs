@@ -14,11 +14,10 @@ namespace Geometry_Dash_Randomiser {
 
       public partial class GDR_Form : Form {
 
-            private const string version = "V2.3.0";
+            private const string version = "V2.3.0p";
 
             private int textCorruptionLevel = 0;
 
-            PathManager pathManager;
             GameFileManager gameFileManager;
 
             ThemeController themeController = new ThemeController();
@@ -36,7 +35,7 @@ namespace Geometry_Dash_Randomiser {
 
             [DllImport("kernel32.dll", SetLastError = true)]
             [return: MarshalAs(UnmanagedType.Bool)]
-            static extern bool AllocConsole();
+            public static extern bool AllocConsole();
 
             public GDR_Form() {
                   InitializeComponent();
@@ -47,8 +46,6 @@ namespace Geometry_Dash_Randomiser {
 
                   Config.ReadFile();
                   this.gameFileManager = new GameFileManager(this);
-                  this.pathManager = gameFileManager.pathManager;
-                  this.pathManager.SetQuality(Config.quality);
 
                   this.textureQualitySelectorBox.Items.Add(PathManager.highQualityName);
                   this.textureQualitySelectorBox.Items.Add(PathManager.mediumQualityName);
@@ -548,15 +545,12 @@ namespace Geometry_Dash_Randomiser {
 
                   switch (qualityDropdown.Text) {
                         case PathManager.lowQualityName:
-                              pathManager.SetQuality(Quality.Low);
                               Config.quality = Quality.Low;
                               break;
                         case PathManager.mediumQualityName:
-                              pathManager.SetQuality(Quality.Medium);
                               Config.quality = Quality.Medium;
                               break;
                         case PathManager.highQualityName:
-                              pathManager.SetQuality(Quality.High);
                               Config.quality = Quality.High;
                               break;
                         default:
@@ -826,13 +820,13 @@ namespace Geometry_Dash_Randomiser {
                   if (this.themeController.current.name == "Random Theme") {
                         Random random = new Random(Guid.NewGuid().GetHashCode());
 
-                        // Help me, what is this
+                        // Generate an entirely random theme because why not
                         SetTheme(new Theme(
                               name: "Random Theme",
                               formBackColour: Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)),
                               defaultTextColour: Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)),
                               menuElementBackColour: Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)),
-                              menuElementForeColour: Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)),
+                              menuElementTextColour: Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)),
                               beamColour: Color.FromArgb(random.Next(255), random.Next(255), random.Next(255))
                         ));
                   } else {
@@ -843,12 +837,12 @@ namespace Geometry_Dash_Randomiser {
             private void SetTheme(Theme theme) {
                   SetFormColours(theme.formBackColour);
 
-                  Color TextColor = theme.defaultTextColour;
-                  SetTextColours(TextColor);
-                  SetCheckboxColours(TextColor);
-                  SetRadioButtonColours(TextColor);
+                  Color activeColour = theme.defaultTextColour;
+                  SetTextColours(activeColour);
+                  SetCheckboxColours(activeColour);
+                  SetRadioButtonColours(activeColour);
 
-                  SetMenuElementColours(theme.menuElementBackColour, theme.menuElementForeColour);
+                  SetMenuElementColours(theme.menuElementBackColour, theme.menuElementTextColour);
 
                   UpdateImageTheme(theme);
             }
@@ -857,23 +851,23 @@ namespace Geometry_Dash_Randomiser {
                   this.BackColor = back;
             }
 
-            private void SetTextColours(Color color) {
+            private void SetTextColours(Color activeColour) {
                   for (int i = 0; i < labels.Length; i++) {
                         if (labels[i].Name.Contains("NoCol") == false) {
-                              labels[i].ForeColor = color;
+                              labels[i].ForeColor = activeColour;
                         }
                   }
             }
 
-            private void SetCheckboxColours(Color fore) {
+            private void SetCheckboxColours(Color textColour) {
                   for (int i = 0; i < checkBoxes.Length; i++) {
-                        checkBoxes[i].ForeColor = fore;
+                        checkBoxes[i].ForeColor = textColour;
                   }
             }
 
-            private void SetRadioButtonColours(Color fore) {
+            private void SetRadioButtonColours(Color textColour) {
                   for (int i = 0; i < radioButtons.Length; i++) {
-                        radioButtons[i].ForeColor = fore;
+                        radioButtons[i].ForeColor = textColour;
                   }
             }
 

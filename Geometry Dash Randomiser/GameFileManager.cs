@@ -23,17 +23,13 @@ namespace Geometry_Dash_Randomiser {
                   GDR = creator;
 
                   fileBlacklist = new FileBlacklist();
-                  pathManager = new PathManager(this);
-                  gamesheetManager = new GamesheetManager(this, this.pathManager);
-                  fontManager = new FontManager(this, this.pathManager);
-
-                  pathManager.SetQuality(Config.quality);
+                  gamesheetManager = new GamesheetManager(this);
+                  fontManager = new FontManager(this);
             }
 
             private readonly GDR_Form GDR;
 
             private readonly FileBlacklist fileBlacklist;
-            public readonly PathManager pathManager;
             private readonly GamesheetManager gamesheetManager;
             private readonly FontManager fontManager;
 
@@ -75,9 +71,9 @@ namespace Geometry_Dash_Randomiser {
                         return ReadyState.GameFolderNotFound;
                   } else if(Directory.Exists(Config.gameDirectory) == false) {
                         return ReadyState.GameFolderNotFound;
-                  } else if (Directory.Exists(pathManager.gameResourcesFolder) == false) {
+                  } else if (Directory.Exists(PathManager.gameResourcesFolder) == false) {
                         return ReadyState.GameFolderNotFound;
-                  } else if (Directory.Exists(pathManager.gameResourcesFolder) == false) {
+                  } else if (Directory.Exists(PathManager.gameResourcesFolder) == false) {
                         return ReadyState.GameFolderNotFound;
                   }
                   return new ReadyState();
@@ -96,8 +92,8 @@ namespace Geometry_Dash_Randomiser {
                         return;
                   }
 
-                  string[] resourceFiles = Directory.GetFiles(pathManager.GetPath(GDR_Path.BackupResourcesFolder)).Select(f => Path.GetFileName(f)).ToArray();
-                  string[] iconFiles = Directory.GetFiles(pathManager.GetPath(GDR_Path.BackupIconsFolder)).Select(f => Path.GetFileName(f)).ToArray();
+                  string[] resourceFiles = Directory.GetFiles(PathManager.GetPath(GDR_Path.BackupResourcesFolder)).Select(f => Path.GetFileName(f)).ToArray();
+                  string[] iconFiles = Directory.GetFiles(PathManager.GetPath(GDR_Path.BackupIconsFolder)).Select(f => Path.GetFileName(f)).ToArray();
 
                   int totalFilesToBeRestored = resourceFiles.Length + iconFiles.Length;
                   this.progressState.totalFiles = totalFilesToBeRestored;
@@ -106,7 +102,7 @@ namespace Geometry_Dash_Randomiser {
                   CopyFiles(GDR_Path.BackupIconsFolder, GDR_Path.GameIconsFolder, iconFiles);
             }
 
-            void CopyAllFiles(GDR_Path from, GDR_Path to) => CopyAllFiles(pathManager.GetPath(from), pathManager.GetPath(to));
+            void CopyAllFiles(GDR_Path from, GDR_Path to) => CopyAllFiles(PathManager.GetPath(from), PathManager.GetPath(to));
 
             void CopyAllFiles(string from, string to) {
                   string[] files = Directory.GetFiles(from).Select(f => Path.GetFileName(f)).ToArray();
@@ -120,7 +116,7 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            void CopyFiles(GDR_Path from, GDR_Path to, string[] files) => CopyFiles(pathManager.GetPath(from), pathManager.GetPath(to), files);
+            void CopyFiles(GDR_Path from, GDR_Path to, string[] files) => CopyFiles(PathManager.GetPath(from), PathManager.GetPath(to), files);
 
             void CopyFiles(string from, string to, string[] files) {
                   for (int i = 0; i < files.Length; i++) {
@@ -154,14 +150,14 @@ namespace Geometry_Dash_Randomiser {
                   this.progressState.currentStage = ApplicationState.Randomising;
                   RandomiseData(seed);
                   Font[] randomisedFonts = fontManager.RandomiseFiles(fontManager.GetRandomisationMode(), seed);
-                  fontManager.WriteFontsToDisk(pathManager.localResourcesOutputFolder, randomisedFonts);
+                  fontManager.WriteFontsToDisk(PathManager.localResourcesOutputFolder, randomisedFonts);
 
                   this.progressState.currentStage = ApplicationState.Idle;
             }
 
             void CreateFolders() {
-                  Directory.CreateDirectory(pathManager.backupIconsFolder);
-                  Directory.CreateDirectory(pathManager.backupResourcesFolder);
+                  Directory.CreateDirectory(PathManager.backupIconsFolder);
+                  Directory.CreateDirectory(PathManager.backupResourcesFolder);
             }
 
             public void backupOriginalFiles() {
@@ -171,7 +167,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             string[] GetAllFiles(GDR_Path path, string[] extensions) {
-                  return Directory.GetFiles(pathManager.GetPath(path)).Where(f => f.EndsWith(extensions) == true).ToArray();
+                  return Directory.GetFiles(PathManager.GetPath(path)).Where(f => f.EndsWith(extensions) == true).ToArray();
             }
 
             void BackupGameFiles(GDR_Path source, GDR_Path dest, GameFileType type) {
@@ -203,8 +199,8 @@ namespace Geometry_Dash_Randomiser {
                         int index = Array.BinarySearch(backedUpFiles, missingFiles[i]);
                         // If the file doesn't exist in the backup folder copy it
                         if (index < 0) {
-                              string sourcePath = Path.Combine(pathManager.GetPath(source), missingFiles[i]);
-                              string destPath = Path.Combine(pathManager.GetPath(dest), missingFiles[i]);
+                              string sourcePath = Path.Combine(PathManager.GetPath(source), missingFiles[i]);
+                              string destPath = Path.Combine(PathManager.GetPath(dest), missingFiles[i]);
 
                               // Check if the files exist before copying them just to be sure
                               if (File.Exists(destPath + fileExtensions[0]) == false) {
@@ -223,23 +219,21 @@ namespace Geometry_Dash_Randomiser {
                         extractGameFiles();
 
                   if (fontManager.fontCount == 0)
-                        fontManager.ReadAllFontFiles(pathManager.backupResourcesFolder, Config.quality);
+                        fontManager.ReadAllFontFiles(PathManager.backupResourcesFolder, Config.quality);
             }
 
             void extractGameFiles() {
                   string[] files = gamesheetManager.GetAllFileNames(GDR_Path.BackupResourcesFolder, Config.quality)
-                        .Select(f => Path.Combine(pathManager.GetPath(GDR_Path.BackupResourcesFolder), f)).ToArray();
+                        .Select(f => Path.Combine(PathManager.GetPath(GDR_Path.BackupResourcesFolder), f)).ToArray();
 
                   for (int i = 0; i < files.Length; i++) {
-                        Console.WriteLine(files[i]);
                         spriteList.AddRange(getAllSpritesFromGameFile(files[i]));
                   }
 
                   files = gamesheetManager.GetAllFileNames(GDR_Path.BackupIconsFolder, Config.quality)
-                        .Select(f => Path.Combine(pathManager.GetPath(GDR_Path.BackupIconsFolder), f)).ToArray();
+                        .Select(f => Path.Combine(PathManager.GetPath(GDR_Path.BackupIconsFolder), f)).ToArray();
 
                   for (int i = 0; i < files.Length; i++) {
-                        Console.WriteLine(files[i]);
                         spriteList.AddRange(getAllSpritesFromGameFile(files[i]));
                   }
             }
@@ -307,8 +301,8 @@ namespace Geometry_Dash_Randomiser {
                         .Distinct()
                         .ToArray();
 
-                  string iconsOutputFolder = pathManager.localIconsOutputFolder;
-                  string resourcesOutputFolder = pathManager.localResourcesOutputFolder;
+                  string iconsOutputFolder = PathManager.localIconsOutputFolder;
+                  string resourcesOutputFolder = PathManager.localResourcesOutputFolder;
 
                   Directory.CreateDirectory(iconsOutputFolder);
                   Directory.CreateDirectory(resourcesOutputFolder);

@@ -13,11 +13,9 @@ namespace Geometry_Dash_Randomiser {
       public class FontManager {
 
             private GameFileManager gameFileManager;
-            private PathManager pathManager;
 
-            public FontManager(GameFileManager creator, PathManager pathManager) {
+            public FontManager(GameFileManager creator) {
                   gameFileManager = creator;
-                  this.pathManager = pathManager;
             }
 
             public enum RandomisationMode {
@@ -80,11 +78,9 @@ namespace Geometry_Dash_Randomiser {
                   fontFileNames = GetAllFileNames(path, quality);
                   fonts = new Font[fontFileNames.Length];
 
-                  string outputPath = pathManager.backupResourcesFolder;
+                  string outputPath = PathManager.backupResourcesFolder;
 
                   for (int i = 0; i < fontFileNames.Length; i++) {
-
-                        Console.WriteLine(fontFileNames[i]);
 
                         string textFilePath = Path.Combine(outputPath, fontFileNames[i] + ".fnt");
                         string gamesheetFilePath = Path.Combine(outputPath, fontFileNames[i] + ".png");
@@ -115,7 +111,7 @@ namespace Geometry_Dash_Randomiser {
                               } else {
                                     missingFile = gamesheetFilePath;
                               }
-                              Console.WriteLine("\"{0}\" file could not be located in the local unaltered resources folder");
+                              Console.WriteLine("\"{0}\" file could not be located in the local backup resources folder");
                         }
                   }
             }
@@ -276,7 +272,7 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            public void WriteFontsToDisk(GDR_Path path, Font[] fonts) => WriteFontsToDisk(pathManager.GetPath(path), fonts);
+            public void WriteFontsToDisk(GDR_Path path, Font[] fonts) => WriteFontsToDisk(PathManager.GetPath(path), fonts);
 
             public void WriteFontsToDisk(string path, Font[] fonts) {
 
@@ -350,7 +346,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public string[] GetAllFileNames(GDR_Path source, Quality quality) {
-                  return GetAllFileNames(pathManager.GetPath(source), quality);
+                  return GetAllFileNames(PathManager.GetPath(source), quality);
             }
 
             public string[] GetAllFileNames(string path, Quality quality) {

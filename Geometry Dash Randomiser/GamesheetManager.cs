@@ -7,19 +7,17 @@ namespace Geometry_Dash_Randomiser {
 
       public class GamesheetManager {
 
-            public GamesheetManager(GameFileManager creator, PathManager pathManager) {
+            public GamesheetManager(GameFileManager creator) {
                   gameFileManager = creator;
-                  this.pathManager = pathManager;
             }
 
-            PathManager pathManager;
             GameFileManager gameFileManager;
 
             // this is missing a bunch of logic that will be moved from GameFileManager.cs to here, but only later
 
 
             public string[] GetAllFileNames(GDR_Path source, Quality quality)
-                  => GetAllFileNames(pathManager.GetPath(source), quality);
+                  => GetAllFileNames(PathManager.GetPath(source), quality);
 
             public string[] GetAllFileNames(string path, Quality quality) {
                   return Directory.GetFiles(path)

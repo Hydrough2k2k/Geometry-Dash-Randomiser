@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GDR Code Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dc94186dbf3efa10d18b57f13b6ccfd5f5711ae0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2bb109519e7a99095bd57d5335aa73e12140fdd2")]
 [assembly: System.Reflection.AssemblyProductAttribute("GDR Code Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GDR Code Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

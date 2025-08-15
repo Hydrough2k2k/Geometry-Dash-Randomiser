@@ -5,14 +5,6 @@ VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geometry Dash Randomiser", "Geometry Dash Randomiser\Geometry Dash Randomiser.csproj", "{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Geometry Dash Randomizer", "Geometry Dash Randomizer\Geometry Dash Randomizer.vdproj", "{F82E234D-4E37-40F7-88BB-F5E497C4EF86}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yet Another Tab Control", "Yet Another Tab Control\Yet Another Tab Control.csproj", "{4E5B0C51-3D79-4DE9-9C10-9C84E5A86960}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDR Code Tests", "GDR Code Tests\GDR Code Tests.csproj", "{1427BC2B-0787-6CA8-A282-FC89AE9A799E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDR_Dev", "GDR_Dev\GDR_Dev.csproj", "{849AE1DF-CF8C-4836-A760-4E5809C04B14}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,20 +15,6 @@ Global
 		{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F82E234D-4E37-40F7-88BB-F5E497C4EF86}.Debug|Any CPU.ActiveCfg = Debug
-		{F82E234D-4E37-40F7-88BB-F5E497C4EF86}.Release|Any CPU.ActiveCfg = Release
-		{4E5B0C51-3D79-4DE9-9C10-9C84E5A86960}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E5B0C51-3D79-4DE9-9C10-9C84E5A86960}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E5B0C51-3D79-4DE9-9C10-9C84E5A86960}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E5B0C51-3D79-4DE9-9C10-9C84E5A86960}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1427BC2B-0787-6CA8-A282-FC89AE9A799E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1427BC2B-0787-6CA8-A282-FC89AE9A799E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1427BC2B-0787-6CA8-A282-FC89AE9A799E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1427BC2B-0787-6CA8-A282-FC89AE9A799E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{849AE1DF-CF8C-4836-A760-4E5809C04B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{849AE1DF-CF8C-4836-A760-4E5809C04B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{849AE1DF-CF8C-4836-A760-4E5809C04B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{849AE1DF-CF8C-4836-A760-4E5809C04B14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

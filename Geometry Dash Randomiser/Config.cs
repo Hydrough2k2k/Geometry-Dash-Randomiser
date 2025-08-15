@@ -91,11 +91,8 @@ namespace Geometry_Dash_Randomiser {
 
                   try {
                         File.WriteAllText(configFileName, outStream);
-                  } catch (Exception e) {
-                  #if DEBUG
-                        //if (e is IOException)
-                        //      Console.WriteLine("File Write Failed. Reason:\n{0}\n\n", e);
-                  #endif
+                  } catch (IOException) {
+
                   }
             }
 
