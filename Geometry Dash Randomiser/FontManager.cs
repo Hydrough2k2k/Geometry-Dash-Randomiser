@@ -18,6 +18,8 @@ namespace Geometry_Dash_Randomiser {
                   gameFileManager = creator;
             }
 
+            // Ideas: add a field for what percentage of characters should be randomised. Int 0 -> 100
+
             public enum RandomisationMode {
                   None = 0,
 
@@ -275,14 +277,19 @@ namespace Geometry_Dash_Randomiser {
             public void WriteFontsToDisk(GDR_Path path, Font[] fonts) => WriteFontsToDisk(PathManager.GetPath(path), fonts);
 
             public void WriteFontsToDisk(string path, Font[] fonts) {
+                  gameFileManager.progressState.NextFileBatch(fonts.Length);
 
                   for (int i = 0; i < fonts.Length; i++) {
+                        gameFileManager.progressState.currentFile = fontFileNames[i];
+
                         string textFileName = Path.Combine(path, fontFileNames[i] + ".fnt");
                         string gamesheetFileName = Path.Combine(path, fontFileNames[i] + ".png");
 
                         File.WriteAllText(textFileName, fonts[i].Serialise());
                         Bitmap gamesheet = fonts[i].AssembleGamesheet();
                         gamesheet.Save(gamesheetFileName);
+
+                        gameFileManager.progressState.completedFiles++;
                   }
             }
 

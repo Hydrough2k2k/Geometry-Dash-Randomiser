@@ -1,3 +1,21 @@
+Changelog for V2.3.0:
+
+What's new?
+ - Major visual overhaul, it should be easier to navigate this app now
+ - Text Randomisation with a lot of settings with more to come later
+ - Restore files button to quickly return the game to it's normal (boring) state
+ - File for \"Blacklisted files\". Every file added to this will be ignored when randomising files
+ - Some new and reworked themes. Random theme also exists for some reason
+
+Changes:
+ - Removed the custom output directory. The backup files will always be in the application's folder
+
+Bugfixes:
+ - Fixed crashes caused by config file writing and reading running into errors
+ - Every value on the Texture Size Multiplier slider is available now
+
+-------------------------------------------
+
 Changelog for V2.2.0:
 
 What's new?

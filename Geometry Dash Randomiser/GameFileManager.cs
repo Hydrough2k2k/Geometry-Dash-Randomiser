@@ -1,12 +1,9 @@
 ﻿using RectpackSharp;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Xml.Serialization;
 using static Geometry_Dash_Randomiser.PathManager;
 
 namespace Geometry_Dash_Randomiser {
@@ -15,7 +12,7 @@ namespace Geometry_Dash_Randomiser {
 
             public enum Quality { High, Medium, Low }
 
-            public enum ApplicationState { Idle, Setting_Up, Backing_Up, Unpacking, Randomising, Repackaging, Finishing_Up, Restoring, Complete }
+            public enum ApplicationState { Idle, Setting_Up, Backing_Up, Unpacking, Randomising, Repackaging, Finishing_Up, Restoring }
 
             public enum GameFileType { None, Resource, Icon, Font }
 
@@ -148,11 +145,15 @@ namespace Geometry_Dash_Randomiser {
                   ExtractFiles();
 
                   this.progressState.currentStage = ApplicationState.Randomising;
-                  RandomiseData(seed);
                   Font[] randomisedFonts = fontManager.RandomiseFiles(fontManager.GetRandomisationMode(), seed);
+                  RandomiseData(seed);
+
+                  this.progressState.currentStage = ApplicationState.Repackaging;
+
                   fontManager.WriteFontsToDisk(PathManager.localResourcesOutputFolder, randomisedFonts);
 
                   this.progressState.currentStage = ApplicationState.Idle;
+                  this.progressState.NextFileBatch(0);
             }
 
             void CreateFolders() {
@@ -161,8 +162,11 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public void backupOriginalFiles() {
+                  this.progressState.currentFileType = GameFileType.Resource;
                   BackupGameFiles(GDR_Path.GameResourcesFolder, GDR_Path.BackupResourcesFolder, GameFileType.Resource);
+                  this.progressState.currentFileType = GameFileType.Icon;
                   BackupGameFiles(GDR_Path.GameIconsFolder, GDR_Path.BackupIconsFolder, GameFileType.Resource);
+                  this.progressState.currentFileType = GameFileType.Font;
                   BackupGameFiles(GDR_Path.GameResourcesFolder, GDR_Path.BackupResourcesFolder, GameFileType.Font);
             }
 
@@ -195,7 +199,11 @@ namespace Geometry_Dash_Randomiser {
                   missingFiles = fileBlacklist.FilterBlacklisted(missingFiles);
                   Array.Sort(backedUpFiles);
 
+                  this.progressState.NextFileBatch(missingFiles.Length);
+
                   for (int i = 0; i < missingFiles.Length; i++) {
+                        this.progressState.currentFile = missingFiles[i];
+
                         int index = Array.BinarySearch(backedUpFiles, missingFiles[i]);
                         // If the file doesn't exist in the backup folder copy it
                         if (index < 0) {
@@ -211,6 +219,7 @@ namespace Geometry_Dash_Randomiser {
                                     File.Copy(sourcePath + fileExtensions[1], destPath + fileExtensions[1]);
                               }
                         }
+                        this.progressState.completedFiles++;
                   }
             }
 
@@ -223,18 +232,30 @@ namespace Geometry_Dash_Randomiser {
             }
 
             void extractGameFiles() {
+                  this.progressState.currentFileType = GameFileType.Resource;
+
                   string[] files = gamesheetManager.GetAllFileNames(GDR_Path.BackupResourcesFolder, Config.quality)
                         .Select(f => Path.Combine(PathManager.GetPath(GDR_Path.BackupResourcesFolder), f)).ToArray();
 
+                  this.progressState.NextFileBatch(files.Length);
+
                   for (int i = 0; i < files.Length; i++) {
+                        this.progressState.currentFile = Path.GetFileName(files[i]);
                         spriteList.AddRange(getAllSpritesFromGameFile(files[i]));
+                        this.progressState.completedFiles++;
                   }
+
+                  this.progressState.currentFileType = GameFileType.Icon;
 
                   files = gamesheetManager.GetAllFileNames(GDR_Path.BackupIconsFolder, Config.quality)
                         .Select(f => Path.Combine(PathManager.GetPath(GDR_Path.BackupIconsFolder), f)).ToArray();
 
+                  this.progressState.NextFileBatch(files.Length);
+
                   for (int i = 0; i < files.Length; i++) {
+                        this.progressState.currentFile = Path.GetFileName(files[i]);
                         spriteList.AddRange(getAllSpritesFromGameFile(files[i]));
+                        this.progressState.completedFiles++;
                   }
             }
 
@@ -301,6 +322,10 @@ namespace Geometry_Dash_Randomiser {
                         .Distinct()
                         .ToArray();
 
+                  this.progressState.currentStage = ApplicationState.Repackaging;
+                  this.progressState.currentFileType = GameFileType.Resource;
+                  this.progressState.NextFileBatch(gameSheetFiles.Length);
+
                   string iconsOutputFolder = PathManager.localIconsOutputFolder;
                   string resourcesOutputFolder = PathManager.localResourcesOutputFolder;
 
@@ -308,6 +333,8 @@ namespace Geometry_Dash_Randomiser {
                   Directory.CreateDirectory(resourcesOutputFolder);
 
                   for (int i = 0; i < gameSheetFiles.Length; i++) {
+                        this.progressState.currentFile = gameSheetFiles[i];
+
                         // Get all sprites that go into this file
                         Sprite[] sprites = randomisedSprites
                               .Where(s => s.sourceFile == gameSheetFiles[i])
@@ -349,6 +376,8 @@ namespace Geometry_Dash_Randomiser {
                         finalGameSheet.Save(Path.Combine(outputFolder, gameSheetFiles[i] + ".png"));
                         // Get rid of the bitmap once it is saved
                         finalGameSheet.Dispose();
+
+                        this.progressState.completedFiles++;
                   }
             }
 

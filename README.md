@@ -12,14 +12,10 @@ An application to mess with Geometry Dash's files
 
  - Alternatively click on Releases on the right side, and download the RAR from the most recent one
 
-This application is fully compatible with Geometry Dash v2.206 as of 31/Mar/2025
-
-# NOTE:
-If the application doesn't launch after the .msi file is installed, try and launch it in Administrator mode first.
-You might not need to do that after the first time, I am looking into the reason for why it doesn't work properly
+This application is fully compatible with Geometry Dash v2.207 as of 15/Aug/2025
 
 # What's New:
-This application stating with version 2.0.x supports Geometry Dash 2.2
+This application stating with version 2.0 supports Geometry Dash 2.2
 Many new configuration settings were added, the whole app was rebuilt from the ground up
 
 # How to use the app:
@@ -29,14 +25,14 @@ Many new configuration settings were added, the whole app was rebuilt from the g
 - When the randomisation is done, copy the "Resources" folder from the Randomised Files folder and paste to where Geometry Dash is installed.
 - Click accept on overwriting all the files
 - Finally, launch the game and enjoy the chaos!
-- To revert the files to the original ones you can copy the "Resources" folder from "Unaltered Files", do the same as when you randomised the files
+- To revert the files to the original ones you can copy the "Resources" folder from "Unaltered Files", or click the "Restore Files" button in the app
 
 # Compatibility:
 
 - Windows 10 64 bit, Windows 11 64 bit
 - Recommended specs:
 - Intel i3 or above, AMD Ryzen 3 or above
-- 4GB RAM or more
+- 4GB RAM or more (8GB is recommended)
 
 # Report Bugs:
 If the app or the game crashes, feel free to bug report it to me directly

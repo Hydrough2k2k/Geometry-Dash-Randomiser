@@ -1,4 +1,10 @@
+How to use Geometry Dash Randomiser quickstart guide:
+
 If you are confused on how to use this application you are in the right place
+
+This file is broken into sections, so if you are just looking to learn how one speific feature works, look for it down below
+
+--------------------------------------------------------------------------------------------
 
 Here are a few steps for how you can use this. If you have any questions regarding something not present here, hit me up on Discord: hydrough_7165
 
@@ -63,3 +69,11 @@ The smaller the value, the less chaotic the randomisation gets.
 
 Text Randomisation:
 
+This will change how the text looks in the game
+
+Shuffling font styles essentially swaps the font types that can be found in different areas in the game, eg.: Gold Font, Minecraft font etc.
+	Per fornt shuffling swaps all characters of 2 fonts around, so the fonts replace each other.
+	Per character shuffling makes each character come from a random font. This make reading text just a bit more difficult
+
+Randomise text will swap around characters and make text a lot harder to read
+	This might swap the letters around, or even swap the letters with numbers and symbols

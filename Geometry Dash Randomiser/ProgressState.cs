@@ -15,24 +15,33 @@ namespace Geometry_Dash_Randomiser {
             public int totalFiles { get; set; }
             public int completedFiles { get; set; }
             public string currentFile { get; set; }
-            public float percentComplete => completedFiles / totalFiles * 100;
+            public float percentComplete {
+                  get {
+                        if (totalFiles <= 0) return 0f;
+                        return (float) completedFiles / totalFiles * 100f;
+                  }
+            }
 
             public string GetProgressString() {
                   switch (currentStage) {
                         case ApplicationState.Idle:
                         case ApplicationState.Setting_Up:
-                        case ApplicationState.Backing_Up:
                         case ApplicationState.Randomising:
                         case ApplicationState.Finishing_Up:
-                        case ApplicationState.Restoring:
-                        case ApplicationState.Complete:
+                              return currentStage.ToString().Replace('_', ' ');
+                        case ApplicationState.Backing_Up:
                         case ApplicationState.Unpacking:
                         case ApplicationState.Repackaging:
-                              return currentStage.ToString().Replace('_', ' ');
-                             //return currentStage.ToString().Replace('_', ' ') + " " + currentFile;
+                        case ApplicationState.Restoring:
+                             return currentStage.ToString().Replace('_', ' ') + " " + currentFileType.ToString().Replace('_', ' ').ToLower() + " file: " + currentFile;
                         default:
                               return string.Empty;
                   }
+            }
+
+            public void NextFileBatch(int filesCount) {
+                  totalFiles = filesCount;
+                  completedFiles = 0;
             }
       }
 }

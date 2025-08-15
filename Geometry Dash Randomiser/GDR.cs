@@ -8,14 +8,14 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Runtime.InteropServices;
 using System.Threading;
 using static Geometry_Dash_Randomiser.GameFileManager;
-using System.IO;
 
 namespace Geometry_Dash_Randomiser {
 
       public partial class GDR_Form : Form {
 
-            private const string version = "V2.3.0p";
+            private const string version = "V2.3.0";
 
+            private const int charAlteringProbability = 10;
             private int textCorruptionLevel = 0;
 
             GameFileManager gameFileManager;
@@ -665,6 +665,12 @@ namespace Geometry_Dash_Randomiser {
                   this.randomSeedButton.Enabled = enabled;
                   this.textureQualitySelectorBox.Enabled = enabled;
 
+                  this.fontRandEnabledCheckbox.Enabled = enabled;
+                  this.fontShuffleStylesCheckbox.Enabled = enabled;
+                  this.fontPerFontRandomisationButton.Enabled = enabled;
+                  this.fontPerLetterRandomisationButton.Enabled = enabled;
+                  this.fontRandomiseLettersCheckbox.Enabled = enabled;
+
                   this.spriteSizeMultiplierTrackbar.Enabled = enabled;
                   this.spriteSizeMultiplierTextbox.Enabled = enabled;
                   this.allowDuplicatesCheckbox.Enabled = enabled;
@@ -785,7 +791,13 @@ namespace Geometry_Dash_Randomiser {
                         if (newPrint != lastPrint) {
                               lastPrint = newPrint;
 
+                              // Corrupt the text a maximum of 16 times to make it not lag too much
+                              for (int i = 0; i < Math.Min(this.textCorruptionLevel, 16); i++) {
+                                    newPrint = newPrint.AlterRandomCharacters(charAlteringProbability);
+                              }
+
                               this.RandomisingProgressDisplay.Text = newPrint;
+                              this.RandomisingProgressBar.Value = (int)gameFileManager.progressState.percentComplete;
                         }
                         await Task.Run(() => {
                               Thread.Sleep(25);
@@ -944,8 +956,6 @@ namespace Geometry_Dash_Randomiser {
             private void GDR_HeaderLabel_Click(object sender, EventArgs e) {
                   Random random = new Random(Guid.NewGuid().GetHashCode());
                   
-                  int charAlteringProbability = 10;
-
                   // Random chance to alter the text of most elements on screen
                   if (random.Next(3) > 0) {
                         for (int i = 0; i < this.labels.Length; i++)
