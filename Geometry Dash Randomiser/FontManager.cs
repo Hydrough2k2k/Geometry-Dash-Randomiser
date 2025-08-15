@@ -77,7 +77,7 @@ namespace Geometry_Dash_Randomiser {
                         return;
                   }
 
-                  fontFileNames = GetAllFontFileNames(path, quality);
+                  fontFileNames = GetAllFileNames(path, quality);
                   fonts = new Font[fontFileNames.Length];
 
                   string outputPath = pathManager.backupResourcesFolder;
@@ -349,11 +349,11 @@ namespace Geometry_Dash_Randomiser {
                   return allCharIDs.ToArray();
             }
 
-            public string[] GetAllFontFileNames(GDR_Path source, Quality quality) {
-                  return GetAllFontFileNames(pathManager.GetPath(source), quality);
+            public string[] GetAllFileNames(GDR_Path source, Quality quality) {
+                  return GetAllFileNames(pathManager.GetPath(source), quality);
             }
 
-            public string[] GetAllFontFileNames(string path, Quality quality) {
+            public string[] GetAllFileNames(string path, Quality quality) {
                   return Directory.GetFiles(path)
                         .Where(f => Path.GetExtension(f) == ".fnt")
                         .FilterFilesByQuality(quality)

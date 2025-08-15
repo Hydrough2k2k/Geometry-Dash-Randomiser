@@ -18,10 +18,10 @@ namespace Geometry_Dash_Randomiser {
             // this is missing a bunch of logic that will be moved from GameFileManager.cs to here, but only later
 
 
-            public string[] GetAllGamesheetFileNames(GDR_Path source, Quality quality)
-                  => GetAllGamesheetFileNames(pathManager.GetPath(source), quality);
+            public string[] GetAllFileNames(GDR_Path source, Quality quality)
+                  => GetAllFileNames(pathManager.GetPath(source), quality);
 
-            public string[] GetAllGamesheetFileNames(string path, Quality quality) {
+            public string[] GetAllFileNames(string path, Quality quality) {
                   return Directory.GetFiles(path)
                         .Where(f => Path.GetExtension(f) == ".plist")
                         .FilterFilesByQuality(quality)

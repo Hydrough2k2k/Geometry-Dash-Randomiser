@@ -28,12 +28,6 @@ namespace Geometry_Dash_Randomiser {
 
                   /// <summary> This is where the randomised Icons files will go by default </summary>
                   LocalIconsOutputFolder
-
-                  ///// <summary> This is where the randomised Resources files will go if the user specified a destination path </summary>
-                  //RemoteResourcesOutputFolder,
-
-                  ///// <summary> This is where the randomised Icons files will go if the user specified a destination path </summary>
-                  //RemoteIconsOutputFolder
             }
 
             public void SetQuality(Quality quality) {
@@ -71,12 +65,6 @@ namespace Geometry_Dash_Randomiser {
 
                         case GDR_Path.LocalIconsOutputFolder:
                               return localIconsOutputFolder;
-
-                        //case GDR_Paths.RemoteResourcesOutputFolder:
-                        //      return remoteResourcesOutputFolder;
-
-                        //case GDR_Paths.RemoteIconsOutputFolder:
-                        //      return remoteIconsOutputFolder;
 
                         default:
                               return string.Empty;

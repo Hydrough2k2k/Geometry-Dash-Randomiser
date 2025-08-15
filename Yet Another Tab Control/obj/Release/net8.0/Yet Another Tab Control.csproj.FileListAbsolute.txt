@@ -1,6 +1,0 @@
-G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Yet Another Tab Control\obj\Release\net8.0\Yet_Another_Tab_Control.Example.Properties.Resources.resources
-G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Yet Another Tab Control\obj\Release\net8.0\Example.YatcForm.resources
-G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Yet Another Tab Control\obj\Release\net8.0\Yet_Another_Tab_Control.Resources.resources
-G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Yet Another Tab Control\obj\Release\net8.0\GrayIris.Utilities.UI.Controls.YaTabControl.resources
-G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Yet Another Tab Control\obj\Release\net8.0\GrayIris.Utilities.UI.Controls.YaTabPage.resources
-G:\Git Synced Projects\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Yet Another Tab Control\obj\Release\net8.0\Yet Another Tab Control.csproj.GenerateResource.cache

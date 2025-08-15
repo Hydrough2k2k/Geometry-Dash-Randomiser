@@ -778,13 +778,25 @@ namespace Geometry_Dash_Randomiser {
                         seed = Guid.NewGuid().GetHashCode();
                   }
 
-                  gameFileManager.progressState.currentStage = ApplicationState.Setting_Up;
+                  Thread randomisationThread = new Thread(() => {
+                        gameFileManager.StartRandomising(seed);
+                  });
+                  randomisationThread.Start();
 
-                  // Add the while(true) update here inline, and have the true be replaced with when the Task.Run is complete, if that's possible, or have it as a break condition
+                  string lastPrint = string.Empty;
 
-                  // Do NOT await, ignore green line
-                  Task.Run(() => UpdateProgressDisplay());
-                  await Task.Run(() => gameFileManager.StartRandomising(seed));
+                  while (randomisationThread.IsAlive == true) {
+                        string newPrint = gameFileManager.progressState.GetProgressString();
+
+                        if (newPrint != lastPrint) {
+                              lastPrint = newPrint;
+
+                              this.RandomisingProgressDisplay.Text = newPrint;
+                        }
+                        await Task.Run(() => {
+                              Thread.Sleep(25);
+                        });
+                  }
 
                   SetUI_EnabledState(true);
 
@@ -802,24 +814,6 @@ namespace Geometry_Dash_Randomiser {
 
                   // If the game directory is valid, enable the restore button
                   this.restoreFilesButton.Enabled = gameFileManager.IsGameDirectoryValid();
-            }
-
-            // This polls the "gameFileManager" for progress on what stage the progress is in, and updates the user
-            private async void UpdateProgressDisplay(int delayMillisec = 25) {
-                  ProgressState progressState = gameFileManager.progressState;
-
-                  string lastPrint = string.Empty;
-                  // Waits for the randomisation to be comleted
-                  while (progressState.currentStage != ApplicationState.Idle) {
-                        string newPrint = progressState.currentStage.ToString();
-
-                        if (newPrint != lastPrint) {
-                              lastPrint = newPrint;
-
-                              this.RandomisingProgressDisplay.Text = newPrint;
-                        }
-                        Thread.Sleep(delayMillisec);
-                  }
             }
 
             private void SeedValueChanged(object sender, EventArgs e) {

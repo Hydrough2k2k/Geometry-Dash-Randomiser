@@ -37,7 +37,7 @@ namespace Geometry_Dash_Randomiser {
                   if (ends == null) return false;
 
                   for (int i = 0; i < ends.Length; i++) {
-                        if (str.EndsWith(ends))
+                        if (str.EndsWith(ends[i]))
                               return true;
                   }
                   return false;

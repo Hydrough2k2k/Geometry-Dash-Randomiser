@@ -1,9 +1,20 @@
 ﻿using System.IO;
 using System.Threading;
+using static Geometry_Dash_Randomiser.PathManager;
 
 namespace Geometry_Dash_Randomiser {
 
       public static class FileIO {
+
+            public static void ReplaceFile(string fileName, string from, string to, bool overwrite = true) {
+                  bool fileExists = File.Exists(Path.Combine(from, fileName));
+                  if (overwrite == true && fileExists == true) {
+                        File.Delete(Path.Combine(from, fileName));
+
+                  } else if (fileExists == false) {
+                        File.Copy(Path.Combine(from, fileName), Path.Combine(to, fileName));
+                  }
+            }
 
             /// <summary>
             /// Tries to open a file, with a user defined number of attempt and Sleep delay between attempts.
