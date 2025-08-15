@@ -8,7 +8,6 @@ namespace Geometry_Dash_Randomiser {
 
       public class FontRandomisationSettings {
 
-            // This could replace part of the RandomisationMode enum in FontManager.cs { PerCharacterStyleShuffling }
             public enum FontStyleShufflingMode {
                   /// <summary> Each font's style remains consistent between it's characters when possible, but the styles will be shuffled around </summary>
                   PerFont,

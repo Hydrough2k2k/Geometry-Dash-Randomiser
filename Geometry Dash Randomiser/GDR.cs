@@ -13,7 +13,7 @@ namespace Geometry_Dash_Randomiser {
 
       public partial class GDR_Form : Form {
 
-            private const string version = "V2.3.0";
+            private const string version = "V2.3.0.1";
 
             private const int charAlteringProbability = 10;
             private int textCorruptionLevel = 0;
@@ -678,21 +678,11 @@ namespace Geometry_Dash_Randomiser {
 
             private void ChangelogButton_Click(object sender, EventArgs e) {
 
-                  const string caption = "Changelog v2.3.0";
+                  const string caption = "Changelog v2.3.0.1";
                   string[] message = new string[] {
-                        "What's new?",
-                        " - Major visual overhaul, it should be easier to navigate this app now",
-                        " - Text Randomisation with a lot of settings with more to come later",
-                        " - Restore files button to quickly return the game to it's normal (boring) state",
-                        " - File for \"Blacklisted files\". Every file added to this will be ignored when randomising files",
-                        " - Some new and reworked themes. Random theme also exists for some reason\n",
-
-                        "Changes:",
-                        " - Removed the custom output directory. The backup files will always be in the application's folder\n",
-
                         "Bugfixes:",
-                        " - Fixed crashes caused by config file writing and reading running into errors",
-                        " - Every value on the Texture Size Multiplier slider is available now\n"
+                        " - Fixed crash on bootup when the config file is corrupted",
+                        " - Fixed theme ID not getting saved"
                   };
 
                   MessageBoxButtons buttons = MessageBoxButtons.OK;
@@ -940,6 +930,7 @@ namespace Geometry_Dash_Randomiser {
                   int oldThemeID = this.themeController.activeThemeID;
                   int newThemeID = domainUpDown.SelectedIndex;
                   this.themeController.activeThemeID = newThemeID;
+                  Config.themeID = newThemeID;
 
                   SetTheme();
             }
@@ -956,8 +947,8 @@ namespace Geometry_Dash_Randomiser {
             private void GDR_HeaderLabel_Click(object sender, EventArgs e) {
                   Random random = new Random(Guid.NewGuid().GetHashCode());
                   
-                  // Random chance to alter the text of most elements on screen
-                  if (random.Next(3) > 0) {
+                  // First corruption has a 1 in 5 chance to happen, after that every click corrupts text further
+                  if (textCorruptionLevel == 0 && random.Next(5) > 0 || textCorruptionLevel > 0) {
                         for (int i = 0; i < this.labels.Length; i++)
                               this.labels[i].Text = this.labels[i].Text.AlterRandomCharacters(charAlteringProbability);
 

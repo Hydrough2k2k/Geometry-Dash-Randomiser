@@ -1,14 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Text.Json;
-using static Geometry_Dash_Randomiser.Randomiser;
+using static Geometry_Dash_Randomiser.GameFileManager;
 using static Geometry_Dash_Randomiser.FontRandomisationSettings;
 
 namespace Geometry_Dash_Randomiser {
 
-      internal static class Config {
+      public static class Config {
 
-            static readonly string configFileName = "config.txt";
+            const string configFileName = "config.txt";
 
             // This is where the default values are defined
             public static string gameDirectory = "";
@@ -27,7 +27,7 @@ namespace Geometry_Dash_Randomiser {
             public static RandomisationSetting effectTextures = new RandomisationSetting();
             public static RandomisationSetting miscTextures = new RandomisationSetting();
             public static FontRandomisationSettings fontRand = new FontRandomisationSettings(
-                  enabled: false,
+                  enabled: true,
                   shuffleFontStyles: true,
                   shufflingMode: FontStyleShufflingMode.PerFont,
                   randomiseLetters: false
@@ -36,7 +36,7 @@ namespace Geometry_Dash_Randomiser {
             public static float maxSpriteMultiplier = 1.10f;
             public static bool allowDuplicates = false;
 
-            public static GameFileManager.Quality quality = GameFileManager.Quality.High;
+            public static Quality quality = Quality.High;
             public static int seed = 0;
 
             public static int themeID = 1;
@@ -72,6 +72,8 @@ namespace Geometry_Dash_Randomiser {
                         try {
                               Serialised_Config config = JsonSerializer.Deserialize<Serialised_Config>(inStream);
                               Config.ApplySettings(config);
+                        } catch (JsonException) {
+                              
                         } finally {
                               // If there is an error with reading the file, write one with default settings
                               WriteFile();
@@ -111,7 +113,7 @@ namespace Geometry_Dash_Randomiser {
             }
       }
 
-      internal class Serialised_Config {
+      public class Serialised_Config {
 
             public string gameDirectory { get; set; } = string.Empty;
 
@@ -131,7 +133,7 @@ namespace Geometry_Dash_Randomiser {
             public float maxSpriteMultiplier { get; set; }
             public bool allowDuplicates { get; set; }
 
-            public GameFileManager.Quality quality { get; set; }
+            public Quality quality { get; set; }
             public int seed { get; set; }
 
             public int themeID { get; set; }

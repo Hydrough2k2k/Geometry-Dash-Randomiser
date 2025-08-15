@@ -1,3 +1,11 @@
+Changelog for V2.3.0.1:
+
+Bugfixes:
+ - Fixed crash on bootup when the config file is corrupted
+ - Fixed theme ID not getting saved
+
+-------------------------------------------
+
 Changelog for V2.3.0:
 
 What's new?

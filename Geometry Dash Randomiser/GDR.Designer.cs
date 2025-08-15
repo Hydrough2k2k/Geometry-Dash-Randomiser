@@ -103,6 +103,7 @@
                   this.groupBox3 = new System.Windows.Forms.GroupBox();
                   this.checkBox4 = new System.Windows.Forms.CheckBox();
                   this.groupBox4 = new System.Windows.Forms.GroupBox();
+                  this.autoOverwriteFilesCheckbox = new System.Windows.Forms.CheckBox();
                   this.button2 = new System.Windows.Forms.Button();
                   this.button3 = new System.Windows.Forms.Button();
                   this.RandomisingProgressBar = new System.Windows.Forms.ProgressBar();
@@ -439,9 +440,9 @@
                   this.versionLabel.Font = new System.Drawing.Font("High Tower Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.versionLabel.Location = new System.Drawing.Point(738, 44);
                   this.versionLabel.Name = "versionLabel";
-                  this.versionLabel.Size = new System.Drawing.Size(59, 22);
+                  this.versionLabel.Size = new System.Drawing.Size(72, 22);
                   this.versionLabel.TabIndex = 42;
-                  this.versionLabel.Text = "V_._._";
+                  this.versionLabel.Text = "V_._._._";
                   // 
                   // gameFolderTextBox
                   // 
@@ -974,7 +975,7 @@
                   // ChangelogButton
                   // 
                   this.ChangelogButton.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.ChangelogButton.Location = new System.Drawing.Point(818, 43);
+                  this.ChangelogButton.Location = new System.Drawing.Point(836, 41);
                   this.ChangelogButton.Name = "ChangelogButton";
                   this.ChangelogButton.Size = new System.Drawing.Size(88, 27);
                   this.ChangelogButton.TabIndex = 91;
@@ -1194,6 +1195,7 @@
                   // 
                   // groupBox4
                   // 
+                  this.groupBox4.Controls.Add(this.autoOverwriteFilesCheckbox);
                   this.groupBox4.Controls.Add(this.gameFolderLabel);
                   this.groupBox4.Controls.Add(this.applicationThemeSelectorBox);
                   this.groupBox4.Controls.Add(this.textureQualitySelectorBox);
@@ -1208,6 +1210,19 @@
                   this.groupBox4.TabIndex = 113;
                   this.groupBox4.TabStop = false;
                   this.groupBox4.Text = "Application Settings";
+                  // 
+                  // autoOverwriteFilesCheckbox
+                  // 
+                  this.autoOverwriteFilesCheckbox.AutoSize = true;
+                  this.autoOverwriteFilesCheckbox.BackColor = System.Drawing.Color.Transparent;
+                  this.autoOverwriteFilesCheckbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.autoOverwriteFilesCheckbox.Location = new System.Drawing.Point(6, 73);
+                  this.autoOverwriteFilesCheckbox.Name = "autoOverwriteFilesCheckbox";
+                  this.autoOverwriteFilesCheckbox.Size = new System.Drawing.Size(170, 24);
+                  this.autoOverwriteFilesCheckbox.TabIndex = 105;
+                  this.autoOverwriteFilesCheckbox.Text = "Auto-Overwrite Files";
+                  this.autoOverwriteFilesCheckbox.UseVisualStyleBackColor = false;
+                  this.autoOverwriteFilesCheckbox.Visible = false;
                   // 
                   // button2
                   // 
@@ -1413,6 +1428,7 @@
             private System.Windows.Forms.Label label3;
             private System.Windows.Forms.RadioButton fontPerFontRandomisationButton;
             private System.Windows.Forms.RadioButton fontPerLetterRandomisationButton;
+            private System.Windows.Forms.CheckBox autoOverwriteFilesCheckbox;
       }
 }
 

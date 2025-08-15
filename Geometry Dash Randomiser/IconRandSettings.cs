@@ -1,7 +1,7 @@
 ﻿
 namespace Geometry_Dash_Randomiser {
 
-      internal class IconRandSettings {
+      public class IconRandSettings {
 
             public bool enabled { get; set; } = true;
             public int group { get; set; } = 1;
