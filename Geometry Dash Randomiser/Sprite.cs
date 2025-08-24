@@ -1,10 +1,12 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace Geometry_Dash_Randomiser {
 
       public class Sprite {
 
             public enum ResourceType { Unknown, Icon, Block, Portal, Orb, Pad, Editor, Menu, Particle, Effect, Miscellaneous, Shop }
+
             public enum IconType { Invalid, Cube, Ship, Ball, UFO, Wave, Robot, Spider, Swing, Jetpack }
 
             // What file did this come from, for example: "bird_01-uhd"
@@ -30,21 +32,6 @@ namespace Geometry_Dash_Randomiser {
 
             public Sprite() { }
 
-            public Sprite(string sourceFile, string spriteName, Point spriteOffset,
-                  Size spriteSize, Size spriteSourceSize, Rectangle textureRect,
-                  bool textureRotated, ResourceType type, Bitmap texture) {
-
-                  this.sourceFile = sourceFile;
-                  this.spriteName = spriteName;
-                  this.spriteOffset = spriteOffset;
-                  this.spriteSize = spriteSize;
-                  this.spriteSourceSize = spriteSourceSize;
-                  this.textureRect = textureRect;
-                  this.textureRotated = textureRotated;
-                  this.type = type;
-                  this.texture = texture;
-            }
-
             public Sprite(string sourceFile, string spriteName, ResourceType type) {
                   this.sourceFile = sourceFile;
                   this.spriteName = spriteName;
@@ -65,34 +52,60 @@ namespace Geometry_Dash_Randomiser {
             public void AssignType() {
                   if (tryGetIconType() == true) {
                         type = ResourceType.Icon;
+
+                  } else if (sourceFile.StartsWith("CCControlColourPickerSpriteSheet")) {
+                        type = ResourceType.Editor;
+
+                  } else if (sourceFile.StartsWith("DungeonSheet")) {
+                        type = ResourceType.Menu;
+
                   } else if (sourceFile.StartsWith("FireSheet_01")) {
                         type = ResourceType.Block;
+
                   } else if (sourceFile.StartsWith("GauntletSheet")) {
                         type = ResourceType.Menu;
+
                   } else if (sourceFile.StartsWith("GJ_GameSheetEditor")) {
                         type = ResourceType.Editor;
+
                   } else if (sourceFile.StartsWith("GJ_GameSheetGlow")) {
                         type = getTypeFromGlowSheets();
+
                   } else if (sourceFile.StartsWith("GJ_GameSheet")) {
                         type = getTypeFromGameSheets();
+
                   } else if (sourceFile.StartsWith("GJ_LaunchSheet")) {
                         type = ResourceType.Menu;
+
                   } else if (sourceFile.StartsWith("GJ_ParticleSheet")) {
                         type = ResourceType.Particle;
+
                   } else if (sourceFile.StartsWith("GJ_PathSheet")) {
                         type = ResourceType.Menu;
+
                   } else if (sourceFile.StartsWith("GJ_ShopSheet")) {
                         type = ResourceType.Shop;
+
                   } else if (sourceFile.StartsWith("PixelSheet")) {
                         type = ResourceType.Block;
+
+                  } else if (sourceFile.StartsWith("PlayerExplosion")) {
+                        type = ResourceType.Miscellaneous;
+
                   } else if (sourceFile.StartsWith("SecretSheet")) {
                         type = ResourceType.Miscellaneous;
+
                   } else if (sourceFile.StartsWith("TowerSheet")) {
                         type = ResourceType.Miscellaneous;
+
                   } else if (sourceFile.StartsWith("TreasureRoomSheet")) {
                         type = ResourceType.Miscellaneous;
+
                   } else if (sourceFile.StartsWith("WorldSheet")) {
                         type = ResourceType.Miscellaneous;
+
+                  } else {
+                        Console.WriteLine($"Unknown sprite type for sprite name: {spriteName} from source file: {sourceFile}");
                   }
             }
 
@@ -100,8 +113,10 @@ namespace Geometry_Dash_Randomiser {
 
                   if (spriteName.Contains("boost")) {
                         return ResourceType.Portal;
+
                   } else if (spriteName.Contains("bump") || spriteName.Contains("Bump")) {
                         return ResourceType.Pad;
+
                   } else if (spriteName.Contains("ring") || spriteName.Contains("Ring")) {
                         return ResourceType.Orb;
                   }
@@ -109,30 +124,32 @@ namespace Geometry_Dash_Randomiser {
             }
 
             ResourceType getTypeFromGameSheets() {
+                  // Do not change the order of these checks
                   if (sourceFile.StartsWith("GJ_GameSheet04")) {
                         return getTypeFromGameSheet_4();
+
                   } else if (sourceFile.StartsWith("GJ_GameSheet03")) {
                         return getTypeFromGameSheet_3();
+
                   } else if (sourceFile.StartsWith("GJ_GameSheet02")) {
                         return getTypeFromGameSheet_2();
+
                   } else if (sourceFile.StartsWith("GJ_GameSheet")) {
                         return getTypeFromGameSheet_1();
                   }
-                  // TO-DO: Flag error for there's an unknown file
+                  Console.WriteLine($"Error: Type of file {spriteName} could not be determined, the source file {sourceFile}");
 
                   return ResourceType.Unknown;
             }
 
             ResourceType getTypeFromGameSheet_1() {
-                  if (spriteName.Contains("teleportRing") || // TP Orb
-                        spriteName.Contains("dashRing") || // Dash Orb
-                        spriteName.Contains("spiderRing") || // Spider Orb
-                        spriteName.Contains("gravJumpRing") || // Green Orb
-                        spriteName.Contains("gravring") || // Blue Orb
-                        spriteName.Contains("ring_0") || // Yellow, Pink, Red Orbs
-                        spriteName.Contains("dropRing")) { // Black Orb
+                  string[] orbNames = new string[] {
+                        "teleportRing", "dashRing", "spiderRing", "gravJumpRing", "gravring", "ring_0", "dropRing"
+                  };
 
+                  if (spriteName.ContainsAny(orbNames)) {
                         return ResourceType.Orb;
+
                   } else if (spriteName.Contains("bump") || // Yellow, Pink, Blue, Red Pads
                         spriteName.Contains("spiderBump")) { // TP Pad
 
@@ -176,6 +193,7 @@ namespace Geometry_Dash_Randomiser {
                   // The order matters, don't just group it by return type!
                   if (spriteName.Contains("arrow")) {
                         return ResourceType.Editor;
+
                   } else if (spriteName.Contains("checkpointBtn") ||
                         spriteName.StartsWith("GJ_delete") ||
                         spriteName.Contains("duplicate") ||
@@ -185,73 +203,46 @@ namespace Geometry_Dash_Randomiser {
 
                   } else if (spriteName.Contains("check")) {
                         return ResourceType.Editor;
+
                   } else if (spriteName.StartsWith("diff")) { // Difficulty icons "diffIcon" and "difficulty" will be caught by this
                         return ResourceType.Menu;
+
                   } else if (spriteName.Contains("delete")) {
                         return ResourceType.Editor;
+
                   } else if (spriteName.Contains("edit")) {
                         if (spriteName.Contains("editBtn")) {
                               return ResourceType.Menu;
-                        } else {
-                              return ResourceType.Editor;
                         }
-                  }else if (spriteName.Contains("link")) {
                         return ResourceType.Editor;
+
+                  } else if (spriteName.Contains("link")) {
+                        return ResourceType.Editor;
+
                   } else if (spriteName.Contains("removeCheckBtn")) {
                         return ResourceType.Miscellaneous;
+
                   } else if (spriteName.Contains("PBtn")) {
                         return ResourceType.Miscellaneous;
                   }
 
-                  // Start filtering editor buttons
-                  if (spriteName.Contains("BPM") ||
-                        spriteName.Contains("audio") ||
-                        spriteName.Contains("ball") || 
-                        spriteName.Contains("bird") ||
-                        spriteName.Contains("change") ||
-                        spriteName.Contains("color") ||
-                        spriteName.Contains("copy") ||
-                        spriteName.Contains("create") ||
-                        spriteName.Contains("dart") ||
-                        spriteName.Contains("deSel") ||
-                        spriteName.Contains("duplicateObject") ||
-                        spriteName.Contains("Layer") ||
-                        spriteName.Contains("groupID") ||
-                        spriteName.Contains("help") ||
-                        spriteName.Contains("hsv") ||
-                        spriteName.Contains("icon") ||
-                        spriteName.Contains("info") ||
-                        spriteName.Contains("jetpack") ||
-                        spriteName.Contains("musicLibrary") ||
-                        spriteName.Contains("ncs") ||
-                        spriteName.Contains("normalBtn") ||
-                        spriteName.Contains("orderUp") ||
-                        spriteName.Contains("paintBtn") ||
-                        spriteName.Contains("paste") ||
-                        spriteName.Contains("EditorBtn") ||
-                        spriteName.Contains("MusicBtn") ||
-                        spriteName.Contains("redoBtn") ||
-                        spriteName.Contains("robot") ||
-                        spriteName.Contains("rotationControlBtn") ||
-                        spriteName.Contains("savedSongsBtn") ||
-                        spriteName.Contains("select") ||
-                        spriteName.Contains("ship") ||
-                        spriteName.Contains("spider") ||
-                        spriteName.Contains("swing") ||
-                        spriteName.Contains("tabOff") ||
-                        spriteName.Contains("tabOn") ||
-                        spriteName.Contains("trashBtn") ||
-                        spriteName.Contains("undoBtn") ||
-                        spriteName.Contains("zoom") ||
-                        spriteName.Contains("warp") ||
-                        spriteName.Contains("pause")) {
+                  // If any of these are contained in the name, it is an editor object
+                  string[] editorObjNameContains = new string[] {
+                        "BPM", "audio", "ball", "bird", "change", "color", "copy", "create", "dart",
+                        "deSel", "duplicateObject", "Layer", "groupID", "help", "hsv", "icon", "info",
+                        "jetpack", "musicLibrary", "ncs", "normalBtn", "orderUp", "paintBtn", "paste",
+                        "EditorBtn", "MusicBtn", "redoBtn", "robot", "rotationControlBtn", "savedSongsBtn",
+                        "select", "ship", "spider", "swing", "tabOff", "tabOn", "trashBtn", "undoBtn",
+                        "zoom", "warp", "pause"
+                  };
 
+                  if (spriteName.ContainsAny(editorObjNameContains) == true) {
                         return ResourceType.Editor;
                   }
+
                   return ResourceType.Menu;
             }
 
-            // Done
             ResourceType getTypeFromGameSheet_4() {
                   if (spriteName.Contains("shine")) {
                         return ResourceType.Block;
@@ -266,35 +257,41 @@ namespace Geometry_Dash_Randomiser {
             public bool tryGetIconType() {
                   if (sourceFile.StartsWith("bird")) {
                         this.iconType = IconType.UFO;
+                        return true;
 
                   } else if (sourceFile.StartsWith("player_ball")) {
                         this.iconType = IconType.Ball;
+                        return true;
 
                   } else if (sourceFile.StartsWith("player")) {
                         this.iconType = IconType.Cube;
+                        return true;
 
                   } else if (sourceFile.StartsWith("dart")) {
                         this.iconType = IconType.Wave;
+                        return true;
 
                   } else if (sourceFile.StartsWith("jetpack")) {
                         this.iconType = IconType.Jetpack;
+                        return true;
 
                   } else if (sourceFile.StartsWith("robot")) {
                         this.iconType = IconType.Robot;
+                        return true;
 
                   } else if (sourceFile.StartsWith("ship")) {
                         this.iconType = IconType.Ship;
+                        return true;
 
                   } else if (sourceFile.StartsWith("spider")) {
                         this.iconType = IconType.Spider;
+                        return true;
 
                   } else if (sourceFile.StartsWith("swing")) {
                         this.iconType = IconType.Swing;
+                        return true;
                   }
 
-                  // Return whether getting the icon type was successful 
-                  if (this.iconType != IconType.Invalid)
-                        return true;
                   return false;
             }
       }

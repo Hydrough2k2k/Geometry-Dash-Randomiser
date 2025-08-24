@@ -1,14 +1,25 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
-using System.Windows.Forms;
+using static Geometry_Dash_Randomiser.FontRandomisationSettings;
 
 namespace Geometry_Dash_Randomiser {
 
       internal static class StringExtension {
 
             const string ASCII = " !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+            const string numbers = "0123456789";
+            const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            const string symbols = "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~";
 
-            public static string AlterRandomCharacters(this string str, int probability) {
+            public static string AlterRandomCharactersLooped(this string str, int loops, LetterRandomiationMode mode = LetterRandomiationMode.Unrestricted, Random random = null) {
+                  for (int i = 0; i < loops; i++) {
+                        str = str.AlterRandomCharacters(random, 10);
+                  }
+                  return str;
+            }
+
+            public static string AlterRandomCharacters(this string str, int probability = 10) {
                   return str.AlterRandomCharacters(null, probability);
             }
 
@@ -48,6 +59,18 @@ namespace Geometry_Dash_Randomiser {
                         return string.Empty;
 
                   return str.Substring(0, str.Length - index);
+            }
+
+            public static bool ContainsAny(this string str, string[] contains) {
+                  if (contains == null)
+                        throw new Exception("Array cannot be null");
+
+                  for (int i = 0; i < contains.Length; i++) {
+                        if (str.Contains(contains[i])) {
+                              return true;
+                        }
+                  }
+                  return false;
             }
       }
 }

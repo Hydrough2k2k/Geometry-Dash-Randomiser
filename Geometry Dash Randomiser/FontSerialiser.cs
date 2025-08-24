@@ -5,7 +5,7 @@ namespace Geometry_Dash_Randomiser {
 
       public static class FontSerialiser {
 
-            struct PropertyPair {
+            public struct PropertyPair {
                   public string name, data;
 
                   public PropertyPair(string name, string data) {
@@ -14,7 +14,7 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            static PropertyPair[] GetPropertyPairs(string str) {
+            public static PropertyPair[] ParsePropertyPairs(string str) {
                   // Remove everything before the first space character
                   str = str.Substring(str.IndexOf(' ') == -1 ? 0 : str.IndexOf(' ')).Trim();
 
@@ -88,7 +88,7 @@ namespace Geometry_Dash_Randomiser {
 
                   for (int i = 0; i < fileStream.Length; i++) {
                         string line = fileStream[i];
-                        PropertyPair[] pairs = GetPropertyPairs(line);
+                        PropertyPair[] pairs = ParsePropertyPairs(line);
 
                         if (line.StartsWith("info ")) {
                               DeserialiseInfoData(ref font, pairs);

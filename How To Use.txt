@@ -1,31 +1,47 @@
-How to use Geometry Dash Randomiser quickstart guide:
+How to use Geometry Dash Randomiser quick start guide:
 
 If you are confused on how to use this application you are in the right place
 
-This file is broken into sections, so if you are just looking to learn how one speific feature works, look for it down below
+This file is broken into sections, so if you are just looking to learn how one specific feature works, look for it down below
 
 --------------------------------------------------------------------------------------------
 
 Here are a few steps for how you can use this. If you have any questions regarding something not present here, hit me up on Discord: hydrough_7165
 
 Step 1: After installation launch Geometry Dash Randomiser.exe
+
 Step 2: Paste the location of your game into "Game Folder" textbox under "Application Settings"
 	A restart might be required if the app detects an issue
-Step 3: Look into the settinge area and see what you want to enable. Hover over some settings to see what they do
+
+Step 3: Look into the settings area and see what you want to enable. Hover over some settings to see what they do
 	There is a help button at the top in case you are confused
+
 Step 4: Change the "Texture Quality" selector's value to the proper quality.
 	If you play on high quality, randomise high quality sprites
+
+Step 4.5: Optionally enable "Overwrite Game Files" to automatically write the files into the game's folder before clicking "Randomise"
+	This will skip steps 6 and 7
+
 Step 5: Click the randomise button at the bottom
 	If it's not clickable, look at the bottom of the application to see if there's an error
+
 Step 6: When the randomisation is done, copy the "Resources" folder from the "Randomised Files" folder and paste to where Geometry Dash is installed
+	Make sure to paste it to where GeometryDash.exe is, and replace the "Resources" folder there
+
 Step 7: Click accept on overwriting all the files
+
 Step 8: Finally, launch the game and enjoy the chaos!
 
 Reverting Files:
-	Copy the "Resources" folder from "Unaltered Files", do the same as when you randomised the files
+	Copy the "Resources" folder from "Backup Files" and replace the "Resources" folder in the Geometry Dash installation folder
+	Alternatively click the "Revert Files" button in the application
 
+--------------------------------------------------------------------------------------------
 
-If any of your questions didn't get answered in this text file, reach out to me on Discord: hydrough_7165
+Auto-Overwrite Game Files button:
+
+This will automatically write the randomised files into the Geometry Dash installation folder
+	This is enabled by default, but you can disable it, if it doesn't work or you want to move the files yourself
 
 --------------------------------------------------------------------------------------------
 
@@ -33,7 +49,7 @@ Texture randomisation:
 
 Almost setting has a checkbox and a numeric display.
 The settings are for categories of textures in the game.
-For example Menu Textures contain only the textures that would appear in the menu, nothing else.
+For example: Menu Textures contain only the textures that would appear in the menu, nothing else.
 
 The checkbox shows if the randomisation is enabled for this category of textures. Checking it allows them to be shuffled.
 
@@ -43,16 +59,16 @@ Allow Duplicate Textures makes it possible that some textures appear more than o
 
 Groups overview:
 
-If you enabled a category you can see the number display. That shows the randomisation group that group of textures it is in.
+If you enabled a category, you can see the number display. That shows the randomisation group that group of textures it is in.
 Every texture in a group (for example group 1) will be shuffled together.
 For example:
-	If you put Menu Textures and Editor Textures into the same group, then some textures that normally appear in the menu will appear in the editor, and vica-versa
+	If you put Menu Textures and Editor Textures into the same group, then some textures that normally appear in the menu will appear in the editor, and vice-versa
 	
 The more things you put into the same group, the more chaotic the game will get.
 	
 Group 0 behaves differently:
 	Everything group 0 will get shuffled, but if you have many texture categories in group 0 they will not be mixed together
-	If you put everything into group 0 the game will remain sortof normal (or well, as normal as it gets with this app)
+	If you put everything into group 0 the game will remain sort of normal (or well, as normal as it gets with this app)
 
 If you put everything into group 1 the game will be extremely chaotic, you have been warned :)
 
@@ -71,9 +87,15 @@ Text Randomisation:
 
 This will change how the text looks in the game
 
-Shuffling font styles essentially swaps the font types that can be found in different areas in the game, eg.: Gold Font, Minecraft font etc.
-	Per fornt shuffling swaps all characters of 2 fonts around, so the fonts replace each other.
-	Per character shuffling makes each character come from a random font. This make reading text just a bit more difficult
+Shuffling font styles essentially swaps the font types that can be found in different areas in the game, e.g.: Gold Font, Minecraft font etc.
+	Per font shuffling swaps all characters of 2 fonts around, so the fonts replace each other.
+	Per character shuffling makes each character come from a random font. This makes reading text just a bit more difficult
 
 Randomise text will swap around characters and make text a lot harder to read
 	This might swap the letters around, or even swap the letters with numbers and symbols
+	
+--------------------------------------------------------------------------------------------
+
+These are all the major things, but if you still have questions, reach out to me:
+	Discord: hydrough_7165 
+	GitHub: https://github.com/Hydrough2k2k

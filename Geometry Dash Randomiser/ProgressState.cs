@@ -39,7 +39,7 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            public void NextFileBatch(int filesCount) {
+            public void NewFileBatch(int filesCount) {
                   totalFiles = filesCount;
                   completedFiles = 0;
             }

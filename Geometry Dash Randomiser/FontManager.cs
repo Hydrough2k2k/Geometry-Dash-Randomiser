@@ -80,9 +80,12 @@ namespace Geometry_Dash_Randomiser {
                   fontFileNames = GetAllFileNames(path, quality);
                   fonts = new Font[fontFileNames.Length];
 
+                  gameFileManager.progressState.NewFileBatch(fontFileNames.Length);
+
                   string outputPath = PathManager.backupResourcesFolder;
 
                   for (int i = 0; i < fontFileNames.Length; i++) {
+                        gameFileManager.progressState.currentFile = fontFileNames[i];
 
                         string textFilePath = Path.Combine(outputPath, fontFileNames[i] + ".fnt");
                         string gamesheetFilePath = Path.Combine(outputPath, fontFileNames[i] + ".png");
@@ -115,6 +118,7 @@ namespace Geometry_Dash_Randomiser {
                               }
                               Console.WriteLine("\"{0}\" file could not be located in the local backup resources folder");
                         }
+                        gameFileManager.progressState.completedFiles++;
                   }
             }
 
@@ -274,10 +278,14 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
+            public void WriteFontsToDisk(Font[] fonts) {
+                  WriteFontsToDisk(GDR_Path.LocalResourcesOutputFolder, fonts);
+            }
+
             public void WriteFontsToDisk(GDR_Path path, Font[] fonts) => WriteFontsToDisk(PathManager.GetPath(path), fonts);
 
             public void WriteFontsToDisk(string path, Font[] fonts) {
-                  gameFileManager.progressState.NextFileBatch(fonts.Length);
+                  gameFileManager.progressState.NewFileBatch(fonts.Length);
 
                   for (int i = 0; i < fonts.Length; i++) {
                         gameFileManager.progressState.currentFile = fontFileNames[i];

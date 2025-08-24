@@ -1,3 +1,23 @@
+Changelog for V2.3.1.0:
+
+What's New?
+ - Added an elapsed time display
+ - You can see what the app is doing during game file restoration
+ - Now the application folder has way fewer files for more clarity. All the .dll files are gone
+
+Bugfixes:
+ - Fixed some sprites not getting categorised properly or at all
+ - Fixed elapsed time display not showing time past 1 minute properly
+ - Fixed Restore Files button is clickable on first startup
+
+Known Bugs:
+ - Texture Size Multiplier slider is always visually at 0 at startup. The setting is saved, but not reflected visually on the slider
+ - Some textures are not categorised correctly
+ - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can make levels easier or impossible in some cases
+ - Sometimes some fonts do not render at all
+
+-------------------------------------------
+
 Changelog for V2.3.0.1:
 
 Bugfixes:

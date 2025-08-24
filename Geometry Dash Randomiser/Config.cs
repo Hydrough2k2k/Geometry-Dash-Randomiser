@@ -1,18 +1,20 @@
 ﻿using System;
 using System.IO;
 using System.Text.Json;
-using static Geometry_Dash_Randomiser.GameFileManager;
 using static Geometry_Dash_Randomiser.FontRandomisationSettings;
+using static Geometry_Dash_Randomiser.GameFileManager;
 
 namespace Geometry_Dash_Randomiser {
 
+      // Convert to singleton later after doing some testing in another project. I'm not sure how deserialisation works with singletons
       public static class Config {
 
             const string configFileName = "config.txt";
 
             // This is where the default values are defined
             public static string gameDirectory = "";
-            
+            public static bool autoOverwriteFiles = true;
+
             // Configs for every randomisation type
             // Default: group 0, disabled
             public static IconRandSettings iconTextures = new IconRandSettings();
@@ -39,10 +41,11 @@ namespace Geometry_Dash_Randomiser {
             public static Quality quality = Quality.High;
             public static int seed = 0;
 
-            public static int themeID = 1;
+            public static int themeID = 0;
 
             public static void ApplySettings(Serialised_Config config) {
                   gameDirectory = config.gameDirectory;
+                  autoOverwriteFiles = config.autoOverwriteFiles;
 
                   iconTextures = config.iconTextures;
                   menuTextures = config.menuTextures;
@@ -68,14 +71,12 @@ namespace Geometry_Dash_Randomiser {
 
             public static void ReadFile() {
                   if (File.Exists(configFileName)) {
-                        string inStream = File.ReadAllText(configFileName);
-                        try {
-                              Serialised_Config config = JsonSerializer.Deserialize<Serialised_Config>(inStream);
+                        string[] inStream = File.ReadAllLines(configFileName);
+                        Serialised_Config config = Serialised_Config.Deserialise(inStream);
+
+                        if (config != null) {
                               Config.ApplySettings(config);
-                        } catch (JsonException) {
-                              
-                        } finally {
-                              // If there is an error with reading the file, write one with default settings
+                        } else {
                               WriteFile();
                         }
                   } else {
@@ -98,6 +99,7 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
+            // Unused atm, the 0 settings enabled warning is temporarily disabled
             public static int GetEnabledSettingsCount() {
                   return Convert.ToInt32(iconTextures.enabled) +
                         Convert.ToInt32(menuTextures.enabled) +
@@ -109,13 +111,19 @@ namespace Geometry_Dash_Randomiser {
                         Convert.ToInt32(padTextures.enabled) +
                         Convert.ToInt32(particleTextures.enabled) +
                         Convert.ToInt32(effectTextures.enabled) +
-                        Convert.ToInt32(miscTextures.enabled);
+                        Convert.ToInt32(miscTextures.enabled) +
+                        Convert.ToInt32(fontRand.enabled) +
+                        Convert.ToInt32(fontRand.shuffleFontStyles) +
+                        Convert.ToInt32(fontRand.randomiseLetters);
             }
       }
 
       public class Serialised_Config {
 
+            // Move to different config later
             public string gameDirectory { get; set; } = string.Empty;
+            // Move to different config later
+            public bool autoOverwriteFiles { get; set; }
 
             public IconRandSettings iconTextures { get; set; }
             public RandomisationSetting menuTextures { get; set; }
@@ -133,13 +141,16 @@ namespace Geometry_Dash_Randomiser {
             public float maxSpriteMultiplier { get; set; }
             public bool allowDuplicates { get; set; }
 
+            // Move to different config later
             public Quality quality { get; set; }
             public int seed { get; set; }
 
+            // Move to different config later
             public int themeID { get; set; }
 
             public Serialised_Config() {
                   this.gameDirectory = Config.gameDirectory;
+                  this.autoOverwriteFiles = Config.autoOverwriteFiles;
 
                   this.iconTextures = Config.iconTextures;
                   this.menuTextures = Config.menuTextures;
@@ -161,6 +172,18 @@ namespace Geometry_Dash_Randomiser {
                   this.seed = Config.seed;
 
                   this.themeID = Config.themeID;
+            }
+
+            public static Serialised_Config Deserialise(string[] data) {
+                  Serialised_Config ret;
+                  try {
+                        ret = JsonSerializer.Deserialize<Serialised_Config>(string.Join("\n", data));
+
+                  } catch (JsonException) {
+                        // If there was an error while deserialising the data, return null
+                        ret = null;
+                  }
+                  return ret;
             }
       }
 }
