@@ -27,6 +27,8 @@ Many new configuration settings were added, the whole app was rebuilt from the g
 - Finally, launch the game and enjoy the chaos!
 - To revert the files to the original ones you can copy the "Resources" folder from "Unaltered Files", or click the "Restore Files" button in the app
 
+- More detailed information is available in the "How To Use.txt" file
+
 # Compatibility:
 
 - Windows 10 64 bit, Windows 11 64 bit
