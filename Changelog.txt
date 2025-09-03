@@ -7,7 +7,6 @@ What's New?
 
 Bugfixes:
  - Fixed some sprites not getting categorised properly or at all
- - Fixed elapsed time display not showing time past 1 minute properly
  - Fixed Restore Files button is clickable on first startup
 
 Known Bugs:
