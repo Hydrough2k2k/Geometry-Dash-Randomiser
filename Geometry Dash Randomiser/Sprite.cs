@@ -7,7 +7,7 @@ namespace Geometry_Dash_Randomiser {
 
             public enum ResourceType { Unknown, Icon, Block, Portal, Orb, Pad, Editor, Menu, Particle, Effect, Miscellaneous, Shop }
 
-            public enum IconType { Invalid, Cube, Ship, Ball, UFO, Wave, Robot, Spider, Swing, Jetpack }
+            public enum IconType { Unknown, Cube, Ship, Ball, UFO, Wave, Robot, Spider, Swing, Jetpack }
 
             // What file did this come from, for example: "bird_01-uhd"
             // Might be retired in place of a container containing an array of sprites if it makes sense. SpriteSheet is a good name, maybe
@@ -17,15 +17,21 @@ namespace Geometry_Dash_Randomiser {
             public string spriteName { get; set; } = string.Empty;
 
             public Point spriteOffset { get; set; } = new Point();
+
             public Size spriteSize { get; set; } = new Size();
+
             public Size spriteSourceSize { get; set; } = new Size();
+
             public Rectangle textureRect { get; set; } = new Rectangle();
+
             public Rectangle cropRect { get; set; } = new Rectangle();
+
             public bool textureRotated { get; set; } = false;
+
             public ResourceType type { get; set; } = ResourceType.Unknown;
 
-            // This should only be used and accessed if type == Sprite.Type.Icon, and check if it is not invalid
-            public IconType iconType { get; set; } = IconType.Invalid;
+            // This should only be used and accessed if type == Sprite.Type.Icon, and check if it is not unknown
+            public IconType iconType { get; set; } = IconType.Unknown;
 
             // The cropped bitmap for the sprite
             public Bitmap texture = null;

@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using static Geometry_Dash_Randomiser.GameFileManager;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -76,23 +75,21 @@ namespace Geometry_Dash_Randomiser {
             // -------------------------------------------------------------------------------------
 
             /// <summary> Resources folder where the game is installed </summary>
-            public static string gameResourcesFolder => Path.Combine(Config.gameDirectory, resourcesFolderName);
+            public static string gameResourcesFolder => Path.Combine(Config.Instance.gameDirectory, resourcesFolderName);
 
             /// <summary> Icons folder where the game is installed </summary>
-            public static string gameIconsFolder => Path.Combine(Config.gameDirectory, resourcesFolderName, iconsFolderName);
-
-            // -------------------------------------------------------------------------------------
+            public static string gameIconsFolder => Path.Combine(Config.Instance.gameDirectory, resourcesFolderName, iconsFolderName);
 
             /// <summary> Resources folder in the application's folder. This stores the unaltered files </summary>
-            public static string backupResourcesFolder => Path.Combine(unalteredFiles, GetQualityFolderName(Config.quality), resourcesFolderName);
+            public static string backupResourcesFolder => Path.Combine(unalteredFiles, GetQualityFolderName(Config.Instance.quality), resourcesFolderName);
 
             /// <summary> Icons folder in the application's folder. This stores the unaltered files </summary>
-            public static string backupIconsFolder => Path.Combine(unalteredFiles, GetQualityFolderName(Config.quality), resourcesFolderName, iconsFolderName);
+            public static string backupIconsFolder => Path.Combine(unalteredFiles, GetQualityFolderName(Config.Instance.quality), resourcesFolderName, iconsFolderName);
 
             /// <summary> This is where the randomised Resources files will go by default </summary>
-            public static string localResourcesOutputFolder => Path.Combine(randomisedFiles, GetQualityFolderName(Config.quality), resourcesFolderName);
+            public static string localResourcesOutputFolder => Path.Combine(randomisedFiles, GetQualityFolderName(Config.Instance.quality), resourcesFolderName);
 
             /// <summary> This is where the randomised Icons files will go by default </summary>
-            public static string localIconsOutputFolder => Path.Combine(randomisedFiles, GetQualityFolderName(Config.quality), resourcesFolderName, iconsFolderName);
+            public static string localIconsOutputFolder => Path.Combine(randomisedFiles, GetQualityFolderName(Config.Instance.quality), resourcesFolderName, iconsFolderName);
       }
 }

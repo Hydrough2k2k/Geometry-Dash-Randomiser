@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -36,5 +32,22 @@ namespace Geometry_Dash_Randomiser {
             public bool shuffleFontStyles { get; set; } = false;
             public FontStyleShufflingMode shufflingMode { get; set; }
             public bool randomiseLetters { get; set; } = false;
+
+            public string GetStatusHex() {
+                  int status = Convert.ToInt32(enabled) << 3;
+                  status |= Convert.ToInt32(shuffleFontStyles) << 2;
+                  status |= (int)shufflingMode << 1;
+                  status |= Convert.ToInt32(randomiseLetters);
+                  return status.ToString("X2");
+            }
+
+            public void ApplyConfigFromHex(string hex) {
+                  Int32.TryParse(hex, style: System.Globalization.NumberStyles.HexNumber, null, out int result);
+
+                  enabled = (result & 0x8) != 0;
+                  shuffleFontStyles = (result & 0x4) != 0;
+                  shufflingMode = (FontStyleShufflingMode)((result & 0x2) >> 1);
+                  randomiseLetters = (result & 0x1) != 0;
+            }
       }
 }

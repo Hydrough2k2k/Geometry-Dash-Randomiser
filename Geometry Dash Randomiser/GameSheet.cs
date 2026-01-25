@@ -23,7 +23,8 @@ namespace Geometry_Dash_Randomiser {
                   return BitmapExtensions.Assemble(
                         font.chars.Select(c => c.texture).ToArray(),
                         font.chars.Select(c => c.rectangle).ToArray(),
-                        new Size(font.scaleW, font.scaleH));
+                        new Size(font.scaleW, font.scaleH)
+                  );
             }
       }
 }

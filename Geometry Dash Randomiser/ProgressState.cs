@@ -1,6 +1,4 @@
-﻿using static Geometry_Dash_Randomiser.GameFileManager;
-
-namespace Geometry_Dash_Randomiser {
+﻿namespace Geometry_Dash_Randomiser {
 
       public class ProgressState {
 

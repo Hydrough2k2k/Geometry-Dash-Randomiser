@@ -23,12 +23,14 @@ namespace Geometry_Dash_Randomiser {
 
             public static Bitmap cropImage(this Bitmap img, Rectangle cropArea) {
 
-                  if (cropArea.Width <= 0 || cropArea.Height <= 0)
-                        return new Bitmap(1, 1);
-
                   if (cropArea.X + cropArea.Width > img.Width || cropArea.Y + cropArea.Height > img.Height) {
                         Console.WriteLine($"Warning: Cropping area {cropArea} is partially out of the image {img.Size}. Adjusting crop area to fit within the image bounds.");
                         cropArea = new Rectangle(new Point(cropArea.X, cropArea.Y), new Size(img.Width - cropArea.X, img.Height - cropArea.Y));
+                  }
+
+                  if (cropArea.Width <= 0 || cropArea.Height <= 0) {
+
+                        return new Bitmap(1, 1);
                   }
 
                   return img.Clone(cropArea, img.PixelFormat);
@@ -274,30 +276,6 @@ namespace Geometry_Dash_Randomiser {
                   }
 
                   return newBitmap;
-            }
-
-            public static Bitmap[,] Subdivide(this Bitmap b, int maxDimensionSize) {
-                  int horizontalSlices = (b.Height - 1) / maxDimensionSize + 1;
-                  int verticalSlices = (b.Width - 1) / maxDimensionSize + 1;
-
-                  // Create 2D array
-                  Bitmap[,] sub = new Bitmap[verticalSlices, horizontalSlices];
-
-                  for (int y = 0; y < horizontalSlices; y++) {
-
-                        for (int x = 0; x < verticalSlices; x++) {
-
-                              // How big the cropped subsheet will be, max will be "maxDimensionSize"
-                              int cropWidth = Math.Min(maxDimensionSize, b.Width - x * maxDimensionSize);
-                              int cropHeight = Math.Min(maxDimensionSize, b.Height - y * maxDimensionSize);
-
-                              Point point = new Point(x * maxDimensionSize, y * maxDimensionSize);
-                              Size size = new Size(cropWidth, cropHeight);
-
-                              sub[x, y] = cropImage(b, new Rectangle(point, size));
-                        }
-                  }
-                  return sub;
             }
 
             // Maybe not the best name for this method?

@@ -1,106 +1,61 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Text.Json;
 using static Geometry_Dash_Randomiser.FontRandomisationSettings;
-using static Geometry_Dash_Randomiser.GameFileManager;
 
 namespace Geometry_Dash_Randomiser {
 
-      // Convert to singleton later after doing some testing in another project. I'm not sure how deserialisation works with singletons
-      public static class Config {
+      public class Config {
 
-            const string configFileName = "config.txt";
+            private static Config _instance;
 
-            // This is where the default values are defined
-            public static string gameDirectory = "";
-            public static bool autoOverwriteFiles = true;
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public Config() { }
 
-            // Configs for every randomisation type
-            // Default: group 0, disabled
-            public static IconRandSettings iconTextures = new IconRandSettings();
-            public static RandomisationSetting menuTextures = new RandomisationSetting(group: 2, enabled: true);
-            public static RandomisationSetting shopTextures = new RandomisationSetting();
-            public static RandomisationSetting editorTextures = new RandomisationSetting();
-            public static RandomisationSetting tileTextures = new RandomisationSetting();
-            public static RandomisationSetting portalTextures = new RandomisationSetting(group: 0, true);
-            public static RandomisationSetting orbTextures = new RandomisationSetting(group: 3, enabled: true);
-            public static RandomisationSetting padTextures = new RandomisationSetting(group: 0, enabled: true);
-            public static RandomisationSetting particleTextures = new RandomisationSetting(group: 4, enabled: true);
-            public static RandomisationSetting effectTextures = new RandomisationSetting();
-            public static RandomisationSetting miscTextures = new RandomisationSetting();
-            public static FontRandomisationSettings fontRand = new FontRandomisationSettings(
+            public static Config Instance {
+                  get {
+                        if (_instance == null)
+                              _instance = new Config();
+                        return _instance;
+                  }
+            }
+
+            public string gameDirectory { get; set; } = "";
+            public bool autoOverwriteFiles { get; set; } = true;
+
+            public IconRandSettings iconTextures { get; set; } = new IconRandSettings { group = 0, enabled = true };
+            public RandomisationSetting menuTextures { get; set; } = new RandomisationSetting(group: 1, enabled: true);
+            public RandomisationSetting shopTextures { get; set; } = new RandomisationSetting(group: 1, enabled: true);
+            public RandomisationSetting editorTextures { get; set; } = new RandomisationSetting();
+            public RandomisationSetting tileTextures { get; set; } = new RandomisationSetting();
+            public RandomisationSetting portalTextures { get; set; } = new RandomisationSetting(group: 0, true);
+            public RandomisationSetting orbTextures { get; set; } = new RandomisationSetting(group: 3, enabled: true);
+            public RandomisationSetting padTextures { get; set; } = new RandomisationSetting(group: 0, enabled: true);
+            public RandomisationSetting particleTextures { get; set; } = new RandomisationSetting(group: 3, enabled: true);
+            public RandomisationSetting effectTextures { get; set; } = new RandomisationSetting(group: 2, enabled: true);
+            public RandomisationSetting miscTextures { get; set; } = new RandomisationSetting();
+            public FontRandomisationSettings fontRand { get; set; } = new FontRandomisationSettings(
                   enabled: true,
                   shuffleFontStyles: true,
-                  shufflingMode: FontStyleShufflingMode.PerFont,
+                  shufflingMode: FontStyleShufflingMode.PerLetter,
                   randomiseLetters: false
             );
 
-            public static float maxSpriteMultiplier = 1.10f;
-            public static bool allowDuplicates = false;
+            public float maxSpriteMultiplier { get; set; } = 1.10f;
+            public bool allowDuplicates { get; set; } = false;
 
-            public static Quality quality = Quality.High;
-            public static int seed = 0;
+            public Quality quality { get; set; } = Quality.High;
+            public int seed { get; set; } = 0;
 
-            public static int themeID = 0;
+            public int themeID { get; set; } = 0;
 
-            public static void ApplySettings(Serialised_Config config) {
-                  gameDirectory = config.gameDirectory;
-                  autoOverwriteFiles = config.autoOverwriteFiles;
+            // Not in use at the moment, this is a future feature
+            public int configurationID = 0;
+            public bool debugMode { get; set; } = false;
 
-                  iconTextures = config.iconTextures;
-                  menuTextures = config.menuTextures;
-                  shopTextures = config.shopTextures;
-                  editorTextures = config.editorTextures;
-                  tileTextures = config.tileTextures;
-                  portalTextures = config.portalTextures;
-                  orbTextures = config.orbTextures;
-                  padTextures = config.padTextures;
-                  particleTextures = config.particleTextures;
-                  effectTextures = config.effectTextures;
-                  miscTextures = config.miscTextures;
-                  fontRand = config.fontRand;
-
-                  maxSpriteMultiplier = config.maxSpriteMultiplier;
-                  allowDuplicates = config.allowDuplicates;
-
-                  quality = config.quality;
-                  seed = config.seed;
-
-                  themeID = config.themeID;
-            }
-
-            public static void ReadFile() {
-                  if (File.Exists(configFileName)) {
-                        string[] inStream = File.ReadAllLines(configFileName);
-                        Serialised_Config config = Serialised_Config.Deserialise(inStream);
-
-                        if (config != null) {
-                              Config.ApplySettings(config);
-                        } else {
-                              WriteFile();
-                        }
-                  } else {
-                        // If the file doesn't exist, create it with default settings
-                        WriteFile();
-                  }
-            }
-
-            public static void WriteFile() {
-                  Serialised_Config config = new Serialised_Config();
-
-                  JsonSerializerOptions options = new JsonSerializerOptions();
-                  options.WriteIndented = true;
-                  string outStream = JsonSerializer.Serialize(config, options);
-
-                  try {
-                        File.WriteAllText(configFileName, outStream);
-                  } catch (IOException) {
-
-                  }
-            }
-
-            // Unused atm, the 0 settings enabled warning is temporarily disabled
-            public static int GetEnabledSettingsCount() {
+            public int GetEnabledSettingsCount() {
                   return Convert.ToInt32(iconTextures.enabled) +
                         Convert.ToInt32(menuTextures.enabled) +
                         Convert.ToInt32(shopTextures.enabled) +
@@ -112,78 +67,194 @@ namespace Geometry_Dash_Randomiser {
                         Convert.ToInt32(particleTextures.enabled) +
                         Convert.ToInt32(effectTextures.enabled) +
                         Convert.ToInt32(miscTextures.enabled) +
-                        Convert.ToInt32(fontRand.enabled) +
-                        Convert.ToInt32(fontRand.shuffleFontStyles) +
-                        Convert.ToInt32(fontRand.randomiseLetters);
-            }
-      }
-
-      public class Serialised_Config {
-
-            // Move to different config later
-            public string gameDirectory { get; set; } = string.Empty;
-            // Move to different config later
-            public bool autoOverwriteFiles { get; set; }
-
-            public IconRandSettings iconTextures { get; set; }
-            public RandomisationSetting menuTextures { get; set; }
-            public RandomisationSetting shopTextures { get; set; }
-            public RandomisationSetting editorTextures { get; set; }
-            public RandomisationSetting tileTextures { get; set; }
-            public RandomisationSetting portalTextures { get; set; }
-            public RandomisationSetting orbTextures { get; set; }
-            public RandomisationSetting padTextures { get; set; }
-            public RandomisationSetting particleTextures { get; set; }
-            public RandomisationSetting effectTextures { get; set; }
-            public RandomisationSetting miscTextures { get; set; }
-            public FontRandomisationSettings fontRand { get; set; }
-
-            public float maxSpriteMultiplier { get; set; }
-            public bool allowDuplicates { get; set; }
-
-            // Move to different config later
-            public Quality quality { get; set; }
-            public int seed { get; set; }
-
-            // Move to different config later
-            public int themeID { get; set; }
-
-            public Serialised_Config() {
-                  this.gameDirectory = Config.gameDirectory;
-                  this.autoOverwriteFiles = Config.autoOverwriteFiles;
-
-                  this.iconTextures = Config.iconTextures;
-                  this.menuTextures = Config.menuTextures;
-                  this.shopTextures = Config.shopTextures;
-                  this.editorTextures = Config.editorTextures;
-                  this.tileTextures = Config.tileTextures;
-                  this.portalTextures = Config.portalTextures;
-                  this.orbTextures = Config.orbTextures;
-                  this.padTextures = Config.padTextures;
-                  this.particleTextures = Config.particleTextures;
-                  this.effectTextures = Config.effectTextures;
-                  this.miscTextures = Config.miscTextures;
-                  this.fontRand = Config.fontRand;
-
-                  this.maxSpriteMultiplier = Config.maxSpriteMultiplier;
-                  this.allowDuplicates = Config.allowDuplicates;
-
-                  this.quality = Config.quality;
-                  this.seed = Config.seed;
-
-                  this.themeID = Config.themeID;
+                        Convert.ToInt32(fontRand.enabled);
             }
 
-            public static Serialised_Config Deserialise(string[] data) {
-                  Serialised_Config ret;
+            public static void ReadFile() {
+                  if (File.Exists(configFileName)) {
+                        string[] inStream = File.ReadAllLines(configFileName);
+                        _instance = Config.Deserialise(inStream);
+                  }
+            }
+
+            public void WriteFile() {
+                  Console.WriteLine("Saving Config File");
+
+                  string outStream = this.Serialize();
+
                   try {
-                        ret = JsonSerializer.Deserialize<Serialised_Config>(string.Join("\n", data));
+                        File.WriteAllText(configFileName, outStream);
+                  } catch (IOException ioExcept) {
+                        Console.WriteLine($"Failed to write config file. Reason: {ioExcept}");
+                  }
+            }
 
-                  } catch (JsonException) {
-                        // If there was an error while deserialising the data, return null
+            string Serialize() {
+                  JsonSerializerOptions options = new JsonSerializerOptions {
+                        WriteIndented = true
+                  };
+
+                  return JsonSerializer.Serialize(_instance, options);
+            }
+
+            public static Config Deserialise(string[] data) {
+                  Config ret;
+                  try {
+                        ret = JsonSerializer.Deserialize<Config>(string.Join("\n", data));
+
+                  } catch (JsonException JSON_Except) {
+                        Console.WriteLine($"Failed to convert the config file from JSON. Reason: {JSON_Except}");
                         ret = null;
                   }
+
+                  if (ret.themeID < 0)
+                        ret.themeID = 0;
+
+                  ret.iconTextures.Validate();
+
+                  ret.menuTextures.Validate();
+                  ret.shopTextures.Validate();
+                  ret.editorTextures.Validate();
+                  ret.tileTextures.Validate();
+                  ret.portalTextures.Validate();
+                  ret.orbTextures.Validate();
+                  ret.padTextures.Validate();
+                  ret.particleTextures.Validate();
+                  ret.effectTextures.Validate();
+                  ret.miscTextures.Validate();
+                  
+                  if (ret.maxSpriteMultiplier < 1.01) {
+                        ret.maxSpriteMultiplier = 1.10f;
+                  }
+
                   return ret;
             }
+
+            public string GetExportConfigData() {
+                  List<string> dataPoints = new List<string>();
+
+                  dataPoints.Add(iconTextures.GetStatusHex());
+                  dataPoints.Add(menuTextures.GetStatusHex());
+                  dataPoints.Add(shopTextures.GetStatusHex());
+                  dataPoints.Add(editorTextures.GetStatusHex());
+                  dataPoints.Add(tileTextures.GetStatusHex());
+                  dataPoints.Add(portalTextures.GetStatusHex());
+                  dataPoints.Add(orbTextures.GetStatusHex());
+                  dataPoints.Add(padTextures.GetStatusHex());
+                  dataPoints.Add(particleTextures.GetStatusHex());
+                  dataPoints.Add(effectTextures.GetStatusHex());
+                  dataPoints.Add(miscTextures.GetStatusHex());
+                  dataPoints.Add(fontRand.GetStatusHex());
+                  dataPoints.Add(((int)(maxSpriteMultiplier * 100)).ToString("X"));
+                  dataPoints.Add(Convert.ToInt32(allowDuplicates).ToString());
+                  dataPoints.Add(seed.ToString("X"));
+
+                  return string.Join("#", dataPoints);
+            }
+
+            /// <returns>If the import was successful</returns>
+            public bool ImportConfigData(string data) {
+                  string[] dataPoints = data.Split('#');
+
+                  if (dataPoints.Length <= 1) {
+                        Console.WriteLine("The app received no data points to import");
+                        return false;
+                  }
+
+                  Console.WriteLine($"Received {dataPoints.Length} datapoints from import string");
+
+                  bool quit = false;
+
+                  for (int i = 0; i < dataPoints.Length; i++) {
+                        string dp = dataPoints[i];
+                        Console.WriteLine(dp);
+
+                        // If the data for a setting is empty, skip it
+                        if (dp.Length == 0)
+                              continue;
+
+                        switch (i) {
+                              case 0:
+                                    this.iconTextures.ApplyConfigFromHex(dp);
+                                    break;
+                              case 1:
+                                    this.menuTextures.ApplyConfigFromHex(dp);
+                                    break;
+                              case 2:
+                                    this.shopTextures.ApplyConfigFromHex(dp);
+                                    break;
+                              case 3:
+                                    this.editorTextures.ApplyConfigFromHex(dp);
+                                    break;
+                              case 4:
+                                    this.tileTextures.ApplyConfigFromHex(dp);
+                                    break;
+                              case 5:
+                                    this.portalTextures.ApplyConfigFromHex(dp);
+                                    break;
+                              case 6:
+                                    this.orbTextures.ApplyConfigFromHex(dp);
+                                    break;
+                              case 7:
+                                    this.padTextures.ApplyConfigFromHex(dp);
+                                    break;
+                              case 8:
+                                    this.particleTextures.ApplyConfigFromHex(dp);
+                                    break;
+                              case 9:
+                                    this.effectTextures.ApplyConfigFromHex(dp);
+                                    break;
+                              case 10:
+                                    this.miscTextures.ApplyConfigFromHex(dp);
+                                    break;
+                              case 11:
+                                    this.fontRand.ApplyConfigFromHex(dp);
+                                    break;
+                              case 12:
+                                    Int32.TryParse(dp.Trim(), System.Globalization.NumberStyles.HexNumber, null, out int convertedMult);
+                                    this.maxSpriteMultiplier = convertedMult / 100f;
+                                    break;
+                              case 13:
+                                    Boolean.TryParse(dp.Trim(), out bool convertedAllowDupes);
+                                    this.allowDuplicates = convertedAllowDupes;
+                                    break;
+                              case 14:
+                                    Int32.TryParse(dp.Trim(), System.Globalization.NumberStyles.HexNumber, null, out int convertedSeed);
+                                    this.seed = convertedSeed;
+                                    break;
+                              default:
+                                    Console.WriteLine($"The app received too many data points. Received: {dataPoints.Length}, Max expected: {maxExpectedDataPoints}");
+                                    quit = true;
+                                    break;
+                        }
+
+                        if (quit)
+                              break;
+                  }
+
+                  return true;
+            }
+
+            enum ExportIdentifiers {
+                  IconTextures,
+                  MenuTextures,
+                  ShopTextures,
+                  EditorTextures,
+                  TileTextures,
+                  PortalTextures,
+                  OrbTextures,
+                  PadTextures,
+                  ParticleTextures,
+                  EffectTextures,
+                  MiscTextures,
+                  FontRandomisation,
+                  MaxSpriteSizeMultiplier,
+                  AllowDuplicates,
+                  Seed
+            }
+
+            private const int maxExpectedDataPoints = 15;
+            const string configFileName = "config.txt";
+            public const int maxGroups = 100;
       }
 }

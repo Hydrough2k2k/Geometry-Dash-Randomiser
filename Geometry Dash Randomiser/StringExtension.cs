@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
-using static Geometry_Dash_Randomiser.FontRandomisationSettings;
 
 namespace Geometry_Dash_Randomiser {
 
       internal static class StringExtension {
 
-            const string ASCII = " !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+            const string ASCII = numbersAndLetters + symbols;
             const string numbers = "0123456789";
             const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
             const string symbols = "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~";
+            const string numbersAndLetters = numbers + letters + " ";
 
-            public static string AlterRandomCharactersLooped(this string str, int loops, LetterRandomiationMode mode = LetterRandomiationMode.Unrestricted, Random random = null) {
+            public static string AlterRandomCharactersLooped(this string str, int loops) {
                   for (int i = 0; i < loops; i++) {
-                        str = str.AlterRandomCharacters(random, 10);
+                        str = str.AlterRandomCharacters(10);
                   }
                   return str;
             }
@@ -30,7 +29,7 @@ namespace Geometry_Dash_Randomiser {
                   StringBuilder sb = new StringBuilder(str);
                   for (int j = 0; j < str.Length; j++) {
                         if (random.Next(probability) == 0) {
-                              sb[j] = ASCII[random.Next(ASCII.Length)];
+                              sb[j] = numbersAndLetters[random.Next(numbersAndLetters.Length)];
                         }
                   }
 

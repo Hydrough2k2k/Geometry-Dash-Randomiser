@@ -1,3 +1,27 @@
+Changelog for V2.4.0.0:
+
+What's New?
+ - Changed header and version text font
+ - Added a way to import and export the app configuration
+ - Added symbols to fields or areas that prevent the app from working
+ - Set the maximum randomisation group to 100 because idk
+ - Added a debug console window that you can enable in the config.txt file
+ - You can now make custom themes, open the "Themes" folder after launching the application
+ - Added an extra "Strawberry" theme
+ - Made a fancy Changelog window. You are looking at it right now! (maybe)
+
+Bugfixes:
+ - Reduced the amount of configuration file writes
+ - On bootup the settings for icon randomisations settings were not loaded properly
+
+Known Bugs:
+ - Texture Size Multiplier slider is always visually at 0 at startup. The setting is saved, but not reflected visually on the slider
+ - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can make levels easier or impossible in some cases
+ - Sometimes some fonts do not render at all
+ - Mystery bugs that I haven't discovered yet
+
+------------------------------------------------------------
+
 Changelog for V2.3.1.0:
 
 What's New?
@@ -7,16 +31,15 @@ What's New?
 
 Bugfixes:
  - Fixed some sprites not getting categorised properly or at all
- - Fixed elapsed time display not showing time past 1 minute properly
- - Fixed Restore Files button is clickable on first startup
+ - Fixed Restore Files button was clickable on first startup when there were no files to restore
 
 Known Bugs:
  - Texture Size Multiplier slider is always visually at 0 at startup. The setting is saved, but not reflected visually on the slider
- - Some textures are not categorised correctly
  - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can make levels easier or impossible in some cases
  - Sometimes some fonts do not render at all
+ - Mystery bugs that I haven't discovered yet
 
--------------------------------------------
+------------------------------------------------------------
 
 Changelog for V2.3.0.1:
 
@@ -24,29 +47,36 @@ Bugfixes:
  - Fixed crash on bootup when the config file is corrupted
  - Fixed theme ID not getting saved
 
--------------------------------------------
+Known Bugs:
+ - Texture Size Multiplier slider is always visually at 0 at startup. The setting is saved, but not reflected visually on the slider
+ - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can make levels easier or impossible in some cases
+ - Sometimes some fonts do not render at all
 
-Changelog for V2.3.0:
+------------------------------------------------------------
+
+Changelog for V2.3.0.0:
 
 What's new?
  - Major visual overhaul, it should be easier to navigate this app now
  - Text Randomisation with a lot of settings with more to come later
  - Restore files button to quickly return the game to it's normal (boring) state
- - File for \"Blacklisted files\". Every file added to this will be ignored when randomising files
+ - File for "Blacklisted files". Every file added to this will be ignored when randomising files
  - Some new and reworked themes. Random theme also exists for some reason
-
-Changes:
- - Removed the custom output directory. The backup files will always be in the application's folder
 
 Bugfixes:
  - Fixed crashes caused by config file writing and reading running into errors
  - Every value on the Texture Size Multiplier slider is available now
 
--------------------------------------------
+Known Bugs:
+ - Texture Size Multiplier slider is always visually at 0 at startup. The setting is saved, but not reflected visually on the slider
+ - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can make levels easier or impossible in some cases
+ - Sometimes some fonts do not render at all
 
-Changelog for V2.2.0:
+------------------------------------------------------------
 
-What's new?
+Changelog for V2.2.0.0:
+
+What's New?
  - Added Sprite Size Multiplier setting to limit different size textures getting swapped
  - Added Allow Duplicate Textures button
  - Split the application settings into 2 smaller menus
@@ -55,14 +85,14 @@ What's new?
 Bugfixes:
  - Fixed sprites sometimes flowing into each other and creating minor visual glitches (again)
 
--------------------------------------------
+------------------------------------------------------------
 
-Changelog for V2.1.2:
+Changelog for V2.1.2.0:
 
-What's new?
-      - Added a Changelog button, woohoo!
-      - Added a top sneaky button. Where could it be?
+What's New?
+ - Added a Changelog button, woohoo!
+ - Added a top sneaky button. Where could it be?
 
 Bugfixes:
-      - Fixed most of the glitched and cut off textures when remaking gamesheets
-      - Lowered memory usage of program from 1.5GB to under 1GB after randomisation
+ - Fixed most of the glitched and cut off textures when remaking gamesheets
+ - Lowered memory usage of program from 1.5GB to under 1GB after randomisation

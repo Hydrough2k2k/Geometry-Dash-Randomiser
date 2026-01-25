@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using static Geometry_Dash_Randomiser.FontRandomisationSettings;
 using static Geometry_Dash_Randomiser.GameFileManager;
 using static Geometry_Dash_Randomiser.GameFilesExtension;
 using static Geometry_Dash_Randomiser.PathManager;
-using static Geometry_Dash_Randomiser.FontRandomisationSettings;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -80,6 +80,8 @@ namespace Geometry_Dash_Randomiser {
                   fontFileNames = GetAllFileNames(path, quality);
                   fonts = new Font[fontFileNames.Length];
 
+                  Console.WriteLine($"Unpacking {fontFileNames.Length} files from {PathManager.GetPath(GDR_Path.BackupResourcesFolder)}");
+
                   gameFileManager.progressState.NewFileBatch(fontFileNames.Length);
 
                   string outputPath = PathManager.backupResourcesFolder;
@@ -125,16 +127,16 @@ namespace Geometry_Dash_Randomiser {
             public RandomisationMode GetRandomisationMode() {
                   RandomisationMode mode = RandomisationMode.None;
 
-                  if (Config.fontRand.enabled == false) {
+                  if (Config.Instance.fontRand.enabled == false) {
                         return mode;
                   }
-                  if (Config.fontRand.shuffleFontStyles == true) {
+                  if (Config.Instance.fontRand.shuffleFontStyles == true) {
                         mode |= RandomisationMode.ShuffleFontStyles;
                   }
-                  if (Config.fontRand.shufflingMode == FontStyleShufflingMode.PerLetter) {
+                  if (Config.Instance.fontRand.shufflingMode == FontStyleShufflingMode.PerLetter) {
                         mode |= RandomisationMode.PerCharacterStyleShuffling;
                   }
-                  if (Config.fontRand.randomiseLetters == true) {
+                  if (Config.Instance.fontRand.randomiseLetters == true) {
                         mode |= RandomisationMode.ShuffleLetters;
                   }
 

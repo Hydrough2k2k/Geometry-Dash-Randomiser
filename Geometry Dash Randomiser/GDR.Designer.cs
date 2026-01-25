@@ -44,7 +44,7 @@
                   this.BlockTexturesGroupDisplay = new System.Windows.Forms.NumericUpDown();
                   this.MiscGroupDisplay = new System.Windows.Forms.NumericUpDown();
                   this.EffectsGroupDisplay = new System.Windows.Forms.NumericUpDown();
-                  this.GDR_HeaderLabel = new System.Windows.Forms.Label();
+                  this.headerLabel = new System.Windows.Forms.Label();
                   this.versionLabel = new System.Windows.Forms.Label();
                   this.gameFolderTextBox = new System.Windows.Forms.TextBox();
                   this.gameFolderLabel = new System.Windows.Forms.Label();
@@ -85,22 +85,18 @@
                   this.RobotTexturesGroupDisplay = new System.Windows.Forms.NumericUpDown();
                   this.WaveTexturesGroupDisplay = new System.Windows.Forms.NumericUpDown();
                   this.UFO_TexturesGroupDisplay = new System.Windows.Forms.NumericUpDown();
-                  this.groupInfoHelpButton2 = new System.Windows.Forms.Button();
                   this.PadsGroupDisplay = new System.Windows.Forms.NumericUpDown();
                   this.ChangelogButton = new System.Windows.Forms.Button();
-                  this.Logo = new System.Windows.Forms.PictureBox();
                   this.ThemeLabel = new System.Windows.Forms.Label();
                   this.applicationThemeSelectorBox = new System.Windows.Forms.DomainUpDown();
                   this.spriteSizeMultiplierTextbox = new System.Windows.Forms.TextBox();
-                  this.groupBox1 = new System.Windows.Forms.GroupBox();
+                  this.IconTextureBox = new System.Windows.Forms.GroupBox();
                   this.label4 = new System.Windows.Forms.Label();
                   this.label3 = new System.Windows.Forms.Label();
-                  this.iconsConnectorBeam = new System.Windows.Forms.PictureBox();
-                  this.groupBox2 = new System.Windows.Forms.GroupBox();
+                  this.GameTextureBox = new System.Windows.Forms.GroupBox();
                   this.label2 = new System.Windows.Forms.Label();
                   this.label1 = new System.Windows.Forms.Label();
-                  this.groupBox5 = new System.Windows.Forms.GroupBox();
-                  this.shuffleFontsConnectorBeam = new System.Windows.Forms.PictureBox();
+                  this.FontRandBox = new System.Windows.Forms.GroupBox();
                   this.groupBox3 = new System.Windows.Forms.GroupBox();
                   this.checkBox4 = new System.Windows.Forms.CheckBox();
                   this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -110,6 +106,16 @@
                   this.randomisingProgressDisplay = new System.Windows.Forms.Label();
                   this.readyStatusDisplay = new System.Windows.Forms.Label();
                   this.elapsedTimeDisplay = new System.Windows.Forms.Label();
+                  this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
+                  this.label5 = new System.Windows.Forms.Label();
+                  this.button1 = new System.Windows.Forms.Button();
+                  this.gameFolderWarningImage = new System.Windows.Forms.PictureBox();
+                  this.iconWarningImage_3 = new System.Windows.Forms.PictureBox();
+                  this.shuffleFontsConnectorBeam = new System.Windows.Forms.PictureBox();
+                  this.iconWarningImage_2 = new System.Windows.Forms.PictureBox();
+                  this.iconWarningImage_1 = new System.Windows.Forms.PictureBox();
+                  this.iconsConnectorBeam = new System.Windows.Forms.PictureBox();
+                  this.Logo = new System.Windows.Forms.PictureBox();
                   ((System.ComponentModel.ISupportInitialize)(this.IconTexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.MenuTexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.EditorTexturesGroupDisplay)).BeginInit();
@@ -132,14 +138,18 @@
                   ((System.ComponentModel.ISupportInitialize)(this.WaveTexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.UFO_TexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.PadsGroupDisplay)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
-                  this.groupBox1.SuspendLayout();
-                  ((System.ComponentModel.ISupportInitialize)(this.iconsConnectorBeam)).BeginInit();
-                  this.groupBox2.SuspendLayout();
-                  this.groupBox5.SuspendLayout();
-                  ((System.ComponentModel.ISupportInitialize)(this.shuffleFontsConnectorBeam)).BeginInit();
+                  this.IconTextureBox.SuspendLayout();
+                  this.GameTextureBox.SuspendLayout();
+                  this.FontRandBox.SuspendLayout();
                   this.groupBox3.SuspendLayout();
                   this.groupBox4.SuspendLayout();
+                  ((System.ComponentModel.ISupportInitialize)(this.gameFolderWarningImage)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.iconWarningImage_3)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.shuffleFontsConnectorBeam)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.iconWarningImage_2)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.iconWarningImage_1)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.iconsConnectorBeam)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
                   this.SuspendLayout();
                   // 
                   // IconTexturesCheckbox
@@ -289,24 +299,19 @@
                   this.IconTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.IconTexturesGroupDisplay.Location = new System.Drawing.Point(225, 50);
                   this.IconTexturesGroupDisplay.Maximum = new decimal(new int[] {
-            10,
+            127,
             0,
             0,
             0});
                   this.IconTexturesGroupDisplay.Name = "IconTexturesGroupDisplay";
                   this.IconTexturesGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.IconTexturesGroupDisplay.TabIndex = 31;
-                  this.IconTexturesGroupDisplay.ValueChanged += new System.EventHandler(this.IconTexturesGroupChanged);
+                  this.IconTexturesGroupDisplay.Leave += new System.EventHandler(this.IconTexturesGroupChanged);
                   // 
                   // MenuTexturesGroupDisplay
                   // 
                   this.MenuTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.MenuTexturesGroupDisplay.Location = new System.Drawing.Point(225, 50);
-                  this.MenuTexturesGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.MenuTexturesGroupDisplay.Name = "MenuTexturesGroupDisplay";
                   this.MenuTexturesGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.MenuTexturesGroupDisplay.TabIndex = 32;
@@ -316,11 +321,6 @@
                   // 
                   this.EditorTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.EditorTexturesGroupDisplay.Location = new System.Drawing.Point(225, 110);
-                  this.EditorTexturesGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.EditorTexturesGroupDisplay.Name = "EditorTexturesGroupDisplay";
                   this.EditorTexturesGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.EditorTexturesGroupDisplay.TabIndex = 34;
@@ -330,11 +330,6 @@
                   // 
                   this.ShopTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.ShopTexturesGroupDisplay.Location = new System.Drawing.Point(225, 80);
-                  this.ShopTexturesGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.ShopTexturesGroupDisplay.Name = "ShopTexturesGroupDisplay";
                   this.ShopTexturesGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.ShopTexturesGroupDisplay.TabIndex = 33;
@@ -344,11 +339,6 @@
                   // 
                   this.ParticleTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.ParticleTexturesGroupDisplay.Location = new System.Drawing.Point(225, 260);
-                  this.ParticleTexturesGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.ParticleTexturesGroupDisplay.Name = "ParticleTexturesGroupDisplay";
                   this.ParticleTexturesGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.ParticleTexturesGroupDisplay.TabIndex = 38;
@@ -358,11 +348,6 @@
                   // 
                   this.OrbsGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.OrbsGroupDisplay.Location = new System.Drawing.Point(225, 200);
-                  this.OrbsGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.OrbsGroupDisplay.Name = "OrbsGroupDisplay";
                   this.OrbsGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.OrbsGroupDisplay.TabIndex = 37;
@@ -372,11 +357,6 @@
                   // 
                   this.PortalTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.PortalTexturesGroupDisplay.Location = new System.Drawing.Point(225, 170);
-                  this.PortalTexturesGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.PortalTexturesGroupDisplay.Name = "PortalTexturesGroupDisplay";
                   this.PortalTexturesGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.PortalTexturesGroupDisplay.TabIndex = 36;
@@ -386,11 +366,6 @@
                   // 
                   this.BlockTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.BlockTexturesGroupDisplay.Location = new System.Drawing.Point(225, 140);
-                  this.BlockTexturesGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.BlockTexturesGroupDisplay.Name = "BlockTexturesGroupDisplay";
                   this.BlockTexturesGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.BlockTexturesGroupDisplay.TabIndex = 35;
@@ -400,11 +375,6 @@
                   // 
                   this.MiscGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.MiscGroupDisplay.Location = new System.Drawing.Point(225, 320);
-                  this.MiscGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.MiscGroupDisplay.Name = "MiscGroupDisplay";
                   this.MiscGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.MiscGroupDisplay.TabIndex = 40;
@@ -414,34 +384,29 @@
                   // 
                   this.EffectsGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.EffectsGroupDisplay.Location = new System.Drawing.Point(225, 290);
-                  this.EffectsGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.EffectsGroupDisplay.Name = "EffectsGroupDisplay";
                   this.EffectsGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.EffectsGroupDisplay.TabIndex = 39;
                   this.EffectsGroupDisplay.ValueChanged += new System.EventHandler(this.EffectsSettingsChanged);
                   // 
-                  // GDR_HeaderLabel
+                  // headerLabel
                   // 
-                  this.GDR_HeaderLabel.AutoSize = true;
-                  this.GDR_HeaderLabel.Font = new System.Drawing.Font("High Tower Text", 39.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.GDR_HeaderLabel.Location = new System.Drawing.Point(107, 6);
-                  this.GDR_HeaderLabel.Name = "GDR_HeaderLabel";
-                  this.GDR_HeaderLabel.Size = new System.Drawing.Size(645, 62);
-                  this.GDR_HeaderLabel.TabIndex = 41;
-                  this.GDR_HeaderLabel.Text = "Geometry Dash Randomiser";
-                  this.GDR_HeaderLabel.Click += new System.EventHandler(this.GDR_HeaderLabel_Click);
+                  this.headerLabel.AutoSize = true;
+                  this.headerLabel.Font = new System.Drawing.Font("Javanese Text", 36F);
+                  this.headerLabel.Location = new System.Drawing.Point(135, -6);
+                  this.headerLabel.Name = "headerLabel";
+                  this.headerLabel.Size = new System.Drawing.Size(627, 109);
+                  this.headerLabel.TabIndex = 41;
+                  this.headerLabel.Text = "Geometry Dash Randomiser";
+                  this.headerLabel.Click += new System.EventHandler(this.GDR_HeaderLabel_Click);
                   // 
                   // versionLabel
                   // 
                   this.versionLabel.AutoSize = true;
-                  this.versionLabel.Font = new System.Drawing.Font("High Tower Text", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.versionLabel.Location = new System.Drawing.Point(738, 44);
+                  this.versionLabel.Font = new System.Drawing.Font("Javanese Text", 14F);
+                  this.versionLabel.Location = new System.Drawing.Point(753, 41);
                   this.versionLabel.Name = "versionLabel";
-                  this.versionLabel.Size = new System.Drawing.Size(72, 22);
+                  this.versionLabel.Size = new System.Drawing.Size(79, 43);
                   this.versionLabel.TabIndex = 42;
                   this.versionLabel.Text = "V_._._._";
                   // 
@@ -450,7 +415,7 @@
                   this.gameFolderTextBox.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.gameFolderTextBox.Location = new System.Drawing.Point(8, 42);
                   this.gameFolderTextBox.Name = "gameFolderTextBox";
-                  this.gameFolderTextBox.Size = new System.Drawing.Size(483, 25);
+                  this.gameFolderTextBox.Size = new System.Drawing.Size(450, 25);
                   this.gameFolderTextBox.TabIndex = 43;
                   this.gameFolderTextBox.TextChanged += new System.EventHandler(this.GameFolderTextBox_TextChanged);
                   // 
@@ -466,7 +431,7 @@
                   // 
                   // gameFolderSelectorButton
                   // 
-                  this.gameFolderSelectorButton.Location = new System.Drawing.Point(492, 41);
+                  this.gameFolderSelectorButton.Location = new System.Drawing.Point(458, 41);
                   this.gameFolderSelectorButton.Name = "gameFolderSelectorButton";
                   this.gameFolderSelectorButton.Size = new System.Drawing.Size(28, 27);
                   this.gameFolderSelectorButton.TabIndex = 45;
@@ -496,7 +461,7 @@
                   // 
                   this.textureQualityLabel.AutoSize = true;
                   this.textureQualityLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.textureQualityLabel.Location = new System.Drawing.Point(546, 19);
+                  this.textureQualityLabel.Location = new System.Drawing.Point(19, 70);
                   this.textureQualityLabel.Name = "textureQualityLabel";
                   this.textureQualityLabel.Size = new System.Drawing.Size(114, 20);
                   this.textureQualityLabel.TabIndex = 53;
@@ -722,6 +687,7 @@
                   // fontPerFontRandomisationButton
                   // 
                   this.fontPerFontRandomisationButton.AutoSize = true;
+                  this.fontPerFontRandomisationButton.BackColor = System.Drawing.Color.Transparent;
                   this.fontPerFontRandomisationButton.Font = new System.Drawing.Font("Calibri", 14.25F);
                   this.fontPerFontRandomisationButton.Location = new System.Drawing.Point(32, 81);
                   this.fontPerFontRandomisationButton.Name = "fontPerFontRandomisationButton";
@@ -730,12 +696,13 @@
                   this.fontPerFontRandomisationButton.TabStop = true;
                   this.fontPerFontRandomisationButton.Text = "Per Font Randomisation";
                   this.toolTip.SetToolTip(this.fontPerFontRandomisationButton, "All letters in a font will get their textures from the same fon when possible");
-                  this.fontPerFontRandomisationButton.UseVisualStyleBackColor = true;
+                  this.fontPerFontRandomisationButton.UseVisualStyleBackColor = false;
                   this.fontPerFontRandomisationButton.Click += new System.EventHandler(this.fontPerFontRandomisationButton_Click);
                   // 
                   // fontPerLetterRandomisationButton
                   // 
                   this.fontPerLetterRandomisationButton.AutoSize = true;
+                  this.fontPerLetterRandomisationButton.BackColor = System.Drawing.Color.Transparent;
                   this.fontPerLetterRandomisationButton.Font = new System.Drawing.Font("Calibri", 14.25F);
                   this.fontPerLetterRandomisationButton.Location = new System.Drawing.Point(32, 111);
                   this.fontPerLetterRandomisationButton.Name = "fontPerLetterRandomisationButton";
@@ -744,25 +711,28 @@
                   this.fontPerLetterRandomisationButton.TabStop = true;
                   this.fontPerLetterRandomisationButton.Text = "Per Letter Randomisation";
                   this.toolTip.SetToolTip(this.fontPerLetterRandomisationButton, "Every character will get a texture from a random font. Very chaotic");
-                  this.fontPerLetterRandomisationButton.UseVisualStyleBackColor = true;
+                  this.fontPerLetterRandomisationButton.UseVisualStyleBackColor = false;
                   this.fontPerLetterRandomisationButton.Click += new System.EventHandler(this.fontPerLetterRandomisationButton_Click);
                   // 
                   // fontRandomiseLettersCheckbox
                   // 
                   this.fontRandomiseLettersCheckbox.AutoSize = true;
+                  this.fontRandomiseLettersCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.fontRandomiseLettersCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F);
                   this.fontRandomiseLettersCheckbox.Location = new System.Drawing.Point(8, 142);
                   this.fontRandomiseLettersCheckbox.Name = "fontRandomiseLettersCheckbox";
                   this.fontRandomiseLettersCheckbox.Size = new System.Drawing.Size(171, 27);
                   this.fontRandomiseLettersCheckbox.TabIndex = 2;
                   this.fontRandomiseLettersCheckbox.Text = "Randomise Letters";
-                  this.toolTip.SetToolTip(this.fontRandomiseLettersCheckbox, "Swap letters around, say the letter \'a\' will look like a \'c\'");
-                  this.fontRandomiseLettersCheckbox.UseVisualStyleBackColor = true;
+                  this.toolTip.SetToolTip(this.fontRandomiseLettersCheckbox, "Swap letters around, say the letter \'a\' will look like a \'c\'. This might make rea" +
+        "ding a bit more difficult");
+                  this.fontRandomiseLettersCheckbox.UseVisualStyleBackColor = false;
                   this.fontRandomiseLettersCheckbox.Click += new System.EventHandler(this.fontRandomiseLettersCheckbox_Click);
                   // 
                   // fontShuffleStylesCheckbox
                   // 
                   this.fontShuffleStylesCheckbox.AutoSize = true;
+                  this.fontShuffleStylesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.fontShuffleStylesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F);
                   this.fontShuffleStylesCheckbox.Location = new System.Drawing.Point(8, 52);
                   this.fontShuffleStylesCheckbox.Name = "fontShuffleStylesCheckbox";
@@ -770,12 +740,13 @@
                   this.fontShuffleStylesCheckbox.TabIndex = 1;
                   this.fontShuffleStylesCheckbox.Text = "Shuffle Font Styles";
                   this.toolTip.SetToolTip(this.fontShuffleStylesCheckbox, "Randomise the way the characters look in the game");
-                  this.fontShuffleStylesCheckbox.UseVisualStyleBackColor = true;
+                  this.fontShuffleStylesCheckbox.UseVisualStyleBackColor = false;
                   this.fontShuffleStylesCheckbox.Click += new System.EventHandler(this.fontShuffleStylesCheckbox_Click);
                   // 
                   // fontRandEnabledCheckbox
                   // 
                   this.fontRandEnabledCheckbox.AutoSize = true;
+                  this.fontRandEnabledCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.fontRandEnabledCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F);
                   this.fontRandEnabledCheckbox.Location = new System.Drawing.Point(8, 22);
                   this.fontRandEnabledCheckbox.Name = "fontRandEnabledCheckbox";
@@ -783,7 +754,7 @@
                   this.fontRandEnabledCheckbox.TabIndex = 0;
                   this.fontRandEnabledCheckbox.Text = "Enabled";
                   this.toolTip.SetToolTip(this.fontRandEnabledCheckbox, "Enable/Disable font randomisation");
-                  this.fontRandEnabledCheckbox.UseVisualStyleBackColor = true;
+                  this.fontRandEnabledCheckbox.UseVisualStyleBackColor = false;
                   this.fontRandEnabledCheckbox.Click += new System.EventHandler(this.fontRandEnabledCheckbox_Click);
                   // 
                   // restoreFilesButton
@@ -794,8 +765,8 @@
                   this.restoreFilesButton.Size = new System.Drawing.Size(136, 40);
                   this.restoreFilesButton.TabIndex = 111;
                   this.restoreFilesButton.Text = "Restore Files";
-                  this.toolTip.SetToolTip(this.restoreFilesButton, "Revert the game\'s files to normal. If this setting fails, clear the \"Backup Folde" +
-        "r\" \'s contents, and verify your game\'s files on Steam");
+                  this.toolTip.SetToolTip(this.restoreFilesButton, "Revert the game\'s files to normal. If this fails, clear the Backup Folder\'s conte" +
+        "nts, and verify your game\'s files on Steam");
                   this.restoreFilesButton.UseVisualStyleBackColor = true;
                   this.restoreFilesButton.Click += new System.EventHandler(this.restoreFilesButton_Click);
                   // 
@@ -804,7 +775,7 @@
                   this.autoOverwriteFilesCheckbox.AutoSize = true;
                   this.autoOverwriteFilesCheckbox.BackColor = System.Drawing.Color.Transparent;
                   this.autoOverwriteFilesCheckbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.autoOverwriteFilesCheckbox.Location = new System.Drawing.Point(8, 73);
+                  this.autoOverwriteFilesCheckbox.Location = new System.Drawing.Point(498, 15);
                   this.autoOverwriteFilesCheckbox.Name = "autoOverwriteFilesCheckbox";
                   this.autoOverwriteFilesCheckbox.Size = new System.Drawing.Size(218, 24);
                   this.autoOverwriteFilesCheckbox.TabIndex = 105;
@@ -812,15 +783,15 @@
                   this.toolTip.SetToolTip(this.autoOverwriteFilesCheckbox, "When enabled GDR automatically writes the randomised files into GD\'s Resource fol" +
         "der. No manual copying required");
                   this.autoOverwriteFilesCheckbox.UseVisualStyleBackColor = false;
-                  this.autoOverwriteFilesCheckbox.Visible = false;
+                  this.autoOverwriteFilesCheckbox.Click += new System.EventHandler(this.autoOverwriteFilesCheckbox_Click);
                   // 
                   // textureQualitySelectorBox
                   // 
                   this.textureQualitySelectorBox.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.textureQualitySelectorBox.Location = new System.Drawing.Point(535, 42);
+                  this.textureQualitySelectorBox.Location = new System.Drawing.Point(8, 93);
                   this.textureQualitySelectorBox.Name = "textureQualitySelectorBox";
                   this.textureQualitySelectorBox.ReadOnly = true;
-                  this.textureQualitySelectorBox.Size = new System.Drawing.Size(180, 25);
+                  this.textureQualitySelectorBox.Size = new System.Drawing.Size(200, 25);
                   this.textureQualitySelectorBox.TabIndex = 57;
                   this.textureQualitySelectorBox.Text = "High Quality";
                   // 
@@ -839,11 +810,6 @@
                   // 
                   this.CubeTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.CubeTexturesGroupDisplay.Location = new System.Drawing.Point(225, 80);
-                  this.CubeTexturesGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.CubeTexturesGroupDisplay.Name = "CubeTexturesGroupDisplay";
                   this.CubeTexturesGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.CubeTexturesGroupDisplay.TabIndex = 75;
@@ -853,11 +819,6 @@
                   // 
                   this.ShipTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.ShipTexturesGroupDisplay.Location = new System.Drawing.Point(225, 110);
-                  this.ShipTexturesGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.ShipTexturesGroupDisplay.Name = "ShipTexturesGroupDisplay";
                   this.ShipTexturesGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.ShipTexturesGroupDisplay.TabIndex = 76;
@@ -867,11 +828,6 @@
                   // 
                   this.BallTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.BallTexturesGroupDisplay.Location = new System.Drawing.Point(225, 140);
-                  this.BallTexturesGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.BallTexturesGroupDisplay.Name = "BallTexturesGroupDisplay";
                   this.BallTexturesGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.BallTexturesGroupDisplay.TabIndex = 77;
@@ -881,11 +837,6 @@
                   // 
                   this.JetpackTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.JetpackTexturesGroupDisplay.Location = new System.Drawing.Point(225, 320);
-                  this.JetpackTexturesGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.JetpackTexturesGroupDisplay.Name = "JetpackTexturesGroupDisplay";
                   this.JetpackTexturesGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.JetpackTexturesGroupDisplay.TabIndex = 78;
@@ -895,11 +846,6 @@
                   // 
                   this.SwingTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.SwingTexturesGroupDisplay.Location = new System.Drawing.Point(225, 290);
-                  this.SwingTexturesGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.SwingTexturesGroupDisplay.Name = "SwingTexturesGroupDisplay";
                   this.SwingTexturesGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.SwingTexturesGroupDisplay.TabIndex = 79;
@@ -909,11 +855,6 @@
                   // 
                   this.SpiderTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.SpiderTexturesGroupDisplay.Location = new System.Drawing.Point(225, 260);
-                  this.SpiderTexturesGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.SpiderTexturesGroupDisplay.Name = "SpiderTexturesGroupDisplay";
                   this.SpiderTexturesGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.SpiderTexturesGroupDisplay.TabIndex = 80;
@@ -923,11 +864,6 @@
                   // 
                   this.RobotTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.RobotTexturesGroupDisplay.Location = new System.Drawing.Point(225, 230);
-                  this.RobotTexturesGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.RobotTexturesGroupDisplay.Name = "RobotTexturesGroupDisplay";
                   this.RobotTexturesGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.RobotTexturesGroupDisplay.TabIndex = 81;
@@ -937,11 +873,6 @@
                   // 
                   this.WaveTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.WaveTexturesGroupDisplay.Location = new System.Drawing.Point(225, 200);
-                  this.WaveTexturesGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.WaveTexturesGroupDisplay.Name = "WaveTexturesGroupDisplay";
                   this.WaveTexturesGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.WaveTexturesGroupDisplay.TabIndex = 82;
@@ -951,37 +882,15 @@
                   // 
                   this.UFO_TexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.UFO_TexturesGroupDisplay.Location = new System.Drawing.Point(225, 170);
-                  this.UFO_TexturesGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.UFO_TexturesGroupDisplay.Name = "UFO_TexturesGroupDisplay";
                   this.UFO_TexturesGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.UFO_TexturesGroupDisplay.TabIndex = 83;
                   this.UFO_TexturesGroupDisplay.ValueChanged += new System.EventHandler(this.UFO_TexturesGroupChanged);
                   // 
-                  // groupInfoHelpButton2
-                  // 
-                  this.groupInfoHelpButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.groupInfoHelpButton2.Location = new System.Drawing.Point(873, 12);
-                  this.groupInfoHelpButton2.Name = "groupInfoHelpButton2";
-                  this.groupInfoHelpButton2.Size = new System.Drawing.Size(51, 24);
-                  this.groupInfoHelpButton2.TabIndex = 86;
-                  this.groupInfoHelpButton2.Text = "Help";
-                  this.groupInfoHelpButton2.UseVisualStyleBackColor = true;
-                  this.groupInfoHelpButton2.Visible = false;
-                  this.groupInfoHelpButton2.Click += new System.EventHandler(this.groupInfoHelpButton_Click);
-                  // 
                   // PadsGroupDisplay
                   // 
                   this.PadsGroupDisplay.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.PadsGroupDisplay.Location = new System.Drawing.Point(225, 230);
-                  this.PadsGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
                   this.PadsGroupDisplay.Name = "PadsGroupDisplay";
                   this.PadsGroupDisplay.Size = new System.Drawing.Size(69, 29);
                   this.PadsGroupDisplay.TabIndex = 88;
@@ -990,7 +899,7 @@
                   // ChangelogButton
                   // 
                   this.ChangelogButton.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.ChangelogButton.Location = new System.Drawing.Point(836, 41);
+                  this.ChangelogButton.Location = new System.Drawing.Point(842, 6);
                   this.ChangelogButton.Name = "ChangelogButton";
                   this.ChangelogButton.Size = new System.Drawing.Size(88, 27);
                   this.ChangelogButton.TabIndex = 91;
@@ -998,21 +907,11 @@
                   this.ChangelogButton.UseVisualStyleBackColor = true;
                   this.ChangelogButton.Click += new System.EventHandler(this.ChangelogButton_Click);
                   // 
-                  // Logo
-                  // 
-                  this.Logo.Image = global::Geometry_Dash_Randomiser.Properties.Resources.GDR_Logo_60px;
-                  this.Logo.Location = new System.Drawing.Point(8, 8);
-                  this.Logo.Name = "Logo";
-                  this.Logo.Size = new System.Drawing.Size(60, 60);
-                  this.Logo.TabIndex = 63;
-                  this.Logo.TabStop = false;
-                  this.Logo.Click += new System.EventHandler(this.Logo_Click);
-                  // 
                   // ThemeLabel
                   // 
                   this.ThemeLabel.AutoSize = true;
                   this.ThemeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.ThemeLabel.Location = new System.Drawing.Point(546, 68);
+                  this.ThemeLabel.Location = new System.Drawing.Point(225, 70);
                   this.ThemeLabel.Name = "ThemeLabel";
                   this.ThemeLabel.Size = new System.Drawing.Size(140, 20);
                   this.ThemeLabel.TabIndex = 101;
@@ -1021,10 +920,10 @@
                   // applicationThemeSelectorBox
                   // 
                   this.applicationThemeSelectorBox.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.applicationThemeSelectorBox.Location = new System.Drawing.Point(535, 91);
+                  this.applicationThemeSelectorBox.Location = new System.Drawing.Point(214, 93);
                   this.applicationThemeSelectorBox.Name = "applicationThemeSelectorBox";
                   this.applicationThemeSelectorBox.ReadOnly = true;
-                  this.applicationThemeSelectorBox.Size = new System.Drawing.Size(180, 25);
+                  this.applicationThemeSelectorBox.Size = new System.Drawing.Size(200, 25);
                   this.applicationThemeSelectorBox.TabIndex = 102;
                   this.applicationThemeSelectorBox.Wrap = true;
                   this.applicationThemeSelectorBox.Click += new System.EventHandler(this.applicationThemeSelectorBox_Click);
@@ -1038,38 +937,40 @@
                   this.spriteSizeMultiplierTextbox.Size = new System.Drawing.Size(81, 25);
                   this.spriteSizeMultiplierTextbox.TabIndex = 103;
                   // 
-                  // groupBox1
+                  // IconTextureBox
                   // 
-                  this.groupBox1.Controls.Add(this.label4);
-                  this.groupBox1.Controls.Add(this.label3);
-                  this.groupBox1.Controls.Add(this.iconsConnectorBeam);
-                  this.groupBox1.Controls.Add(this.IconTexturesCheckbox);
-                  this.groupBox1.Controls.Add(this.IconTexturesGroupDisplay);
-                  this.groupBox1.Controls.Add(this.CubeTexturesCheckbox);
-                  this.groupBox1.Controls.Add(this.ShipTexturesCheckbox);
-                  this.groupBox1.Controls.Add(this.BallTexturesCheckbox);
-                  this.groupBox1.Controls.Add(this.UFO_TexturesCheckbox);
-                  this.groupBox1.Controls.Add(this.WaveTexturesCheckbox);
-                  this.groupBox1.Controls.Add(this.RobotTexturesCheckbox);
-                  this.groupBox1.Controls.Add(this.SpiderTexturesCheckbox);
-                  this.groupBox1.Controls.Add(this.SwingTexturesCheckbox);
-                  this.groupBox1.Controls.Add(this.JetpackTexturesCheckbox);
-                  this.groupBox1.Controls.Add(this.CubeTexturesGroupDisplay);
-                  this.groupBox1.Controls.Add(this.ShipTexturesGroupDisplay);
-                  this.groupBox1.Controls.Add(this.BallTexturesGroupDisplay);
-                  this.groupBox1.Controls.Add(this.JetpackTexturesGroupDisplay);
-                  this.groupBox1.Controls.Add(this.SwingTexturesGroupDisplay);
-                  this.groupBox1.Controls.Add(this.SpiderTexturesGroupDisplay);
-                  this.groupBox1.Controls.Add(this.RobotTexturesGroupDisplay);
-                  this.groupBox1.Controls.Add(this.UFO_TexturesGroupDisplay);
-                  this.groupBox1.Controls.Add(this.WaveTexturesGroupDisplay);
-                  this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-                  this.groupBox1.Location = new System.Drawing.Point(12, 76);
-                  this.groupBox1.Name = "groupBox1";
-                  this.groupBox1.Size = new System.Drawing.Size(300, 356);
-                  this.groupBox1.TabIndex = 104;
-                  this.groupBox1.TabStop = false;
-                  this.groupBox1.Text = "Icon Texture Randomisation";
+                  this.IconTextureBox.Controls.Add(this.iconWarningImage_1);
+                  this.IconTextureBox.Controls.Add(this.label4);
+                  this.IconTextureBox.Controls.Add(this.label3);
+                  this.IconTextureBox.Controls.Add(this.iconsConnectorBeam);
+                  this.IconTextureBox.Controls.Add(this.IconTexturesCheckbox);
+                  this.IconTextureBox.Controls.Add(this.IconTexturesGroupDisplay);
+                  this.IconTextureBox.Controls.Add(this.CubeTexturesCheckbox);
+                  this.IconTextureBox.Controls.Add(this.ShipTexturesCheckbox);
+                  this.IconTextureBox.Controls.Add(this.BallTexturesCheckbox);
+                  this.IconTextureBox.Controls.Add(this.UFO_TexturesCheckbox);
+                  this.IconTextureBox.Controls.Add(this.WaveTexturesCheckbox);
+                  this.IconTextureBox.Controls.Add(this.RobotTexturesCheckbox);
+                  this.IconTextureBox.Controls.Add(this.SpiderTexturesCheckbox);
+                  this.IconTextureBox.Controls.Add(this.SwingTexturesCheckbox);
+                  this.IconTextureBox.Controls.Add(this.JetpackTexturesCheckbox);
+                  this.IconTextureBox.Controls.Add(this.CubeTexturesGroupDisplay);
+                  this.IconTextureBox.Controls.Add(this.ShipTexturesGroupDisplay);
+                  this.IconTextureBox.Controls.Add(this.BallTexturesGroupDisplay);
+                  this.IconTextureBox.Controls.Add(this.JetpackTexturesGroupDisplay);
+                  this.IconTextureBox.Controls.Add(this.SwingTexturesGroupDisplay);
+                  this.IconTextureBox.Controls.Add(this.SpiderTexturesGroupDisplay);
+                  this.IconTextureBox.Controls.Add(this.RobotTexturesGroupDisplay);
+                  this.IconTextureBox.Controls.Add(this.UFO_TexturesGroupDisplay);
+                  this.IconTextureBox.Controls.Add(this.WaveTexturesGroupDisplay);
+                  this.IconTextureBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+                  this.IconTextureBox.ForeColor = System.Drawing.SystemColors.ControlText;
+                  this.IconTextureBox.Location = new System.Drawing.Point(12, 76);
+                  this.IconTextureBox.Name = "IconTextureBox";
+                  this.IconTextureBox.Size = new System.Drawing.Size(300, 356);
+                  this.IconTextureBox.TabIndex = 104;
+                  this.IconTextureBox.TabStop = false;
+                  this.IconTextureBox.Text = "Icon Texture Randomisation";
                   // 
                   // label4
                   // 
@@ -1091,46 +992,38 @@
                   this.label3.TabIndex = 107;
                   this.label3.Text = "Group";
                   // 
-                  // iconsConnectorBeam
+                  // GameTextureBox
                   // 
-                  this.iconsConnectorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.ConnectorBeamBlack;
-                  this.iconsConnectorBeam.Location = new System.Drawing.Point(13, 73);
-                  this.iconsConnectorBeam.Name = "iconsConnectorBeam";
-                  this.iconsConnectorBeam.Size = new System.Drawing.Size(17, 262);
-                  this.iconsConnectorBeam.TabIndex = 84;
-                  this.iconsConnectorBeam.TabStop = false;
-                  // 
-                  // groupBox2
-                  // 
-                  this.groupBox2.Controls.Add(this.label2);
-                  this.groupBox2.Controls.Add(this.label1);
-                  this.groupBox2.Controls.Add(this.MenuTexturesCheckbox);
-                  this.groupBox2.Controls.Add(this.ShopTexturesCheckbox);
-                  this.groupBox2.Controls.Add(this.EditorTexturesCheckbox);
-                  this.groupBox2.Controls.Add(this.BlockTexturesCheckbox);
-                  this.groupBox2.Controls.Add(this.PortalTexturesCheckbox);
-                  this.groupBox2.Controls.Add(this.OrbsCheckbox);
-                  this.groupBox2.Controls.Add(this.ParticleTexturesCheckbox);
-                  this.groupBox2.Controls.Add(this.EffectsCheckbox);
-                  this.groupBox2.Controls.Add(this.MiscCheckbox);
-                  this.groupBox2.Controls.Add(this.MenuTexturesGroupDisplay);
-                  this.groupBox2.Controls.Add(this.ShopTexturesGroupDisplay);
-                  this.groupBox2.Controls.Add(this.EditorTexturesGroupDisplay);
-                  this.groupBox2.Controls.Add(this.BlockTexturesGroupDisplay);
-                  this.groupBox2.Controls.Add(this.PortalTexturesGroupDisplay);
-                  this.groupBox2.Controls.Add(this.OrbsGroupDisplay);
-                  this.groupBox2.Controls.Add(this.PadsGroupDisplay);
-                  this.groupBox2.Controls.Add(this.ParticleTexturesGroupDisplay);
-                  this.groupBox2.Controls.Add(this.PadsCheckbox);
-                  this.groupBox2.Controls.Add(this.EffectsGroupDisplay);
-                  this.groupBox2.Controls.Add(this.MiscGroupDisplay);
-                  this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-                  this.groupBox2.Location = new System.Drawing.Point(318, 76);
-                  this.groupBox2.Name = "groupBox2";
-                  this.groupBox2.Size = new System.Drawing.Size(300, 356);
-                  this.groupBox2.TabIndex = 105;
-                  this.groupBox2.TabStop = false;
-                  this.groupBox2.Text = "Game Texture Randomisation";
+                  this.GameTextureBox.Controls.Add(this.iconWarningImage_2);
+                  this.GameTextureBox.Controls.Add(this.label2);
+                  this.GameTextureBox.Controls.Add(this.label1);
+                  this.GameTextureBox.Controls.Add(this.MenuTexturesCheckbox);
+                  this.GameTextureBox.Controls.Add(this.ShopTexturesCheckbox);
+                  this.GameTextureBox.Controls.Add(this.EditorTexturesCheckbox);
+                  this.GameTextureBox.Controls.Add(this.BlockTexturesCheckbox);
+                  this.GameTextureBox.Controls.Add(this.PortalTexturesCheckbox);
+                  this.GameTextureBox.Controls.Add(this.OrbsCheckbox);
+                  this.GameTextureBox.Controls.Add(this.ParticleTexturesCheckbox);
+                  this.GameTextureBox.Controls.Add(this.EffectsCheckbox);
+                  this.GameTextureBox.Controls.Add(this.MiscCheckbox);
+                  this.GameTextureBox.Controls.Add(this.MenuTexturesGroupDisplay);
+                  this.GameTextureBox.Controls.Add(this.ShopTexturesGroupDisplay);
+                  this.GameTextureBox.Controls.Add(this.EditorTexturesGroupDisplay);
+                  this.GameTextureBox.Controls.Add(this.BlockTexturesGroupDisplay);
+                  this.GameTextureBox.Controls.Add(this.PortalTexturesGroupDisplay);
+                  this.GameTextureBox.Controls.Add(this.OrbsGroupDisplay);
+                  this.GameTextureBox.Controls.Add(this.PadsGroupDisplay);
+                  this.GameTextureBox.Controls.Add(this.ParticleTexturesGroupDisplay);
+                  this.GameTextureBox.Controls.Add(this.PadsCheckbox);
+                  this.GameTextureBox.Controls.Add(this.EffectsGroupDisplay);
+                  this.GameTextureBox.Controls.Add(this.MiscGroupDisplay);
+                  this.GameTextureBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+                  this.GameTextureBox.Location = new System.Drawing.Point(318, 76);
+                  this.GameTextureBox.Name = "GameTextureBox";
+                  this.GameTextureBox.Size = new System.Drawing.Size(300, 356);
+                  this.GameTextureBox.TabIndex = 105;
+                  this.GameTextureBox.TabStop = false;
+                  this.GameTextureBox.Text = "Game Texture Randomisation";
                   // 
                   // label2
                   // 
@@ -1152,30 +1045,22 @@
                   this.label1.TabIndex = 105;
                   this.label1.Text = "Group";
                   // 
-                  // groupBox5
+                  // FontRandBox
                   // 
-                  this.groupBox5.Controls.Add(this.fontPerFontRandomisationButton);
-                  this.groupBox5.Controls.Add(this.fontPerLetterRandomisationButton);
-                  this.groupBox5.Controls.Add(this.shuffleFontsConnectorBeam);
-                  this.groupBox5.Controls.Add(this.fontRandomiseLettersCheckbox);
-                  this.groupBox5.Controls.Add(this.fontShuffleStylesCheckbox);
-                  this.groupBox5.Controls.Add(this.fontRandEnabledCheckbox);
-                  this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-                  this.groupBox5.Location = new System.Drawing.Point(624, 76);
-                  this.groupBox5.Name = "groupBox5";
-                  this.groupBox5.Size = new System.Drawing.Size(300, 356);
-                  this.groupBox5.TabIndex = 110;
-                  this.groupBox5.TabStop = false;
-                  this.groupBox5.Text = "Font Randomisation";
-                  // 
-                  // shuffleFontsConnectorBeam
-                  // 
-                  this.shuffleFontsConnectorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.ConnectorBeamBlack;
-                  this.shuffleFontsConnectorBeam.Location = new System.Drawing.Point(13, 74);
-                  this.shuffleFontsConnectorBeam.Name = "shuffleFontsConnectorBeam";
-                  this.shuffleFontsConnectorBeam.Size = new System.Drawing.Size(17, 52);
-                  this.shuffleFontsConnectorBeam.TabIndex = 85;
-                  this.shuffleFontsConnectorBeam.TabStop = false;
+                  this.FontRandBox.Controls.Add(this.iconWarningImage_3);
+                  this.FontRandBox.Controls.Add(this.fontPerFontRandomisationButton);
+                  this.FontRandBox.Controls.Add(this.fontPerLetterRandomisationButton);
+                  this.FontRandBox.Controls.Add(this.shuffleFontsConnectorBeam);
+                  this.FontRandBox.Controls.Add(this.fontRandomiseLettersCheckbox);
+                  this.FontRandBox.Controls.Add(this.fontShuffleStylesCheckbox);
+                  this.FontRandBox.Controls.Add(this.fontRandEnabledCheckbox);
+                  this.FontRandBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+                  this.FontRandBox.Location = new System.Drawing.Point(624, 76);
+                  this.FontRandBox.Name = "FontRandBox";
+                  this.FontRandBox.Size = new System.Drawing.Size(300, 356);
+                  this.FontRandBox.TabIndex = 110;
+                  this.FontRandBox.TabStop = false;
+                  this.FontRandBox.Text = "Font Randomisation";
                   // 
                   // groupBox3
                   // 
@@ -1210,6 +1095,10 @@
                   // 
                   // groupBox4
                   // 
+                  this.groupBox4.Controls.Add(this.button1);
+                  this.groupBox4.Controls.Add(this.domainUpDown1);
+                  this.groupBox4.Controls.Add(this.label5);
+                  this.groupBox4.Controls.Add(this.gameFolderWarningImage);
                   this.groupBox4.Controls.Add(this.autoOverwriteFilesCheckbox);
                   this.groupBox4.Controls.Add(this.gameFolderLabel);
                   this.groupBox4.Controls.Add(this.applicationThemeSelectorBox);
@@ -1235,7 +1124,7 @@
                   this.button2.TabIndex = 114;
                   this.button2.Text = "Import Config";
                   this.button2.UseVisualStyleBackColor = true;
-                  this.button2.Visible = false;
+                  this.button2.Click += new System.EventHandler(this.showImportConfigForm);
                   // 
                   // button3
                   // 
@@ -1246,7 +1135,7 @@
                   this.button3.TabIndex = 115;
                   this.button3.Text = "Export Config";
                   this.button3.UseVisualStyleBackColor = true;
-                  this.button3.Visible = false;
+                  this.button3.Click += new System.EventHandler(this.showExportConfigForm);
                   // 
                   // randomisingProgressBar
                   // 
@@ -1288,6 +1177,104 @@
                   this.elapsedTimeDisplay.Text = "Elapsed Time";
                   this.elapsedTimeDisplay.Visible = false;
                   // 
+                  // domainUpDown1
+                  // 
+                  this.domainUpDown1.Font = new System.Drawing.Font("Cambria", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.domainUpDown1.Location = new System.Drawing.Point(420, 93);
+                  this.domainUpDown1.Name = "domainUpDown1";
+                  this.domainUpDown1.ReadOnly = true;
+                  this.domainUpDown1.Size = new System.Drawing.Size(200, 25);
+                  this.domainUpDown1.TabIndex = 111;
+                  this.domainUpDown1.Visible = false;
+                  this.domainUpDown1.Wrap = true;
+                  // 
+                  // label5
+                  // 
+                  this.label5.AutoSize = true;
+                  this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.label5.Location = new System.Drawing.Point(431, 70);
+                  this.label5.Name = "label5";
+                  this.label5.Size = new System.Drawing.Size(104, 20);
+                  this.label5.TabIndex = 110;
+                  this.label5.Text = "Configuration";
+                  this.label5.Visible = false;
+                  // 
+                  // button1
+                  // 
+                  this.button1.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.button1.Location = new System.Drawing.Point(625, 92);
+                  this.button1.Name = "button1";
+                  this.button1.Size = new System.Drawing.Size(91, 27);
+                  this.button1.TabIndex = 105;
+                  this.button1.Text = "Save As...";
+                  this.toolTip.SetToolTip(this.button1, "Save the current settings in the app as a new configuration");
+                  this.button1.UseVisualStyleBackColor = true;
+                  this.button1.Visible = false;
+                  // 
+                  // gameFolderWarningImage
+                  // 
+                  this.gameFolderWarningImage.Image = global::Geometry_Dash_Randomiser.Properties.Resources.Error_half_size;
+                  this.gameFolderWarningImage.Location = new System.Drawing.Point(119, 20);
+                  this.gameFolderWarningImage.Name = "gameFolderWarningImage";
+                  this.gameFolderWarningImage.Size = new System.Drawing.Size(22, 19);
+                  this.gameFolderWarningImage.TabIndex = 109;
+                  this.gameFolderWarningImage.TabStop = false;
+                  // 
+                  // iconWarningImage_3
+                  // 
+                  this.iconWarningImage_3.Image = global::Geometry_Dash_Randomiser.Properties.Resources.Warning_half_size;
+                  this.iconWarningImage_3.Location = new System.Drawing.Point(91, 25);
+                  this.iconWarningImage_3.Name = "iconWarningImage_3";
+                  this.iconWarningImage_3.Size = new System.Drawing.Size(22, 19);
+                  this.iconWarningImage_3.TabIndex = 112;
+                  this.iconWarningImage_3.TabStop = false;
+                  // 
+                  // shuffleFontsConnectorBeam
+                  // 
+                  this.shuffleFontsConnectorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.ConnectorBeamWhite;
+                  this.shuffleFontsConnectorBeam.Location = new System.Drawing.Point(13, 74);
+                  this.shuffleFontsConnectorBeam.Name = "shuffleFontsConnectorBeam";
+                  this.shuffleFontsConnectorBeam.Size = new System.Drawing.Size(18, 52);
+                  this.shuffleFontsConnectorBeam.TabIndex = 89;
+                  this.shuffleFontsConnectorBeam.TabStop = false;
+                  // 
+                  // iconWarningImage_2
+                  // 
+                  this.iconWarningImage_2.Image = global::Geometry_Dash_Randomiser.Properties.Resources.Warning_half_size;
+                  this.iconWarningImage_2.Location = new System.Drawing.Point(160, 30);
+                  this.iconWarningImage_2.Name = "iconWarningImage_2";
+                  this.iconWarningImage_2.Size = new System.Drawing.Size(22, 19);
+                  this.iconWarningImage_2.TabIndex = 111;
+                  this.iconWarningImage_2.TabStop = false;
+                  // 
+                  // iconWarningImage_1
+                  // 
+                  this.iconWarningImage_1.Image = global::Geometry_Dash_Randomiser.Properties.Resources.Warning_half_size;
+                  this.iconWarningImage_1.Location = new System.Drawing.Point(166, 28);
+                  this.iconWarningImage_1.Name = "iconWarningImage_1";
+                  this.iconWarningImage_1.Size = new System.Drawing.Size(22, 19);
+                  this.iconWarningImage_1.TabIndex = 110;
+                  this.iconWarningImage_1.TabStop = false;
+                  // 
+                  // iconsConnectorBeam
+                  // 
+                  this.iconsConnectorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.ConnectorBeamWhite;
+                  this.iconsConnectorBeam.Location = new System.Drawing.Point(13, 74);
+                  this.iconsConnectorBeam.Name = "iconsConnectorBeam";
+                  this.iconsConnectorBeam.Size = new System.Drawing.Size(18, 262);
+                  this.iconsConnectorBeam.TabIndex = 108;
+                  this.iconsConnectorBeam.TabStop = false;
+                  // 
+                  // Logo
+                  // 
+                  this.Logo.Image = global::Geometry_Dash_Randomiser.Properties.Resources.GDR_Logo_60px;
+                  this.Logo.Location = new System.Drawing.Point(10, 10);
+                  this.Logo.Name = "Logo";
+                  this.Logo.Size = new System.Drawing.Size(60, 60);
+                  this.Logo.TabIndex = 120;
+                  this.Logo.TabStop = false;
+                  this.Logo.Click += new System.EventHandler(this.Logo_Click);
+                  // 
                   // GDR_Form
                   // 
                   this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1304,16 +1291,16 @@
                   this.Controls.Add(this.groupBox4);
                   this.Controls.Add(this.startButton);
                   this.Controls.Add(this.groupBox3);
-                  this.Controls.Add(this.groupBox5);
-                  this.Controls.Add(this.groupBox2);
-                  this.Controls.Add(this.groupBox1);
+                  this.Controls.Add(this.FontRandBox);
+                  this.Controls.Add(this.GameTextureBox);
+                  this.Controls.Add(this.IconTextureBox);
                   this.Controls.Add(this.ChangelogButton);
-                  this.Controls.Add(this.groupInfoHelpButton2);
                   this.Controls.Add(this.Logo);
                   this.Controls.Add(this.versionLabel);
-                  this.Controls.Add(this.GDR_HeaderLabel);
+                  this.Controls.Add(this.headerLabel);
                   this.Controls.Add(this.restoreFilesButton);
                   this.Name = "GDR_Form";
+                  this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
                   this.Text = "Geometry Dash Randomiser";
                   this.Shown += new System.EventHandler(this.GDR_Form_Shown);
                   ((System.ComponentModel.ISupportInitialize)(this.IconTexturesGroupDisplay)).EndInit();
@@ -1338,19 +1325,23 @@
                   ((System.ComponentModel.ISupportInitialize)(this.WaveTexturesGroupDisplay)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.UFO_TexturesGroupDisplay)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.PadsGroupDisplay)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
-                  this.groupBox1.ResumeLayout(false);
-                  this.groupBox1.PerformLayout();
-                  ((System.ComponentModel.ISupportInitialize)(this.iconsConnectorBeam)).EndInit();
-                  this.groupBox2.ResumeLayout(false);
-                  this.groupBox2.PerformLayout();
-                  this.groupBox5.ResumeLayout(false);
-                  this.groupBox5.PerformLayout();
-                  ((System.ComponentModel.ISupportInitialize)(this.shuffleFontsConnectorBeam)).EndInit();
+                  this.IconTextureBox.ResumeLayout(false);
+                  this.IconTextureBox.PerformLayout();
+                  this.GameTextureBox.ResumeLayout(false);
+                  this.GameTextureBox.PerformLayout();
+                  this.FontRandBox.ResumeLayout(false);
+                  this.FontRandBox.PerformLayout();
                   this.groupBox3.ResumeLayout(false);
                   this.groupBox3.PerformLayout();
                   this.groupBox4.ResumeLayout(false);
                   this.groupBox4.PerformLayout();
+                  ((System.ComponentModel.ISupportInitialize)(this.gameFolderWarningImage)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.iconWarningImage_3)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.shuffleFontsConnectorBeam)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.iconWarningImage_2)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.iconWarningImage_1)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.iconsConnectorBeam)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
                   this.ResumeLayout(false);
                   this.PerformLayout();
 
@@ -1377,7 +1368,7 @@
             private System.Windows.Forms.NumericUpDown BlockTexturesGroupDisplay;
             private System.Windows.Forms.NumericUpDown MiscGroupDisplay;
             private System.Windows.Forms.NumericUpDown EffectsGroupDisplay;
-            private System.Windows.Forms.Label GDR_HeaderLabel;
+            private System.Windows.Forms.Label headerLabel;
             private System.Windows.Forms.Label versionLabel;
             private System.Windows.Forms.TextBox gameFolderTextBox;
             private System.Windows.Forms.Label gameFolderLabel;
@@ -1408,7 +1399,6 @@
             private System.Windows.Forms.NumericUpDown RobotTexturesGroupDisplay;
             private System.Windows.Forms.NumericUpDown WaveTexturesGroupDisplay;
             private System.Windows.Forms.NumericUpDown UFO_TexturesGroupDisplay;
-            private System.Windows.Forms.Button groupInfoHelpButton2;
             private System.Windows.Forms.NumericUpDown PadsGroupDisplay;
             private System.Windows.Forms.CheckBox PadsCheckbox;
             private System.Windows.Forms.Button ChangelogButton;
@@ -1418,10 +1408,10 @@
             private System.Windows.Forms.Label ThemeLabel;
             private System.Windows.Forms.DomainUpDown applicationThemeSelectorBox;
             private System.Windows.Forms.TextBox spriteSizeMultiplierTextbox;
-            private System.Windows.Forms.GroupBox groupBox1;
+            private System.Windows.Forms.GroupBox IconTextureBox;
             private System.Windows.Forms.PictureBox iconsConnectorBeam;
-            private System.Windows.Forms.GroupBox groupBox2;
-            private System.Windows.Forms.GroupBox groupBox5;
+            private System.Windows.Forms.GroupBox GameTextureBox;
+            private System.Windows.Forms.GroupBox FontRandBox;
             private System.Windows.Forms.CheckBox fontShuffleStylesCheckbox;
             private System.Windows.Forms.CheckBox fontRandEnabledCheckbox;
             private System.Windows.Forms.Button restoreFilesButton;
@@ -1443,6 +1433,13 @@
             private System.Windows.Forms.RadioButton fontPerLetterRandomisationButton;
             private System.Windows.Forms.CheckBox autoOverwriteFilesCheckbox;
             private System.Windows.Forms.Label elapsedTimeDisplay;
+            private System.Windows.Forms.PictureBox gameFolderWarningImage;
+            private System.Windows.Forms.PictureBox iconWarningImage_1;
+            private System.Windows.Forms.PictureBox iconWarningImage_2;
+            private System.Windows.Forms.PictureBox iconWarningImage_3;
+            private System.Windows.Forms.DomainUpDown domainUpDown1;
+            private System.Windows.Forms.Label label5;
+            private System.Windows.Forms.Button button1;
       }
 }
 

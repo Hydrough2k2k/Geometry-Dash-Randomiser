@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Drawing;
 using System.Linq;
 
@@ -36,15 +35,11 @@ namespace Geometry_Dash_Randomiser {
                   int index = array.Length;
                   while (index > 1) {
                         int swap = rng.Next(index--);
-                        //(array[index], array[swap]) = (array[swap], array[index]);
-
-                        T temp = array[index];
-                        array[index] = array[swap];
-                        array[swap] = temp;
+                        (array[index], array[swap]) = (array[swap], array[index]);
                   }
             }
 
-            public static Color GetRandomColor(this Random random) {
+            public static Color GetRandomRGBColor(this Random random) {
                   return Color.FromArgb(random.Next(256), random.Next(256), random.Next(256));
             }
       }

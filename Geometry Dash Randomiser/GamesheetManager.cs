@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Linq;
-using static Geometry_Dash_Randomiser.GameFileManager;
 using static Geometry_Dash_Randomiser.PathManager;
 
 namespace Geometry_Dash_Randomiser {

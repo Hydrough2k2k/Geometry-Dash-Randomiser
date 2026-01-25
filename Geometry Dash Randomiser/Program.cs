@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Geometry_Dash_Randomiser {
@@ -16,7 +13,7 @@ namespace Geometry_Dash_Randomiser {
                   Application.SetCompatibleTextRenderingDefault(false);
                   Application.Run(new GDR_Form());
 
-                  Config.WriteFile();
+                  Config.Instance.WriteFile();
             }
       }
 }

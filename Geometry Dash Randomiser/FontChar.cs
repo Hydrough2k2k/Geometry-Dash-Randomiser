@@ -25,6 +25,17 @@ namespace Geometry_Dash_Randomiser {
                   return FontSerialiser.SerialiseFontChar(this);
             }
 
+            public PackingRectangle GetPackingRect(int ID = 0) {
+                  return new PackingRectangle((uint)x, (uint)y, (uint)width, (uint)height, ID);
+            }
+
+            public void ReplaceTexture(Bitmap newTexture) {
+                  texture = (Bitmap)newTexture.Clone();
+
+                  this.width = newTexture.Width;
+                  this.height = newTexture.Height;
+            }
+
             public FontChar DeepCopy() {
                   FontChar copy = new FontChar();
 
@@ -42,17 +53,6 @@ namespace Geometry_Dash_Randomiser {
                   copy.texture = this.texture;
 
                   return copy;
-            }
-
-            public PackingRectangle GetPackingRect(int ID = 0) {
-                  return new PackingRectangle((uint)x, (uint)y, (uint)width, (uint)height, ID);
-            }
-
-            public void ReplaceTexture(Bitmap newTexture) {
-                  texture = (Bitmap)newTexture.Clone();
-
-                  this.width = newTexture.Width;
-                  this.height = newTexture.Height;
             }
       }
 }

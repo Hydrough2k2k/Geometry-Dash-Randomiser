@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using static Geometry_Dash_Randomiser.GameFilesExtension;
-using static Geometry_Dash_Randomiser.GameFileManager;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -16,10 +13,11 @@ namespace Geometry_Dash_Randomiser {
                   if (File.Exists(blacklistedFilePath) == false) {
                         File.WriteAllLines(blacklistedFilePath, blacklist);
                         return;
+                  } else {
+                        blacklist = File.ReadAllLines(blacklistedFilePath)
+                              .Select(l => l.RemoveExtension().RemoveQualityExtension())
+                              .ToArray();
                   }
-                  blacklist = File.ReadAllLines(blacklistedFilePath)
-                        .Select(l => l.RemoveExtension().RemoveQualityExtension())
-                        .ToArray();
             }
 
             // Default data
@@ -56,13 +54,13 @@ namespace Geometry_Dash_Randomiser {
                   List<string> ret = new List<string>();
 
                   for (int i = 0; i < files.Length; i++) {
-                        if (isBlacklisted(files[i]) == false)
+                        if (IsBlacklisted(files[i]) == false)
                               ret.Add(files[i]);
                   }
                   return ret.ToArray();
             }
 
-            public bool isBlacklisted(string fileName) {
+            public bool IsBlacklisted(string fileName) {
                   fileName = fileName.RemoveQualityExtension();
 
                   for (int i = 0; i < blacklist.Length; i++) {
