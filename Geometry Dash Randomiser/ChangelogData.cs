@@ -29,7 +29,30 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public static ChangelogData Default => new ChangelogData(
-                  "Unknown Version"
+                  version: "V 2.4.0.3",
+
+                  newStuff: new string[] {
+                        " - Changed header and version text font",
+                        " - Added a way to import and export the app configuration",
+                        " - Added symbols to fields or areas that prevent the app from working",
+                        " - Set the maximum randomisation group to 100 because idk",
+                        " - Added a debug console window that you can enable in the config.txt file",
+                        " - You can now make custom themes, open the \"Themes\" folder after launching the application",
+                        " - Added an extra \"Strawberry\" theme",
+                        " - Made a fancy Changelog window. You are looking at it right now! (maybe)"
+                  },
+
+                  bugfixes: new string[] {
+                        " - Reduced the amount of configuration file writes",
+                        " - On bootup the settings for icon randomisations settings were not loaded properly"
+                  },
+
+                  knownBugs: new string[] {
+                        " - Texture Size Multiplier slider is always visually at 0 at startup. The setting is saved, but not reflected visually on the slider",
+                        " - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can make levels easier or impossible in some cases",
+                        " - Sometimes some fonts do not render at all",
+                        " - Mystery bugs that I haven't discovered yet"
+                  }
             );
 
             public static ChangelogData ConvertFromData(List<string> rawData) => ConvertFromData(rawData.ToArray());

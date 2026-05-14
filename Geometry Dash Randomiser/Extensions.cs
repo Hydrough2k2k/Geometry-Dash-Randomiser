@@ -19,11 +19,6 @@ namespace Geometry_Dash_Randomiser {
                   return ret;
             }
 
-            public static string[] ReadTextFile(string fileName) {
-                  string extension = Path.GetExtension(fileName);
-                  return File.ReadAllLines(fileName);
-            }
-
             public static string RemoveNonDigits(this string str) {
                   return Regex.Replace(str, "[^0-9,]+", "", RegexOptions.Compiled);
             }

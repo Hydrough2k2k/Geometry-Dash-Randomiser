@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 
 namespace Geometry_Dash_Randomiser {
+
       public class Color2 {
 
             public Color2 () { }

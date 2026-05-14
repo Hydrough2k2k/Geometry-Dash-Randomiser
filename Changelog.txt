@@ -1,3 +1,46 @@
+Changelog for V2.4.1.0:
+
+What's New?
+ - The unpacking of image files is now a lot faster
+ - The credits window is now improved
+ - There is now a button to refresh all themes
+
+Bugfixes:
+ - The import config button was not disabled while randomising
+ - Switching theme while randomising no longer re-enables some buttons and number fields
+
+Known Bugs:
+ - Texture Size Multiplier slider is always visually at 0 at startup. The setting is saved, but not reflected visually on the slider
+ - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can make levels easier or impossible in some cases
+ - Sometimes some fonts do not render at all
+ - Mystery bugs that I haven't discovered yet
+
+-------------------------------------------
+
+Changelog for V2.4.0.3:
+
+What's New?
+ - Changed header and version text font
+ - Added a way to import and export the app configuration
+ - Added symbols to fields or areas that prevent the app from working
+ - Set the maximum randomisation group to 100 because idk
+ - Added a debug console window that you can enable in the config.txt file
+ - You can now make custom themes, open the "Themes" folder after launching the application
+ - Added an extra "Strawberry" theme
+ - Made a fancy Changelog window. You are looking at it right now! (maybe)
+
+Bugfixes:
+ - Reduced the amount of configuration file writes
+ - On bootup the settings for icon randomisations settings were not loaded properly
+
+Known Bugs:
+ - Texture Size Multiplier slider is always visually at 0 at startup. The setting is saved, but not reflected visually on the slider
+ - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can make levels easier or impossible in some cases
+ - Sometimes some fonts do not render at all
+ - Mystery bugs that I haven't discovered yet
+
+-------------------------------------------
+
 Changelog for V2.3.1.0:
 
 What's New?
@@ -11,9 +54,9 @@ Bugfixes:
 
 Known Bugs:
  - Texture Size Multiplier slider is always visually at 0 at startup. The setting is saved, but not reflected visually on the slider
- - Some textures are not categorised correctly
  - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can make levels easier or impossible in some cases
  - Sometimes some fonts do not render at all
+ - Some mystery bugs I haven't discovered yet
 
 -------------------------------------------
 
@@ -59,9 +102,9 @@ Bugfixes:
 Changelog for V2.1.2:
 
 What's new?
-      - Added a Changelog button, woohoo!
-      - Added a top sneaky button. Where could it be?
+ - Added a Changelog button, woohoo!
+ - Added a top sneaky button. Where could it be?
 
 Bugfixes:
-      - Fixed most of the glitched and cut off textures when remaking gamesheets
-      - Lowered memory usage of program from 1.5GB to under 1GB after randomisation
+ - Fixed most of the glitched and cut off textures when remaking gamesheets
+ - Lowered memory usage of program from 1.5GB to under 1GB after randomisation

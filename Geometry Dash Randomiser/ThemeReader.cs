@@ -54,7 +54,7 @@ namespace Geometry_Dash_Randomiser {
                               continue;
 
                         if (line.StartsWith("Name")) {
-                              ret.name = data;
+                              ret.Name = data;
 
                         } else if (line.Contains("Color") || line.Contains("Colour")) {
                               colourStartLine = i;
@@ -77,19 +77,19 @@ namespace Geometry_Dash_Randomiser {
                               Color colour = ColorExt.Deserialize(colourData);
 
                               if (colourChannel.Contains("Background")) {
-                                    ret.backgroundColour = colour;
+                                    ret.BackgroundColour = colour;
 
                               } else if (colourChannel.Contains("Text") && !line.Contains("Object")) {
-                                    ret.textColour = colour;
+                                    ret.TextColour = colour;
 
                               } else if (colourChannel.Contains("Object Back")) {
-                                    ret.objectBackColour = colour;
+                                    ret.ObjectBackColour = colour;
 
                               } else if (colourChannel.Contains("Object Text")) {
-                                    ret.objectTextColour = colour;
+                                    ret.ObjectTextColour = colour;
 
                               } else if (colourChannel.Contains("Beam")) {
-                                    ret.beamColour = colour;
+                                    ret.BeamColour = colour;
 
                               } else {
                                     Console.WriteLine($"Unknown colour channel \"{colourChannel}\" in \"{fileName}\" at line {startLine + i}");
@@ -97,12 +97,12 @@ namespace Geometry_Dash_Randomiser {
                         }
                   }
 
-                  if (ret.name == string.Empty) {
-                        ret.name = "Unnamed Theme " + unnamedThemeCounter.ToString();
+                  if (ret.Name == string.Empty) {
+                        ret.Name = "Unnamed Theme " + unnamedThemeCounter.ToString();
                         unnamedThemeCounter++;
 
-                  } else if (ret.name == "Sample Theme") {
-                        Console.WriteLine($"Ignoring theme called \"{ret.name}\" from file \"{fileName}\"");
+                  } else if (ret.Name == "Sample Theme") {
+                        Console.WriteLine($"Ignoring theme called \"{ret.Name}\" from file \"{fileName}\"");
                         return null;
                   }
 

@@ -1,7 +1,6 @@
 ﻿using RectpackSharp;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -84,7 +83,7 @@ namespace Geometry_Dash_Randomiser {
                   if (IsGameDirectoryValid() == false) {
                         return;
                   }
-                  this.progressState.currentStage = ApplicationState.Overwriting;
+                  this.progressState.currentStage = ApplicationState.Copying_Randomised_Files;
 
                   string[] resourceFiles = Directory.GetFiles(GetPath(GDR_Path.LocalResourcesOutputFolder)).Select(f => Path.GetFileName(f)).ToArray();
                   this.progressState.currentFileType = GameFileType.Resource;
@@ -143,7 +142,13 @@ namespace Geometry_Dash_Randomiser {
                   backupOriginalFiles();
 
                   this.progressState.currentStage = ApplicationState.Unpacking;
-                  ExtractFiles();
+
+                  if (spriteList.Count == 0) {
+                        this.spriteList.AddRange(ExtractGameFiles());
+                  }
+
+                  if (fontManager.fontCount == 0)
+                        fontManager.ReadAllFontFiles(PathManager.backupResourcesFolder, Config.Instance.quality);
 
                   this.progressState.currentStage = ApplicationState.Randomising;
                   Font[] randomisedFonts = fontManager.RandomiseFiles(fontManager.GetRandomisationMode(), seed);
@@ -154,11 +159,13 @@ namespace Geometry_Dash_Randomiser {
 
                   fontManager.WriteFontsToDisk(randomisedFonts);
 
-                  this.progressState.currentStage = ApplicationState.Idle;
+                  this.progressState.currentStage = ApplicationState.Copying_Randomised_Files;
 
                   if (Config.Instance.autoOverwriteFiles == true) {
                         AutoOverwriteFiles();
                   }
+
+                  this.progressState.currentStage = ApplicationState.Idle;
 
                   this.progressState.NewFileBatch(0);
             }
@@ -232,45 +239,39 @@ namespace Geometry_Dash_Randomiser {
                         this.progressState.completedFiles++;
                   }
 
-                  Console.WriteLine($"Copied {copiedFiles} files\n\tfrom {PathManager.GetPath(source)}\n\tto {PathManager.GetPath(dest)}");
+                  if (copiedFiles != 0) {
+                        Console.WriteLine($"Copied {copiedFiles} files\n\tfrom {PathManager.GetPath(source)}\n\tto {PathManager.GetPath(dest)}");
+                  }
             }
 
-            void ExtractFiles() {
-                  if (spriteList.Count == 0)
-                        extractGameFiles();
+            public List<Sprite> ExtractGameFiles() {
+                  List<Sprite> extractedSprites = new List<Sprite>();
 
-                  if (fontManager.fontCount == 0)
-                        fontManager.ReadAllFontFiles(PathManager.backupResourcesFolder, Config.Instance.quality);
+                  extractedSprites.AddRange(ExtractResourceFiles(GameFileType.Resource, GDR_Path.BackupResourcesFolder));
+                  extractedSprites.AddRange(ExtractResourceFiles(GameFileType.Icon, GDR_Path.BackupIconsFolder));
+
+                  return extractedSprites;
             }
 
-            void extractGameFiles() {
-                  this.progressState.currentFileType = GameFileType.Resource;
+            public List<Sprite> ExtractResourceFiles(GameFileType type, GDR_Path path) {
+                  List<Sprite> extractedSprites = new List<Sprite>();
 
-                  string[] files = gamesheetManager.GetAllFileNames(GDR_Path.BackupResourcesFolder, Config.Instance.quality)
-                        .Select(f => Path.Combine(PathManager.GetPath(GDR_Path.BackupResourcesFolder), f)).ToArray();
+                  this.progressState.currentFileType = type;
 
-                  Console.WriteLine($"Unpacking {files.Length} files from {PathManager.GetPath(GDR_Path.BackupResourcesFolder)}");
+                  string[] files = gamesheetManager.GetAllFileNames(path, Config.Instance.quality)
+                        .Select(f => Path.Combine(PathManager.GetPath(path), f)).ToArray();
+
+                  Console.WriteLine($"Unpacking {files.Length} {type.ToString().ToLower()} files from {PathManager.GetPath(path)}");
 
                   this.progressState.NewFileBatch(files.Length);
 
                   for (int i = 0; i < files.Length; i++) {
                         this.progressState.currentFile = Path.GetFileName(files[i]);
-                        spriteList.AddRange(getAllSpritesFromGameFile(files[i]));
+                        extractedSprites.AddRange(getAllSpritesFromGameFile(files[i]));
                         this.progressState.completedFiles++;
                   }
 
-                  this.progressState.currentFileType = GameFileType.Icon;
-
-                  files = gamesheetManager.GetAllFileNames(GDR_Path.BackupIconsFolder, Config.Instance.quality)
-                        .Select(f => Path.Combine(PathManager.GetPath(GDR_Path.BackupIconsFolder), f)).ToArray();
-
-                  this.progressState.NewFileBatch(files.Length);
-
-                  for (int i = 0; i < files.Length; i++) {
-                        this.progressState.currentFile = Path.GetFileName(files[i]);
-                        spriteList.AddRange(getAllSpritesFromGameFile(files[i]));
-                        this.progressState.completedFiles++;
-                  }
+                  return extractedSprites;
             }
 
             public List<Sprite> getAllSpritesOfType(Sprite.ResourceType type) {
@@ -289,7 +290,7 @@ namespace Geometry_Dash_Randomiser {
                         return new List<Sprite>();
                   }
 
-                  string[] data = Extensions.ReadTextFile(textFile);
+                  string[] data = File.ReadAllLines(textFile);
                   List<Sprite> sprites = Plist.BulkDeserialise(data);
 
                   string fileName = Path.GetFileName(path).RemoveExtension();

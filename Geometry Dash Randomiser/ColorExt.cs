@@ -52,25 +52,23 @@ namespace Geometry_Dash_Randomiser {
                   int g = 0;
                   int b = 0;
                   for (int i = 0; i < text.Length; i++) {
-                        string line = text[i];
+                        string line = text[i].Trim(' ', '\t');
                         
-                        string data = line.Trim();
+                        string data = line;
                         if (line.Contains(":")) {
                               data = line.Substring(line.IndexOf(':') + 1).Trim();
                         }
 
-                        if (line.StartsWith("\tR")) {
+                        if (line.StartsWith("R")) {
                               int.TryParse(data, out r);
 
-                        } else if (line.StartsWith("\tG")) {
+                        } else if (line.StartsWith("G")) {
                               int.TryParse(data, out g);
 
-                        } else if (line.StartsWith("\tB")) {
+                        } else if (line.StartsWith("B")) {
                               int.TryParse(data, out b);
 
-                        } else if (line.StartsWith("\tHex")) {
-                              Color c = FromHex(data);
-
+                        } else if (line.StartsWith("Hex")) {
                               // Override RGB values if hex is present
                               return FromHex(data);
 

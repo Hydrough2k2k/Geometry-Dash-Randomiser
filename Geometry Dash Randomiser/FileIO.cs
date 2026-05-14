@@ -57,14 +57,5 @@ namespace Geometry_Dash_Randomiser {
                   // Return the filestream, check success before trying to read it
                   return fs;
             }
-
-            public static FileStream TryRead(string filePath, out bool success, int maxAttempts = 10, int attemptWaitMS = 1) =>
-                  TryOpen(filePath, out success, FileMode.Open, FileAccess.Read, FileShare.None, maxAttempts, attemptWaitMS);
-
-            public static FileStream TryWrite(string filePath, out bool success, int maxAttempts = 10, int attemptWaitMS = 1) =>
-                  TryOpen(filePath, out success, FileMode.Open, FileAccess.Write, FileShare.None, maxAttempts, attemptWaitMS);
-
-            public static FileStream TryReadWrite(string filePath, out bool success, int maxAttempts = 10, int attemptWaitMS = 1) =>
-                  TryOpen(filePath, out success, FileMode.Open, FileAccess.ReadWrite, FileShare.None, maxAttempts, attemptWaitMS);
       }
 }

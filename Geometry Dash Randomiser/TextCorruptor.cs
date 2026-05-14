@@ -1,42 +1,25 @@
 ﻿using System;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Geometry_Dash_Randomiser {
 
       public class TextCorruptor {
 
-            public int corruptionLoops = 10;
-            public int corruptionProbability = 10;
+            private double _probability = 0.10f;
 
             public TextCorruptor() { }
 
-            public TextCorruptor(int loops, int probability) {
-                  corruptionLoops = loops;
-                  corruptionProbability = probability;
+            public int CorruptionLevel { get; set; } = 10;
+
+            public double ProbabilityPercent {
+                  get => _probability * 100d;
+                  set => _probability = value / 100d;
             }
 
-            public TextCorruptor(int loops) {
-                  corruptionLoops = loops;
-            }
+            //public uint MaxCorruptionLoops { get; set; }
 
-            public string CorruptText(string text, Random random = null) {
-                  if (random == null)
-                        random = new Random(Guid.NewGuid().GetHashCode());
-
-                  StringBuilder sb = new StringBuilder(text);
-
-                  for (int l = 0; l < corruptionLoops; l++) {
-
-                        for (int c = 0; c < text.Length; c++) {
-                              if (random.Next(corruptionProbability) == 0) {
-                                    sb[c] = charSet[random.Next(charSet.Length)];
-                              }
-                        }
-                  }
-                  return sb.ToString();
-            }
-
-            public string CorruptText(string text) => CorruptText(text, null);
+            public string[] CorruptText(string[] text) => CorruptText(text, null);
 
             /// <summary>
             /// Returns a copy of the original array with some altered characters
@@ -54,21 +37,37 @@ namespace Geometry_Dash_Randomiser {
                   return ret;
             }
 
-            /// <summary>
-            /// Returns a copy of the original array with some altered characters
-            /// </summary>
-            /// <param name="text">The text you want to be altered</param>
-            /// <returns>The altered text</returns>
-            public string[] CorruptText(string[] text) {
-                  string[] ret = new string[text.Length];
+            public string CorruptText(string text) => CorruptText(text, null);
 
-                  for (int line = 0; line < text.Length; line++) {
-                        ret[line] = CorruptText(text[line]);
-                  }
+            public string CorruptText(string text, Random random) {
 
-                  return ret;
+                  return CorruptText(new StringBuilder(text), random);
             }
 
-            const string charSet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ";
+            public string CorruptText(StringBuilder sb) => CorruptText(sb, null);
+
+            public string CorruptText(StringBuilder sb, Random random) {
+                  CorruptStringBuilder(sb, random);
+                  return sb.ToString();
+            }
+
+            public void CorruptStringBuilder(StringBuilder sb) => CorruptStringBuilder(sb, null);
+
+            public void CorruptStringBuilder(StringBuilder sb, Random random) {
+                  if (random == null) {
+                        random = new Random(Guid.NewGuid().GetHashCode());
+                  }
+
+                  for (int l = 0; l < CorruptionLevel; l++) {
+
+                        for (int c = 0; c < sb.Length; c++) {
+                              if (random.NextDouble() <= _probability) {
+                                    sb[c] = charSet[random.Next(charSet.Length)];
+                              }
+                        }
+                  }
+            }
+
+            const string charSet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz                         !\"#$%^&\'*+,-*:;<=>?@_`~";
       }
 }

@@ -37,7 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>GDR Logo 256px.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\GDR Logo 256px.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Chasm.Compatibility.HashCode, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -241,19 +244,27 @@
     <Compile Include="ApplicationState.cs" />
     <Compile Include="BitmapExtensions.cs" />
     <Compile Include="ChangelogData.cs" />
-    <Compile Include="ChangelogForm.cs">
+    <Compile Include="ConfigurationData.cs" />
+    <Compile Include="DateTimeExtensions.cs" />
+    <Compile Include="Forms\ChangelogForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChangelogForm.Designer.cs">
+    <Compile Include="Forms\ChangelogForm.Designer.cs">
       <DependentUpon>ChangelogForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Color2.cs" />
     <Compile Include="ColorExt.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="ExportConfigForm.cs">
+    <Compile Include="Forms\CreditsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExportConfigForm.Designer.cs">
+    <Compile Include="Forms\CreditsForm.Designer.cs">
+      <DependentUpon>CreditsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ExportConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ExportConfigForm.Designer.cs">
       <DependentUpon>ExportConfigForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions.cs" />
@@ -263,36 +274,39 @@
     <Compile Include="FontKerning.cs" />
     <Compile Include="FontManager.cs" />
     <Compile Include="FontSerialiser.cs" />
+    <Compile Include="Forms\GDR_Form\GDR_Control.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GDR_Form\GDR_Intrinsics.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GameFilesExtension.cs" />
     <Compile Include="GameFileType.cs" />
     <Compile Include="GameSheet.cs" />
     <Compile Include="GamesheetManager.cs" />
     <Compile Include="IconRandSettings.cs" />
-    <Compile Include="ImportConfigForm.cs">
+    <Compile Include="Forms\ImportConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImportConfigForm.Designer.cs">
+    <Compile Include="Forms\ImportConfigForm.Designer.cs">
       <DependentUpon>ImportConfigForm.cs</DependentUpon>
     </Compile>
     <Compile Include="int2.cs" />
     <Compile Include="int4.cs" />
     <Compile Include="FontChar.cs" />
-    <Compile Include="PackingException.cs" />
-    <Compile Include="PackingHints.cs" />
-    <Compile Include="PackingRectangle.cs" />
+    <Compile Include="RetpackSharp\PackingException.cs" />
+    <Compile Include="RetpackSharp\PackingHints.cs" />
+    <Compile Include="RetpackSharp\PackingRectangle.cs" />
     <Compile Include="Parse.cs" />
     <Compile Include="GameFileManager.cs" />
-    <Compile Include="GDR.cs">
+    <Compile Include="Forms\GDR_Form\GDR_Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GDR.Designer.cs">
-      <DependentUpon>GDR.cs</DependentUpon>
+    <Compile Include="Forms\GDR_Form\GDR_Main.Designer.cs">
+      <DependentUpon>GDR_Main.cs</DependentUpon>
     </Compile>
     <Compile Include="PathManager.cs" />
     <Compile Include="Plist.cs" />
-    <Compile Include="PopupWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProgressState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -306,7 +320,7 @@
     <Compile Include="RandomisationSetting.cs" />
     <Compile Include="Randomiser.cs" />
     <Compile Include="ReadyState.cs" />
-    <Compile Include="RectanglePacker.cs" />
+    <Compile Include="RetpackSharp\RectanglePacker.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="StatusDisplayColours.cs" />
     <Compile Include="StringExtension.cs" />
@@ -316,19 +330,22 @@
     <Compile Include="ThemeController.cs" />
     <Compile Include="ThemeReader.cs" />
     <Compile Include="TimeExtension.cs" />
-    <EmbeddedResource Include="ChangelogForm.resx">
+    <EmbeddedResource Include="Forms\ChangelogForm.resx">
       <DependentUpon>ChangelogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExportConfigForm.resx">
+    <EmbeddedResource Include="Forms\CreditsForm.resx">
+      <DependentUpon>CreditsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ExportConfigForm.resx">
       <DependentUpon>ExportConfigForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GameFileManager.resx">
       <DependentUpon>GameFileManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GDR.resx">
-      <DependentUpon>GDR.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\GDR_Form\GDR_Main.resx">
+      <DependentUpon>GDR_Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImportConfigForm.resx">
+    <EmbeddedResource Include="Forms\ImportConfigForm.resx">
       <DependentUpon>ImportConfigForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -351,25 +368,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="GDR Logo 60px.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Warning_half_size.png" />
-    <None Include="Warning.png" />
-    <None Include="ConnectorBeamBlack.png" />
-    <None Include="ConnectorBeamWhite.png" />
-    <None Include="Error.png" />
-    <None Include="Error_half_size.png" />
-    <Content Include="GDR Logo 256px.ico" />
+    <None Include="Resources\RefreshIconBackground.png" />
+    <None Include="Resources\Warning_half_size.png" />
+    <None Include="Resources\GDR Logo 60px.png" />
+    <None Include="Resources\Error_half_size.png" />
+    <None Include="Resources\ConnectorBeamWhite.png" />
+    <Content Include="Resources\GDR Logo 256px.ico" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Fody.6.8.2\build\Fody.targets" Condition="Exists('..\packages\Fody.6.8.2\build\Fody.targets')" />
+  <Import Project="..\packages\Fody.6.9.3\build\Fody.targets" Condition="Exists('..\packages\Fody.6.9.3\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Fody.6.8.2\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.8.2\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Fody.6.9.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.9.3\build\Fody.targets'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.6.0.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.6.0.0\build\Costura.Fody.props'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.6.0.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.6.0.0\build\Costura.Fody.targets'))" />
   </Target>

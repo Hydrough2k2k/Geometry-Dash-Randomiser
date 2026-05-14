@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Geometry_Dash_Randomiser {
+﻿namespace Geometry_Dash_Randomiser {
 
       public enum ApplicationState {
             Idle,
@@ -13,7 +7,7 @@ namespace Geometry_Dash_Randomiser {
             Unpacking,
             Randomising,
             Repackaging,
-            Overwriting,
+            Copying_Randomised_Files,
             Finishing_Up,
             Restoring
       }

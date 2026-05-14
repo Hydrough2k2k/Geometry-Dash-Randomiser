@@ -25,6 +25,7 @@
                         case ApplicationState.Idle:
                         case ApplicationState.Setting_Up:
                         case ApplicationState.Randomising:
+                        case ApplicationState.Copying_Randomised_Files:
                         case ApplicationState.Finishing_Up:
                               return currentStage.ToString().Replace('_', ' ');
                         case ApplicationState.Backing_Up:

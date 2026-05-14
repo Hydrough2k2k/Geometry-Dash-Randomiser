@@ -1,40 +1,8 @@
 ﻿using System;
-using System.Text;
 
 namespace Geometry_Dash_Randomiser {
 
       internal static class StringExtension {
-
-            const string ASCII = numbersAndLetters + symbols;
-            const string numbers = "0123456789";
-            const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-            const string symbols = "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~";
-            const string numbersAndLetters = numbers + letters + " ";
-
-            public static string AlterRandomCharactersLooped(this string str, int loops) {
-                  for (int i = 0; i < loops; i++) {
-                        str = str.AlterRandomCharacters(10);
-                  }
-                  return str;
-            }
-
-            public static string AlterRandomCharacters(this string str, int probability = 10) {
-                  return str.AlterRandomCharacters(null, probability);
-            }
-
-            public static string AlterRandomCharacters(this string str, Random random, int probability) {
-                  if (random == null)
-                        random = new Random(Guid.NewGuid().GetHashCode());
-
-                  StringBuilder sb = new StringBuilder(str);
-                  for (int j = 0; j < str.Length; j++) {
-                        if (random.Next(probability) == 0) {
-                              sb[j] = numbersAndLetters[random.Next(numbersAndLetters.Length)];
-                        }
-                  }
-
-                  return sb.ToString();
-            }
 
             public static string RemoveExtension(this string fileName) {
                   int index = fileName.LastIndexOf('.');

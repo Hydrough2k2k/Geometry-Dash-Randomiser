@@ -63,16 +63,6 @@ namespace Geometry_Dash_Randomiser.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ConnectorBeamBlack {
-            get {
-                object obj = ResourceManager.GetObject("ConnectorBeamBlack", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap ConnectorBeamWhite {
             get {
                 object obj = ResourceManager.GetObject("ConnectorBeamWhite", resourceCulture);
@@ -93,16 +83,6 @@ namespace Geometry_Dash_Randomiser.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Error_half_size {
-            get {
-                object obj = ResourceManager.GetObject("Error_half_size", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap GDR_Logo_60px {
             get {
                 object obj = ResourceManager.GetObject("GDR Logo 60px", resourceCulture);
@@ -113,9 +93,9 @@ namespace Geometry_Dash_Randomiser.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Warning {
+        internal static System.Drawing.Bitmap RefreshIconBackground {
             get {
-                object obj = ResourceManager.GetObject("Warning", resourceCulture);
+                object obj = ResourceManager.GetObject("RefreshIconBackground", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +103,19 @@ namespace Geometry_Dash_Randomiser.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Warning_half_size {
+        internal static System.Drawing.Bitmap RefreshImage {
             get {
-                object obj = ResourceManager.GetObject("Warning_half_size", resourceCulture);
+                object obj = ResourceManager.GetObject("RefreshImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Warning {
+            get {
+                object obj = ResourceManager.GetObject("Warning", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

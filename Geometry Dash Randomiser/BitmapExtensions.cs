@@ -13,6 +13,31 @@ namespace Geometry_Dash_Randomiser {
 
             public enum Corner { TopRight, TopLeft, BottomRight, BottomLeft };
 
+            public static Bitmap BlackAndWhiteRecolour(this Bitmap image, Color blackReplacement, Color whiteReplacement) {
+                  if (image.PixelFormat != PixelFormat.Format32bppArgb) {
+                        throw new Exception($"Error: Bitmap must be in 32bpp ARGB format to use BlackAndWhiteRecolour. Current format is {image.PixelFormat}.");
+                  }
+
+                  Bitmap newImage = new Bitmap(image.Width, image.Height, PixelFormat.Format32bppArgb);
+
+                  for (int y = 0; y < newImage.Height; y++) {
+                        for (int x = 0; x < newImage.Width; x++) {
+                              Color pixel = image.GetPixel(x, y);
+                              float interpolation = (float)((pixel.R + pixel.G + pixel.B) / 3) / 255;
+
+                              newImage.SetPixel(x, y,
+                                    Color.FromArgb(
+                                          (int)(blackReplacement.R + (whiteReplacement.R - blackReplacement.R) * interpolation),
+                                          (int)(blackReplacement.G + (whiteReplacement.G - blackReplacement.G) * interpolation),
+                                          (int)(blackReplacement.B + (whiteReplacement.B - blackReplacement.B) * interpolation)
+                                    )
+                              );
+                        }
+                  }
+
+                  return newImage;
+            }
+
             public static Bitmap cropImage(this Bitmap img, int x, int y, int width, int height) {
                   return cropImage(img, new Rectangle(new Point(x, y), new Size(width, height)));
             }
@@ -33,12 +58,18 @@ namespace Geometry_Dash_Randomiser {
                         return new Bitmap(1, 1);
                   }
 
-                  return img.Clone(cropArea, img.PixelFormat);
+                  Bitmap target = new Bitmap(cropArea.Width, cropArea.Height);
+                  using (Graphics g = Graphics.FromImage(target)) {
+                        g.DrawImage(img, new Rectangle(0, 0, target.Width, target.Height),
+                            cropArea,
+                            GraphicsUnit.Pixel);
+                  }
+                  return target;
             }
 
             // Overload to support Lists and not just arrays
             public static Bitmap[] Multicrop(this Bitmap source, List<Rectangle> crops, int sliceSize = 512, float sliceThresholdMuiltiplier = 1.25f) {
-                  return Multicrop(source, crops.ToArray(), sliceSize);
+                  return Multicrop(source, crops.ToArray(), sliceSize, sliceThresholdMuiltiplier);
             }
 
             public static Bitmap[] Multicrop(this Bitmap source, Rectangle[] crops, int sliceSize = 512, float sliceThresholdMuiltiplier = 1.25f) {
@@ -195,6 +226,28 @@ namespace Geometry_Dash_Randomiser {
                   return sub;
             }
 
+            public static Bitmap RotateImage(this Bitmap bmp, float angle) {
+
+                  //create a new empty bitmap to hold rotated image
+                  Bitmap returnBitmap = new Bitmap(bmp.Width, bmp.Height);
+
+                  using (Graphics g = Graphics.FromImage(returnBitmap)) {
+                        // move rotation point to center of image
+                        g.TranslateTransform((float)(bmp.Width - 2) / 2, (float)(bmp.Height - 2) / 2);
+
+                        // rotate
+                        g.RotateTransform(angle);
+
+                        // move image back
+                        g.TranslateTransform(-(float)(bmp.Width - 2) / 2, -(float)(bmp.Height - 2) / 2);
+
+                        // draw passed in image onto graphics object
+                        g.DrawImage(bmp, new Point(0, 0));
+                  }
+
+                  return returnBitmap;
+            }
+
             /// <summary>
             /// Method to rotate an Image object. The result can be one of three cases:
             /// - upsizeOk = true: output image will be larger than the input, and no clipping occurs 
@@ -214,7 +267,7 @@ namespace Geometry_Dash_Randomiser {
             /// <param name="clipOk">see comments above, not used if upsizeOk = true</param>
             /// <param name="backgroundColor">color to fill exposed parts of the background</param>
             /// <returns>new Bitmap object, may be larger than input image</returns>
-            public static Bitmap RotateImage(this Bitmap inputImage, float angleDegrees, bool upsizeOk = true,
+            public static Bitmap RotateImage_2(this Bitmap inputImage, float angleDegrees, bool upsizeOk = true,
                                              bool clipOk = false) {
                   Color backgroundColor = Color.Transparent;
 

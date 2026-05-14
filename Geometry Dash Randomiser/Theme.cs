@@ -9,31 +9,52 @@ namespace Geometry_Dash_Randomiser {
 
             public Theme() { }
 
-            public Theme(string name, Color backgroundColour, Color textColour, Color objectBackColour, Color objectTextColour, Color beamColour) {
-                  this.name = name.Substring(0, Math.Min(maxNameLength, name.Length));
-                  this.backgroundColour = backgroundColour;
-                  this.textColour = textColour;
-                  this.objectBackColour = objectBackColour;
-                  this.objectTextColour = objectTextColour;
-                  this.beamColour = beamColour;
+            public Theme(string Name, Color BackgroundColour, Color TextColour, Color ObjectBackColour, Color ObjectTextColour, Color BeamColour) {
+                  this.Name = Name.Substring(0, Math.Min(maxNameLength, Name.Length));
+                  this.BackgroundColour = BackgroundColour;
+                  this.TextColour = TextColour;
+                  this.ObjectBackColour = ObjectBackColour;
+                  this.ObjectTextColour = ObjectTextColour;
+                  this.BeamColour = BeamColour;
             }
 
-            public string name { get; set; } = string.Empty;
+            public string Name { get; set; } = string.Empty;
 
-            public Color backgroundColour { get; set; }
-            public Color textColour { get; set; }
-            public Color objectBackColour { get; set; }
-            public Color objectTextColour { get; set; }
-            public Color beamColour { get; set; }
+            public Color BackgroundColour { get; set; }
+            public Color TextColour { get; set; }
+            public Color ObjectBackColour { get; set; }
+            public Color ObjectTextColour { get; set; }
+            public Color BeamColour { get; set; }
+
+            public static Theme CreateRandom() => CreateRandom(new Random(Guid.NewGuid().GetHashCode()));
+
+            public static Theme CreateRandom(Random random) {
+                  return new Theme(
+                        Name: "Random Theme",
+                        BackgroundColour: random.GetRandomRGBColor(),
+                        TextColour: random.GetRandomRGBColor(),
+                        ObjectBackColour: random.GetRandomRGBColor(),
+                        ObjectTextColour: random.GetRandomRGBColor(),
+                        BeamColour: random.GetRandomRGBColor()
+                  );
+            }
+
+            public void CopyColoursFrom(Theme theme) {
+                  this.BackgroundColour = theme.BackgroundColour;
+                  this.TextColour = theme.TextColour;
+                  this.ObjectBackColour = theme.ObjectBackColour;
+                  this.ObjectTextColour = theme.ObjectTextColour;
+                  this.BeamColour = theme.BeamColour;
+            }
 
             public string Serialize() {
                   return
-                        $"Name: {name}\n" +
-                        $"Background Colour: {backgroundColour.Serialize()}\n" +
-                        $"Text Colour: {backgroundColour.Serialize()}\n" +
-                        $"Object Back Colour: {backgroundColour.Serialize()}\n" +
-                        $"Object Text Colour: {backgroundColour.Serialize()}\n" +
-                        $"Beam Colour: {backgroundColour.Serialize()}\n" +
+                        $"Name: {Name}\n" +
+                        $"Background Colour: {BackgroundColour.Serialize()}\n" +
+                        $"Text Colour: {BackgroundColour.Serialize()}\n" +
+                        $"Object Back Colour: {BackgroundColour.Serialize()}\n" +
+                        $"Object Text Colour: {BackgroundColour.Serialize()}\n" +
+                        $"Beam Colour: {BackgroundColour.Serialize()}\n" +
                         $"End\n";
             }
       }

@@ -1,3 +1,4 @@
 packages
 CopilotIndices
 *.vsidx
+*.cache

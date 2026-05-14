@@ -7,10 +7,14 @@ using static Geometry_Dash_Randomiser.FontRandomisationSettings;
 
 namespace Geometry_Dash_Randomiser {
 
+      /// <summary>
+      /// Singleton class for storing all application configurations
+      /// </summary>
       public class Config {
 
             private static Config _instance;
 
+            // This has to be public for JSON deserialization sadly
             [EditorBrowsable(EditorBrowsableState.Never)]
             public Config() { }
 
@@ -167,7 +171,6 @@ namespace Geometry_Dash_Randomiser {
 
                   for (int i = 0; i < dataPoints.Length; i++) {
                         string dp = dataPoints[i];
-                        Console.WriteLine(dp);
 
                         // If the data for a setting is empty, skip it
                         if (dp.Length == 0)

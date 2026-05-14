@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using static Geometry_Dash_Randomiser.Config;
-using static Geometry_Dash_Randomiser.Sprite;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -16,6 +15,13 @@ namespace Geometry_Dash_Randomiser {
                         random = new Random(Guid.NewGuid().GetHashCode());
                   } else {
                         random = new Random(seed);
+                  }
+
+                  // If the seed is negative, get the next value
+                  // Negative X and positive X as seeds very likely give the same result (Testing required)
+                  // This is here to change the result between these 2 values
+                  if (seed < 0) {
+                        random.Next();
                   }
             }
 

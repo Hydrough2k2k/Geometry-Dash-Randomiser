@@ -80,7 +80,7 @@ namespace Geometry_Dash_Randomiser {
                   fontFileNames = GetAllFileNames(path, quality);
                   fonts = new Font[fontFileNames.Length];
 
-                  Console.WriteLine($"Unpacking {fontFileNames.Length} files from {PathManager.GetPath(GDR_Path.BackupResourcesFolder)}");
+                  Console.WriteLine($"Unpacking {fontFileNames.Length} font files from {PathManager.GetPath(GDR_Path.BackupResourcesFolder)}");
 
                   gameFileManager.progressState.NewFileBatch(fontFileNames.Length);
 

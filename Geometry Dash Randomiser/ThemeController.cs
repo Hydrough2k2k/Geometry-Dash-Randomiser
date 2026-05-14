@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
+using System.Xml.Linq;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -12,9 +12,16 @@ namespace Geometry_Dash_Randomiser {
             private const string themeFolderPath = "Themes";
             private const string sampleThemeFileName = "Theme_Example.txt";
 
-            public ThemeController(bool getDefaultThemes = true) {
-
+            public ThemeController() {
                   CreateThemeFolderAndDefaultContents();
+            }
+
+            public void GetAllThemesFromFile(bool getDefaultThemes = true) {
+                  if (themes.Count != 0) {
+                        DefaultThemes[DefaultThemes.Length - 1] = themes.Where(t => t.Name == "Random Theme").ToArray()[0];
+                  }
+
+                  themes.Clear();
 
                   string[] themeFiles = Directory.GetFiles(themeFolderPath, "*.txt");
 
@@ -25,19 +32,19 @@ namespace Geometry_Dash_Randomiser {
                   }
 
                   if (getDefaultThemes) {
-                        themes.AddRange(GetDefaultThemes());
+                        themes.AddRange(DefaultThemes);
                   }
 
                   Console.WriteLine($"Total themes loaded: {this.GetThemeCount()}");
                   Console.WriteLine(string.Join("\n", this.GetAllThemeNames()) + "\n");
             }
 
-            List<Theme> themes = new List<Theme>();
+            readonly List<Theme> themes = new List<Theme>();
 
-            public int activeThemeID { get; set; }
-            public int themeCount => themes.Count;
+            public int ActiveThemeID { get; set; }
+            public int ThemeCount => themes.Count;
 
-            public Theme current => GetActiveTheme();
+            public Theme Current => GetActiveTheme();
 
             public void AddTheme(Theme theme) {
                   themes.Add(theme);
@@ -59,10 +66,6 @@ namespace Geometry_Dash_Randomiser {
                         Directory.CreateDirectory(themeFolderPath);
                   }
 
-                  JsonSerializerOptions options = new JsonSerializerOptions {
-                        WriteIndented = true
-                  };
-
                   string sampleThemePath = Path.Combine(themeFolderPath, sampleThemeFileName);
                   if (File.Exists(sampleThemePath)) {
                         Console.WriteLine($"Sample theme file \"{sampleThemeFileName}\" already exists, skipping creation");
@@ -72,7 +75,7 @@ namespace Geometry_Dash_Randomiser {
                   string sampleThemeData =
                         "# This is a sample theme file for this application\n" +
                         "# The sample theme won't be read because of the \"Ignore Theme\" section, but all others in this file will be\n" +
-                        "# The alpha (A) channel is ignored, as transparent objects can't exist\n" +
+                        "# The alpha (A) channel is ignored, as transparent objects can't exist, as a limitation of WinForms\n" +
                         "# Hex values override the RGB values, so you can just skip them if you like\n";
 
                   sampleThemeData += "\n" + sampleTheme.Serialize();
@@ -83,19 +86,19 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public Theme GetActiveTheme() {
-                  if (activeThemeID >= themes.Count) {
-                        Console.WriteLine($"Failed to get Active Theme ID {activeThemeID}, ID parameter was out of range. Total themes count: {this.themes.Count}");
-                        activeThemeID = activeThemeID % themes.Count;
-                        Config.Instance.themeID = activeThemeID;
+                  if (ActiveThemeID >= themes.Count) {
+                        Console.WriteLine($"Failed to get Active Theme ID {ActiveThemeID}, ID parameter was out of range. Total themes count: {this.themes.Count}");
+                        ActiveThemeID %= themes.Count;
+                        Config.Instance.themeID = ActiveThemeID;
                         return themes[0];
 
-                  } else if (activeThemeID < 0) {
+                  } else if (ActiveThemeID < 0) {
                         Console.WriteLine($"The theme ID was negative");
                         Config.Instance.themeID = 0;
-                        this.activeThemeID = 0;
+                        this.ActiveThemeID = 0;
                         return themes[0];
                   }
-                  return themes[activeThemeID];
+                  return themes[ActiveThemeID];
             }
 
             public Theme GetThemeByID(int ID) {
@@ -111,93 +114,91 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public string[] GetAllThemeNames() {
-                  return this.themes.Select(t => t.name).ToArray();
+                  return this.themes.Select(t => t.Name).ToArray();
             }
 
             public string GetThemeName() {
-                  return current.name;
+                  return Current.Name;
             }
 
             public Color GetFormBackgroundColour() {
-                  return current.backgroundColour;
+                  return Current.BackgroundColour;
             }
 
             public Color GetDefaultTextColour() {
-                  return current.textColour;
+                  return Current.TextColour;
             }
 
             public Color GetMenuElementBackColour() {
-                  return current.objectBackColour;
+                  return Current.ObjectBackColour;
             }
 
             public Color GetMenuElementForeColour() {
-                  return current.objectTextColour;
+                  return Current.ObjectTextColour;
             }
 
             public Color GetBeamColour() {
-                  return current.beamColour;
+                  return Current.BeamColour;
             }
 
-            public static Theme[] GetDefaultThemes() {
-                  return new Theme[] {
-                        new Theme(
-                              name: "Wisteria",
-                              backgroundColour: ColorExt.FromHex("7B60AC"),
-                              textColour: ColorExt.FromHex("F9E6FF"),
-                              objectBackColour: ColorExt.FromHex("664D91"),
-                              objectTextColour: ColorExt.FromHex("F9E6FF"),
-                              beamColour: ColorExt.FromHex("D2BEE6")
-                        ),
-                        new Theme(
-                              name: "Night Theme",
-                              backgroundColour: Color.FromArgb(0, 7, 33),
-                              textColour: Color.FromArgb(200, 225, 255),
-                              objectBackColour: Color.FromArgb(60, 71, 115),
-                              objectTextColour: Color.FromArgb(200, 225, 255),
-                              beamColour: Color.FromArgb(200, 225, 255)
-                        ),
-                        new Theme(
-                              name: "Dark Theme",
-                              backgroundColour: ColorExt.FromHex("121212"),
-                              textColour: ColorExt.FromHex("E6E6E6"),
-                              objectBackColour: ColorExt.FromHex("222222"),
-                              objectTextColour: ColorExt.FromHex("FFFFFF"),
-                              beamColour: ColorExt.FromHex("888888")
-                        ),
-                        new Theme(
-                              name: "Light Theme",
-                              backgroundColour: Color.FromArgb(175, 175, 175),
-                              textColour: Color.FromArgb(0, 0, 0),
-                              objectBackColour: Color.FromArgb(255, 255, 255),
-                              objectTextColour: Color.FromArgb(0, 0, 0),
-                              beamColour: Color.FromArgb(0, 0, 0)
-                        ),
-                        new Theme(
-                              name: "Random Theme",
-                              backgroundColour: Color.FromArgb(0, 0, 0),
-                              textColour: Color.FromArgb(0, 0, 0),
-                              objectBackColour: Color.FromArgb(0, 0, 0),
-                              objectTextColour: Color.FromArgb(0, 0, 0),
-                              beamColour: Color.FromArgb(0, 0, 0)
-                        ),
-                        new Theme(
-                            name: "Strawberry",
-                            backgroundColour: ColorExt.FromHex("E8B8C2"),
-                            textColour: ColorExt.FromHex("2A1419"),
-                            objectBackColour: ColorExt.FromHex("FF6B86"),
-                            objectTextColour: ColorExt.FromHex("FFFFFF"),
-                            beamColour: ColorExt.FromHex("FF9FB0")
-                        )
-                  };
-            }
+            private Theme[] DefaultThemes = new Theme[] {
+                  new Theme(
+                        Name: "Wisteria",
+                        BackgroundColour: ColorExt.FromHex("7B60AC"),
+                        TextColour: ColorExt.FromHex("F9E6FF"),
+                        ObjectBackColour: ColorExt.FromHex("664D91"),
+                        ObjectTextColour: ColorExt.FromHex("F9E6FF"),
+                        BeamColour: ColorExt.FromHex("D2BEE6")
+                  ),
+                  new Theme(
+                        Name: "Night Theme",
+                        BackgroundColour: Color.FromArgb(0, 7, 33),
+                        TextColour: Color.FromArgb(200, 225, 255),
+                        ObjectBackColour: Color.FromArgb(60, 71, 115),
+                        ObjectTextColour: Color.FromArgb(200, 225, 255),
+                        BeamColour: Color.FromArgb(200, 225, 255)
+                  ),
+                  new Theme(
+                        Name: "Dark Theme",
+                        BackgroundColour: ColorExt.FromHex("121212"),
+                        TextColour: ColorExt.FromHex("E6E6E6"),
+                        ObjectBackColour: ColorExt.FromHex("222222"),
+                        ObjectTextColour: ColorExt.FromHex("FFFFFF"),
+                        BeamColour: ColorExt.FromHex("999999")
+                  ),
+                  new Theme(
+                        Name: "Light Theme",
+                        BackgroundColour: Color.FromArgb(175, 175, 175),
+                        TextColour: Color.FromArgb(0, 0, 0),
+                        ObjectBackColour: Color.FromArgb(255, 255, 255),
+                        ObjectTextColour: Color.FromArgb(0, 0, 0),
+                        BeamColour: Color.FromArgb(0, 0, 0)
+                  ),
+                  new Theme(
+                        Name: "Strawberry",
+                        BackgroundColour: ColorExt.FromHex("E8B8C2"),
+                        TextColour: ColorExt.FromHex("2A1419"),
+                        ObjectBackColour: ColorExt.FromHex("FF6B86"),
+                        ObjectTextColour: ColorExt.FromHex("FFFFFF"),
+                        BeamColour: ColorExt.FromHex("FF6890")
+                  ),
+                  new Theme( // The colours of all of these properties are randomised every time this theme is selected
+                        Name: "Random Theme",
+                        BackgroundColour: Color.FromArgb(0, 0, 0),
+                        TextColour: Color.FromArgb(0, 0, 0),
+                        ObjectBackColour: Color.FromArgb(0, 0, 0),
+                        ObjectTextColour: Color.FromArgb(0, 0, 0),
+                        BeamColour: Color.FromArgb(0, 0, 0)
+                  )
+            };
 
-            private static Theme sampleTheme = new Theme(
-                  name: "Sample Theme",
-                  backgroundColour: Color.FromArgb(50, 50, 50),
-                  textColour: Color.FromArgb(200, 200, 200),
-                  objectBackColour: Color.FromArgb(80, 80, 80),
-                  objectTextColour: Color.FromArgb(220, 220, 220),
-                  beamColour: Color.FromArgb(150, 150, 150)
+      private static readonly Theme sampleTheme = new Theme(
+                  Name: "Sample Theme",
+                  BackgroundColour: Color.FromArgb(50, 50, 50),
+                  TextColour: Color.FromArgb(200, 200, 200),
+                  ObjectBackColour: Color.FromArgb(80, 80, 80),
+                  ObjectTextColour: Color.FromArgb(220, 220, 220),
+                  BeamColour: Color.FromArgb(150, 150, 150)
             );
       }
 }

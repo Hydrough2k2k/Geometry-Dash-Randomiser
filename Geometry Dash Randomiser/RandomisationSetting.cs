@@ -15,6 +15,11 @@ namespace Geometry_Dash_Randomiser {
                   this.enabled = enabled;
             }
 
+            public void CopyDataFrom(RandomisationSetting source) {
+                  this.group = source.group;
+                  this.enabled = source.enabled;
+            }
+
             public bool isEnabledAndGroupIsZero() => enabled == true && group == 0;
 
             public bool IsEnabledAndGroupIs(int group) {
@@ -23,7 +28,7 @@ namespace Geometry_Dash_Randomiser {
 
             public virtual void Validate() {
                   if (this.group > Config.maxGroups)
-                        this.group = 0;
+                        this.group = Config.maxGroups;
             }
 
             public virtual string GetStatusHex() {
