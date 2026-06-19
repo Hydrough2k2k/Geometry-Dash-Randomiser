@@ -14,7 +14,7 @@ An application to mess with Geometry Dash's files
  - This application is fully compatible with Geometry Dash v2.2081 as of 2026/Jul/19
 
 ![GDR Screenshot V2.4.2.0.png](https://github.com/Hydrough2k2k/Geometry-Dash-Randomiser/blob/main/GDR%20Screenshot%20V2.4.2.0.png)
- - Screenshot of Geometry Dash Randomiser V2.4.2.0
+Screenshot of Geometry Dash Randomiser V2.4.2.0
 
 # How to use the app:
 - Download the most recent version from "Releases" on the right side or using the link above.
