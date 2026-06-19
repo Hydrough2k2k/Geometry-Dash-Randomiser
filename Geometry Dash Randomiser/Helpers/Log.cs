@@ -153,6 +153,7 @@ namespace Geometry_Dash_Randomiser {
 
                   LogFileStream.Close();
                   LogFileStream.Dispose();
+                  LogFileStream = null;
             }
 
             // Console print colour settings
