@@ -38,6 +38,7 @@ Screenshot of Geometry Dash Randomiser V2.4.2.0
 If the app or the game crashes, feel free to bug report it to me directly
  - When reporting bugs please specify what crashed and when
  - If the game crashed, tell me what your randomisation settings and seed were
+ - Also, attach the log file as well if possible
 
 My socials if you want to reach out, or report a bug:
  - Add me on discord: hydrough_7165
