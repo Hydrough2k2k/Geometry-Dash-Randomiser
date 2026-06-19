@@ -4,7 +4,7 @@ An application to mess with Geometry Dash's files
 # With this app you can mess with game file in various ways.
 
 - Would you like to randomise every texture in the game to make navigating and playing damn near impossible?
-- You can shuffle icon, menu, editor and particle textures around however you want
+- You can shuffle icon, menu, editor, particle and font textures around however you want
 - Here is a video of what you can expect: [Youtube Video](https://youtu.be/joB3ZjvAnq8) (This is with every setting enabled as of 1/Nov/2023)
 - There are many configuration settings to make the results more or less chaotic
 
