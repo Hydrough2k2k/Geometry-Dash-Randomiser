@@ -12,21 +12,16 @@ An application to mess with Geometry Dash's files
 
  - Alternatively click on Releases on the right side, and download the RAR from the most recent one
 
-This application is fully compatible with Geometry Dash v2.207 as of 15/Aug/2025
-
-# What's New:
-This application stating with version 2.0 supports Geometry Dash 2.2
-Many new configuration settings were added, the whole app was rebuilt from the ground up
+This application is fully compatible with Geometry Dash v2.2081 as of 2026/Jul/19
 
 # How to use the app:
-- Download the most recent version from "Releases" on the right side or using the link above
-- Unpack the .rar file to a folder
-- Launch Geometry Dash Randomiser.exe
-- Paste the location of your game into "Game Folder", and enable the settings you want. (The "How to use.txt" file contains a lot of useful information for this application)
+- Download the most recent version from "Releases" on the right side or using the link above.
+- Unpack the .rar file to a folder, then launch "Geometry Dash Randomiser.exe"
+- Paste the location of your game into "Game Folder", and enable the settings you want.
 - if you have the "Auto-Copy Game Files" setting enabled, you are good to go. If you don't, you have to copy the "Resources" folder from the "Randomised Files" folder and paste to where Geometry Dash is installed.
-- Click accept on overwriting all the files
+- Click accept on overwriting all the files.
 - Finally, launch the game and enjoy the chaos!
-- To revert the files to the original ones you can copy the "Resources" folder from "Unaltered Files", or click the "Restore Files" button in the app
+- To revert the files to the original ones you can copy the "Resources" folder from "Unaltered Files", or click the "Restore Files" button in the app.
 
 - More detailed information is available in the "How To Use.txt" file
 
