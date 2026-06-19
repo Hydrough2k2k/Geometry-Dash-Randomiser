@@ -51,7 +51,7 @@
                   this.whatsNewTextBox.Location = new System.Drawing.Point(12, 109);
                   this.whatsNewTextBox.Name = "whatsNewTextBox";
                   this.whatsNewTextBox.ReadOnly = true;
-                  this.whatsNewTextBox.Size = new System.Drawing.Size(625, 105);
+                  this.whatsNewTextBox.Size = new System.Drawing.Size(602, 91);
                   this.whatsNewTextBox.TabIndex = 110;
                   this.whatsNewTextBox.Text = "";
                   // 
@@ -81,7 +81,7 @@
                   this.bugfixesTextBox.Location = new System.Drawing.Point(12, 228);
                   this.bugfixesTextBox.Name = "bugfixesTextBox";
                   this.bugfixesTextBox.ReadOnly = true;
-                  this.bugfixesTextBox.Size = new System.Drawing.Size(625, 105);
+                  this.bugfixesTextBox.Size = new System.Drawing.Size(489, 91);
                   this.bugfixesTextBox.TabIndex = 114;
                   this.bugfixesTextBox.Text = "";
                   // 

@@ -42,6 +42,10 @@ namespace Geometry_Dash_Randomiser {
                   this.importTextBox.Text = string.Empty;
             }
 
+            private void _Deactivate(object sender, EventArgs e) {
+                  this.Hide();
+            }
+
             private void acceptButton_Click(object sender, EventArgs e) {
                   ConfigDataChanged?.Invoke(this, this.importTextBox.Text, EventArgs.Empty);
 
@@ -58,10 +62,6 @@ namespace Geometry_Dash_Randomiser {
                   if (iData.GetDataPresent(DataFormats.Text)) {
                         importTextBox.Text = (String)iData.GetData(DataFormats.Text);
                   }
-            }
-
-            private void _Deactivate(object sender, EventArgs e) {
-                  this.Hide();
             }
       }
 }

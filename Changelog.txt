@@ -1,3 +1,24 @@
+Changelog for V2.4.2.0:
+
+What's New?
+ - The UI has been made a lot more responsive
+ - Added a new beta theme: System theme. It uses the set Windows theme colour
+ - Added a setting button next to the theme selector for enabling and disabling the Random and System themes
+ - Added a logger system. It is only be partially implemented for now, but will be expanded in the future
+
+Bugfixes:
+ - Fixed the Icon Settings group value not changing
+ - Texture Size Multiplier slider's position is updated correctly when the application launches
+ - Fixed the Debug Console not printing anything sometimes. You can enable it in the config.txt file for debugging purposes
+ - Fixed a crash when refreshing themes and there were fewer themes than the current theme index
+ - Potentially fixed fonts not rendering sometimes. More testing is required
+
+Known Bugs:
+ - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can make levels easier or impossible in some cases
+ - Sometimes some fonts do not render at all
+
+-------------------------------------------
+
 Changelog for V2.4.1.0:
 
 What's New?

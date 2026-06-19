@@ -1,0 +1,78 @@
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+namespace Geometry_Dash_Randomiser {
+
+      public class FileBlacklist {
+
+            private const string blacklistedFilePath = "blacklisted_files.txt";
+
+            public FileBlacklist() {
+                  // If the file doesn't exist, create it with default data
+                  if (File.Exists(blacklistedFilePath) == false) {
+                        Log.Write(Log.Mode.Info, $"The file \"{blacklistedFilePath}\" does not exist. Creating the file now.");
+
+                        File.WriteAllLines(blacklistedFilePath, blacklistedFiles);
+
+                  } else {
+                        Log.Write(Log.Mode.Verbose, "Loading the blacklisted file...");
+
+                        blacklistedFiles = File.ReadAllLines(blacklistedFilePath)
+                              .Select(l => l.RemoveExtension().RemoveQualityExtension())
+                              .ToArray();
+                  }
+            }
+
+            // Default blacklisted files written to file if the blacklisted file does not exist
+            private readonly string[] blacklistedFiles = {
+                  "CCControlColourPickerSpriteSheet",
+                  "DungeonSheet",
+                  "PlayerExplosion_01",
+                  "PlayerExplosion_02",
+                  "PlayerExplosion_03",
+                  "PlayerExplosion_04",
+                  "PlayerExplosion_05",
+                  "PlayerExplosion_06",
+                  "PlayerExplosion_07",
+                  "PlayerExplosion_08",
+                  "PlayerExplosion_09",
+                  "PlayerExplosion_10",
+                  "PlayerExplosion_11",
+                  "PlayerExplosion_12",
+                  "PlayerExplosion_13",
+                  "PlayerExplosion_14",
+                  "PlayerExplosion_15",
+                  "PlayerExplosion_16",
+                  "PlayerExplosion_17",
+                  "PlayerExplosion_18",
+                  "PlayerExplosion_19",
+                  "WorldSheet"
+            };
+
+            public List<string> FilterBlacklisted(List<string> files) {
+                  return FilterBlacklisted(files.ToArray()).ToList();
+            }
+
+            public string[] FilterBlacklisted(string[] files) {
+                  List<string> ret = new List<string>();
+
+                  for (int i = 0; i < files.Length; i++) {
+                        if (IsBlacklisted(files[i]) == false)
+                              ret.Add(files[i]);
+                  }
+                  return ret.ToArray();
+            }
+
+            public bool IsBlacklisted(string fileName) {
+                  fileName = fileName.RemoveQualityExtension();
+
+                  for (int i = 0; i < blacklistedFiles.Length; i++) {
+                        if (fileName == blacklistedFiles[i]) {
+                              return true;
+                        }
+                  }
+                  return false;
+            }
+      }
+}

@@ -16,16 +16,42 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <SupportUrl>https://github.com/Hydrough2k2k</SupportUrl>
+    <ErrorReportUrl>https://github.com/Hydrough2k2k</ErrorReportUrl>
+    <TargetCulture>en</TargetCulture>
+    <ProductName>Geometry Dash Randomiser</ProductName>
+    <PublisherName>Hydrough</PublisherName>
+    <SuiteName>Hydrough</SuiteName>
+    <MinimumRequiredVersion>2.4.2.1</MinimumRequiredVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>2.4.2.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,12 +61,32 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\GDR Logo 256px.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>21F986FC67D6D2D7EFCE40B3DEAA76F04097540D</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Geometry Dash Randomiser_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Chasm.Compatibility.HashCode, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -241,20 +287,35 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationState.cs" />
-    <Compile Include="BitmapExtensions.cs" />
-    <Compile Include="ChangelogData.cs" />
-    <Compile Include="ConfigurationData.cs" />
-    <Compile Include="DateTimeExtensions.cs" />
+    <Compile Include="Enums\ApplicationState.cs" />
+    <Compile Include="Enums\GDR_Path.cs" />
+    <Compile Include="Extensions\BitmapExtensions.cs" />
+    <Compile Include="Extensions\ReadyStateExtensions.cs" />
+    <Compile Include="Forms\GDR_Form\GDR_Form_Intrinsics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ThemeConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ThemeConfigForm.Designer.cs">
+      <DependentUpon>ThemeConfigForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ThemedFormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Helpers\Log.cs" />
+    <Compile Include="Objects\ChangelogData.cs" />
+    <Compile Include="Objects\ConfigurationData.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Forms\ChangelogForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\ChangelogForm.Designer.cs">
       <DependentUpon>ChangelogForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Color2.cs" />
-    <Compile Include="ColorExt.cs" />
-    <Compile Include="Config.cs" />
+    <Compile Include="Objects\Color2.cs" />
+    <Compile Include="Extensions\ColorExtensions.cs" />
+    <Compile Include="Configuration\Config.cs" />
     <Compile Include="Forms\CreditsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -267,69 +328,65 @@
     <Compile Include="Forms\ExportConfigForm.Designer.cs">
       <DependentUpon>ExportConfigForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Extensions.cs" />
-    <Compile Include="FileBlacklist.cs" />
-    <Compile Include="FileIO.cs" />
-    <Compile Include="Font.cs" />
-    <Compile Include="FontKerning.cs" />
-    <Compile Include="FontManager.cs" />
-    <Compile Include="FontSerialiser.cs" />
-    <Compile Include="Forms\GDR_Form\GDR_Control.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\GDR_Form\GDR_Intrinsics.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GameFilesExtension.cs" />
-    <Compile Include="GameFileType.cs" />
-    <Compile Include="GameSheet.cs" />
-    <Compile Include="GamesheetManager.cs" />
-    <Compile Include="IconRandSettings.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="ControlClasses\FileBlacklist.cs" />
+    <Compile Include="Helpers\FileIO.cs" />
+    <Compile Include="Objects\Font.cs" />
+    <Compile Include="Objects\GameSheet\FontGameSheet.cs" />
+    <Compile Include="Objects\FontKerning.cs" />
+    <Compile Include="ControlClasses\FontManager.cs" />
+    <Compile Include="Objects\GameSheet\GameSheet.cs" />
+    <Compile Include="Objects\GameSheet\TextureGameSheet.cs" />
+    <Compile Include="Serializers\FontSerializer.cs" />
+    <Compile Include="Extensions\GameFilesExtension.cs" />
+    <Compile Include="Enums\GameFileType.cs" />
+    <Compile Include="ControlClasses\GameSheetAssembler.cs" />
+    <Compile Include="ControlClasses\GamesheetManager.cs" />
+    <Compile Include="Configuration\IconRandSettings.cs" />
     <Compile Include="Forms\ImportConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\ImportConfigForm.Designer.cs">
       <DependentUpon>ImportConfigForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="int2.cs" />
-    <Compile Include="int4.cs" />
-    <Compile Include="FontChar.cs" />
-    <Compile Include="RetpackSharp\PackingException.cs" />
-    <Compile Include="RetpackSharp\PackingHints.cs" />
-    <Compile Include="RetpackSharp\PackingRectangle.cs" />
-    <Compile Include="Parse.cs" />
-    <Compile Include="GameFileManager.cs" />
-    <Compile Include="Forms\GDR_Form\GDR_Main.cs">
+    <Compile Include="Objects\int2.cs" />
+    <Compile Include="Objects\int4.cs" />
+    <Compile Include="Objects\FontChar.cs" />
+    <Compile Include="Libraries\RetpackSharp\PackingException.cs" />
+    <Compile Include="Libraries\RetpackSharp\PackingHints.cs" />
+    <Compile Include="Libraries\RetpackSharp\PackingRectangle.cs" />
+    <Compile Include="Helpers\Parse.cs" />
+    <Compile Include="ControlClasses\GameFileManager.cs" />
+    <Compile Include="Forms\GDR_Form\GDR_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\GDR_Form\GDR_Main.Designer.cs">
-      <DependentUpon>GDR_Main.cs</DependentUpon>
+    <Compile Include="Forms\GDR_Form\GDR_Form.Designer.cs">
+      <DependentUpon>GDR_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="PathManager.cs" />
-    <Compile Include="Plist.cs" />
+    <Compile Include="ControlClasses\PathManager.cs" />
+    <Compile Include="Serializers\Plist.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ProgressState.cs" />
+    <Compile Include="Objects\ProgressState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Quality.cs" />
-    <Compile Include="RandomExt.cs" />
-    <Compile Include="RandomisationSetting.cs" />
-    <Compile Include="Randomiser.cs" />
-    <Compile Include="ReadyState.cs" />
-    <Compile Include="RetpackSharp\RectanglePacker.cs" />
-    <Compile Include="Sprite.cs" />
-    <Compile Include="StatusDisplayColours.cs" />
-    <Compile Include="StringExtension.cs" />
-    <Compile Include="FontRandomisationSettings.cs" />
-    <Compile Include="TextCorruptor.cs" />
-    <Compile Include="Theme.cs" />
-    <Compile Include="ThemeController.cs" />
-    <Compile Include="ThemeReader.cs" />
-    <Compile Include="TimeExtension.cs" />
+    <Compile Include="Enums\Quality.cs" />
+    <Compile Include="Extensions\RandomExtensions.cs" />
+    <Compile Include="Configuration\RandomisationSetting.cs" />
+    <Compile Include="ControlClasses\Randomiser.cs" />
+    <Compile Include="Enums\ReadyState.cs" />
+    <Compile Include="Libraries\RetpackSharp\RectanglePacker.cs" />
+    <Compile Include="Objects\Sprite.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="Configuration\FontRandomisationSettings.cs" />
+    <Compile Include="Helpers\TextCorruptor.cs" />
+    <Compile Include="Objects\Theme.cs" />
+    <Compile Include="ControlClasses\ThemeController.cs" />
+    <Compile Include="ControlClasses\ThemeReader.cs" />
+    <Compile Include="Extensions\TimeExtension.cs" />
     <EmbeddedResource Include="Forms\ChangelogForm.resx">
       <DependentUpon>ChangelogForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -339,21 +396,26 @@
     <EmbeddedResource Include="Forms\ExportConfigForm.resx">
       <DependentUpon>ExportConfigForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GameFileManager.resx">
+    <EmbeddedResource Include="ControlClasses\GameFileManager.resx">
       <DependentUpon>GameFileManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\GDR_Form\GDR_Main.resx">
-      <DependentUpon>GDR_Main.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\GDR_Form\GDR_Form.resx">
+      <DependentUpon>GDR_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ImportConfigForm.resx">
       <DependentUpon>ImportConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ThemeConfigForm.resx">
+      <DependentUpon>ThemeConfigForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Geometry Dash Randomiser_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -368,6 +430,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\InfoIcon.png" />
+    <None Include="Resources\SettingsImage.png" />
     <None Include="Resources\RefreshIconBackground.png" />
     <None Include="Resources\Warning_half_size.png" />
     <None Include="Resources\GDR Logo 60px.png" />
@@ -375,7 +439,18 @@
     <None Include="Resources\ConnectorBeamWhite.png" />
     <Content Include="Resources\GDR Logo 256px.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.9.3\build\Fody.targets" Condition="Exists('..\packages\Fody.6.9.3\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Geometry_Dash_Randomiser.Forms;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -6,18 +7,20 @@ using System.Windows.Forms;
 
 namespace Geometry_Dash_Randomiser {
 
-      public partial class ChangelogForm : Form {
-
-            // Data received from the main Form
-            public Theme theme;
-            public TextCorruptor textCorruptor;
+      public partial class ChangelogForm : ThemedFormBase {
 
             // Local data
             readonly private ChangelogData[] changelogs = Array.Empty<ChangelogData>();
             int currentChangelogIndex = 0;
 
+            ChangelogData CurrentChangelog => changelogs[currentChangelogIndex];
+
             public ChangelogForm() {
                   InitializeComponent();
+
+                  StoreOriginalText();
+
+                  ResizeWindowAndElements();
 
                   changelogs = LoadChangelogsFromFile();
 
@@ -26,50 +29,9 @@ namespace Geometry_Dash_Randomiser {
                   if (this.changelogs.Length <= 1) {
                         this.previousVersionButton.Enabled = false;
                   }
-            }
-
-            private void SetTheme() {
-                  this.BackColor = theme.BackgroundColour.AdjustBrightness(0.60f);
-
-                  this.changelogHeaderLabel.ForeColor = theme.TextColour;
-                  this.changelogVersionLabel.ForeColor = theme.TextColour;
-
-                  this.whatsNewLabel.ForeColor = theme.TextColour;
-                  this.whatsNewTextBox.BackColor = theme.ObjectBackColour.AdjustBrightness(0.50f);
-                  this.whatsNewTextBox.ForeColor = theme.ObjectTextColour.AdjustBrightness(0.80f);
-
-                  this.bugfixesLabel.ForeColor = theme.TextColour;
-                  this.bugfixesTextBox.BackColor = theme.ObjectBackColour.AdjustBrightness(0.50f);
-                  this.bugfixesTextBox.ForeColor = theme.ObjectTextColour.AdjustBrightness(0.80f);
-
-                  this.knownBugsLabel.ForeColor = theme.TextColour;
-                  this.knownBugsTextBox.BackColor = theme.ObjectBackColour.AdjustBrightness(0.50f);
-                  this.knownBugsTextBox.ForeColor = theme.ObjectTextColour.AdjustBrightness(0.80f);
-
-                  this.previousVersionButton.ForeColor = theme.ObjectTextColour;
-                  this.previousVersionButton.BackColor = theme.ObjectBackColour.AdjustBrightness(0.70f);
-
-                  this.nextVersionButton.ForeColor = theme.ObjectTextColour;
-                  this.nextVersionButton.BackColor = theme.ObjectBackColour.AdjustBrightness(0.70f);
-            }
-
-            private void On_FormClosing(object sender, FormClosingEventArgs e) {
-                  e.Cancel = true;
-                  this.On_Deactivate(sender, e as EventArgs);
-            }
-
-            private void On_Activated(object sender, EventArgs e) {
-                  SetTheme();
-
-                  PopulateTextBoxes(changelogs[currentChangelogIndex]);
-                  CorruptFormText();
-                  ResizeWindowAndElements();
 
                   this.Text = "GDR Changelog";
-            }
-
-            private void On_Deactivate(object sender, EventArgs e) {
-                  this.Hide();
+                  this.originalTitle = this.Text;
             }
 
             private ChangelogData[] LoadChangelogsFromFile() {
@@ -101,26 +63,6 @@ namespace Geometry_Dash_Randomiser {
                   return changelogList.ToArray();
             }
 
-            private void CorruptFormText() {
-                  if (textCorruptor.CorruptionLevel == 0)
-                        return;
-
-                  this.previousVersionButton.Text = this.textCorruptor.CorruptText(this.previousVersionButton.Text);
-                  this.nextVersionButton.Text = this.textCorruptor.CorruptText(this.nextVersionButton.Text);
-
-                  this.changelogHeaderLabel.Text = this.textCorruptor.CorruptText(this.changelogHeaderLabel.Text);
-                  this.changelogVersionLabel.Text = this.textCorruptor.CorruptText(this.changelogVersionLabel.Text);
-
-                  this.whatsNewLabel.Text = this.textCorruptor.CorruptText(this.whatsNewLabel.Text);
-                  this.whatsNewTextBox.Text = this.textCorruptor.CorruptText(this.whatsNewTextBox.Text);
-
-                  this.bugfixesLabel.Text = this.textCorruptor.CorruptText(this.bugfixesLabel.Text);
-                  this.bugfixesTextBox.Text = this.textCorruptor.CorruptText(this.bugfixesTextBox.Text);
-
-                  this.knownBugsLabel.Text = this.textCorruptor.CorruptText(this.knownBugsLabel.Text);
-                  this.knownBugsTextBox.Text = this.textCorruptor.CorruptText(this.knownBugsTextBox.Text);
-            }
-
             private void PopulateTextBoxes(ChangelogData data) {
                   this.changelogHeaderLabel.Text = "Changelog for";
                   this.changelogVersionLabel.Text = data.Version;
@@ -141,10 +83,12 @@ namespace Geometry_Dash_Randomiser {
             private void ResizeWindowAndElements() {
                   Size size = new Size(windowMinWidth, 0);
 
+                  Size textboxSize = new Size(size.Width - padding * 2, maxTextboxHeight);
+
                   // Set the size of the text boxes
-                  this.whatsNewTextBox.Size = new Size(size.Width - padding * 2, maxTextboxHeight);
-                  this.bugfixesTextBox.Size = new Size(size.Width - padding * 2, maxTextboxHeight);
-                  this.knownBugsTextBox.Size = new Size(size.Width - padding * 2, maxTextboxHeight);
+                  this.whatsNewTextBox.Size = textboxSize;
+                  this.bugfixesTextBox.Size = textboxSize;
+                  this.knownBugsTextBox.Size = textboxSize;
 
                   // Position the text boxes and their labels
                   this.whatsNewLabel.Location = new Point(padding, this.previousVersionButton.Location.Y + this.previousVersionButton.Height + padding);
@@ -193,6 +137,7 @@ namespace Geometry_Dash_Randomiser {
 
                   this.nextVersionButton.Enabled = true;
 
+                  ResetAllTextToDefault();
                   PopulateTextBoxes(changelogs[currentChangelogIndex]);
                   CorruptFormText();
             }
@@ -205,8 +150,25 @@ namespace Geometry_Dash_Randomiser {
 
                   this.previousVersionButton.Enabled = true;
 
+                  ResetAllTextToDefault();
                   PopulateTextBoxes(changelogs[currentChangelogIndex]);
                   CorruptFormText();
+            }
+
+            public override void On_FormClosing(object sender, FormClosingEventArgs e) {
+                  base.On_FormClosing(sender, e);
+            }
+
+            public override void On_Activated(object sender, EventArgs e) {
+                  SetTheme();
+
+                  ResetAllTextToDefault();
+                  PopulateTextBoxes(CurrentChangelog);
+                  CorruptFormText();
+            }
+
+            public override void On_Deactivate(object sender, EventArgs e) {
+                  base.On_Deactivate(sender, e);
             }
 
             const string changelogFileName = "Changelog.txt";
