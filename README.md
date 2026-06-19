@@ -20,9 +20,10 @@ Many new configuration settings were added, the whole app was rebuilt from the g
 
 # How to use the app:
 - Download the most recent version from "Releases" on the right side or using the link above
+- Unpack the .rar file to a folder
 - Launch Geometry Dash Randomiser.exe
-- Enable the settings you want, and paste the location of your game into "Game Folder". A restart might be required if it detects an issue
-- When the randomisation is done, copy the "Resources" folder from the Randomised Files folder and paste to where Geometry Dash is installed.
+- Paste the location of your game into "Game Folder", and enable the settings you want. (The "How to use.txt" file contains a lot of useful information for this application)
+- if you have the "Auto-Copy Game Files" setting enabled, you are good to go. If you don't, you have to copy the "Resources" folder from the "Randomised Files" folder and paste to where Geometry Dash is installed.
 - Click accept on overwriting all the files
 - Finally, launch the game and enjoy the chaos!
 - To revert the files to the original ones you can copy the "Resources" folder from "Unaltered Files", or click the "Restore Files" button in the app
@@ -31,7 +32,7 @@ Many new configuration settings were added, the whole app was rebuilt from the g
 
 # Compatibility:
 
-- Windows 10 64 bit, Windows 11 64 bit
+- Windows 10, Windows 11
 - Recommended specs:
 - Intel i3 or above, AMD Ryzen 3 or above
 - 4GB RAM or more (8GB is recommended)
