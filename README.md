@@ -12,7 +12,7 @@ An application to mess with Geometry Dash's files
 
  - Alternatively click on Releases on the right side, and download the RAR from the most recent one
 
-![Screenshot of GDR Version 2.4.2.0](Geometry Dash Randomiser/GDR Screenshot V2.4.2.0.png)
+![Screenshot of GDR Version 2.4.2.0](GDR Screenshot V2.4.2.0.png)
 
 This application is fully compatible with Geometry Dash v2.2081 as of 2026/Jul/19
 
