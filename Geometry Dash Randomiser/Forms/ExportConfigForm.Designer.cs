@@ -30,30 +30,31 @@
                   // 
                   // exportTextBox
                   // 
+                  this.exportTextBox.DetectUrls = false;
                   this.exportTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
                   this.exportTextBox.Location = new System.Drawing.Point(12, 46);
                   this.exportTextBox.Name = "exportTextBox";
                   this.exportTextBox.ReadOnly = true;
-                  this.exportTextBox.Size = new System.Drawing.Size(310, 128);
+                  this.exportTextBox.Size = new System.Drawing.Size(360, 178);
                   this.exportTextBox.TabIndex = 0;
                   this.exportTextBox.Text = "";
                   // 
                   // exportLabel
                   // 
                   this.exportLabel.AutoSize = true;
-                  this.exportLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-                  this.exportLabel.Location = new System.Drawing.Point(32, 12);
+                  this.exportLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+                  this.exportLabel.Location = new System.Drawing.Point(41, 12);
                   this.exportLabel.Name = "exportLabel";
-                  this.exportLabel.Size = new System.Drawing.Size(114, 22);
+                  this.exportLabel.Size = new System.Drawing.Size(138, 26);
                   this.exportLabel.TabIndex = 107;
                   this.exportLabel.Text = "Export String";
                   // 
                   // copyToClipboardButton
                   // 
-                  this.copyToClipboardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-                  this.copyToClipboardButton.Location = new System.Drawing.Point(174, 12);
+                  this.copyToClipboardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+                  this.copyToClipboardButton.Location = new System.Drawing.Point(222, 10);
                   this.copyToClipboardButton.Name = "copyToClipboardButton";
-                  this.copyToClipboardButton.Size = new System.Drawing.Size(150, 28);
+                  this.copyToClipboardButton.Size = new System.Drawing.Size(150, 30);
                   this.copyToClipboardButton.TabIndex = 113;
                   this.copyToClipboardButton.Text = "Copy to Clipboard";
                   this.copyToClipboardButton.UseVisualStyleBackColor = true;
@@ -64,7 +65,7 @@
                   this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
                   this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
                   this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-                  this.ClientSize = new System.Drawing.Size(334, 186);
+                  this.ClientSize = new System.Drawing.Size(384, 236);
                   this.Controls.Add(this.copyToClipboardButton);
                   this.Controls.Add(this.exportLabel);
                   this.Controls.Add(this.exportTextBox);

@@ -13,8 +13,8 @@ namespace Geometry_Dash_Randomiser.Forms {
                   this.Text = "Theme Settings";
                   this.originalTitle = this.Text;
 
-                  this.RandomThemeCheckbox.Checked = Config.Instance.enableRandomTheme;
-                  this.SystemThemeCheckbox.Checked = Config.Instance.enableSystemTheme;
+                  this.RandomThemeCheckbox.Checked = AdvancedConfig.Instance.EnableRandomTheme;
+                  this.SystemThemeCheckbox.Checked = AdvancedConfig.Instance.EnableSystemTheme;
             }
 
             public override void On_FormClosing(object sender, FormClosingEventArgs e) {
@@ -33,11 +33,11 @@ namespace Geometry_Dash_Randomiser.Forms {
             }
 
             private void RandomThemeCheckbox_Click(object sender, EventArgs e) {
-                  Config.Instance.enableRandomTheme = (sender as CheckBox).Checked;
+                  AdvancedConfig.Instance.EnableRandomTheme = (sender as CheckBox).Checked;
             }
 
             private void SystemThemeCheckbox_Click(object sender, EventArgs e) {
-                  Config.Instance.enableSystemTheme = (sender as CheckBox).Checked;
+                  AdvancedConfig.Instance.EnableSystemTheme = (sender as CheckBox).Checked;
             }
       }
 }

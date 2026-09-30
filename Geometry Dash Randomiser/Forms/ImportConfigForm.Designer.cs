@@ -34,10 +34,10 @@
                   // importLabel
                   // 
                   this.importLabel.AutoSize = true;
-                  this.importLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-                  this.importLabel.Location = new System.Drawing.Point(32, 12);
+                  this.importLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+                  this.importLabel.Location = new System.Drawing.Point(38, 12);
                   this.importLabel.Name = "importLabel";
-                  this.importLabel.Size = new System.Drawing.Size(116, 22);
+                  this.importLabel.Size = new System.Drawing.Size(143, 26);
                   this.importLabel.TabIndex = 109;
                   this.importLabel.Text = "Import Config";
                   // 
@@ -46,16 +46,16 @@
                   this.importTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
                   this.importTextBox.Location = new System.Drawing.Point(12, 46);
                   this.importTextBox.Name = "importTextBox";
-                  this.importTextBox.Size = new System.Drawing.Size(310, 91);
+                  this.importTextBox.Size = new System.Drawing.Size(364, 142);
                   this.importTextBox.TabIndex = 108;
                   this.importTextBox.Text = "";
                   // 
                   // acceptButton
                   // 
                   this.acceptButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-                  this.acceptButton.Location = new System.Drawing.Point(171, 144);
+                  this.acceptButton.Location = new System.Drawing.Point(197, 194);
                   this.acceptButton.Name = "acceptButton";
-                  this.acceptButton.Size = new System.Drawing.Size(153, 30);
+                  this.acceptButton.Size = new System.Drawing.Size(179, 30);
                   this.acceptButton.TabIndex = 110;
                   this.acceptButton.Text = "Accept";
                   this.acceptButton.UseVisualStyleBackColor = true;
@@ -64,9 +64,9 @@
                   // cancelButton
                   // 
                   this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-                  this.cancelButton.Location = new System.Drawing.Point(12, 144);
+                  this.cancelButton.Location = new System.Drawing.Point(12, 194);
                   this.cancelButton.Name = "cancelButton";
-                  this.cancelButton.Size = new System.Drawing.Size(153, 30);
+                  this.cancelButton.Size = new System.Drawing.Size(179, 30);
                   this.cancelButton.TabIndex = 111;
                   this.cancelButton.Text = "Cancel";
                   this.cancelButton.UseVisualStyleBackColor = true;
@@ -74,10 +74,10 @@
                   // 
                   // pasteFromClipboardButton
                   // 
-                  this.pasteFromClipboardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-                  this.pasteFromClipboardButton.Location = new System.Drawing.Point(174, 12);
+                  this.pasteFromClipboardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+                  this.pasteFromClipboardButton.Location = new System.Drawing.Point(226, 8);
                   this.pasteFromClipboardButton.Name = "pasteFromClipboardButton";
-                  this.pasteFromClipboardButton.Size = new System.Drawing.Size(150, 28);
+                  this.pasteFromClipboardButton.Size = new System.Drawing.Size(150, 30);
                   this.pasteFromClipboardButton.TabIndex = 112;
                   this.pasteFromClipboardButton.Text = "Paste from Clipboard";
                   this.pasteFromClipboardButton.UseVisualStyleBackColor = true;
@@ -88,7 +88,7 @@
                   this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
                   this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
                   this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-                  this.ClientSize = new System.Drawing.Size(334, 186);
+                  this.ClientSize = new System.Drawing.Size(384, 236);
                   this.Controls.Add(this.pasteFromClipboardButton);
                   this.Controls.Add(this.cancelButton);
                   this.Controls.Add(this.acceptButton);

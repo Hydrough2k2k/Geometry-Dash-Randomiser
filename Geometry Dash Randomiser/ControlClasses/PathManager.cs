@@ -62,36 +62,36 @@ namespace Geometry_Dash_Randomiser {
             /// Resources folder where the game is installed
             /// </summary>
             public static string GameResourcesFolder =>
-                  Path.Combine(Config.Instance.gameDirectory, resourcesFolderName);
+                  Path.Combine(AdvancedConfig.Instance.GameDirectory, resourcesFolderName);
 
             /// <summary>
             /// Icons folder where the game is installed
             /// </summary>
             public static string GameIconsFolder =>
-                  Path.Combine(Config.Instance.gameDirectory, resourcesFolderName, iconsFolderName);
+                  Path.Combine(AdvancedConfig.Instance.GameDirectory, resourcesFolderName, iconsFolderName);
 
             /// <summary>
             /// Resources folder in the application's folder. This stores the unaltered files
             /// </summary>
             public static string BackupResourcesFolder =>
-                  Path.Combine(unalteredFiles, GetQualityFolderName(Config.Instance.quality), resourcesFolderName);
+                  Path.Combine(unalteredFiles, GetQualityFolderName(AdvancedConfig.Instance.Quality), resourcesFolderName);
 
             /// <summary>
             /// Icons folder in the application's folder. This stores the unaltered files
             /// </summary>
             public static string BackupIconsFolder =>
-                  Path.Combine(unalteredFiles, GetQualityFolderName(Config.Instance.quality), resourcesFolderName, iconsFolderName);
+                  Path.Combine(unalteredFiles, GetQualityFolderName(AdvancedConfig.Instance.Quality), resourcesFolderName, iconsFolderName);
 
             /// <summary>
             /// This is where the randomised Resources files will go by default
             /// </summary>
             public static string LocalResourcesOutputFolder =>
-                  Path.Combine(randomisedFiles, GetQualityFolderName(Config.Instance.quality), resourcesFolderName);
+                  Path.Combine(randomisedFiles, GetQualityFolderName(AdvancedConfig.Instance.Quality), resourcesFolderName);
 
             /// <summary>
             /// This is where the randomised Icons files will go by default
             /// </summary>
             public static string LocalIconsOutputFolder =>
-                  Path.Combine(randomisedFiles, GetQualityFolderName(Config.Instance.quality), resourcesFolderName, iconsFolderName);
+                  Path.Combine(randomisedFiles, GetQualityFolderName(AdvancedConfig.Instance.Quality), resourcesFolderName, iconsFolderName);
       }
 }

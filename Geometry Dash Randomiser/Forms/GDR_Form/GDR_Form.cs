@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Geometry_Dash_Randomiser.Log;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -18,17 +19,7 @@ namespace Geometry_Dash_Randomiser {
             public GDR_Form() {
                   InitializeComponent();
 
-#if DEBUG
-                  AllocConsole();
-#endif
-
                   WriteSystemAnalysisInfoToConsole();
-
-                  Config.ReadFile();
-
-                  if (config.debugMode) {
-                        AllocConsole();
-                  }
 
                   this.gameFileManager = new GameFileManager(this);
                   this.themeController = new ThemeController();
@@ -36,7 +27,7 @@ namespace Geometry_Dash_Randomiser {
                   RefreshThemes(animate: false, setTheme: false);
             }
 
-            private void GDR_Form_Shown(object sender, EventArgs e) {
+            private void FormShown(object sender, EventArgs e) {
                   SetSpriteSizeMultiplierSliderAndTextBox();
 
                   // If the game directory is valid, enable the restore button
@@ -52,7 +43,12 @@ namespace Geometry_Dash_Randomiser {
 
                   RefreshUI();
 
-                  isFormInitialised = true;
+                  Thread cleanerThread = new Thread(() => {
+                        Log.CleanUpLogs();
+                  });
+                  cleanerThread.Start();
+
+                  autoRefreshLinkedControls = true;
             }
 
             private void WriteSystemAnalysisInfoToConsole() {
@@ -61,54 +57,88 @@ namespace Geometry_Dash_Randomiser {
                   Log.Write(Log.Mode.Verbose, $"Is 64bit OS: {Environment.Is64BitOperatingSystem}");
                   Log.Write(Log.Mode.Verbose, $"OS Version: {Environment.OSVersion}");
                   Log.Write(Log.Mode.Verbose, $"System Page Size: {Environment.SystemPageSize}");
-                  Log.Write(Log.Mode.Verbose, $"CLR Version: {Environment.Version}\n");
+                  Log.Write(Log.Mode.Verbose, $"CLR Version: {Environment.Version}");
             }
 
-            private void RefreshUI(bool overwriteStatusDisplayText = true, bool allowStatusDisplayTextCorruption = true) {
-                  SetAllIconTexturesElements();
+            #region UI Control
+
+            private void RefreshUI(bool overwriteStatusDisplayText = true) {
+                  SetAllIconTexturesElementStates();
                   SetAllGameTexturesElementStates();
                   SetAllFontRandElementStates();
 
+                  UpdateRandomisationControlStates();
+                  UpdateApplicationSettingsControlStates();
+
+                  ValidateReadyState();
+
+                  RepositionControlPairs();
+
+                  UpdateAllImageThemes();
+
+                  this.statusDisplay.Text = this.textCorruptor.CorruptText(this.statusDisplay.Text);
+            }
+
+            private void ValidateReadyState(bool overwriteStatusDisplayText = true) {
+                  ToggleAllLinkedControls();
+
                   ReadyState ready = gameFileManager.getReadyState();
-
-                  this.gameFolderTextBox.Text = config.gameDirectory;
-
-                  this.seedInputBox.Text = config.seed.ToString();
-                  this.seedInputBox.Value = config.seed;
-
-                  this.textureQualitySelectorBox.SelectedIndex = (int)config.quality;
-                  this.applicationThemeSelectorBox.SelectedIndex = (int)config.themeID;
-
-                  // Format the sprite size multiplier display's text
-                  if (config.maxSpriteMultiplier < 1000) {
-                        string fmtString = "F2";
-                        if (config.maxSpriteMultiplier > 3 && config.maxSpriteMultiplier <= 50) {
-                              fmtString = "F1";
-                        } else if (config.maxSpriteMultiplier > 50) {
-                              fmtString = "";
-                        }
-
-                        this.spriteSizeMultiplierTextbox.Text = config.maxSpriteMultiplier.ToString(fmtString) + "x";
-                  } else {
-                        this.spriteSizeMultiplierTextbox.Text = "Unlimited";
-                  }
-
-                  this.allowDuplicatesCheckbox.Checked = config.allowDuplicates;
-
-                  this.autoOverwriteFilesCheckbox.Checked = config.autoOverwriteFiles;
-
                   SetStartButtonState(ready);
                   SetMissingFoldersOrExeWarningState(ready);
                   SetWarningIconStates(ready);
 
-                  PadInfoIcons();
-
                   if (overwriteStatusDisplayText) {
                         this.statusDisplay.Text = GetReadyStatusDisplayText(ready);
                   }
+            }
 
-                  if (allowStatusDisplayTextCorruption) {
-                        this.statusDisplay.Text = this.textCorruptor.CorruptText(this.statusDisplay.Text);
+            private void ToggleAllLinkedControls() {
+                  ToggleIconSettingsLinkedControls();
+                  ToggleFontSettingsLinkedControls();
+                  ToggleFontLetterRandSettingsLinkedControls();
+            }
+
+            private void ToggleIconSettingsLinkedControls() {
+                  ToggleLinkedControls(config.IconTextures, IconTexturesCheckbox, IconTexturesGroupDisplay);
+            }
+
+            private void ToggleFontSettingsLinkedControls() {
+                  ToggleLinkedControls(config.FontRand, fontRandEnabledCheckbox);
+            }
+
+            private void ToggleFontLetterRandSettingsLinkedControls() {
+                  ToggleLinkedControls(config.FontRand.CharacterRandSettings, randomiseCharactersCheckBox);
+            }
+
+            private void ToggleLinkedControls(IToggleableSetting setting, CheckBox parentControl, Control childControl = null) {
+                  if (setting == null) {
+                        Log.Write(Mode.Error, $"The \"randomisationSetting\" was passed as null to \"ToggleLinkedControls\"");
+                        return;
+                  }
+
+                  if (parentControl == null) {
+                        Log.Write(Mode.Error, $"The \"parentControl\" was passed as null to \"ToggleLinkedControls\"");
+                        return;
+                  }
+
+                  int enabledSettings = setting.GetEnabledSettingsCount();
+                  bool controlsNewState = false;
+
+                  if (enabledSettings != 0) {
+                        controlsNewState = true;
+
+                        if (enabledSettings == setting.TotalSettingsCount) {
+                              parentControl.CheckState = CheckState.Checked;
+
+                        } else {
+                              parentControl.CheckState = CheckState.Indeterminate;
+                        }
+                  }
+
+                  parentControl.Checked = controlsNewState;
+
+                  if (childControl != null) {
+                        childControl.Enabled = controlsNewState;
                   }
             }
 
@@ -154,25 +184,43 @@ namespace Geometry_Dash_Randomiser {
                   this.toolTip.SetToolTip(this.gameTextureWarningIcon, GetReadyStatusDisplayText(ReadyState.NoSettingsEnabled));
                   this.toolTip.SetToolTip(this.fontRandWarningIcon, GetReadyStatusDisplayText(ReadyState.NoSettingsEnabled));
 
-                  this.seedInfoIcon.Visible = config.seed == 0;
+                  this.letterSpacingModeInfoIcon.Visible = (config.FontRand.LetterSpacingSettings.Mode == LetterSpacingSettings.SpacingMode.Advanced);
+
+                  this.seedInfoIcon.Visible = config.Seed == 0;
             }
 
-            private void PadInfoIcons() {
-                  RightAlignImage(iconTextureTypeLabel, iconTextureWarningIcon);
-                  RightAlignImage(gameTextureTypeLabel, gameTextureWarningIcon);
-                  RightAlignImage(fontRandEnabledCheckbox, fontRandWarningIcon);
+            private void RepositionControlPairs() {
+                  // Icon textures
+                  RightAlignControl(iconTextureTypeLabel, iconTextureWarningIcon);
 
-                  RightAlignImage(randomisationSeedLabel, seedInfoIcon);
+                  // Game Textures
+                  RightAlignControl(gameTextureTypeLabel, gameTextureWarningIcon);
 
-                  RightAlignImage(gameFolderLabel, gameFolderWarningIcon);
+                  // Font Settings
+                  RightAlignControl(fontRandEnabledCheckbox, fontRandWarningIcon);
+                  RightAlignControl(fontStyleRandModeLabel, fontStyleModeSelector);
+                  RightAlignControl(randomiseCharactersCheckBox, fontRandomiseCharactersInfoIcon);
+                  RightAlignControl(letterSpacingModeLabel, letterSpacingModeSelector);
+                  RightAlignControl(letterSpacingModeSelector, letterSpacingModeInfoIcon);
+                  RightAlignControl(letterSpacingLevelLabel, letterSpacingLevelInputBox);
+
+                  // Randomisation Settings
+                  RightAlignControl(randomisationSeedLabel, seedInfoIcon);
+
+                  // Application Settings
+                  RightAlignControl(gameFolderLabel, gameFolderWarningIcon);
             }
 
-            private void RightAlignImage(Label label, PictureBox pb) {
-                  pb.Location = new Point(label.Location.X + label.PreferredWidth, pb.Location.Y);
+            private void RightAlignControl(Label label, Control control, int X_offset = 0) {
+                  control.Location = new Point(label.Location.X + label.PreferredWidth + X_offset, control.Location.Y);
             }
 
-            private void RightAlignImage(CheckBox checkBox, PictureBox pb) {
-                  pb.Location = new Point(checkBox.Location.X + checkBox.Width, pb.Location.Y);
+            private void RightAlignControl(CheckBox checkBox, Control control, int X_offset = -4) {
+                  control.Location = new Point(checkBox.Location.X + checkBox.Width + X_offset, control.Location.Y);
+            }
+
+            private void RightAlignControl(ComboBox left, Control right, int X_offset = 5) {
+                  right.Location = new Point(left.Location.X + left.Width + X_offset, right.Location.Y);
             }
 
             private string GetReadyStatusDisplayText(ReadyState ready, bool corrupt = true) {
@@ -185,120 +233,198 @@ namespace Geometry_Dash_Randomiser {
                   return ret;
             }
 
-            private void SetAllIconTexturesElements() {
-                  if (config.iconTextures.GetEnabledSettingsCount() == 0) {
-                        config.iconTextures.enabled = false;
-                  }
-
-                  SetCheckboxAndGroupDisplayPairStates(IconTexturesCheckbox, IconTexturesGroupDisplay, config.iconTextures);
-
-                  if (this.IconTexturesCheckbox.Checked == false) {
-                        this.CubeTexturesCheckbox.Enabled = false;
-                        this.CubeTexturesGroupDisplay.Enabled = false;
-                        this.ShipTexturesCheckbox.Enabled = false;
-                        this.ShipTexturesGroupDisplay.Enabled = false;
-                        this.BallTexturesCheckbox.Enabled = false;
-                        this.BallTexturesGroupDisplay.Enabled = false;
-                        this.UFO_TexturesCheckbox.Enabled = false;
-                        this.UFO_TexturesGroupDisplay.Enabled = false;
-                        this.WaveTexturesCheckbox.Enabled = false;
-                        this.WaveTexturesGroupDisplay.Enabled = false;
-                        this.RobotTexturesCheckbox.Enabled = false;
-                        this.RobotTexturesGroupDisplay.Enabled = false;
-                        this.SpiderTexturesCheckbox.Enabled = false;
-                        this.SpiderTexturesGroupDisplay.Enabled = false;
-                        this.SwingTexturesCheckbox.Enabled = false;
-                        this.SwingTexturesGroupDisplay.Enabled = false;
-                        this.JetpackTexturesCheckbox.Enabled = false;
-                        this.JetpackTexturesGroupDisplay.Enabled = false;
-
-                  } else {
-                        this.CubeTexturesCheckbox.Enabled = true;
-                        this.CubeTexturesGroupDisplay.Enabled = config.iconTextures.Cube.enabled;
-                        this.ShipTexturesCheckbox.Enabled = true;
-                        this.ShipTexturesGroupDisplay.Enabled = config.iconTextures.Ship.enabled;
-                        this.BallTexturesCheckbox.Enabled = true;
-                        this.BallTexturesGroupDisplay.Enabled = config.iconTextures.Ball.enabled;
-                        this.UFO_TexturesCheckbox.Enabled = true;
-                        this.UFO_TexturesGroupDisplay.Enabled = config.iconTextures.Ufo.enabled;
-                        this.WaveTexturesCheckbox.Enabled = true;
-                        this.WaveTexturesGroupDisplay.Enabled = config.iconTextures.Wave.enabled;
-                        this.RobotTexturesCheckbox.Enabled = true;
-                        this.RobotTexturesGroupDisplay.Enabled = config.iconTextures.Robot.enabled;
-                        this.SpiderTexturesCheckbox.Enabled = true;
-                        this.SpiderTexturesGroupDisplay.Enabled = config.iconTextures.Spider.enabled;
-                        this.SwingTexturesCheckbox.Enabled = true;
-                        this.SwingTexturesGroupDisplay.Enabled = config.iconTextures.Swing.enabled;
-                        this.JetpackTexturesCheckbox.Enabled = true;
-                        this.JetpackTexturesGroupDisplay.Enabled = config.iconTextures.Jetpack.enabled;
-                  }
-
-                  SetCheckboxAndGroupDisplayPairStates(CubeTexturesCheckbox, CubeTexturesGroupDisplay, config.iconTextures.Cube);
-                  SetCheckboxAndGroupDisplayPairStates(ShipTexturesCheckbox, ShipTexturesGroupDisplay, config.iconTextures.Ship);
-                  SetCheckboxAndGroupDisplayPairStates(BallTexturesCheckbox, BallTexturesGroupDisplay, config.iconTextures.Ball);
-                  SetCheckboxAndGroupDisplayPairStates(UFO_TexturesCheckbox, UFO_TexturesGroupDisplay, config.iconTextures.Ufo);
-                  SetCheckboxAndGroupDisplayPairStates(WaveTexturesCheckbox, WaveTexturesGroupDisplay, config.iconTextures.Wave);
-                  SetCheckboxAndGroupDisplayPairStates(RobotTexturesCheckbox, RobotTexturesGroupDisplay, config.iconTextures.Robot);
-                  SetCheckboxAndGroupDisplayPairStates(SpiderTexturesCheckbox, SpiderTexturesGroupDisplay, config.iconTextures.Spider);
-                  SetCheckboxAndGroupDisplayPairStates(SwingTexturesCheckbox, SwingTexturesGroupDisplay, config.iconTextures.Swing);
-                  SetCheckboxAndGroupDisplayPairStates(JetpackTexturesCheckbox, JetpackTexturesGroupDisplay, config.iconTextures.Jetpack);
+            private void ChangeControlStates(CheckBox checkBox, NumericUpDown groupDisplay, RandomisationSetting setting) {
+                  checkBox.Checked = setting.Enabled;
+                  groupDisplay.Enabled = setting.Enabled;
+                  groupDisplay.Value = setting.Group;
             }
 
-            private void SetAllFontRandElementStates() {
-                  FontRandomisationSettings fontRand = config.fontRand;
+            private void SetAllIconTexturesElementStates() {
+                  ToggleAllLinkedControls();
 
-                  this.fontRandEnabledCheckbox.Checked = fontRand.enabled;
+                  ChangeControlStates(IconTexturesCheckbox, IconTexturesGroupDisplay, config.IconTextures.ToRandSetting());
 
-                  // Set the controls depending on if font randomisation is enabled
-                  this.fontShuffleStylesCheckbox.Enabled = fontRand.enabled;
-                  this.fontPerLetterRandomisationButton.Enabled = fontRand.enabled;
-                  this.fontPerFontRandomisationButton.Enabled = fontRand.enabled;
-                  this.fontRandomiseLettersCheckbox.Enabled = fontRand.enabled;
-                  if (fontRand.enabled == false) {
-                        return;
-                  }
-
-                  this.fontShuffleStylesCheckbox.Checked = fontRand.shuffleFontStyles;
-
-                  this.fontPerLetterRandomisationButton.Enabled = this.fontShuffleStylesCheckbox.Checked;
-                  this.fontPerFontRandomisationButton.Enabled = this.fontShuffleStylesCheckbox.Checked;
-
-                  switch (fontRand.shufflingMode) {
-                        case FontRandomisationSettings.FontStyleShufflingMode.PerLetter:
-                              this.fontPerLetterRandomisationButton.Checked = true;
-                              break;
-                        case FontRandomisationSettings.FontStyleShufflingMode.PerFont:
-                              this.fontPerFontRandomisationButton.Checked = true;
-                              break;
-                  }
-
-                  this.fontRandomiseLettersCheckbox.Checked = fontRand.randomiseLetters;
+                  ChangeControlStates(CubeTexturesCheckbox, CubeTexturesGroupDisplay, config.IconTextures.Cube);
+                  ChangeControlStates(ShipTexturesCheckbox, ShipTexturesGroupDisplay, config.IconTextures.Ship);
+                  ChangeControlStates(BallTexturesCheckbox, BallTexturesGroupDisplay, config.IconTextures.Ball);
+                  ChangeControlStates(UFO_TexturesCheckbox, UFO_TexturesGroupDisplay, config.IconTextures.Ufo);
+                  ChangeControlStates(WaveTexturesCheckbox, WaveTexturesGroupDisplay, config.IconTextures.Wave);
+                  ChangeControlStates(RobotTexturesCheckbox, RobotTexturesGroupDisplay, config.IconTextures.Robot);
+                  ChangeControlStates(SpiderTexturesCheckbox, SpiderTexturesGroupDisplay, config.IconTextures.Spider);
+                  ChangeControlStates(SwingTexturesCheckbox, SwingTexturesGroupDisplay, config.IconTextures.Swing);
+                  ChangeControlStates(JetpackTexturesCheckbox, JetpackTexturesGroupDisplay, config.IconTextures.Jetpack);
             }
 
             private void SetAllGameTexturesElementStates() {
-                  SetCheckboxAndGroupDisplayPairStates(MenuTexturesCheckbox, MenuTexturesGroupDisplay, config.menuTextures);
-                  SetCheckboxAndGroupDisplayPairStates(ShopTexturesCheckbox, ShopTexturesGroupDisplay, config.shopTextures);
-                  SetCheckboxAndGroupDisplayPairStates(EditorTexturesCheckbox, EditorTexturesGroupDisplay, config.editorTextures);
-                  SetCheckboxAndGroupDisplayPairStates(BlockTexturesCheckbox, TileTexturesGroupDisplay, config.tileTextures);
-                  SetCheckboxAndGroupDisplayPairStates(PortalTexturesCheckbox, PortalTexturesGroupDisplay, config.portalTextures);
-                  SetCheckboxAndGroupDisplayPairStates(OrbsCheckbox, OrbsGroupDisplay, config.orbTextures);
-                  SetCheckboxAndGroupDisplayPairStates(PadsCheckbox, PadsGroupDisplay, config.padTextures);
-                  SetCheckboxAndGroupDisplayPairStates(ParticleTexturesCheckbox, ParticleTexturesGroupDisplay, config.particleTextures);
-                  SetCheckboxAndGroupDisplayPairStates(EffectsCheckbox, EffectsGroupDisplay, config.effectTextures);
-                  SetCheckboxAndGroupDisplayPairStates(MiscCheckbox, MiscGroupDisplay, config.miscTextures);
+                  ChangeControlStates(MenuTexturesCheckbox, MenuTexturesGroupDisplay, config.MenuTextures);
+                  ChangeControlStates(ShopTexturesCheckbox, ShopTexturesGroupDisplay, config.ShopTextures);
+                  ChangeControlStates(EditorTexturesCheckbox, EditorTexturesGroupDisplay, config.EditorTextures);
+                  ChangeControlStates(BlockTexturesCheckbox, TileTexturesGroupDisplay, config.TileTextures);
+                  ChangeControlStates(PortalTexturesCheckbox, PortalTexturesGroupDisplay, config.PortalTextures);
+                  ChangeControlStates(OrbsTexturesCheckbox, OrbsGroupDisplay, config.OrbTextures);
+                  ChangeControlStates(PadsTexturesCheckbox, PadsGroupDisplay, config.PadTextures);
+                  ChangeControlStates(ParticleTexturesCheckbox, ParticleTexturesGroupDisplay, config.ParticleTextures);
+                  ChangeControlStates(EffectsCheckbox, EffectsGroupDisplay, config.EffectTextures);
+                  ChangeControlStates(MiscCheckbox, MiscGroupDisplay, config.MiscTextures);
             }
 
-            private void SetCheckboxAndGroupDisplayPairStates(CheckBox checkbox, NumericUpDown groupDisplay, RandomisationSetting setting) {
-                  checkbox.Checked = setting.enabled;
-                  groupDisplay.Value = setting.group;
-                  groupDisplay.Enabled = setting.enabled;
+            #region Font Rand UI Controls
+
+            private void SetAllFontRandElementStates() {
+                  this.fontRandEnabledCheckbox.Checked = config.FontRand.AnySettingEnabled();
+
+                  FontStylesControlToggle();
+                  FontCharacterRandomisationControlToggle();
+                  FontLetterSpacingControlToggle();
             }
 
-            private void SaveConfigFileAfterDelay(int seconds = 0) {
-                  Task.Delay(new TimeSpan(0, 0, seconds)).ContinueWith(o => { config.WriteFile(); });
+            private void FontStylesControlToggle() {
+                  FontStyleShuffleSettings fontStyle = config.FontRand.ShuffleSettings;
+
+                  this.fontShuffleStylesCheckbox.Checked = fontStyle.Enabled;
+                  this.fontStyleModeSelector.Enabled = fontStyle.Enabled;
+                  this.fontStyleModeSelector.SelectedIndex = (int)fontStyle.Mode;
             }
 
-            #region Randomization and File Restoration
+            private void FontCharacterRandomisationControlToggle() {
+                  FontRandomisationSettings fontRand = config.FontRand;
+                  CharacterRandomisationSettings CRS = fontRand.CharacterRandSettings;
+
+                  this.randomiseCharactersCheckBox.Checked = CRS.Enabled;
+
+                  this.characterLetterRandCheckBox.Enabled = CRS.Enabled;
+                  ChangeControlStates(characterLetterRandCheckBox, characterLetterRandGroupDisplay, CRS.Letter);
+
+                  this.characterNumberRandCheckBox.Enabled = CRS.Enabled;
+                  ChangeControlStates(characterNumberRandCheckBox, characterNumberRandGroupDisplay, CRS.Number);
+
+                  this.characterSymbolRandCheckBox.Enabled = CRS.Enabled;
+                  ChangeControlStates(characterSymbolRandCheckBox, characterSymbolRandGroupDisplay, CRS.Symbol);
+            }
+
+            private void FontLetterSpacingControlToggle() {
+                  LetterSpacingSettings LSS = config.FontRand.LetterSpacingSettings;
+
+                  this.randomLetterSpacingCheckBox.Checked = LSS.Enabled;
+
+                  this.letterSpacingModeSelector.Enabled = LSS.Enabled;
+                  this.letterSpacingModeSelector.SelectedIndex = (int)LSS.Mode;
+
+                  bool advancedMode = LSS.Mode == LetterSpacingSettings.SpacingMode.Advanced;
+
+                  // Set all advanced mode control states
+                  this.kerningLabel.Visible = advancedMode;
+                  this.x_OffsetLabel.Visible = advancedMode;
+                  this.fontAdvancedModeSeparatorConnectorBeam.Visible = advancedMode;
+
+                  this.kerningMinLabel.Visible = advancedMode;
+                  this.kerningMinInput.Visible = advancedMode;
+                  this.kerningMaxLabel.Visible = advancedMode;
+                  this.kerningMaxInput.Visible = advancedMode;
+
+                  this.x_OffsetMinLabel.Visible = advancedMode;
+                  this.x_OffsetMinInput.Visible = advancedMode;
+                  this.x_OffsetMaxLabel.Visible = advancedMode;
+                  this.x_OffsetMaxInput.Visible = advancedMode;
+
+                  // Set all simple mode control states
+                  this.letterSpacingLevelLabel.Visible = !advancedMode;
+                  this.letterSpacingLevelInputBox.Visible = !advancedMode;
+
+                  if (LSS.Mode == LetterSpacingSettings.SpacingMode.Simple) {
+                        // Make the beam smaller
+                        this.letterSpacingConnectorBeam.Size = new Size(17, 52);
+                        this.letterSpacingLevelInputBox.Enabled = LSS.Enabled;
+
+                  } else {
+                        // Make the beam full size to connect 2 settings to it visually
+                        this.letterSpacingConnectorBeam.Size = new Size(17, 82);
+
+                        // Set the Kerning input boxes
+                        this.kerningMinInput.Enabled = LSS.Enabled;
+                        this.kerningMinInput.Text = LSS.Kerning.Min.ToString();
+                        this.kerningMaxInput.Enabled = LSS.Enabled;
+                        this.kerningMaxInput.Text = LSS.Kerning.Max.ToString();
+
+                        // Set the X Offset input boxes
+                        this.x_OffsetMinInput.Text = LSS.X_Offset.Min.ToString();
+                        this.x_OffsetMinInput.Enabled = LSS.Enabled;
+                        this.x_OffsetMaxInput.Text = LSS.X_Offset.Max.ToString();
+                        this.x_OffsetMaxInput.Enabled = LSS.Enabled;
+                  }
+            }
+
+            #endregion
+
+            private void UpdateRandomisationControlStates() {
+                  this.seedInputBox.Text = config.Seed.ToString();
+                  this.seedInputBox.Value = config.Seed;
+
+                  // Format the sprite size multiplier display's text
+                  if (config.MaxSpriteMultiplier < 1000) {
+                        string fmtString = "F2";
+                        if (config.MaxSpriteMultiplier > 3 && config.MaxSpriteMultiplier <= 50) {
+                              fmtString = "F1";
+                        } else if (config.MaxSpriteMultiplier > 50) {
+                              fmtString = "";
+                        }
+
+                        this.spriteSizeMultiplierTextbox.Text = config.MaxSpriteMultiplier.ToString(fmtString) + "x";
+                  } else {
+                        this.spriteSizeMultiplierTextbox.Text = "Unlimited";
+                  }
+
+                  this.allowDuplicatesCheckbox.Checked = config.AllowDuplicates;
+            }
+
+            private void UpdateApplicationSettingsControlStates() {
+                  this.gameFolderTextBox.Text = advancedConfig.GameDirectory;
+
+                  this.textureQualitySelectorBox.SelectedIndex = (int)advancedConfig.Quality;
+                  this.applicationThemeSelectorBox.SelectedIndex = (int)advancedConfig.ThemeID;
+
+                  this.autoOverwriteFilesCheckbox.Checked = advancedConfig.AutoOverwriteFiles;
+            }
+
+            /// <summary>
+            /// Sets the enabled state of every element that directly affects the randomisation
+            /// </summary>
+            private void SetUI_EnabledState(bool enabled) {
+                  for (int i = 0; i < controlsToggledDuringRandomisation.Count; i++) {
+                        controlsToggledDuringRandomisation[i].Enabled = enabled;
+                  }
+
+                  this.importConfigButton.Enabled = enabled;
+                  this.restoreFilesButton.Enabled = enabled;
+                  this.startButton.Enabled = enabled;
+            }
+
+            private void ChangeProgressDisplayState(bool enabled) {
+                  // Disable the UI elements that are not needed during the randomisation
+                  this.statusDisplay.Visible = !enabled;
+
+                  // Enable the progress display elements
+                  this.elapsedTimeDisplay.Visible = enabled;
+                  this.randomisingProgressBar.Visible = enabled;
+                  this.randomisingProgressDisplay.Visible = enabled;
+            }
+
+            private void UpdateProgressStateObjects(string newDisplayPrint) {
+
+                  this.randomisingProgressDisplay.Text = this.textCorruptor.CorruptText(newDisplayPrint);
+                  this.randomisingProgressBar.Value = (int)gameFileManager.progressState.PercentComplete;
+            }
+
+            private void UpdateProgressElapsedTime(string newTimePrint) {
+
+                  this.elapsedTimeDisplay.Text = this.textCorruptor.CorruptText(newTimePrint);
+                  // Right-align the text so it will be near the Randomise button
+                  this.elapsedTimeDisplay.Location = new Point(735 - this.elapsedTimeDisplay.PreferredWidth, this.elapsedTimeDisplay.Location.Y);
+            }
+
+            #endregion
+
+            #region Randomization
 
             private async void StartButton_Click(object sender, EventArgs e) {
                   bool ready = gameFileManager.getReadyState() == ReadyState.Ready;
@@ -311,15 +437,15 @@ namespace Geometry_Dash_Randomiser {
 
                   bool randomSeed = false;
                   // Create a new random seed if the input value is 0
-                  int seed = config.seed;
+                  int seed = config.Seed;
                   if (seed == 0) {
-                        seed = Guid.NewGuid().GetHashCode();
+                        seed = Math.Abs(Guid.NewGuid().GetHashCode());
                         randomSeed = true;
                   }
 
                   Stopwatch stopwatch = new Stopwatch();
                   stopwatch.Start();
-                  Thread randomisationThread = new Thread(() => {
+                  this.randomisationThread = new Thread(() => {
                         gameFileManager.StartRandomising(seed);
                   });
                   randomisationThread.Start();
@@ -350,7 +476,7 @@ namespace Geometry_Dash_Randomiser {
 
                   SetUI_EnabledState(true);
 
-                  RefreshUI(false, true);
+                  RefreshUI(false);
 
                   ChangeProgressDisplayState(enabled: false);
 
@@ -373,6 +499,10 @@ namespace Geometry_Dash_Randomiser {
                   // If the game directory is valid, enable the restore button
                   this.restoreFilesButton.Enabled = gameFileManager.IsGameDirectoryValid();
             }
+
+            #endregion
+
+            #region File Restoration
 
             private async void RestoreFilesButton_Click(object sender, EventArgs e) {
                   const string caption = "Restore Game Files";
@@ -429,41 +559,26 @@ namespace Geometry_Dash_Randomiser {
 
             #endregion
 
-            /// <summary>
-            /// Sets the enabled state of every element that directly affects the randomisation
-            /// </summary>
-            private void SetUI_EnabledState(bool enabled) {
-                  for (int i = 0; i < controlsToggledDuringRandomisation.Count; i++) {
-                        controlsToggledDuringRandomisation[i].Enabled = enabled;
+            #region Config Importing
+
+            private void ImportConfigThenRefreshUI(string configData) {
+
+                  autoRefreshLinkedControls = false;
+                  bool success = config.ImportConfigData(configData);
+                  RefreshUI();
+                  autoRefreshLinkedControls = true;
+
+                  if (success == true) {
+                        this.statusDisplay.Text = "Config Imported Successfully";
+
+                  } else {
+                        this.statusDisplay.Text = "Failed to Import Config.";
                   }
-
-                  this.importConfigButton.Enabled = enabled;
-                  this.restoreFilesButton.Enabled = enabled;
-                  this.startButton.Enabled = enabled;
             }
 
-            private void ChangeProgressDisplayState(bool enabled) {
-                  // Disable the UI elements that are not needed during the randomisation
-                  this.statusDisplay.Visible = !enabled;
+            #endregion
 
-                  // Enable the progress display elements
-                  this.elapsedTimeDisplay.Visible = enabled;
-                  this.randomisingProgressBar.Visible = enabled;
-                  this.randomisingProgressDisplay.Visible = enabled;
-            }
-
-            private void UpdateProgressStateObjects(string newDisplayPrint) {
-
-                  this.randomisingProgressDisplay.Text = this.textCorruptor.CorruptText(newDisplayPrint);
-                  this.randomisingProgressBar.Value = (int)gameFileManager.progressState.PercentComplete;
-            }
-
-            private void UpdateProgressElapsedTime(string newTimePrint) {
-
-                  this.elapsedTimeDisplay.Text = this.textCorruptor.CorruptText(newTimePrint);
-                  // Right-align the text so it will be near the Randomise button
-                  this.elapsedTimeDisplay.Location = new Point(735 - this.elapsedTimeDisplay.PreferredWidth, this.elapsedTimeDisplay.Location.Y);
-            }
+            #region Theme Control Region
 
             private void SetTheme() {
                   if (this.themeController.Current.Name == ThemeController.RandomThemeName) {
@@ -472,7 +587,7 @@ namespace Geometry_Dash_Randomiser {
                         this.themeController.Current.CopyColoursFrom(randomTheme);
                         SetTheme(randomTheme);
 
-                        Log.Write(Log.Mode.Info,
+                        Log.Write(Log.Mode.Verbose,
                               $"New random theme:\n\t" +
                               $"Background:  {randomTheme.BackgroundColour}\n\t" +
                               $"Text:        {randomTheme.TextColour}\n\t" +
@@ -495,7 +610,7 @@ namespace Geometry_Dash_Randomiser {
                         this.themeController.Current.CopyColoursFrom(systemTheme);
                         SetTheme(systemTheme);
 
-                        Log.Write(Log.Mode.Info,
+                        Log.Write(Log.Mode.Verbose,
                               $"New system theme:\n\t" +
                               $"Background:  {systemTheme.BackgroundColour}\n\t" +
                               $"Text:        {systemTheme.TextColour}\n\t" +
@@ -520,7 +635,8 @@ namespace Geometry_Dash_Randomiser {
                   SetMenuElementColours(theme.ObjectBackColour, theme.ObjectTextColour);
                   ChangeGroupBoxColours(theme.TextColour);
 
-                  UpdateImageThemes(theme);
+                  GenerateBeamImages(theme);
+                  UpdateAllImageThemes();
             }
 
             private void SetFormColours(Color back) {
@@ -572,6 +688,11 @@ namespace Geometry_Dash_Randomiser {
                         richTextBoxes[i].BackColor = back;
                         richTextBoxes[i].ForeColor = fore;
                   }
+
+                  for (int i = 0; i < comboBoxes.Length; i++) {
+                        comboBoxes[i].BackColor = back;
+                        comboBoxes[i].ForeColor = fore;
+                  }
             }
 
             private void ChangeGroupBoxColours(Color colour) {
@@ -580,25 +701,122 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            private void UpdateImageThemes(Theme theme) {
-                  UpdateIconTheme(Resources.RefreshImage, theme,
+            private void GenerateBeamImages(Theme theme) {
+                  // Free the old images from RAM
+                  ClearOldResourceImages();
+
+                  // Uhm... yeah, this is a line of code that I am not proud of. It works, but it is a bit of a mess. I will try to clean it up later
+                  Color inactiveColourFront = theme.BackgroundColour.Add(theme.BackgroundColour.GetDelta(theme.BeamColour).AdjustBrightness(0.5f));
+                  Color inactiveColourBack = theme.BackgroundColour;
+
+                  Console.WriteLine(theme.BackgroundColour.ToString());
+                  Console.WriteLine(theme.BeamColour.ToString());
+                  Console.WriteLine(inactiveColourFront.ToString());
+
+                  this.activeStandardBeam = Resources.ConnectorBeamWhite.RepaintImage(theme);
+                  this.inactiveStandardBeam = Resources.ConnectorBeamWhite.RepaintImage(inactiveColourBack, inactiveColourFront);
+
+                  this.activeFontBeam = Resources.FontConnectorBeam.RepaintImage(theme);
+                  this.inactiveFontBeam = Resources.FontConnectorBeam.RepaintImage(inactiveColourBack, inactiveColourFront);
+
+                  this.refreshIcon = Resources.RefreshImage.RepaintImage(theme.BackgroundColour, theme.BeamColour);
+                  this.settingsIcon = Resources.SettingsImage.RepaintImage(theme.BackgroundColour, theme.BeamColour);
+            }
+
+            private void ClearOldResourceImages() {
+                  if (this.activeStandardBeam != null)
+                        this.activeStandardBeam.Dispose();
+                  if (this.inactiveStandardBeam != null)
+                        this.inactiveStandardBeam.Dispose();
+
+                  if (this.activeFontBeam != null)
+                        this.activeFontBeam.Dispose();
+                  if (this.inactiveFontBeam != null)
+                        this.inactiveFontBeam.Dispose();
+
+                  if (this.refreshIcon != null)
+                        this.refreshIcon.Dispose();
+                  if (this.settingsIcon != null)
+                        this.settingsIcon.Dispose();
+            }
+
+            private void UpdateAllImageThemes() {
+                  UpdateIconThemes(this.refreshIcon,
                         new PictureBox[] { refreshThemesButton });
 
-                  UpdateIconTheme(Resources.SettingsImage, theme,
+                  UpdateIconThemes(this.settingsIcon,
                         new PictureBox[] { themesSettingsButton });
 
-                  UpdateIconTheme(Resources.ConnectorBeamWhite, theme,
-                        new PictureBox[] { iconsConnectorBeam, shuffleFontsConnectorBeam });
+                  this.fontRandMainConnectorBeam.Image = config.FontRand.Enabled ?
+                        this.activeFontBeam : this.inactiveFontBeam;
+
+                  this.iconsConnectorBeam.Image = config.IconTextures.Enabled ?
+                        this.activeStandardBeam : this.inactiveStandardBeam;
+
+                  this.shuffleFontsConnectorBeam.Image = config.FontRand.ShuffleSettings.Enabled ?
+                        this.activeStandardBeam : this.inactiveStandardBeam;
+
+                  this.fontRandomiseLettersConnectorBeam.Image = config.FontRand.CharacterRandSettings.Enabled ?
+                        this.activeStandardBeam : this.inactiveStandardBeam;
+
+                  this.letterSpacingConnectorBeam.Image = config.FontRand.LetterSpacingSettings.Enabled ?
+                        this.activeStandardBeam : this.inactiveStandardBeam;
+
+                  this.fontAdvancedModeSeparatorConnectorBeam.Image = config.FontRand.LetterSpacingSettings.Enabled ?
+                        this.activeStandardBeam : this.inactiveStandardBeam;
             }
 
-            private void UpdateIconTheme(Bitmap baseImage, Theme theme, PictureBox[] boxes) {
-                  Bitmap recolouredImage = ((Bitmap)baseImage.Clone())
-                        .BlackAndWhiteRecolour(theme.BackgroundColour, theme.BeamColour);
-
+            private void UpdateIconThemes(Bitmap newImage, PictureBox[] boxes) {
                   for (int i = 0; i < boxes.Length; i++) {
-                        boxes[i].Image = recolouredImage;
+                        boxes[i].Image = newImage;
                   }
             }
+
+            #endregion
+
+            #region Config Data Updater Methods
+
+            private void ChangeConfigData(object sender, RandomisationSetting setting, params Control[] toggledControls) {
+                  ChangeConfigData(sender, setting);
+
+                  if (toggledControls == null)
+                        return;
+
+                  toggledControls.ToList().ForEach(c => c.Enabled = setting.Enabled);
+            }
+
+            private void ChangeConfigData(object sender, RandomisationSetting setting, Control toggledControl) {
+                  ChangeConfigData(sender, setting);
+
+                  toggledControl.Enabled = setting.Enabled;
+            }
+
+            private void ChangeConfigData(object sender, RandomisationSetting setting) {
+                  if (sender is CheckBox checkBox) {
+                        ChangeConfigData(checkBox, setting);
+                        ValidateReadyState();
+
+                  } else if (sender is NumericUpDown numericUpDown) {
+                        ChangeConfigData(numericUpDown, setting);
+
+                  } else {
+                        Log.Write(Log.Mode.Warn, $"Sender is not a supported type for changing properties of {setting}");
+                  }
+
+                  UpdateAllImageThemes();
+            }
+
+            private void ChangeConfigData(CheckBox checkBox, RandomisationSetting setting) {
+                  setting.Enabled = checkBox.Checked;
+            }
+
+            private void ChangeConfigData(NumericUpDown numUpDown, RandomisationSetting setting) {
+                  setting.Group = (int)numUpDown.Value;
+            }
+
+            #endregion
+
+            #region Miscellaneous Events
 
             private void GDR_HeaderLabel_Click(object sender, EventArgs e) {
                   textCorruptor.CorruptionLevel++;
@@ -624,56 +842,24 @@ namespace Geometry_Dash_Randomiser {
                         this.radioButtons[i].Text = this.textCorruptor.CorruptText(this.radioButtons[i].Text, 1);
                   }
 
-                  PadInfoIcons();
+                  RepositionControlPairs();
             }
 
-            private void ChangeConfigData(object sender, RandomisationSetting setting, Control toggledControl) {
-                  ChangeConfigData(sender, setting);
-
-                  toggledControl.Enabled = setting.enabled;
-            }
-
-            private void ChangeConfigData(object sender, RandomisationSetting setting) {
-                  if (sender is CheckBox) {
-                        ChangeConfigData(sender as CheckBox, setting);
-
-                  } else if (sender is NumericUpDown) {
-                        ChangeConfigData(sender as NumericUpDown, setting);
-
-                  } else {
-                        Log.Write(Log.Mode.Warn, $"Sender is not a supported type for changing properties of {setting}");
-                  }
-            }
-
-            private void ChangeConfigData(CheckBox checkBox, RandomisationSetting setting) {
-                  setting.enabled = checkBox.Checked;
-            }
-
-            private void ChangeConfigData(NumericUpDown numUpDown, RandomisationSetting setting) {
-                  setting.group = (int)numUpDown.Value;
-            }
+            #endregion
 
             #region Icon Texture Settings Changed Events
 
             private void IconTexturesSettingsChanged(object sender, EventArgs e) {
-                  bool state = this.IconTexturesCheckbox.Checked;
+                  bool newState = (sender as CheckBox).Checked;
 
-                  config.iconTextures.enabled = state;
-
-                  if (isFormInitialised == false) {
+                  // If the form is not initialised, skip the rest of the changes
+                  // Otherwise some of the configuration data will be overwritten when the form is first initialised
+                  if (autoRefreshLinkedControls == false) {
                         return;
                   }
 
-                  config.iconTextures.Cube.enabled = state;
-                  config.iconTextures.Ship.enabled = state;
-                  config.iconTextures.Ball.enabled = state;
-                  config.iconTextures.Ufo.enabled = state;
-                  config.iconTextures.Wave.enabled = state;
-                  config.iconTextures.Robot.enabled = state;
-                  config.iconTextures.Spider.enabled = state;
-                  config.iconTextures.Swing.enabled = state;
-                  config.iconTextures.Jetpack.enabled = state;
-
+                  config.IconTextures.SetAll(newState);
+                  
                   RefreshUI();
             }
 
@@ -683,9 +869,11 @@ namespace Geometry_Dash_Randomiser {
                         numericUpDown.Value = 100;
                   }
 
-                  config.iconTextures.group = (int)numericUpDown.Value;
+                  config.IconTextures.Group = (int)numericUpDown.Value;
 
-                  if (isFormInitialised == false) {
+                  // If the form is not initialised, skip the rest of the changes
+                  // Otherwise some of the configuration data will be overwritten when the form is first initialised
+                  if (autoRefreshLinkedControls == false) {
                         return;
                   }
 
@@ -699,60 +887,70 @@ namespace Geometry_Dash_Randomiser {
                   SwingTexturesSettingsChanged(sender, e);
                   JetpackTexturesSettingsChanged(sender, e);
 
-                  RefreshUI();
+                  SetAllIconTexturesElementStates();
+                  ValidateReadyState();
             }
 
-            private void CubeTexturesSettingsChanged(object sender, EventArgs e) => ChangeConfigData(sender, config.iconTextures.Cube);
+            private void CubeTexturesSettingsChanged(object sender, EventArgs e)
+                  => ChangeConfigData(sender, config.IconTextures.Cube, CubeTexturesGroupDisplay);
 
-            private void ShipTexturesSettingsChanged(object sender, EventArgs e) => ChangeConfigData(sender, config.iconTextures.Ship);
+            private void ShipTexturesSettingsChanged(object sender, EventArgs e)
+                  => ChangeConfigData(sender, config.IconTextures.Ship, ShipTexturesGroupDisplay);
 
-            private void BallTexturesSettingsChanged(object sender, EventArgs e) => ChangeConfigData(sender, config.iconTextures.Ball);
+            private void BallTexturesSettingsChanged(object sender, EventArgs e)
+                  => ChangeConfigData(sender, config.IconTextures.Ball, BallTexturesGroupDisplay);
 
-            private void UFO_TexturesSettingsChanged(object sender, EventArgs e) => ChangeConfigData(sender, config.iconTextures.Ufo);
+            private void UFO_TexturesSettingsChanged(object sender, EventArgs e)
+                  => ChangeConfigData(sender, config.IconTextures.Ufo, UFO_TexturesGroupDisplay);
 
-            private void WaveTexturesSettingsChanged(object sender, EventArgs e) => ChangeConfigData(sender, config.iconTextures.Wave);
+            private void WaveTexturesSettingsChanged(object sender, EventArgs e)
+                  => ChangeConfigData(sender, config.IconTextures.Wave, WaveTexturesGroupDisplay);
 
-            private void RobotTexturesSettingsChanged(object sender, EventArgs e) => ChangeConfigData(sender, config.iconTextures.Robot);
+            private void RobotTexturesSettingsChanged(object sender, EventArgs e)
+                  => ChangeConfigData(sender, config.IconTextures.Robot, RobotTexturesGroupDisplay);
 
-            private void SpiderTexturesSettingsChanged(object sender, EventArgs e) => ChangeConfigData(sender, config.iconTextures.Spider);
+            private void SpiderTexturesSettingsChanged(object sender, EventArgs e)
+                  => ChangeConfigData(sender, config.IconTextures.Spider, SpiderTexturesGroupDisplay);
 
-            private void SwingTexturesSettingsChanged(object sender, EventArgs e) => ChangeConfigData(sender, config.iconTextures.Swing);
+            private void SwingTexturesSettingsChanged(object sender, EventArgs e)
+                  => ChangeConfigData(sender, config.IconTextures.Swing, SwingTexturesGroupDisplay);
 
-            private void JetpackTexturesSettingsChanged(object sender, EventArgs e) => ChangeConfigData(sender, config.iconTextures.Jetpack);
+            private void JetpackTexturesSettingsChanged(object sender, EventArgs e)
+                  => ChangeConfigData(sender, config.IconTextures.Jetpack, JetpackTexturesGroupDisplay);
 
             #endregion
 
             #region Game Texture Settings Changed Events
 
             private void MenuTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.menuTextures, MenuTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.MenuTextures, MenuTexturesGroupDisplay);
 
             private void ShopTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.shopTextures, ShopTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.ShopTextures, ShopTexturesGroupDisplay);
 
             private void EditorTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.editorTextures, EditorTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.EditorTextures, EditorTexturesGroupDisplay);
 
             private void TilesTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.tileTextures, TileTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.TileTextures, TileTexturesGroupDisplay);
 
             private void PortalTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.portalTextures, PortalTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.PortalTextures, PortalTexturesGroupDisplay);
 
             private void OrbsTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.orbTextures, OrbsGroupDisplay);
+                  => ChangeConfigData(sender, config.OrbTextures, OrbsGroupDisplay);
 
             private void PadsTexturesSettingChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.padTextures, PadsGroupDisplay);
+                  => ChangeConfigData(sender, config.PadTextures, PadsGroupDisplay);
 
             private void ParticleTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.particleTextures, ParticleTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.ParticleTextures, ParticleTexturesGroupDisplay);
 
             private void EffectsTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.effectTextures, EffectsGroupDisplay);
+                  => ChangeConfigData(sender, config.EffectTextures, EffectsGroupDisplay);
 
             private void MiscTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.miscTextures, MiscGroupDisplay);
+                  => ChangeConfigData(sender, config.MiscTextures, MiscGroupDisplay);
 
             #endregion
 
@@ -760,30 +958,103 @@ namespace Geometry_Dash_Randomiser {
 
             private void FontRandEnabledCheckbox_Click(object sender, EventArgs e) {
                   CheckBox checkBox = sender as CheckBox;
-                  config.fontRand.enabled = checkBox.Checked;
+                  if (checkBox == null) {
+                        Log.Write(Mode.Error, "Checkbox returned null in the \"FontRandEnabledCheckbox_Click\" method");
+                        return;
+                  }
+
+                  config.FontRand.SetAll(checkBox.Checked);
+
+                  // If the form is not initialised, skip the rest of the changes
+                  // Otherwise some of the configuration data will be overwritten when the form is first initialised
+                  if (autoRefreshLinkedControls == false) {
+                        return;
+                  }
+
                   RefreshUI();
             }
 
             private void FontShuffleStylesCheckbox_Click(object sender, EventArgs e) {
-                  CheckBox checkBox = sender as CheckBox;
-                  config.fontRand.shuffleFontStyles = checkBox.Checked;
+                  bool newState = (sender as CheckBox).Checked;
+                  config.FontRand.ShuffleSettings.Enabled = newState;
+
                   RefreshUI();
             }
 
-            private void FontPerFontRandomisationButton_Click(object sender, EventArgs e) {
-                  config.fontRand.shufflingMode = FontRandomisationSettings.FontStyleShufflingMode.PerFont;
+            private void FontShuffleStylesMode_Change(object sender, EventArgs e) {
+                  ComboBox comboBox = sender as ComboBox;
+                  config.FontRand.ShuffleSettings.SetMode(comboBox.SelectedItem.ToString());
+
+                  Log.Write(Log.Mode.Debug, $"New shuffling mode is {config.FontRand.ShuffleSettings.Mode}");
                   RefreshUI();
             }
 
-            private void FontPerLetterRandomisationButton_Click(object sender, EventArgs e) {
-                  config.fontRand.shufflingMode = FontRandomisationSettings.FontStyleShufflingMode.PerLetter;
+            private void RandomiseCharactersSettingsChanged(object sender, EventArgs e) {
+                  bool newState = (sender as CheckBox).Checked;
+                  config.FontRand.CharacterRandSettings.Enabled = newState;
+
+                  // If the form is not initialised, skip the rest of the changes
+                  // Otherwise some of the configuration data will be overwritten when the form is first initialised
+                  if (autoRefreshLinkedControls == false) {
+                        return;
+                  }
+
+                  config.FontRand.CharacterRandSettings.SetAll(newState);
+
                   RefreshUI();
             }
 
-            private void FontRandomiseLettersCheckbox_Click(object sender, EventArgs e) {
-                  CheckBox checkBox = sender as CheckBox;
-                  config.fontRand.randomiseLetters = checkBox.Checked;
+            private void LettersRandomisationSettingsChanged(object sender, EventArgs e)
+                  => ChangeConfigData(sender, config.FontRand.CharacterRandSettings.Letter, characterLetterRandGroupDisplay);
+
+            private void NumbersRandomisationSettingsChanged(object sender, EventArgs e)
+                  => ChangeConfigData(sender, config.FontRand.CharacterRandSettings.Number, characterNumberRandGroupDisplay);
+
+            private void SymbolsRandomisationSettingsChanged(object sender, EventArgs e)
+                  => ChangeConfigData(sender, config.FontRand.CharacterRandSettings.Symbol, characterSymbolRandGroupDisplay);
+
+            private void LetterSpacingSettingsChanged(object sender, EventArgs e) {
+                  bool newState = (sender as CheckBox).Checked;
+                  config.FontRand.LetterSpacingSettings.Enabled = newState;
+
                   RefreshUI();
+            }
+
+            private void LetterSpacingModeSettingsChanged(object sender, EventArgs e) {
+                  ComboBox comboBox = sender as ComboBox;
+                  config.FontRand.LetterSpacingSettings.SetMode(comboBox.SelectedItem.ToString());
+
+                  Log.Write(Log.Mode.Debug, $"New letter spacing mode is {config.FontRand.LetterSpacingSettings.Mode}");
+                  RefreshUI();
+            }
+
+            private void KerningMinInput_TextChanged(object sender, EventArgs e)
+                  => ChangeLetterSpacingValue(sender, 0);
+
+            private void KerningMaxInput_TextChanged(object sender, EventArgs e)
+                  => ChangeLetterSpacingValue(sender, 1);
+
+            private void X_OffsetMinInput_TextChanged(object sender, EventArgs e)
+                  => ChangeLetterSpacingValue(sender, 2);
+
+            private void X_OffsetMaxInput_TextChanged(object sender, EventArgs e)
+                  => ChangeLetterSpacingValue(sender, 3);
+
+            private void ChangeLetterSpacingValue(object sender, int settingID) {
+                  TextBox textBox = sender as TextBox;
+                  if (textBox == null) {
+                        Log.Write(Mode.Error, $"The sender returned null when cast to a TextBox. ID: {settingID}");
+                        return;
+                  }
+
+                  config.FontRand.LetterSpacingSettings.SetRangeValue(textBox.Text, settingID);
+
+                  RefreshUI();
+            }
+
+            private void letterSpacingLevelInputBox_ValueChanged(object sender, EventArgs e) {
+                  NumericUpDown NUD = sender as NumericUpDown;
+                  config.FontRand.LetterSpacingSettings.Level = (int)NUD.Value;
             }
 
             #endregion
@@ -848,17 +1119,7 @@ namespace Geometry_Dash_Randomiser {
 
             #endregion
 
-            private void ImportConfigThenRefreshUI(string configData) {
-                  bool success = config.ImportConfigData(configData);
-
-                  if (success == true) {
-                        this.statusDisplay.Text = "Config Imported Successfully";
-                  } else {
-                        this.statusDisplay.Text = "Failed to Import Config.";
-                  }
-
-                  RefreshUI(false);
-            }
+            #region Control List Getters 
 
             private IEnumerable<Control> GetAll(Control control, Type type) {
                   var controls = control.Controls.Cast<Control>();
@@ -896,12 +1157,14 @@ namespace Geometry_Dash_Randomiser {
                   return ret;
             }
 
+            #endregion
+
             #region Randomisation Settings Control Methods
 
             private void SpriteSizeMultiplierTrackbar_Scroll(object sender, EventArgs e) {
                   TrackBar trackBar = sender as TrackBar;
 
-                  config.maxSpriteMultiplier = GetSliderMultiplierForSpriteSize(trackBar.Value);
+                  config.MaxSpriteMultiplier = GetSliderMultiplierForSpriteSize(trackBar.Value);
 
                   RefreshUI();
             }
@@ -934,26 +1197,30 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void SetSpriteSizeMultiplierSliderAndTextBox() {
+                  // Get all multipliers that can be set for the texture size slider
                   float[] multipliers = Enumerable.Range(1, this.spriteSizeMultiplierTrackbar.Maximum + 1)
                         .Select(v => GetSliderMultiplierForSpriteSize(v))
                         .ToArray();
 
-                  int index = Array.BinarySearch(multipliers, config.maxSpriteMultiplier);
+                  // Find the index of the current multiplier in the array
+                  int index = Array.BinarySearch(multipliers, config.MaxSpriteMultiplier);
                   if (index >= 0) {
-                        this.spriteSizeMultiplierTrackbar.Value = index;
+                        // If found, add 1 to it, and set the slider to that value
+                        // The offset by 1 is to account for the starting value of 1 for the slider
+                        this.spriteSizeMultiplierTrackbar.Value = index + 1;
                   }
             }
 
             private void AllowDuplicatesCheckbox_Click(object sender, EventArgs e) {
                   CheckBox checkBox = sender as CheckBox;
-                  config.allowDuplicates = checkBox.Checked;
+                  config.AllowDuplicates = checkBox.Checked;
 
                   RefreshUI();
             }
 
             private void SeedValueChanged(object sender, EventArgs e) {
                   NumericUpDown nud = sender as NumericUpDown;
-                  config.seed = (int)nud.Value;
+                  config.Seed = (int)nud.Value;
                   RefreshUI();
             }
 
@@ -961,7 +1228,7 @@ namespace Geometry_Dash_Randomiser {
                   Random random = new Random(Guid.NewGuid().GetHashCode());
                   int value = random.Next(int.MinValue, int.MaxValue);
                   this.seedInputBox.Value = value;
-                  config.seed = value;
+                  config.Seed = value;
 
                   RefreshUI();
             }
@@ -971,9 +1238,9 @@ namespace Geometry_Dash_Randomiser {
             #region Application Settings Control Methods
 
             private void SetGameFolder(object sender, EventArgs e) {
-                  string folder = GetFolderViaExplorer(config.gameDirectory, true);
+                  string folder = GetFolderViaExplorer(advancedConfig.GameDirectory, true);
                   if (folder != string.Empty) {
-                        config.gameDirectory = folder;
+                        advancedConfig.GameDirectory = folder;
                   }
 
                   RefreshUI();
@@ -981,7 +1248,7 @@ namespace Geometry_Dash_Randomiser {
 
             private void GameFolderTextBox_TextChanged(object sender, EventArgs e) {
                   TextBox textBox = sender as TextBox;
-                  config.gameDirectory = textBox.Text;
+                  advancedConfig.GameDirectory = textBox.Text;
                   RefreshUI();
             }
 
@@ -998,7 +1265,7 @@ namespace Geometry_Dash_Randomiser {
 
             private void AutoOverwriteFilesCheckbox_Click(object sender, EventArgs e) {
                   CheckBox checkBox = sender as CheckBox;
-                  config.autoOverwriteFiles = checkBox.Checked;
+                  advancedConfig.AutoOverwriteFiles = checkBox.Checked;
             }
 
             private void ChangeTextureQuality(object sender, EventArgs e) {
@@ -1007,7 +1274,7 @@ namespace Geometry_Dash_Randomiser {
                         return;
                   }
 
-                  config.quality = (Quality)domainUpDown.SelectedIndex;
+                  advancedConfig.Quality = (Quality)domainUpDown.SelectedIndex;
             }
 
             private void ChangeApplicationTheme(object sender, EventArgs e) {
@@ -1019,7 +1286,7 @@ namespace Geometry_Dash_Randomiser {
                   int newThemeID = domainUpDown.SelectedIndex;
 
                   this.themeController.ActiveThemeID = newThemeID;
-                  config.themeID = newThemeID;
+                  advancedConfig.ThemeID = newThemeID;
 
                   Log.Write(Log.Mode.Verbose, $"Switching to theme ID {newThemeID}: {themeController.Current.Name}");
 
@@ -1038,17 +1305,18 @@ namespace Geometry_Dash_Randomiser {
                   if (this.lastThemeRefresh.GetElapsedTime().TotalMilliseconds < themeRefreshCooldown) {
                         return;
                   }
+
                   this.lastThemeRefresh = DateTime.UtcNow;
 
                   this.themeController.GetAllThemesFromFile();
 
-                  if (this.themeController.GetThemeCount() <= config.themeID) {
-                        Log.Write(Log.Mode.Warn, $"The theme ID [{config.themeID}] is out of range");
+                  if (this.themeController.GetThemeCount() <= advancedConfig.ThemeID) {
+                        Log.Write(Log.Mode.Warn, $"The theme ID [{advancedConfig.ThemeID}] is out of range");
 
-                        config.themeID = 0;
+                        advancedConfig.ThemeID = 0;
                   }
 
-                  this.themeController.ActiveThemeID = config.themeID;
+                  this.themeController.ActiveThemeID = advancedConfig.ThemeID;
 
                   this.applicationThemeSelectorBox.Items.Clear();
                   this.applicationThemeSelectorBox.Items.AddRange(this.themeController.GetAllThemeNames());
@@ -1063,7 +1331,7 @@ namespace Geometry_Dash_Randomiser {
                               Resources.RefreshImage.BlackAndWhiteRecolour(
                                     themeController.Current.BackgroundColour,
                                     themeController.Current.BeamColour
-                                    ),
+                              ),
                               540
                         );
                   }
@@ -1101,7 +1369,7 @@ namespace Geometry_Dash_Randomiser {
                   domainUpDowns = GetAll(this, typeof(DomainUpDown)).Select(c => c as DomainUpDown).ToArray();
                   richTextBoxes = GetAll(this, typeof(RichTextBox)).Select(c => c as RichTextBox).ToArray();
                   groupBoxes = GetAll(this, typeof(GroupBox)).Select(c => c as GroupBox).ToArray();
-                  pictureBoxes = GetAll(this, typeof(PictureBox)).Select(c => c as PictureBox).ToArray();
+                  comboBoxes = GetAll(this, typeof(ComboBox)).Select(c => c as ComboBox).ToArray();
                   radioButtons = GetAll(this, typeof(RadioButton)).Select(c => c as RadioButton).ToArray();
 
                   controlsToggledDuringRandomisation.AddRange(
@@ -1117,6 +1385,7 @@ namespace Geometry_Dash_Randomiser {
                                     typeof(NumericUpDown),
                                     typeof(DomainUpDown),
                                     typeof(RadioButton),
+                                    typeof(ComboBox),
                                     typeof(CheckBox),
                                     typeof(TrackBar),
                                     typeof(TextBox),
@@ -1131,7 +1400,7 @@ namespace Geometry_Dash_Randomiser {
 
             #endregion
 
-            #region Animations And Related Methods
+            #region Animations
 
             private void AnimateImageRotation(PictureBox pb, Bitmap image, float rotationSpeed, Action onAnimationComplete = null, int updateInterval = 25) {
                   float elapsed = 0f;

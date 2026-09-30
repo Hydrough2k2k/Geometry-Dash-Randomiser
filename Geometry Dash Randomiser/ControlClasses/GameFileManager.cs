@@ -38,7 +38,7 @@ namespace Geometry_Dash_Randomiser {
             public ReadyState getReadyState() {
                   ReadyState rs = ReadyState.Ready;
 
-                  if (Directory.Exists(Config.Instance.gameDirectory) == false) {
+                  if (Directory.Exists(AdvancedConfig.Instance.GameDirectory) == false) {
                         rs |= ReadyState.FolderNotFound;
                   }
                   if (Directory.Exists(PathManager.GameResourcesFolder) == false) {
@@ -47,10 +47,10 @@ namespace Geometry_Dash_Randomiser {
                   if (Directory.Exists(PathManager.GameIconsFolder) == false) {
                         rs |= ReadyState.IconFolderNotFound;
                   }
-                  if (File.Exists(Path.Combine(Config.Instance.gameDirectory, "GeometryDash.exe")) == false) {
+                  if (File.Exists(Path.Combine(AdvancedConfig.Instance.GameDirectory, "GeometryDash.exe")) == false) {
                         rs |= ReadyState.ExeNotFound;
                   }
-                  if (Config.Instance.GetEnabledSettingsCount() == 0) {
+                  if (RandomisationConfig.Instance.GetEnabledSettingsCount() == 0) {
                         rs |= ReadyState.NoSettingsEnabled;
                   }
 
@@ -140,10 +140,12 @@ namespace Geometry_Dash_Randomiser {
                   }
 
                   if (fontManager.fontCount == 0)
-                        fontManager.ReadAllFontFiles(PathManager.BackupResourcesFolder, Config.Instance.quality);
+                        fontManager.ReadAllFontFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
+
+                  return;
 
                   this.progressState.CurrentStage = ApplicationState.Randomising;
-                  Font[] randomisedFonts = fontManager.RandomiseFiles(fontManager.GetRandomisationMode(), seed);
+                  Font[] randomisedFonts = fontManager.RandomiseFiles(seed);
                   RandomiseData(seed);
 
                   this.progressState.CurrentStage = ApplicationState.Repackaging;
@@ -151,7 +153,7 @@ namespace Geometry_Dash_Randomiser {
 
                   fontManager.WriteFontsToDisk(randomisedFonts);
 
-                  if (Config.Instance.autoOverwriteFiles == true) {
+                  if (AdvancedConfig.Instance.AutoOverwriteFiles == true) {
                         AutoOverwriteFiles();
                   }
 
@@ -182,17 +184,18 @@ namespace Geometry_Dash_Randomiser {
                   switch (type) {
                         case GameFileType.Resource:
                         case GameFileType.Icon:
-                              missingFiles = gamesheetManager.GetAllFileNames(source, Config.Instance.quality);
-                              backedUpFiles = gamesheetManager.GetAllFileNames(dest, Config.Instance.quality);
+                              missingFiles = GamesheetManager.GetAllFileNames(source, AdvancedConfig.Instance.Quality);
+                              backedUpFiles = GamesheetManager.GetAllFileNames(dest, AdvancedConfig.Instance.Quality);
                               fileExtensions = new string[] { ".plist", ".png" };
                               break;
 
                         case GameFileType.Font:
-                              missingFiles = fontManager.GetAllFileNames(source, Config.Instance.quality);
-                              backedUpFiles = fontManager.GetAllFileNames(dest, Config.Instance.quality);
+                              missingFiles = FontManager.GetAllFileNames(source, AdvancedConfig.Instance.Quality);
+                              backedUpFiles = FontManager.GetAllFileNames(dest, AdvancedConfig.Instance.Quality);
                               fileExtensions = new string[] { ".fnt", ".png" };
                               break;
                         default:
+                              Log.Write(Log.Mode.Error, $"The game file type \"{type}\" does not exist. Cannot proceed with backing up the original files");
                               return;
                   }
 
@@ -244,7 +247,7 @@ namespace Geometry_Dash_Randomiser {
 
                   this.progressState.CurrentFileType = type;
 
-                  string[] files = gamesheetManager.GetAllFileNames(path, Config.Instance.quality)
+                  string[] files = GamesheetManager.GetAllFileNames(path, AdvancedConfig.Instance.Quality)
                         .Select(f => Path.Combine(PathManager.GetPath(path), f)).ToArray();
 
                   Log.Write(Log.Mode.Info, $"Unpacking {files.Length} {type.ToString().ToLower()} files from {PathManager.GetPath(path)}");

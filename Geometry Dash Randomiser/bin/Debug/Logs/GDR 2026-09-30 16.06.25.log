@@ -1,0 +1,77 @@
+16:06:25 [INFO]    Sample theme file "Theme_Example.txt" already exists, skipping creation
+16:06:25 [INFO]    Total themes loaded: 6
+16:06:43 [INFO]    New random theme:
+	Background:  Color [A=255, R=235, G=85, B=173]
+	Text:        Color [A=255, R=169, G=90, B=20]
+	Object Back: Color [A=255, R=142, G=159, B=91]
+	Object Text: Color [A=255, R=241, G=87, B=167]
+	Beam Colour: Color [A=255, R=31, G=96, B=164]
+16:06:45 [INFO]    New random theme:
+	Background:  Color [A=255, R=175, G=116, B=18]
+	Text:        Color [A=255, R=76, G=243, B=101]
+	Object Back: Color [A=255, R=50, G=162, B=180]
+	Object Text: Color [A=255, R=232, G=221, B=220]
+	Beam Colour: Color [A=255, R=253, G=248, B=94]
+16:06:48 [INFO]    New random theme:
+	Background:  Color [A=255, R=61, G=73, B=174]
+	Text:        Color [A=255, R=68, G=74, B=86]
+	Object Back: Color [A=255, R=162, G=95, B=56]
+	Object Text: Color [A=255, R=55, G=188, B=127]
+	Beam Colour: Color [A=255, R=160, G=201, B=90]
+16:06:49 [INFO]    New random theme:
+	Background:  Color [A=255, R=107, G=24, B=158]
+	Text:        Color [A=255, R=228, G=251, B=89]
+	Object Back: Color [A=255, R=17, G=115, B=109]
+	Object Text: Color [A=255, R=131, G=28, B=240]
+	Beam Colour: Color [A=255, R=152, G=10, B=246]
+16:06:50 [INFO]    New random theme:
+	Background:  Color [A=255, R=131, G=151, B=229]
+	Text:        Color [A=255, R=5, G=16, B=48]
+	Object Back: Color [A=255, R=122, G=133, B=59]
+	Object Text: Color [A=255, R=59, G=46, B=85]
+	Beam Colour: Color [A=255, R=75, G=95, B=113]
+16:06:50 [INFO]    New random theme:
+	Background:  Color [A=255, R=108, G=255, B=175]
+	Text:        Color [A=255, R=31, G=4, B=210]
+	Object Back: Color [A=255, R=190, G=0, B=120]
+	Object Text: Color [A=255, R=36, G=91, B=234]
+	Beam Colour: Color [A=255, R=27, G=157, B=214]
+16:06:51 [INFO]    New random theme:
+	Background:  Color [A=255, R=61, G=255, B=210]
+	Text:        Color [A=255, R=150, G=60, B=7]
+	Object Back: Color [A=255, R=139, G=141, B=106]
+	Object Text: Color [A=255, R=157, G=45, B=177]
+	Beam Colour: Color [A=255, R=248, G=91, B=173]
+16:06:52 [INFO]    New random theme:
+	Background:  Color [A=255, R=80, G=250, B=144]
+	Text:        Color [A=255, R=179, G=79, B=235]
+	Object Back: Color [A=255, R=30, G=141, B=181]
+	Object Text: Color [A=255, R=96, G=177, B=234]
+	Beam Colour: Color [A=255, R=193, G=163, B=91]
+16:06:52 [INFO]    New random theme:
+	Background:  Color [A=255, R=52, G=180, B=9]
+	Text:        Color [A=255, R=114, G=74, B=179]
+	Object Back: Color [A=255, R=79, G=237, B=49]
+	Object Text: Color [A=255, R=20, G=8, B=214]
+	Beam Colour: Color [A=255, R=201, G=226, B=114]
+16:06:53 [INFO]    New random theme:
+	Background:  Color [A=255, R=23, G=82, B=197]
+	Text:        Color [A=255, R=54, G=73, B=151]
+	Object Back: Color [A=255, R=72, G=4, B=92]
+	Object Text: Color [A=255, R=13, G=48, B=122]
+	Beam Colour: Color [A=255, R=4, G=169, B=162]
+16:06:54 [INFO]    New random theme:
+	Background:  Color [A=255, R=96, G=15, B=20]
+	Text:        Color [A=255, R=229, G=198, B=27]
+	Object Back: Color [A=255, R=213, G=204, B=30]
+	Object Text: Color [A=255, R=99, G=204, B=129]
+	Beam Colour: Color [A=255, R=113, G=66, B=136]
+16:06:55 [INFO]    New random theme:
+	Background:  Color [A=255, R=3, G=199, B=235]
+	Text:        Color [A=255, R=154, G=151, B=205]
+	Object Back: Color [A=255, R=103, G=96, B=189]
+	Object Text: Color [A=255, R=144, G=170, B=45]
+	Beam Colour: Color [A=255, R=221, G=115, B=190]
+16:07:25 [INFO]    Application is exiting...
+16:07:25 [INFO]    Writing Config files...
+16:07:25 [INFO]    Closing Log Stream.

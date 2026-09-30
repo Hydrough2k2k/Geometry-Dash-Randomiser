@@ -1,0 +1,37 @@
+# This is a sample theme file for this application
+# The sample theme won't be read because of the "Ignore Theme" section, but all others in this file will be
+# The alpha (A) channel is ignored, as transparent objects can't exist, as a limitation of WinForms
+# Hex values override the RGB values, so you can just skip them if you like
+
+Name: Sample Theme
+Background Colour: [
+	R: 50
+	G: 50
+	B: 50
+	Hex: 323232
+]
+Text Colour: [
+	R: 50
+	G: 50
+	B: 50
+	Hex: 323232
+]
+Object Back Colour: [
+	R: 50
+	G: 50
+	B: 50
+	Hex: 323232
+]
+Object Text Colour: [
+	R: 50
+	G: 50
+	B: 50
+	Hex: 323232
+]
+Beam Colour: [
+	R: 50
+	G: 50
+	B: 50
+	Hex: 323232
+]
+End

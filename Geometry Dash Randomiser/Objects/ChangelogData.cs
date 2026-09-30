@@ -9,11 +9,13 @@ namespace Geometry_Dash_Randomiser {
             private readonly string[] _newStuff = Array.Empty<string>();
             private readonly string[] _bugfixes = Array.Empty<string>();
             private readonly string[] _knownBugs = Array.Empty<string>();
+            private readonly string[] _notes = Array.Empty<string>();
 
             public string Version => _version;
             public string[] NewStuff => _newStuff;
             public string[] Bugfixes => _bugfixes;
             public string[] KnownBugs => _knownBugs;
+            public string[] Notes => _notes;
 
             public ChangelogData() { }
 
@@ -21,11 +23,12 @@ namespace Geometry_Dash_Randomiser {
                   _version = version;
             }
 
-            public ChangelogData(string version, string[] newStuff, string[] bugfixes, string[] knownBugs) {
+            public ChangelogData(string version, string[] newStuff, string[] bugfixes, string[] knownBugs, string[] notes) {
                   _version = version;
                   _newStuff = newStuff;
                   _bugfixes = bugfixes;
                   _knownBugs = knownBugs;
+                  _notes = notes;
             }
 
             public static ChangelogData Default => new ChangelogData(
@@ -49,6 +52,10 @@ namespace Geometry_Dash_Randomiser {
                   knownBugs: new string[] {
                         " - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can make levels easier or impossible in some cases",
                         " - Mystery bugs that I haven't discovered yet"
+                  },
+
+                  notes: new string[] {
+                        
                   }
             );
 
@@ -59,6 +66,7 @@ namespace Geometry_Dash_Randomiser {
                   List<string> newStuff = new List<string>();
                   List<string> bugfixes = new List<string>();
                   List<string> knownBugs = new List<string>();
+                  List<string> notes = new List<string>();
 
                   for (int i = 0; i < rawData.Length; i++) {
                         string line = rawData[i].Trim();
@@ -90,10 +98,17 @@ namespace Geometry_Dash_Randomiser {
                                     knownBugs.Add(rawData[i]);
                                     i++;
                               }
+
+                        } else if (line.StartsWith("Notes:", StringComparison.OrdinalIgnoreCase)) {
+                              i++;
+                              while (i < rawData.Length && !string.IsNullOrWhiteSpace(rawData[i])) {
+                                    notes.Add(rawData[i]);
+                                    i++;
+                              }
                         }
                   }
 
-                  return new ChangelogData(version, newStuff.ToArray(), bugfixes.ToArray(), knownBugs.ToArray());
+                  return new ChangelogData(version, newStuff.ToArray(), bugfixes.ToArray(), knownBugs.ToArray(), notes.ToArray());
             }
       }
 }

@@ -1,0 +1,11 @@
+21:24:10 [INFO]    Sample theme file "Theme_Example.txt" already exists, skipping creation
+21:24:10 [INFO]    Total themes loaded: 6
+21:24:10 [INFO]    New random theme:
+	Background:  Color [A=255, R=153, G=114, B=74]
+	Text:        Color [A=255, R=81, G=40, B=35]
+	Object Back: Color [A=255, R=61, G=220, B=211]
+	Object Text: Color [A=255, R=126, G=41, B=140]
+	Beam Colour: Color [A=255, R=176, G=80, B=74]
+21:24:28 [INFO]    Application is exiting...
+21:24:28 [INFO]    Writing Config files...
+21:24:28 [INFO]    Closing Log Stream.

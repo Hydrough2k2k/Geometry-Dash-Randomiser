@@ -1,0 +1,29 @@
+21:35:50 [INFO]    Sample theme file "Theme_Example.txt" already exists, skipping creation
+21:35:50 [INFO]    Total themes loaded: 6
+21:35:51 [INFO]    New random theme:
+	Background:  Color [A=255, R=133, G=204, B=202]
+	Text:        Color [A=255, R=37, G=162, B=231]
+	Object Back: Color [A=255, R=17, G=79, B=132]
+	Object Text: Color [A=255, R=178, G=79, B=174]
+	Beam Colour: Color [A=255, R=44, G=249, B=205]
+21:35:53 [INFO]    New random theme:
+	Background:  Color [A=255, R=3, G=243, B=158]
+	Text:        Color [A=255, R=82, G=203, B=222]
+	Object Back: Color [A=255, R=85, G=20, B=250]
+	Object Text: Color [A=255, R=167, G=228, B=199]
+	Beam Colour: Color [A=255, R=162, G=67, B=244]
+21:35:54 [INFO]    New random theme:
+	Background:  Color [A=255, R=85, G=99, B=154]
+	Text:        Color [A=255, R=84, G=245, B=114]
+	Object Back: Color [A=255, R=100, G=188, B=162]
+	Object Text: Color [A=255, R=5, G=3, B=234]
+	Beam Colour: Color [A=255, R=139, G=0, B=201]
+21:35:54 [INFO]    New random theme:
+	Background:  Color [A=255, R=129, G=153, B=81]
+	Text:        Color [A=255, R=25, G=52, B=249]
+	Object Back: Color [A=255, R=110, G=185, B=117]
+	Object Text: Color [A=255, R=238, G=28, B=84]
+	Beam Colour: Color [A=255, R=24, G=56, B=154]
+21:37:31 [INFO]    Application is exiting...
+21:37:31 [INFO]    Writing Config files...
+21:37:31 [INFO]    Closing Log Stream.

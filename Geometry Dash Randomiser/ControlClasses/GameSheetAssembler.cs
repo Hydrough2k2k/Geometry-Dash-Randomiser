@@ -18,7 +18,7 @@ namespace Geometry_Dash_Randomiser {
 
                   for (int i = 0; i < sprites.Length; i++) {
                         // Add 1 pixels to both X and Y axes to account for the 1 pixel added around every sprite to avoid images flowing into each other
-                        gamesheet.CopyTo(sprites[i].texture, (int)rects[i].X + 1, (int)rects[i].Y + 1);
+                        gamesheet.PasteImage(sprites[i].texture, (int)rects[i].X + 1, (int)rects[i].Y + 1);
                   }
 
                   return gamesheet;
@@ -27,9 +27,9 @@ namespace Geometry_Dash_Randomiser {
             public static Bitmap Assemble(Font font) {
 
                   return BitmapExtensions.Assemble(
-                        font.chars.Select(c => c.texture).ToArray(),
-                        font.chars.Select(c => c.rectangle).ToArray(),
-                        new Size(font.scaleW, font.scaleH)
+                        font.Chars.Select(c => c.Texture).ToArray(),
+                        font.Chars.Select(c => c.Rectangle).ToArray(),
+                        new Size(font.Scale_W, font.Scale_H)
                   );
             }
       }

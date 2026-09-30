@@ -1,0 +1,15 @@
+G:\Coding Stuff\Projects\C#\Winforms Projects\Geometry-Dash-Randomiser\Geometry Dash Randomiser Packer\bin\Debug\net9.0\Geometry Dash Randomiser Packer.exe
+G:\Coding Stuff\Projects\C#\Winforms Projects\Geometry-Dash-Randomiser\Geometry Dash Randomiser Packer\bin\Debug\net9.0\Geometry Dash Randomiser Packer.deps.json
+G:\Coding Stuff\Projects\C#\Winforms Projects\Geometry-Dash-Randomiser\Geometry Dash Randomiser Packer\bin\Debug\net9.0\Geometry Dash Randomiser Packer.runtimeconfig.json
+G:\Coding Stuff\Projects\C#\Winforms Projects\Geometry-Dash-Randomiser\Geometry Dash Randomiser Packer\bin\Debug\net9.0\Geometry Dash Randomiser Packer.dll
+G:\Coding Stuff\Projects\C#\Winforms Projects\Geometry-Dash-Randomiser\Geometry Dash Randomiser Packer\bin\Debug\net9.0\Geometry Dash Randomiser Packer.pdb
+G:\Coding Stuff\Projects\C#\Winforms Projects\Geometry-Dash-Randomiser\Geometry Dash Randomiser Packer\obj\Debug\net9.0\Geometry Dash Randomiser Packer.GeneratedMSBuildEditorConfig.editorconfig
+G:\Coding Stuff\Projects\C#\Winforms Projects\Geometry-Dash-Randomiser\Geometry Dash Randomiser Packer\obj\Debug\net9.0\Geometry Dash Randomiser Packer.AssemblyInfoInputs.cache
+G:\Coding Stuff\Projects\C#\Winforms Projects\Geometry-Dash-Randomiser\Geometry Dash Randomiser Packer\obj\Debug\net9.0\Geometry Dash Randomiser Packer.AssemblyInfo.cs
+G:\Coding Stuff\Projects\C#\Winforms Projects\Geometry-Dash-Randomiser\Geometry Dash Randomiser Packer\obj\Debug\net9.0\Geometry Dash Randomiser Packer.csproj.CoreCompileInputs.cache
+G:\Coding Stuff\Projects\C#\Winforms Projects\Geometry-Dash-Randomiser\Geometry Dash Randomiser Packer\obj\Debug\net9.0\Geometry Dash Randomiser Packer.sourcelink.json
+G:\Coding Stuff\Projects\C#\Winforms Projects\Geometry-Dash-Randomiser\Geometry Dash Randomiser Packer\obj\Debug\net9.0\Geometry Dash Randomiser Packer.dll
+G:\Coding Stuff\Projects\C#\Winforms Projects\Geometry-Dash-Randomiser\Geometry Dash Randomiser Packer\obj\Debug\net9.0\refint\Geometry Dash Randomiser Packer.dll
+G:\Coding Stuff\Projects\C#\Winforms Projects\Geometry-Dash-Randomiser\Geometry Dash Randomiser Packer\obj\Debug\net9.0\Geometry Dash Randomiser Packer.pdb
+G:\Coding Stuff\Projects\C#\Winforms Projects\Geometry-Dash-Randomiser\Geometry Dash Randomiser Packer\obj\Debug\net9.0\Geometry Dash Randomiser Packer.genruntimeconfig.cache
+G:\Coding Stuff\Projects\C#\Winforms Projects\Geometry-Dash-Randomiser\Geometry Dash Randomiser Packer\obj\Debug\net9.0\ref\Geometry Dash Randomiser Packer.dll

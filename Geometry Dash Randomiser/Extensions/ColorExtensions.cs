@@ -95,5 +95,23 @@ namespace Geometry_Dash_Randomiser {
                         Math.Min((int)(colour.B * multiplier), 255)
                   );
             }
+
+            public static Color GetDelta(this Color c1, Color c2, bool preserveAlpha = true) {
+                  return Color.FromArgb(
+                        preserveAlpha ? c1.A : Math.Abs(c1.A - c2.A),
+                        Math.Abs(c1.R - c2.R),
+                        Math.Abs(c1.G - c2.G),
+                        Math.Abs(c1.B - c2.B)
+                  );
+            }
+
+            public static Color Add(this Color c1, Color c2) {
+                  return Color.FromArgb(
+                        Math.Min(c1.A + c2.A, 255),
+                        Math.Min(c1.R + c2.R, 255),
+                        Math.Min(c1.G + c2.G, 255),
+                        Math.Min(c1.B + c2.B, 255)
+                  );
+            }
       }
 }

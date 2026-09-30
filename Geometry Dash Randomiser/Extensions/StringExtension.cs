@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -38,6 +39,10 @@ namespace Geometry_Dash_Randomiser {
                         }
                   }
                   return false;
+            }
+
+            public static string FilterDigits(this string str) {
+                  return Regex.Replace(str, "[^0-9]+", "", RegexOptions.Compiled);
             }
       }
 }

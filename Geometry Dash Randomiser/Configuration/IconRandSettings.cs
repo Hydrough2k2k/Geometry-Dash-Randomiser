@@ -1,13 +1,12 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace Geometry_Dash_Randomiser {
 
-      public class IconRandSettings : RandomisationSetting {
+      public class IconRandSettings : IToggleableSetting {
 
             // Array for storing references to all settings for easy iteration
-            private readonly RandomisationSetting[] randomisationSettings;
+            private readonly RandomisationSetting[] _randomisationSettings;
 
             private readonly RandomisationSetting _cube = new RandomisationSetting(0, true);
             private readonly RandomisationSetting _ship = new RandomisationSetting(0, true);
@@ -20,10 +19,24 @@ namespace Geometry_Dash_Randomiser {
             private readonly RandomisationSetting _jetpack = new RandomisationSetting(0, true);
 
             public IconRandSettings() {
-                  randomisationSettings = new RandomisationSetting[] {
-                        Base, _cube, _ship, _ball, _ufo, _wave, _robot, _spider, _swing, _jetpack
+                  _randomisationSettings = new RandomisationSetting[] {
+                        _cube, _ship, _ball, _ufo, _wave, _robot, _spider, _swing, _jetpack
                   };
             }
+
+            [JsonIgnore]
+            public RandomisationSetting[] RandomisationSettings => _randomisationSettings;
+
+            public bool Enabled {
+                  get {
+                        return AnySettingEnabled();
+                  }
+                  set {
+                        SetAll(value);
+                  }
+            }
+
+            public int Group { get; set; } = 0;
 
             // These setters only copy the setters' data to the existing readonly fields, thus the reference stays, but the values don't
             public RandomisationSetting Cube { get => _cube; set => _cube.CopyDataFrom(value); }
@@ -37,43 +50,27 @@ namespace Geometry_Dash_Randomiser {
             public RandomisationSetting Jetpack { get => _jetpack; set => _jetpack.CopyDataFrom(value); }
 
             [JsonIgnore]
-            public RandomisationSetting Base => this as RandomisationSetting;
+            public int TotalSettingsCount => RandomisationSettings.Length;
+
+            public void SetAll(bool state) {
+                  _randomisationSettings.ToList().ForEach(r => r.Enabled = state);
+            }
 
             public int GetEnabledSettingsCount() {
-                  // Go through all settings, but skip the first one (base)
-                  // If the base is enabled, but no others are, then the base being on does not matter
-                  // I will find a way to change this later
-                  return randomisationSettings.Skip(1).Where(s => s.enabled).Count();
+                  return _randomisationSettings.Where(s => s.Enabled).Count();
             }
 
-            public new string GetStatusHex() {
-                  return string.Concat(randomisationSettings.Select(s => s.GetStatusHex()));
-            }
-
-            public new void ApplyConfigFromHex(string hex) {
-                  int settingIndex = 0;
-
-                  while (hex.Length >= 2 && settingIndex < 10) {
-                        // Read the incoming data stream 2 characters at a time, and convert them to an int for later use
-                        Int32.TryParse(hex.Substring(0, 2), style: System.Globalization.NumberStyles.HexNumber, null, out int nextValue);
-
-                        // Then remove the 2 parsed characters
-                        hex = hex.Substring(2);
-
-                        // Pass the data to the class to apply it fully
-                        randomisationSettings[settingIndex].ApplyConfigFromValue(nextValue);
-
-                        settingIndex++;
+            public bool AnySettingEnabled() {
+                  for (int i = 0; i < _randomisationSettings.Length; i++) {
+                        if (_randomisationSettings[i].Enabled == true) {
+                              return true;
+                        }
                   }
-
-                  // Finally make sure the data is within expected range
-                  this.Validate();
+                  return false;
             }
 
-            public new void Validate() {
-                  foreach (var setting in randomisationSettings) {
-                        setting.Validate();
-                  }
+            public RandomisationSetting ToRandSetting() {
+                  return new RandomisationSetting(Group, Enabled);
             }
       }
 }

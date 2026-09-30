@@ -33,13 +33,15 @@
                   this.previousVersionButton = new System.Windows.Forms.Button();
                   this.changelogHeaderLabel = new System.Windows.Forms.Label();
                   this.changelogVersionLabel = new System.Windows.Forms.Label();
+                  this.notesLabel = new System.Windows.Forms.Label();
+                  this.notesTextBox = new System.Windows.Forms.RichTextBox();
                   this.SuspendLayout();
                   // 
                   // whatsNewLabel
                   // 
                   this.whatsNewLabel.AutoSize = true;
                   this.whatsNewLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-                  this.whatsNewLabel.Location = new System.Drawing.Point(144, 84);
+                  this.whatsNewLabel.Location = new System.Drawing.Point(12, 65);
                   this.whatsNewLabel.Name = "whatsNewLabel";
                   this.whatsNewLabel.Size = new System.Drawing.Size(116, 22);
                   this.whatsNewLabel.TabIndex = 111;
@@ -48,10 +50,10 @@
                   // whatsNewTextBox
                   // 
                   this.whatsNewTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-                  this.whatsNewTextBox.Location = new System.Drawing.Point(12, 109);
+                  this.whatsNewTextBox.Location = new System.Drawing.Point(12, 90);
                   this.whatsNewTextBox.Name = "whatsNewTextBox";
                   this.whatsNewTextBox.ReadOnly = true;
-                  this.whatsNewTextBox.Size = new System.Drawing.Size(602, 91);
+                  this.whatsNewTextBox.Size = new System.Drawing.Size(651, 10);
                   this.whatsNewTextBox.TabIndex = 110;
                   this.whatsNewTextBox.Text = "";
                   // 
@@ -59,7 +61,7 @@
                   // 
                   this.bugfixesLabel.AutoSize = true;
                   this.bugfixesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-                  this.bugfixesLabel.Location = new System.Drawing.Point(186, 203);
+                  this.bugfixesLabel.Location = new System.Drawing.Point(12, 103);
                   this.bugfixesLabel.Name = "bugfixesLabel";
                   this.bugfixesLabel.Size = new System.Drawing.Size(84, 22);
                   this.bugfixesLabel.TabIndex = 112;
@@ -69,7 +71,7 @@
                   // 
                   this.knownBugsLabel.AutoSize = true;
                   this.knownBugsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-                  this.knownBugsLabel.Location = new System.Drawing.Point(168, 322);
+                  this.knownBugsLabel.Location = new System.Drawing.Point(12, 141);
                   this.knownBugsLabel.Name = "knownBugsLabel";
                   this.knownBugsLabel.Size = new System.Drawing.Size(116, 22);
                   this.knownBugsLabel.TabIndex = 113;
@@ -78,20 +80,20 @@
                   // bugfixesTextBox
                   // 
                   this.bugfixesTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-                  this.bugfixesTextBox.Location = new System.Drawing.Point(12, 228);
+                  this.bugfixesTextBox.Location = new System.Drawing.Point(12, 128);
                   this.bugfixesTextBox.Name = "bugfixesTextBox";
                   this.bugfixesTextBox.ReadOnly = true;
-                  this.bugfixesTextBox.Size = new System.Drawing.Size(489, 91);
+                  this.bugfixesTextBox.Size = new System.Drawing.Size(650, 10);
                   this.bugfixesTextBox.TabIndex = 114;
                   this.bugfixesTextBox.Text = "";
                   // 
                   // knownBugsTextBox
                   // 
                   this.knownBugsTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-                  this.knownBugsTextBox.Location = new System.Drawing.Point(12, 347);
+                  this.knownBugsTextBox.Location = new System.Drawing.Point(12, 166);
                   this.knownBugsTextBox.Name = "knownBugsTextBox";
                   this.knownBugsTextBox.ReadOnly = true;
-                  this.knownBugsTextBox.Size = new System.Drawing.Size(552, 25);
+                  this.knownBugsTextBox.Size = new System.Drawing.Size(650, 10);
                   this.knownBugsTextBox.TabIndex = 115;
                   this.knownBugsTextBox.Text = "";
                   // 
@@ -120,22 +122,42 @@
                   // changelogHeaderLabel
                   // 
                   this.changelogHeaderLabel.AutoSize = true;
-                  this.changelogHeaderLabel.Font = new System.Drawing.Font("Javanese Text", 24F);
+                  this.changelogHeaderLabel.Font = new System.Drawing.Font("Javanese Text", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.changelogHeaderLabel.Location = new System.Drawing.Point(108, 2);
                   this.changelogHeaderLabel.Name = "changelogHeaderLabel";
-                  this.changelogHeaderLabel.Size = new System.Drawing.Size(299, 73);
+                  this.changelogHeaderLabel.Size = new System.Drawing.Size(316, 73);
                   this.changelogHeaderLabel.TabIndex = 0;
                   this.changelogHeaderLabel.Text = "Changelog for GDR";
                   // 
                   // changelogVersionLabel
                   // 
                   this.changelogVersionLabel.AutoSize = true;
-                  this.changelogVersionLabel.Font = new System.Drawing.Font("Javanese Text", 14F);
+                  this.changelogVersionLabel.Font = new System.Drawing.Font("Javanese Text", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                   this.changelogVersionLabel.Location = new System.Drawing.Point(389, 26);
                   this.changelogVersionLabel.Name = "changelogVersionLabel";
-                  this.changelogVersionLabel.Size = new System.Drawing.Size(79, 43);
+                  this.changelogVersionLabel.Size = new System.Drawing.Size(87, 43);
                   this.changelogVersionLabel.TabIndex = 119;
                   this.changelogVersionLabel.Text = "V_._._._";
+                  // 
+                  // notesLabel
+                  // 
+                  this.notesLabel.AutoSize = true;
+                  this.notesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+                  this.notesLabel.Location = new System.Drawing.Point(12, 179);
+                  this.notesLabel.Name = "notesLabel";
+                  this.notesLabel.Size = new System.Drawing.Size(62, 22);
+                  this.notesLabel.TabIndex = 120;
+                  this.notesLabel.Text = "Notes:";
+                  // 
+                  // notesTextBox
+                  // 
+                  this.notesTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+                  this.notesTextBox.Location = new System.Drawing.Point(12, 204);
+                  this.notesTextBox.Name = "notesTextBox";
+                  this.notesTextBox.ReadOnly = true;
+                  this.notesTextBox.Size = new System.Drawing.Size(649, 10);
+                  this.notesTextBox.TabIndex = 121;
+                  this.notesTextBox.Text = "";
                   // 
                   // ChangelogForm
                   // 
@@ -143,6 +165,8 @@
                   this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
                   this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
                   this.ClientSize = new System.Drawing.Size(684, 461);
+                  this.Controls.Add(this.notesLabel);
+                  this.Controls.Add(this.notesTextBox);
                   this.Controls.Add(this.whatsNewLabel);
                   this.Controls.Add(this.whatsNewTextBox);
                   this.Controls.Add(this.bugfixesLabel);
@@ -177,5 +201,7 @@
             private System.Windows.Forms.Button previousVersionButton;
             private System.Windows.Forms.Label changelogHeaderLabel;
             private System.Windows.Forms.Label changelogVersionLabel;
+            private System.Windows.Forms.Label notesLabel;
+            private System.Windows.Forms.RichTextBox notesTextBox;
       }
 }

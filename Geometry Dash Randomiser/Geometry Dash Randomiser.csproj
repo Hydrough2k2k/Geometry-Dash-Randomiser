@@ -50,7 +50,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+    <Prefer32Bit>true</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -94,6 +94,9 @@
     </Reference>
     <Reference Include="Costura, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.6.0.0\lib\netstandard2.0\Costura.dll</HintPath>
+    </Reference>
+    <Reference Include="Iconic.Zlib.Netstandard, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iconic.Zlib.Netstandard.1.0.0\lib\netstandard1.3\Iconic.Zlib.Netstandard.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.3\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -287,9 +290,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\AdvancedConfig.cs" />
+    <Compile Include="Configuration\Font\FontStyleShuffleSettings.cs" />
+    <Compile Include="Configuration\Font\CharacterRandomisationSettings.cs" />
+    <Compile Include="Configuration\Font\LetterSpacingSettings.cs" />
     <Compile Include="Enums\ApplicationState.cs" />
+    <Compile Include="Enums\FormatMode.cs" />
     <Compile Include="Enums\GDR_Path.cs" />
     <Compile Include="Extensions\BitmapExtensions.cs" />
+    <Compile Include="Extensions\BooleanExtensions.cs" />
+    <Compile Include="Extensions\ComboBoxExtensions.cs" />
+    <Compile Include="Extensions\Int32Extensions.cs" />
+    <Compile Include="Extensions\Math.cs" />
     <Compile Include="Extensions\ReadyStateExtensions.cs" />
     <Compile Include="Forms\GDR_Form\GDR_Form_Intrinsics.cs">
       <SubType>Form</SubType>
@@ -303,9 +315,13 @@
     <Compile Include="Forms\ThemedFormBase.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Helpers\Base64.cs" />
+    <Compile Include="Helpers\DataStream.cs" />
     <Compile Include="Helpers\Log.cs" />
+    <Compile Include="Helpers\Zlib.cs" />
+    <Compile Include="Interfaces\IToggleableSetting.cs" />
     <Compile Include="Objects\ChangelogData.cs" />
-    <Compile Include="Objects\ConfigurationData.cs" />
+    <Compile Include="Configuration\ConfigurationData.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Forms\ChangelogForm.cs">
       <SubType>Form</SubType>
@@ -315,7 +331,7 @@
     </Compile>
     <Compile Include="Objects\Color2.cs" />
     <Compile Include="Extensions\ColorExtensions.cs" />
-    <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Configuration\RandomisationConfig.cs" />
     <Compile Include="Forms\CreditsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -331,12 +347,13 @@
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="ControlClasses\FileBlacklist.cs" />
     <Compile Include="Helpers\FileIO.cs" />
-    <Compile Include="Objects\Font.cs" />
+    <Compile Include="Objects\Font\Font.cs" />
     <Compile Include="Objects\GameSheet\FontGameSheet.cs" />
-    <Compile Include="Objects\FontKerning.cs" />
+    <Compile Include="Objects\Font\FontKerning.cs" />
     <Compile Include="ControlClasses\FontManager.cs" />
     <Compile Include="Objects\GameSheet\GameSheet.cs" />
     <Compile Include="Objects\GameSheet\TextureGameSheet.cs" />
+    <Compile Include="Objects\PropertyPair.cs" />
     <Compile Include="Serializers\FontSerializer.cs" />
     <Compile Include="Extensions\GameFilesExtension.cs" />
     <Compile Include="Enums\GameFileType.cs" />
@@ -350,8 +367,8 @@
       <DependentUpon>ImportConfigForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Objects\int2.cs" />
-    <Compile Include="Objects\int4.cs" />
-    <Compile Include="Objects\FontChar.cs" />
+    <Compile Include="Objects\Int4.cs" />
+    <Compile Include="Objects\Font\FontChar.cs" />
     <Compile Include="Libraries\RetpackSharp\PackingException.cs" />
     <Compile Include="Libraries\RetpackSharp\PackingHints.cs" />
     <Compile Include="Libraries\RetpackSharp\PackingRectangle.cs" />
@@ -364,6 +381,7 @@
       <DependentUpon>GDR_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlClasses\PathManager.cs" />
+    <Compile Include="Serializers\Json.cs" />
     <Compile Include="Serializers\Plist.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Objects\ProgressState.cs" />
@@ -381,7 +399,7 @@
     <Compile Include="Libraries\RetpackSharp\RectanglePacker.cs" />
     <Compile Include="Objects\Sprite.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
-    <Compile Include="Configuration\FontRandomisationSettings.cs" />
+    <Compile Include="Configuration\Font\FontRandomisationSettings.cs" />
     <Compile Include="Helpers\TextCorruptor.cs" />
     <Compile Include="Objects\Theme.cs" />
     <Compile Include="ControlClasses\ThemeController.cs" />
@@ -437,6 +455,7 @@
     <None Include="Resources\GDR Logo 60px.png" />
     <None Include="Resources\Error_half_size.png" />
     <None Include="Resources\ConnectorBeamWhite.png" />
+    <None Include="Resources\FontConnectorBeam.png" />
     <Content Include="Resources\GDR Logo 256px.ico" />
   </ItemGroup>
   <ItemGroup>

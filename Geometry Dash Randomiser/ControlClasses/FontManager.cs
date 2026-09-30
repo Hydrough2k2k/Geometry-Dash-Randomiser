@@ -3,64 +3,26 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using static Geometry_Dash_Randomiser.FontRandomisationSettings;
+using static Geometry_Dash_Randomiser.FontStyleShuffleSettings;
 
 namespace Geometry_Dash_Randomiser {
 
       public class FontManager {
 
             private GameFileManager gameFileManager;
+            private RandomisationConfig config = RandomisationConfig.Instance;
 
             public FontManager(GameFileManager creator) {
                   gameFileManager = creator;
             }
 
-            // Ideas: add a field for what percentage of characters should be randomised. Int 0 -> 100
-
-            public enum RandomisationMode {
-                  None = 0,
-
-                  /// <summary> Shuffle letters around within the same font, swap letter 'a' and 'c' and their parameters for example </summary>
-                  ShuffleLetters = 1,
-
-                  /// <summary> Shuffle textures around between fonts, making the letter 'a' and 'c' sprites come from different fonts for example </summary>
-                  ShuffleFontStyles = 2,
-
-                  /// <summary> Denotes whether the textures for a given font all come from the same font, or if every character is replaced from a different font </summary>
-                  PerCharacterStyleShuffling = 4,
-
-                  // Unimplemented
-                  AlterCharacterScale = 8,
-
-                  /// <summary>
-                  /// If a small character is put into a big scale font (or vica versa) the character will be rescaled to match the other characters in size
-                  /// Works only ShuffleFontsCharacters is enabled, since otherwise all characters come from the same font and no rescaling is necessary
-                  /// </summary>
-                  // Unimplemented
-                  NormaliseCharacterScale = AlterCharacterScale,
-
-                  /// <summary> When shuffling a font, the scale of characters will be randomly altered on the X and Y axes </summary>
-                  // Unimplemented
-                  RandomiseCharacterScale = 16,
-
-                  /// <summary>
-                  /// Some characters might be higher up compared to others. This will attempt to fix that
-                  /// </summary>
-                  // Unimplemented
-                  RealignCharacters = 32,
-
-                  /// <summary>
-                  /// Some characters might be too close or too far. This will attempt to fix that and make spacing more consistent
-                  /// </summary>
-                  // Unimplemented
-                  FixCharacterSpacing = 64,
-
-                  /// <summary> When randomising characters, do we want the same characters appearing multiple times, and some not at all </summary>
-                  // Unimplemented
-                  AllowDuplicates = 128,
-
-                  ShuffleEverything = ShuffleLetters | ShuffleFontStyles
-            }
+            // Ideas:
+            // Add a field for what percentage of characters should be randomised. Int 0 -> 100
+            // AlterCharacterScale
+            // RandomiseCharacterScale
+            // RealignCharacters
+            // FixCharacterSpacing
+            // AllowDuplicates
 
             string[] fontFileNames = Array.Empty<string>();
             Font[] fonts = Array.Empty<Font>();
@@ -102,7 +64,7 @@ namespace Geometry_Dash_Randomiser {
                               Bitmap[] croppedChars = fontsheet.Multicrop(cropRects);
 
                               for (int j = 0; j < croppedChars.Length; j++) {
-                                    fonts[i].chars[j].texture = croppedChars[j].GetClone();
+                                    fonts[i].Chars[j].Texture = croppedChars[j].GetUniqueClone();
                               }
 
                               fontsheet.Dispose();
@@ -121,30 +83,12 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            public RandomisationMode GetRandomisationMode() {
-                  RandomisationMode mode = RandomisationMode.None;
+            public Font[] RandomiseFiles(int seed) => RandomiseFiles(new Random(seed));
 
-                  if (Config.Instance.fontRand.enabled == false) {
-                        return mode;
-                  }
-                  if (Config.Instance.fontRand.shuffleFontStyles == true) {
-                        mode |= RandomisationMode.ShuffleFontStyles;
-                  }
-                  if (Config.Instance.fontRand.shufflingMode == FontStyleShufflingMode.PerLetter) {
-                        mode |= RandomisationMode.PerCharacterStyleShuffling;
-                  }
-                  if (Config.Instance.fontRand.randomiseLetters == true) {
-                        mode |= RandomisationMode.ShuffleLetters;
-                  }
-
-                  return mode;
-            }
-
-            public Font[] RandomiseFiles(RandomisationMode mode, int seed) => RandomiseFiles(mode, new Random(seed));
-
-            public Font[] RandomiseFiles(RandomisationMode mode, Random random = null) {
-                  if (mode == RandomisationMode.None)
+            public Font[] RandomiseFiles(Random random = null) {
+                  if (config.FontRand.RandomisationNeeded == false) {
                         return fonts.ToArray();
+                  }
 
                   if (random == null)
                         new Random(Guid.NewGuid().GetHashCode());
@@ -152,8 +96,8 @@ namespace Geometry_Dash_Randomiser {
                   // Create new array for the randomised fonts
                   Font[] newFonts = Array.Empty<Font>();
 
-                  if (mode.HasFlag(RandomisationMode.ShuffleFontStyles)) {
-                        newFonts = GetNewFontsAfterShufflingFontStyles(mode, random);
+                  if (config.FontRand.ShuffleSettings.Enabled) {
+                        newFonts = GetNewFontsAfterShufflingFontStyles(random);
 
                   } else {
                         newFonts = new Font[fonts.Length];
@@ -163,7 +107,7 @@ namespace Geometry_Dash_Randomiser {
                   }
 
                   // Shuffle the chars around within all fonts separately if ShuffleLetters is found
-                  if (mode.HasFlag(RandomisationMode.ShuffleLetters)) {
+                  if (config.FontRand.CharacterRandSettings.Enabled) {
                         for (int i = 0; i < newFonts.Length; i++) {
                               ReorderCharIDsInFont(ref newFonts[i], random);
                         }
@@ -175,20 +119,20 @@ namespace Geometry_Dash_Randomiser {
                   return newFonts;
             }
 
-            Font[] GetNewFontsAfterShufflingFontStyles(RandomisationMode mode, Random random) {
+            private Font[] GetNewFontsAfterShufflingFontStyles(Random random) {
                   Font[] newFonts = new Font[fonts.Length];
 
                   for (int i = 0; i < fonts.Length; i++) {
                         newFonts[i] = this.fonts[i].PartialCopy();
 
                         // Set 'chars' array size, but kernings remains empty for now
-                        newFonts[i].chars = new FontChar[this.fonts[i].chars.Length];
-                        newFonts[i].kernings = Array.Empty<FontKerning>();
+                        newFonts[i].Chars = new FontChar[this.fonts[i].Chars.Length];
+                        newFonts[i].Kernings = Array.Empty<FontKerning>();
                   }
 
                   int[] allCharIDs = GetAllDistinctCharIDs();
 
-                  if (mode.HasFlag(RandomisationMode.PerCharacterStyleShuffling)) {
+                  if (config.FontRand.ShuffleSettings.Mode == ShufflingMode.PerLetter) {
                         // Contains how many chars have been added to each randomised font
                         int[] addedCharsCount = new int[fonts.Length];
 
@@ -214,7 +158,7 @@ namespace Geometry_Dash_Randomiser {
                                     int fontAddedCharsCount = addedCharsCount[newFontIndex];
 
                                     // Add the character and the bitmap clone
-                                    newFonts[newFontIndex].chars[fontAddedCharsCount] = fonts[oldFontIndex].chars[charPosition].DeepCopy();
+                                    newFonts[newFontIndex].Chars[fontAddedCharsCount] = fonts[oldFontIndex].Chars[charPosition].DeepCopy();
 
                                     // Signal that one character was added to the font
                                     addedCharsCount[newFontIndex]++;
@@ -235,15 +179,15 @@ namespace Geometry_Dash_Randomiser {
                                     newFonts[i] = this.fonts[i].DeepCopy();
 
                               } else {
-                                    for (int ch = 0; ch < newFont.chars.Length; ch++) {
-                                          int targetCharID = this.fonts[i].chars[ch].charID;
+                                    for (int ch = 0; ch < newFont.Chars.Length; ch++) {
+                                          int targetCharID = this.fonts[i].Chars[ch].CharID;
                                           FontChar newFontChar = newFontStyle.GetChar(targetCharID);
 
                                           if (newFontChar != null) {
-                                                newFont.chars[ch] = newFontChar.DeepCopy();
+                                                newFont.Chars[ch] = newFontChar.DeepCopy();
 
                                           } else {
-                                                newFont.chars[ch] = this.fonts[i].GetChar(targetCharID).DeepCopy();
+                                                newFont.Chars[ch] = this.fonts[i].GetChar(targetCharID).DeepCopy();
                                           }
                                     }
                               }
@@ -256,8 +200,8 @@ namespace Geometry_Dash_Randomiser {
                   int[] newCharIDs = font.GetCharIDs();
                   random.Shuffle(newCharIDs);
 
-                  for (int i = 0; i < font.chars.Length; i++) {
-                        font.chars[i].charID = newCharIDs[i];
+                  for (int i = 0; i < font.Chars.Length; i++) {
+                        font.Chars[i].CharID = newCharIDs[i];
                   }
             }
 
@@ -290,9 +234,19 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
+            public int[] GetAllDistinctCharIDs() {
+                  List<int> allCharIDs = new List<int>();
+                  for (int i = 0; i < fonts.Length; i++) {
+                        allCharIDs.AddRange(fonts[i].GetCharIDs());
+                  }
+                  allCharIDs = allCharIDs.Distinct().ToList();
+                  allCharIDs.Sort();
+                  return allCharIDs.ToArray();
+            }
+
             public static void Dispose(ref Font font) {
-                  for (int ch = 0; ch < font.chars.Length; ch++) {
-                        font.chars[ch].texture.Dispose();
+                  for (int ch = 0; ch < font.Chars.Length; ch++) {
+                        font.Chars[ch].Texture.Dispose();
                   }
                   font = null;
             }
@@ -309,21 +263,11 @@ namespace Geometry_Dash_Randomiser {
                   return font.Serialise();
             }
 
-            public int[] GetAllDistinctCharIDs() {
-                  List<int> allCharIDs = new List<int>();
-                  for (int i = 0; i < fonts.Length; i++) {
-                        allCharIDs.AddRange(fonts[i].GetCharIDs());
-                  }
-                  allCharIDs = allCharIDs.Distinct().ToList();
-                  allCharIDs.Sort();
-                  return allCharIDs.ToArray();
-            }
-
-            public string[] GetAllFileNames(GDR_Path source, Quality quality) {
+            public static string[] GetAllFileNames(GDR_Path source, Quality quality) {
                   return GetAllFileNames(PathManager.GetPath(source), quality);
             }
 
-            public string[] GetAllFileNames(string path, Quality quality) {
+            public static string[] GetAllFileNames(string path, Quality quality) {
                   return Directory.GetFiles(path)
                         .Where(f => Path.GetExtension(f) == ".fnt")
                         .FilterFilesByQuality(quality)

@@ -32,7 +32,7 @@ namespace Geometry_Dash_Randomiser {
 
                   this.Text = "Export Config Data";
 
-                  string exportString = Config.Instance.GetExportConfigData();
+                  string exportString = RandomisationConfig.Instance.GetExportConfigData();
                   this.exportTextBox.Text = exportString;
             }
 

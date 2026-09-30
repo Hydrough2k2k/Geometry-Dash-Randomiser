@@ -1,5 +1,4 @@
-﻿using Microsoft.WindowsAPICodePack.ShellExtensions.Interop;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -197,7 +196,7 @@ namespace Geometry_Dash_Randomiser {
 
                               Rectangle crop = new Rectangle(point, size);
                               Bitmap fragment = source[x, y].cropImage(crop);
-                              ret.CopyTo(fragment, X_offset, Y_offset);
+                              ret.PasteImage(fragment, X_offset, Y_offset);
 
                               X_offset += columnWidths[x - startingColumn];
                         }
@@ -336,8 +335,7 @@ namespace Geometry_Dash_Randomiser {
                   return newBitmap;
             }
 
-            // Maybe not the best name for this method?
-            public static Bitmap CopyTo(this Bitmap to, Bitmap copy, int xCoords, int yCoords, Corner corner = Corner.TopRight) {
+            public static Bitmap PasteImage(this Bitmap to, Bitmap copy, int xCoords, int yCoords, Corner corner = Corner.TopRight) {
                   // Adjust the X and Y coordinates based on the picked corner
                   switch (corner) {
                         case Corner.TopLeft:
@@ -391,15 +389,27 @@ namespace Geometry_Dash_Randomiser {
                   return destImage;
             }
 
-            public static Bitmap GetClone(this Bitmap bmp) {
+            /// <summary>
+            /// Returns a unique clone of the Bitmap.<br/>
+            /// The clone can be modified and disposed of without affecting the original and vica-versa
+            /// </summary>
+            /// <param name="bmp">The Bitmap image you want to clone</param>
+            /// <returns>The unique clone</returns>
+            public static Bitmap GetUniqueClone(this Bitmap bmp) {
                   return (Bitmap)bmp.Clone();
             }
 
-            public static Bitmap[] GetClone(this Bitmap[] bmps) {
+            /// <summary>
+            /// Returns a unique clone of the Bitmap array.<br/>
+            /// The clones can be modified and disposed of without affecting the originals and vica-versa
+            /// </summary>
+            /// <param name="bmp">The Bitmap array you want to clone</param>
+            /// <returns>The unique clones</returns>
+            public static Bitmap[] GetUniqueClone(this Bitmap[] bmps) {
                   Bitmap[] ret = new Bitmap[bmps.Length];
-                  for (int i = 0; i < bmps.Length; i++)
-                        ret[i] = bmps[i].GetClone();
-                  bmps.Dispose();
+                  for (int i = 0; i < bmps.Length; i++) {
+                        ret[i] = bmps[i].GetUniqueClone();
+                  }
                   return ret;
             }
 
@@ -409,7 +419,7 @@ namespace Geometry_Dash_Randomiser {
 
                   for (int i = 0; i < loops; i++) {
                         if (images[i] != null && images[i].Width != 0 && images[i].Height != 0) {
-                              gamesheet.CopyTo(images[i], rects[i].X, rects[i].Y);
+                              gamesheet.PasteImage(images[i], rects[i].X, rects[i].Y);
                         }
                   }
                   return gamesheet;
@@ -432,14 +442,14 @@ namespace Geometry_Dash_Randomiser {
                                     arr[x, y].Dispose();
             }
 
-            public static void Dispose(this Bitmap[][] arr) {
-                  if (arr == null) return;
+            public static Bitmap RepaintImage(this Bitmap baseImage, Theme theme) {
+                  return ((Bitmap)baseImage.Clone())
+                        .BlackAndWhiteRecolour(theme.BackgroundColour, theme.BeamColour);
+            }
 
-                  for (int x = 0; x < arr.GetLength(0); x++) {
-                        if (arr[x] != null) {
-                              arr[x].Dispose();
-                        }
-                  }
+            public static Bitmap RepaintImage(this Bitmap baseImage, Color back, Color front) {
+                  return ((Bitmap)baseImage.Clone())
+                        .BlackAndWhiteRecolour(back, front);
             }
       }
 }

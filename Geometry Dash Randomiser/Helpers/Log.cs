@@ -8,26 +8,37 @@ namespace Geometry_Dash_Randomiser {
 
             // Console Settings
             internal static bool EnableColoursForConsoleWrites { get; set; } = true;
-            internal static Mode MinimumLevelForConsole { get; set; } = Mode.Verbose;
+            internal static Mode MinimumLevelForConsole { get; set; } = Mode.Debug;
 
             // File Settings
             internal static bool MirrorToFile { get; set; } = true;
             internal static Mode MinimumLevelForFile { get; set; } = Mode.Info;
 
             public enum Mode {
-                  Verbose,
                   Debug,
+                  Verbose,
                   Info,
                   Warn,
                   Error,
                   Fatal
             }
 
+            public static void Debug(string message) => Write(Mode.Debug, message);
+            public static void Verbose(string message) => Write(Mode.Verbose, message);
+            public static void Info(string message) => Write(Mode.Info, message);
+            public static void Warn(string message) => Write(Mode.Warn, message);
+            public static void Error(string message) => Write(Mode.Error, message);
+            public static void Fatal(string message) => Write(Mode.Fatal, message);
+
             public static void Write(Mode mode, string message) {
                   if (mode >= MinimumLevelForConsole) {
                         PrintMessageToConsole(mode, message);
                   }
 
+                  WriteToFile(mode, message);
+            }
+
+            public static void WriteToFile(Mode mode, string message) {
                   if (mode >= MinimumLevelForFile) {
                         PrintMessageToFile(mode, message);
                   }
@@ -101,7 +112,8 @@ namespace Geometry_Dash_Randomiser {
                         "GDR " + dt.Year.ToString("0000") +
                         "-" + dt.Month.ToString("00") +
                         "-" + dt.Day.ToString("00") +
-                        " " + GetClockTime('.') + ".log");
+                        " " + GetClockTime('.') + ".log"
+                  );
             }
 
             /// <summary>
@@ -151,15 +163,36 @@ namespace Geometry_Dash_Randomiser {
                   if (LogFileStream == null)
                         return;
 
+                  Log.Write(Mode.Info, "Closing Log Stream.");
+
                   LogFileStream.Close();
                   LogFileStream.Dispose();
                   LogFileStream = null;
             }
 
+            /// <summary>
+            /// Cleans up excess logs files from disc
+            /// For performance reasons, this should ideally run on a separate thread
+            /// </summary>
+            internal static void CleanUpLogs() {
+                  string[] logFiles = Directory.GetFiles(LogFolderName);
+                  FileInfo[] logFileInfos = new FileInfo[logFiles.Length];
+
+                  for (int i = 0; i < logFiles.Length; i++) {
+                        logFileInfos[i] = new FileInfo(logFiles[i]);
+                  }
+
+                  Array.Sort(logFileInfos, (a, b) => a.CreationTimeUtc.CompareTo(b.CreationTimeUtc));
+
+                  for (int i = 0; i < logFileInfos.Length - AdvancedConfig.Instance.MaxLogFileCount; i++) {
+                        File.Delete(logFileInfos[i].FullName);
+                  }
+            }
+
             // Console print colour settings
             private static ConsoleColor Default { get; set; } = ConsoleColor.White;
             private static ConsoleColor VerboseMessageColour { get; set; } = ConsoleColor.White;
-            private static ConsoleColor DebugMessageColour { get; set; } = ConsoleColor.Blue;
+            private static ConsoleColor DebugMessageColour { get; set; } = ConsoleColor.Gray;
             private static ConsoleColor InfoMessageColour { get; set; } = ConsoleColor.Cyan;
             private static ConsoleColor WarnMessageColour { get; set; } = ConsoleColor.Yellow;
             private static ConsoleColor ErrorMessageColour { get; set; } = ConsoleColor.Red;

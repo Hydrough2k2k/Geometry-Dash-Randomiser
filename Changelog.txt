@@ -1,3 +1,24 @@
+Changelog for V2.5.0.0:
+
+What's New?
+ - Reworked and massively expanded font randomisation settings
+ - Make the connector beams have a lighter colour when the setting it branched away from is disabled
+ - Made a new config file for advanced controls, aptly named "adv_config.ini". Some old settings were moved to it
+ - Made the parent checkboxes (like the icon randomisation one) have a square instead of a check mark when not all child settings are enabled
+ - Added a "Notes" section to the Changelog file and window
+
+Bugfixes:
+ - When you closed GDR during a randomisation, it would keep working on it until it was done. It is possible this only happened, when a Console window was open
+ - Made the application remove old log files. The default limit can be adjusted in the advanced config file
+
+Known Bugs:
+ - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can make levels easier or impossible in some cases
+
+Notes:
+ - This update breaks old settings exported via the "Export Config" button as the system was completely overhauled
+
+-------------------------------------------
+
 Changelog for V2.4.2.0:
 
 What's New?

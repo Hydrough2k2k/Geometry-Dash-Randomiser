@@ -3,9 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace Geometry_Dash_Randomiser {
 
-      public struct int2 {
+      public struct Int2 {
 
-            public int2(int x, int y) {
+            public Int2(int x, int y) {
                   this.x = x;
                   this.y = y;
             }
@@ -13,7 +13,7 @@ namespace Geometry_Dash_Randomiser {
             public int x { get; set; }
             public int y { get; set; }
 
-            public int2(string data) {
+            public Int2(string data) {
                   data = Regex.Replace(data, "[^0-9-,]+", "", RegexOptions.Compiled);
                   string[] vals = data.Split(',');
                   Array.Resize(ref vals, 2);
@@ -25,6 +25,20 @@ namespace Geometry_Dash_Randomiser {
 
                   this.x = Int32.Parse(vals[0]);
                   this.y = Int32.Parse(vals[1]);
+            }
+
+            public string ToString(FormatMode format) {
+                  switch (format) {
+                        case FormatMode.Default:
+                              return base.ToString();
+                        case FormatMode.Plist:
+                              return x + "," + y;
+                        case FormatMode.Json:
+                              return Json.Serialise(this);
+                        default:
+                              Log.Write(Log.Mode.Error, $"Format Mode \"{format}\" does not exist for object type \"{this.GetType()}\"");
+                              return string.Empty;
+                  }
             }
       }
 }
