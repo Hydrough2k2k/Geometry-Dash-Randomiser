@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Geometry_Dash_Randomiser {
 
-      public static class Log {
+      public static class Logger {
 
             // Console Settings
             internal static bool EnableColoursForConsoleWrites { get; set; } = true;
@@ -23,6 +23,16 @@ namespace Geometry_Dash_Randomiser {
                   Fatal
             }
 
+<<<<<<< Updated upstream:Geometry Dash Randomiser/Helpers/Log.cs
+=======
+            public static void Log(string message) => Write(Mode.Debug, message);
+            public static void Verbose(string message) => Write(Mode.Verbose, message);
+            public static void Info(string message) => Write(Mode.Info, message);
+            public static void Warn(string message) => Write(Mode.Warn, message);
+            public static void Error(string message) => Write(Mode.Error, message);
+            public static void Fatal(string message) => Write(Mode.Fatal, message);
+
+>>>>>>> Stashed changes:Geometry Dash Randomiser/Debug/Logger.cs
             public static void Write(Mode mode, string message) {
                   if (mode >= MinimumLevelForConsole) {
                         PrintMessageToConsole(mode, message);
@@ -142,7 +152,7 @@ namespace Geometry_Dash_Randomiser {
                               return FatalMessageColour;
 
                         default:
-                              Log.Write(Mode.Warn, $"Could not find a matching colour for the log mode \"{logMode.ToString()}\"");
+                              Geometry_Dash_Randomiser.Logger.Write(Mode.Warn, $"Could not find a matching colour for the log mode \"{logMode.ToString()}\"");
                               return ConsoleColor.White;
                   }
             }
@@ -151,6 +161,11 @@ namespace Geometry_Dash_Randomiser {
                   if (LogFileStream == null)
                         return;
 
+<<<<<<< Updated upstream:Geometry Dash Randomiser/Helpers/Log.cs
+=======
+                  Write(Mode.Info, "Closing Log Stream.");
+
+>>>>>>> Stashed changes:Geometry Dash Randomiser/Debug/Logger.cs
                   LogFileStream.Close();
                   LogFileStream.Dispose();
                   LogFileStream = null;
@@ -198,7 +213,7 @@ namespace Geometry_Dash_Randomiser {
                                     break;
 
                               default:
-                                    Log.Write(Mode.Warn, $"The log mode \"{logMode.ToString()}\" does not have a matching colour, or is not implemented.");
+                                    Write(Mode.Warn, $"The log mode \"{logMode.ToString()}\" does not have a matching colour, or is not implemented.");
                                     break;
                         }
                   }

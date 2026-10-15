@@ -287,9 +287,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< Updated upstream
+=======
+    <Compile Include="Configuration\AdvancedConfig.cs" />
+    <Compile Include="Configuration\Font\FontStyleShuffleSettings.cs" />
+    <Compile Include="Configuration\Font\CharacterShuffleSettings.cs" />
+    <Compile Include="Configuration\Font\LetterSpacingSettings.cs" />
+    <Compile Include="Debug\DebugOptions.cs" />
+>>>>>>> Stashed changes
     <Compile Include="Enums\ApplicationState.cs" />
     <Compile Include="Enums\GDR_Path.cs" />
     <Compile Include="Extensions\BitmapExtensions.cs" />
+<<<<<<< Updated upstream
+=======
+    <Compile Include="Extensions\BooleanExtensions.cs" />
+    <Compile Include="Extensions\ComboBoxExtensions.cs" />
+    <Compile Include="Extensions\Int32Extensions.cs" />
+    <Compile Include="Extensions\ArrayExt.cs" />
+    <Compile Include="Extensions\MathExt.cs" />
+>>>>>>> Stashed changes
     <Compile Include="Extensions\ReadyStateExtensions.cs" />
     <Compile Include="Forms\GDR_Form\GDR_Form_Intrinsics.cs">
       <SubType>Form</SubType>
@@ -303,7 +319,16 @@
     <Compile Include="Forms\ThemedFormBase.cs">
       <SubType>Form</SubType>
     </Compile>
+<<<<<<< Updated upstream
     <Compile Include="Helpers\Log.cs" />
+=======
+    <Compile Include="Helpers\Base64.cs" />
+    <Compile Include="Helpers\DataStream.cs" />
+    <Compile Include="Debug\Logger.cs" />
+    <Compile Include="Helpers\DeepCopyObject.cs" />
+    <Compile Include="Helpers\Zlib.cs" />
+    <Compile Include="Interfaces\IToggleableSetting.cs" />
+>>>>>>> Stashed changes
     <Compile Include="Objects\ChangelogData.cs" />
     <Compile Include="Objects\ConfigurationData.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
@@ -328,10 +353,15 @@
     <Compile Include="Forms\ExportConfigForm.Designer.cs">
       <DependentUpon>ExportConfigForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="ControlClasses\FileBlacklist.cs" />
     <Compile Include="Helpers\FileIO.cs" />
+<<<<<<< Updated upstream
     <Compile Include="Objects\Font.cs" />
+=======
+    <Compile Include="Objects\ControlPair.cs" />
+    <Compile Include="Objects\Font\Font.cs" />
+>>>>>>> Stashed changes
     <Compile Include="Objects\GameSheet\FontGameSheet.cs" />
     <Compile Include="Objects\FontKerning.cs" />
     <Compile Include="ControlClasses\FontManager.cs" />

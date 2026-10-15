@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -253,6 +255,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public static string SerialiseTextFile(Font font) {
+<<<<<<< Updated upstream
                   int arrayLength = 4 + font.chars.Length + 1 + font.kernings.Length;
 
                   string[] serialised = new string[arrayLength];
@@ -269,11 +272,21 @@ namespace Geometry_Dash_Randomiser {
 
                   for (int i = 0; line < arrayLength && i < font.kernings.Length; line++, i++) {
                         serialised[line] = SerialiseFontKerning(font.kernings[i]);
+=======
+                  StringBuilder serialisedData = new StringBuilder();
+                  serialisedData.Append(font.SerialiseInfoLine() + "\n");
+                  serialisedData.Append(font.SerialiseCommonLine() + "\n");
+                  serialisedData.Append(font.SerialisePageLine() + "\n");
+                  serialisedData.Append("chars count=" + font.Chars.Length + "\n");
+
+                  for (int i = 0; i < font.Chars.Length; i++) {
+                        serialisedData.Append(font.Chars[i].Serialise() + "\n");
+>>>>>>> Stashed changes
                   }
 
-                  return string.Join("\n", serialised);
-            }
+                  serialisedData.Append("kernings count=" + font.Kernings.Length + "\n");
 
+<<<<<<< Updated upstream
             static string SerialiseInfoLine(Font font) {
                   return "info face=\"" + font.infoFace + "\"" +
                         " size=" + font.size +
@@ -320,6 +333,13 @@ namespace Geometry_Dash_Randomiser {
                   return "kerning first=" + fontKerning.first +
                         " second=" + fontKerning.second +
                         " amount=" + fontKerning.amount;
+=======
+                  for (int i = 0; i < font.Kernings.Length; i++) {
+                        serialisedData.Append(font.Kernings[i].Serialise() + "\n");
+                  }
+
+                  return serialisedData.ToString();
+>>>>>>> Stashed changes
             }
       }
 }

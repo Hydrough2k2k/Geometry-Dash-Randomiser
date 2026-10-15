@@ -12,8 +12,7 @@ namespace Geometry_Dash_Randomiser {
 
             GameFileManager gameFileManager;
 
-            // this is missing a bunch of logic that will be moved from GameFileManager.cs to here, but only later
-
+            // This is missing a bunch of logic that will be moved from GameFileManager.cs to here, but only later
 
             public string[] GetAllFileNames(GDR_Path source, Quality quality)
                   => GetAllFileNames(PathManager.GetPath(source), quality);

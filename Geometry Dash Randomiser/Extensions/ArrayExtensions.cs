@@ -1,11 +1,16 @@
 ﻿using System;
+<<<<<<< Updated upstream:Geometry Dash Randomiser/Extensions/Extensions.cs
 using System.Drawing;
 using System.IO;
 using System.Text.RegularExpressions;
+=======
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+>>>>>>> Stashed changes:Geometry Dash Randomiser/Extensions/ArrayExtensions.cs
 
 namespace Geometry_Dash_Randomiser {
 
-      internal static class Extensions {
+      internal static class ArrayExtensions {
 
             // End is inclusive
             public static T[] Trim<T>(this T[] arr, int start, int end) {

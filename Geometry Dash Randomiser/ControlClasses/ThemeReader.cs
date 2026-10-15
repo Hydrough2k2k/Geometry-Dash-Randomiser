@@ -65,7 +65,7 @@ namespace Geometry_Dash_Randomiser {
                               colourEndLine = i;
 
                               if (colourStartLine == -1) {
-                                    Log.Write(Log.Mode.Warn, $"Malformed colour data in {fileName} at line {startLine + i}. Colour channel {colourChannel} could not be decoded");
+                                    Logger.Write(Logger.Mode.Warn, $"Malformed colour data in {fileName} at line {startLine + i}. Colour channel {colourChannel} could not be decoded");
                                     continue;
                               }
 
@@ -92,7 +92,7 @@ namespace Geometry_Dash_Randomiser {
                                     ret.BeamColour = colour;
 
                               } else {
-                                    Log.Write(Log.Mode.Warn, $"Unknown colour channel \"{colourChannel}\" in \"{fileName}\" at line {startLine + i}");
+                                    Logger.Write(Logger.Mode.Warn, $"Unknown colour channel \"{colourChannel}\" in \"{fileName}\" at line {startLine + i}");
                               }
                         }
                   }
@@ -102,7 +102,7 @@ namespace Geometry_Dash_Randomiser {
                         unnamedThemeCounter++;
 
                   } else if (ret.Name == "Sample Theme") {
-                        Log.Write(Log.Mode.Verbose, $"Ignoring theme called \"{ret.Name}\" from file \"{fileName}\"");
+                        Logger.Write(Logger.Mode.Verbose, $"Ignoring theme called \"{ret.Name}\" from file \"{fileName}\"");
                         return null;
                   }
 

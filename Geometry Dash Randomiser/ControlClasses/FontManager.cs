@@ -9,12 +9,20 @@ namespace Geometry_Dash_Randomiser {
 
       public class FontManager {
 
+<<<<<<< Updated upstream
             private GameFileManager gameFileManager;
+=======
+            private GameFileManager _gameFileManager;
+            private RandomisationConfig _config = RandomisationConfig.Instance;
+
+            private List<Font> _fonts = new List<Font>();
+>>>>>>> Stashed changes
 
             public FontManager(GameFileManager creator) {
-                  gameFileManager = creator;
+                  _gameFileManager = creator;
             }
 
+<<<<<<< Updated upstream
             // Ideas: add a field for what percentage of characters should be randomised. Int 0 -> 100
 
             public enum RandomisationMode {
@@ -61,71 +69,104 @@ namespace Geometry_Dash_Randomiser {
 
                   ShuffleEverything = ShuffleLetters | ShuffleFontStyles
             }
+=======
+            // Ideas:
+            // Add a field for what percentage of characters should be randomised. Int 0 -> 100
+            // AlterCharacterScale
+            // RandomiseCharacterScale
+            // RealignCharacters
+            // FixCharacterSpacing
+            // AllowDuplicates
+            // Allow negative kerning and Xoffset setting for simple random letter spacing
+>>>>>>> Stashed changes
 
-            string[] fontFileNames = Array.Empty<string>();
-            Font[] fonts = Array.Empty<Font>();
-
-            public string[] FontFileNames => this.fontFileNames;
-            public int fontCount => fonts.Length;
-            public Font[] Fonts => fonts;
+            public int fontCount => _fonts.Count;
+            public List<Font> Fonts => _fonts;
 
             public void ReadAllFontFiles(string path, Quality quality) {
-                  if (fontFileNames.Length != 0 || fonts.Length != 0) {
+                  if (_fonts.Count != 0) {
+                        Logger.Write(Logger.Mode.Debug, "The font files have already been read, skipping this step.");
                         return;
                   }
 
-                  fontFileNames = GetAllFileNames(path, quality);
-                  fonts = new Font[fontFileNames.Length];
+                  List<string> fontFileNames = GetAllFileNames(path, quality);
 
-                  Log.Write(Log.Mode.Info, $"Unpacking {fontFileNames.Length} font files from {PathManager.GetPath(GDR_Path.BackupResourcesFolder)}");
+                  Logger.Write(Logger.Mode.Info, $"Unpacking {fontFileNames.Count} font files from {PathManager.GetPath(GDR_Path.BackupResourcesFolder)}");
 
-                  gameFileManager.progressState.NewFileBatch(fontFileNames.Length);
+                  _gameFileManager.progressState.NewFileBatch(fontFileNames.Count);
 
                   string outputPath = PathManager.BackupResourcesFolder;
 
-                  for (int i = 0; i < fontFileNames.Length; i++) {
-                        gameFileManager.progressState.CurrentFile = fontFileNames[i];
+                  for (int i = 0; i < fontFileNames.Count; i++) {
+                        _gameFileManager.progressState.CurrentFile = fontFileNames[i];
 
+                        // Get the full fine path names for the text file and the gamesheet file
                         string textFilePath = Path.Combine(outputPath, fontFileNames[i] + ".fnt");
                         string gamesheetFilePath = Path.Combine(outputPath, fontFileNames[i] + ".png");
 
+                        // Check and store whether the files exist
+                        bool foundTextFile = File.Exists(textFilePath);
+                        bool foundGamesheetFile = File.Exists(gamesheetFilePath);
+
                         // If both files exist, read and unpack them
-                        if (File.Exists(textFilePath) && File.Exists(gamesheetFilePath)) {
+                        if (foundTextFile && foundGamesheetFile) {
                               // Deserialise all the fonts from text files
                               string[] fileData = File.ReadAllLines(textFilePath);
-                              fontFileNames[i] = fontFileNames[i];
-                              fonts[i] = Font.Deserialise(fileData);
+
+                              // Create a new Font object from the deserialised data
+                              Font newFont = Font.Deserialise(fileData);
 
                               // Extract and crop all characters from all fontsheets
-                              Rectangle[] cropRects = fonts[i].GetCharRects();
+                              Rectangle[] cropRects = newFont.GetCharRects();
                               Bitmap fontsheet = new Bitmap(gamesheetFilePath);
                               Bitmap[] croppedChars = fontsheet.Multicrop(cropRects);
 
                               for (int j = 0; j < croppedChars.Length; j++) {
+<<<<<<< Updated upstream
                                     fonts[i].chars[j].texture = croppedChars[j].GetClone();
+=======
+                                    // Unique cloning might not be necessary. Just keeping it here in case it would break things
+                                    newFont.Chars[j].Texture = croppedChars[j];
+>>>>>>> Stashed changes
                               }
 
+                              // Clear the bitmap from memory to prevent memory leaks
                               fontsheet.Dispose();
-                              croppedChars.Dispose();
+
+                              newFont.Name = fontFileNames[i];
+
+                              // Add it to the list
+                              _fonts.Add(newFont);
 
                         } else {
-                              string missingFile;
-                              if (File.Exists(textFilePath) == false) {
-                                    missingFile = textFilePath;
-                              } else {
-                                    missingFile = gamesheetFilePath;
+                              // Log the missing file(s)
+                              if (foundTextFile == false) {
+                                    Logger.Write(Logger.Mode.Warn, $"The file \"{textFilePath}\" could not be located in the local backup resources folder");
                               }
-                              Log.Write(Log.Mode.Warn, $"The file \"{missingFile}\" could not be located in the local backup resources folder");
+                              if (foundGamesheetFile == false) {
+                                    Logger.Write(Logger.Mode.Warn, $"The file \"{gamesheetFilePath}\" could not be located in the local backup resources folder");
+                              }
+
+                              // Finally remove the font name from the list, since it is incomplete
+                              fontFileNames.RemoveAt(i);
+                              // We need to decrement 'i' since we just removed an item from the list
+                              i--;
                         }
-                        gameFileManager.progressState.CompletedFiles++;
+                        _gameFileManager.progressState.CompletedFiles++;
                   }
             }
 
             public RandomisationMode GetRandomisationMode() {
                   RandomisationMode mode = RandomisationMode.None;
 
+<<<<<<< Updated upstream
                   if (Config.Instance.fontRand.enabled == false) {
                         return mode;
+=======
+            public Font[] RandomiseFiles(Random random = null) {
+                  if (_config.FontRand.Enabled == false) {
+                        return _fonts.ToArray();
+>>>>>>> Stashed changes
                   }
                   if (Config.Instance.fontRand.shuffleFontStyles == true) {
                         mode |= RandomisationMode.ShuffleFontStyles;
@@ -150,8 +191,9 @@ namespace Geometry_Dash_Randomiser {
                         new Random(Guid.NewGuid().GetHashCode());
 
                   // Create new array for the randomised fonts
-                  Font[] newFonts = Array.Empty<Font>();
+                  Font[] newFonts = GetFontFileCopies(random);
 
+<<<<<<< Updated upstream
                   if (mode.HasFlag(RandomisationMode.ShuffleFontStyles)) {
                         newFonts = GetNewFontsAfterShufflingFontStyles(mode, random);
 
@@ -167,6 +209,14 @@ namespace Geometry_Dash_Randomiser {
                         for (int i = 0; i < newFonts.Length; i++) {
                               ReorderCharIDsInFont(ref newFonts[i], random);
                         }
+=======
+                  if (_config.FontRand.CharacterShuffleSettings.Enabled) {
+                        ShuffleCharactersInFonts(random, in newFonts);
+                  }
+
+                  if (_config.FontRand.LetterSpacingSettings.Enabled) {
+                        AlterLetterSpacing(random, in newFonts);
+>>>>>>> Stashed changes
                   }
 
                   // Finally rearrange the boxes for where the chars will go on the assembled gamesheet
@@ -175,6 +225,7 @@ namespace Geometry_Dash_Randomiser {
                   return newFonts;
             }
 
+<<<<<<< Updated upstream
             Font[] GetNewFontsAfterShufflingFontStyles(RandomisationMode mode, Random random) {
                   Font[] newFonts = new Font[fonts.Length];
 
@@ -220,20 +271,32 @@ namespace Geometry_Dash_Randomiser {
                                     addedCharsCount[newFontIndex]++;
                               }
                         }
+=======
+            /// <summary>
+            /// Get copies of the original font files, either shuffled or not depending on the config settings
+            /// </summary>
+            private Font[] GetFontFileCopies(Random random) {
+                  if (_config.FontRand.StyleShuffleSettings.Enabled) {
+                        return ShuffleFontStyles(random);
+>>>>>>> Stashed changes
 
                   } else {
-                        // If there is no per-character shuffling
-                        int[] newFontOrder = random.GetShuffledIntRange(fonts.Length).ToArray();
+                        // Just straight up copy all of the files
+                        return DeepCopyFonts();
+                  }
+            }
 
-                        for (int i = 0; i < this.fonts.Length; i++) {
-                              Font newFont = newFonts[i];
-                              int newFontID = newFontOrder[i];
-                              Font newFontStyle = this.fonts[newFontID];
+            private Font[] DeepCopyFonts() {
+                  return _fonts.Select(f => f.DeepCopy()).ToArray();
+            }
 
-                              // If the ID matches, copy the font, randomisation will achieve nothing else
-                              if (i == newFontID) {
-                                    newFonts[i] = this.fonts[i].DeepCopy();
+            private void ShuffleCharactersInFonts(Random random, in Font[] fonts) {
+                  for (int i = 0; i < fonts.Length; i++) {
+                        fonts[i].ShuffleLetters(random);
+                  }
+            }
 
+<<<<<<< Updated upstream
                               } else {
                                     for (int ch = 0; ch < newFont.chars.Length; ch++) {
                                           int targetCharID = this.fonts[i].chars[ch].charID;
@@ -247,17 +310,143 @@ namespace Geometry_Dash_Randomiser {
                                           }
                                     }
                               }
+=======
+            private Font[] ShuffleFontStyles(Random random) {
+                  switch (_config.FontRand.StyleShuffleSettings.Mode) {
+                        case ShufflingMode.PerLetter:
+                              return ShuffleFontStlesPerLetter(random).ToArray();
+
+                        case ShufflingMode.PerFont:
+                              return ShuffleFontStylesPerFont(random).ToArray();
+
+                        default:
+                              Logger.Write(Logger.Mode.Error, $"Unrecognised font style shuffling mode was received: \"{_config.FontRand.StyleShuffleSettings.Mode}\". Cloning fonts");
+                              return DeepCopyFonts();
+                  }
+            }
+
+            private List<Font> ShuffleFontStlesPerLetter(Random random) {
+                  // Create a partial copy of all fonts
+                  List<Font> newFonts = _fonts.Select(f => f.DeepCopy()).ToList();
+
+                  // Clear the 'chars' arrays in the new fonts, since we will be adding them back in a randomised order
+                  newFonts.ForEach(f => f.Chars = new FontChar[f.Chars.Length]);
+
+                  // Keep track of how many chartacters have been added to each font thus far
+                  int[] addedCharsCount = new int[_fonts.Count];
+
+                  // Get all character IDs that exist in all font files
+                  int[] allCharIDs = GetAllDistinctCharIDs();
+
+                  // Iterate through every charID that exists in all font files
+                  for (int charID = 0; charID < allCharIDs.Length; charID++) {
+                        int currentCharID = allCharIDs[charID];
+
+                        // Get all fontIDs that contain the charID we are looking for
+                        int[] fontIDs = _fonts
+                              .Select((font, index) => new { font, index })
+                              .Where(pair => pair.font.HasCharID(currentCharID))
+                              .Select(pair => pair.index)
+                              .ToArray();
+
+                        // Create a copy of the array
+                        int[] newCharacterOrder = fontIDs.Select(v => v).ToArray();
+
+                        // Shuffle the order of the fonts that contain the character
+                        random.Shuffle(newCharacterOrder);
+
+                        for (int fontID = 0; fontID < fontIDs.Length; fontID++) {
+                              int originalFontIndex = fontIDs[fontID];
+                              int newFontIndex = newCharacterOrder[fontID];
+                              int addedCharacters = addedCharsCount[newFontIndex];
+
+                              // Get a clone of the character from the original font
+                              FontChar originalChar = _fonts[originalFontIndex].GetChar(currentCharID).DeepCopy();
+
+                              // Add this character to this font
+                              newFonts[newFontIndex].Chars[addedCharacters] = originalChar;
+
+                              // Signal that one character was added to the font
+                              addedCharsCount[newFontIndex]++;
+>>>>>>> Stashed changes
                         }
                   }
+
                   return newFonts;
             }
 
-            void ReorderCharIDsInFont(ref Font font, Random random) {
-                  int[] newCharIDs = font.GetCharIDs();
-                  random.Shuffle(newCharIDs);
+            private List<Font> ShuffleFontStylesPerFont(Random random) {
+                  // Create a deep copy of all fonts
+                  List<Font> newFonts = _fonts.Select(f => f.PartialCopy()).ToList();
 
+<<<<<<< Updated upstream
                   for (int i = 0; i < font.chars.Length; i++) {
                         font.chars[i].charID = newCharIDs[i];
+=======
+                  // Generate an order in which the fonts will be shuffled
+                  int[] newFontOrder = random.GetShuffledIntRange(_fonts.Count).ToArray();
+
+                  for (int fontID = 0; fontID < _fonts.Count; fontID++) {
+                        int newFontID = newFontOrder[fontID];
+
+                        Font originalFontRef = _fonts[fontID];
+                        Font newFontRef = _fonts[newFontID];
+
+                        int[] charIDs = originalFontRef.Chars.Select(c => c.CharID).ToArray();
+
+                        List<FontChar> newCharList = new List<FontChar>();
+
+                        for (int charID = 0; charID < charIDs.Length; charID++) {
+                              // Try and get the char from the new font
+                              FontChar @char = newFontRef.GetChar(charIDs[charID], out bool found);
+
+                              if (found) {
+                                    // Add it if it does exist
+                                    newCharList.Add(@char.DeepCopy());
+
+                              } else {
+                                    // If it doesn't, copy it from the original font instead. This is important, otherwise GD will shit itself
+                                    newCharList.Add(originalFontRef.GetChar(charIDs[charID]).DeepCopy());
+                              }
+                        }
+
+                        newFonts[fontID].Chars = newCharList.ToArray();
+
+                        // Get the kernings from the font we are copying to keep it consistent with the new font style
+                        newFonts[fontID].Kernings = newFontRef.Kernings.Select(k => k.DeepCopy()).ToArray();
+                  }
+
+                  return newFonts;
+            }
+
+            private void AlterLetterSpacing(Random random, in Font[] fonts) {
+                  switch (_config.FontRand.LetterSpacingSettings.Mode) {
+                        case LetterSpacingSettings.SpacingMode.Simple:
+                              AlterLetterSpacing_Simple(random, in fonts);
+                              break;
+                        case LetterSpacingSettings.SpacingMode.Advanced:
+                              AlterLetterSpacing_Advanced(random, in fonts);
+                              break;
+                        default:
+                              Logger.Write(Logger.Mode.Error, $"Unrecognised letter spacing mode was received: \"{_config.FontRand.LetterSpacingSettings.Mode}\". Skipping step");
+                              break;
+                  }
+            }
+
+            private void AlterLetterSpacing_Simple(Random random, in Font[] fonts) {
+                  Font.LetterSpacing ls = Font.LetterSpacing.Get(_config.FontRand.LetterSpacingSettings.Simple.Level);
+                  AlterLetterSpacing(random, in fonts, ls);
+            }
+
+            private void AlterLetterSpacing_Advanced(Random random, in Font[] fonts) {
+                  Font.LetterSpacing ls = _config.FontRand.LetterSpacingSettings.GetAdvancedLetterSpacing();
+                  AlterLetterSpacing(random, in fonts, ls);
+            }
+
+            private void AlterLetterSpacing(Random random, in Font[] fonts, Font.LetterSpacing ls) {
+                  for (int i = 0; i < fonts.Length; i++) {
+                        fonts[i].AlterLetterSpacing(random, ls);
+>>>>>>> Stashed changes
                   }
             }
 
@@ -267,29 +456,32 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            public void WriteFontsToDisk(Font[] fonts) {
-                  WriteFontsToDisk(GDR_Path.LocalResourcesOutputFolder, fonts);
-            }
+            public void WriteFontsToDisk(Font[] fonts) => WriteFontsToDisk(GDR_Path.LocalResourcesOutputFolder, fonts);
 
             public void WriteFontsToDisk(GDR_Path path, Font[] fonts) => WriteFontsToDisk(PathManager.GetPath(path), fonts);
 
             public void WriteFontsToDisk(string path, Font[] fonts) {
-                  gameFileManager.progressState.NewFileBatch(fonts.Length);
+                  _gameFileManager.progressState.NewFileBatch(fonts.Length);
+
+                  if (Directory.Exists(path) == false) {
+                        Directory.CreateDirectory(path);
+                  }
 
                   for (int i = 0; i < fonts.Length; i++) {
-                        gameFileManager.progressState.CurrentFile = fontFileNames[i];
+                        _gameFileManager.progressState.CurrentFile = _fonts[i].Name;
 
-                        string textFileName = Path.Combine(path, fontFileNames[i] + ".fnt");
-                        string gamesheetFileName = Path.Combine(path, fontFileNames[i] + ".png");
+                        string textFileName = Path.Combine(path, _fonts[i].Name + ".fnt");
+                        string gamesheetFileName = Path.Combine(path, _fonts[i].Name + ".png");
 
                         File.WriteAllText(textFileName, fonts[i].Serialise());
                         Bitmap gamesheet = fonts[i].AssembleGamesheet();
                         gamesheet.Save(gamesheetFileName);
 
-                        gameFileManager.progressState.CompletedFiles++;
+                        _gameFileManager.progressState.CompletedFiles++;
                   }
             }
 
+<<<<<<< Updated upstream
             public static void Dispose(ref Font font) {
                   for (int ch = 0; ch < font.chars.Length; ch++) {
                         font.chars[ch].texture.Dispose();
@@ -324,12 +516,30 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public string[] GetAllFileNames(string path, Quality quality) {
+=======
+            public int[] GetAllDistinctCharIDs() {
+                  HashSet<int> distinctCharIDs = new HashSet<int>();
+                  for (int i = 0; i < _fonts.Count; i++) {
+                        for (int j = 0; j < _fonts[i].Chars.Length; j++) {
+                              distinctCharIDs.Add(_fonts[i].Chars[j].CharID);
+                        }
+                  }
+
+                  return distinctCharIDs.ToArray();
+            }
+
+            public static List<string> GetAllFileNames(GDR_Path source, Quality quality) {
+                  return GetAllFileNames(PathManager.GetPath(source), quality);
+            }
+
+            public static List<string> GetAllFileNames(string path, Quality quality) {
+>>>>>>> Stashed changes
                   return Directory.GetFiles(path)
                         .Where(f => Path.GetExtension(f) == ".fnt")
                         .FilterFilesByQuality(quality)
                         .Where(f => File.Exists(f + ".png") && File.Exists(f + ".fnt"))
                         .Select(f => Path.GetFileName(f))
-                        .ToArray();
+                        .ToList();
             }
       }
 }

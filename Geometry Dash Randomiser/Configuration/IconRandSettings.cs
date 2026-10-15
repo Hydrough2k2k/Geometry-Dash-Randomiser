@@ -25,6 +25,24 @@ namespace Geometry_Dash_Randomiser {
                   };
             }
 
+<<<<<<< Updated upstream
+=======
+            [JsonIgnore]
+            public RandomisationSetting[] RandomisationSettings => _randomisationSettings;
+
+            [JsonIgnore]
+            public bool Enabled {
+                  get {
+                        return AnySettingEnabled();
+                  }
+                  set {
+                        SetAll(value);
+                  }
+            }
+
+            public int Group { get; set; } = 0;
+
+>>>>>>> Stashed changes
             // These setters only copy the setters' data to the existing readonly fields, thus the reference stays, but the values don't
             public RandomisationSetting Cube { get => _cube; set => _cube.CopyDataFrom(value); }
             public RandomisationSetting Ship { get => _ship; set => _ship.CopyDataFrom(value); }
@@ -70,10 +88,15 @@ namespace Geometry_Dash_Randomiser {
                   this.Validate();
             }
 
+<<<<<<< Updated upstream
             public new void Validate() {
                   foreach (var setting in randomisationSettings) {
                         setting.Validate();
                   }
+=======
+            public static explicit operator RandomisationSetting(IconRandSettings settings) {
+                  return new RandomisationSetting(settings.Group, settings.Enabled);
+>>>>>>> Stashed changes
             }
       }
 }

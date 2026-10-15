@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 
 namespace Geometry_Dash_Randomiser {
@@ -28,6 +30,38 @@ namespace Geometry_Dash_Randomiser {
 
                   int[] values = Enumerable.Range(0, max).ToArray();
                   random.Shuffle(values);
+                  return values;
+            }
+
+            public static int[] GetDerangedShuffleInRange(this Random random, int max) {
+                  int[] values = GetShuffledIntRange(random, max);
+
+                  int[] matchingIndexes = Array.Empty<int>();
+                  do {
+                        matchingIndexes = values
+                              .Select((value, index) => new { value, index })
+                              .Where(pair => pair.value == pair.index)
+                              .Select(pair => pair.index)
+                              .ToArray();
+
+                        if (matchingIndexes.Length == 1) {
+                              int r = random.Next(values.Length);
+                              (values[matchingIndexes[0]], values[r]) = (values[r], values[matchingIndexes[0]]);
+
+                        } else if (matchingIndexes.Length == 2) {
+                              (values[matchingIndexes[0]], values[matchingIndexes[1]]) = (values[matchingIndexes[1]], values[matchingIndexes[0]]);
+
+                        } else {
+                              for (int i = 0; i < matchingIndexes.Length; i++) {
+                                    int index1 = matchingIndexes[random.Next(matchingIndexes.Length)];
+                                    int index2 = matchingIndexes[random.Next(matchingIndexes.Length)];
+
+                                    (values[index1], values[index2]) = (values[index2], values[index1]);
+                              }
+                        }
+
+                  } while (matchingIndexes.Length > 0);
+
                   return values;
             }
 

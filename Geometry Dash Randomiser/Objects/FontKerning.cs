@@ -15,7 +15,11 @@ namespace Geometry_Dash_Randomiser {
             public int second { get; set; }
             public int amount { get; set; }
 
+<<<<<<< Updated upstream:Geometry Dash Randomiser/Objects/FontKerning.cs
             internal FontKerning(Font.PropertyPair[] pairs) {
+=======
+            public FontKerning(Font.NamedProperty[] pairs) {
+>>>>>>> Stashed changes:Geometry Dash Randomiser/Objects/Font/FontKerning.cs
 
                   for (int i = 0; i < pairs.Length; i++) {
                         string filtered = pairs[i].data.FilterDigits();

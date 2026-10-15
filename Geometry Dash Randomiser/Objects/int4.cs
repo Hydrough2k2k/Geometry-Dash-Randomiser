@@ -32,5 +32,22 @@ namespace Geometry_Dash_Randomiser {
                   this.z = Int32.Parse(vals[2]);
                   this.w = Int32.Parse(vals[3]);
             }
+<<<<<<< Updated upstream
+=======
+
+            public string ToString(FormatMode format) {
+                  switch (format) {
+                        case FormatMode.Default:
+                              return base.ToString();
+                        case FormatMode.Plist:
+                              return x + "," + y + "," + z + "," + w;
+                        case FormatMode.Json:
+                              return Json.Serialise(this);
+                        default:
+                              Logger.Write(Logger.Mode.Error, $"Format Mode \"{format}\" does not exist for object type \"{this.GetType()}\"");
+                              return string.Empty;
+                  }
+            }
+>>>>>>> Stashed changes
       }
 }

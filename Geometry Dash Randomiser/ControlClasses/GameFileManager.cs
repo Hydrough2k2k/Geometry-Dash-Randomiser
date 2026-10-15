@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using static Geometry_Dash_Randomiser.PathManager;
 
 namespace Geometry_Dash_Randomiser {
@@ -20,8 +21,8 @@ namespace Geometry_Dash_Randomiser {
             }
 
             // Not yet in use
-            private List<TextureGameSheet> textureSheets = new List<TextureGameSheet>();
-            private List<FontGameSheet> fontSheets = new List<FontGameSheet>();
+            //private List<TextureGameSheet> textureSheets = new List<TextureGameSheet>();
+            //private List<FontGameSheet> fontSheets = new List<FontGameSheet>();
 
             private readonly GDR_Form GDR;
 
@@ -135,19 +136,30 @@ namespace Geometry_Dash_Randomiser {
 
                   this.progressState.CurrentStage = ApplicationState.Unpacking;
 
-                  if (spriteList.Count == 0) {
+                  this.progressState.CurrentFileType = GameFileType.Resource;
+                  if (spriteList.Count == 0)
                         this.spriteList.AddRange(ExtractGameFiles());
-                  }
 
+                  this.progressState.CurrentFileType = GameFileType.Font;
                   if (fontManager.fontCount == 0)
+<<<<<<< Updated upstream
                         fontManager.ReadAllFontFiles(PathManager.BackupResourcesFolder, Config.Instance.quality);
 
                   this.progressState.CurrentStage = ApplicationState.Randomising;
                   Font[] randomisedFonts = fontManager.RandomiseFiles(fontManager.GetRandomisationMode(), seed);
+=======
+                        fontManager.ReadAllFontFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
+
+                  this.progressState.CurrentStage = ApplicationState.Randomising;
+
+                  this.progressState.CurrentFileType = GameFileType.Resource;
+>>>>>>> Stashed changes
                   RandomiseData(seed);
 
-                  this.progressState.CurrentStage = ApplicationState.Repackaging;
                   this.progressState.CurrentFileType = GameFileType.Font;
+                  Font[] randomisedFonts = fontManager.RandomiseFiles(seed);
+
+                  this.progressState.CurrentStage = ApplicationState.Repackaging;
 
                   fontManager.WriteFontsToDisk(randomisedFonts);
 
@@ -188,11 +200,20 @@ namespace Geometry_Dash_Randomiser {
                               break;
 
                         case GameFileType.Font:
+<<<<<<< Updated upstream
                               missingFiles = fontManager.GetAllFileNames(source, Config.Instance.quality);
                               backedUpFiles = fontManager.GetAllFileNames(dest, Config.Instance.quality);
                               fileExtensions = new string[] { ".fnt", ".png" };
                               break;
                         default:
+=======
+                              missingFiles = FontManager.GetAllFileNames(source, AdvancedConfig.Instance.Quality).ToArray();
+                              backedUpFiles = FontManager.GetAllFileNames(dest, AdvancedConfig.Instance.Quality).ToArray();
+                              fileExtensions = new string[] { ".fnt", ".png" };
+                              break;
+                        default:
+                              Logger.Write(Logger.Mode.Error, $"The game file type \"{type}\" does not exist. Cannot proceed with backing up the original files");
+>>>>>>> Stashed changes
                               return;
                   }
 
@@ -226,7 +247,7 @@ namespace Geometry_Dash_Randomiser {
                   }
 
                   if (copiedFiles != 0) {
-                        Log.Write(Log.Mode.Info, $"Copied {copiedFiles} files\n\tfrom {PathManager.GetPath(source)}\n\tto {PathManager.GetPath(dest)}");
+                        Logger.Write(Logger.Mode.Info, $"Copied {copiedFiles} files\n\tfrom {PathManager.GetPath(source)}\n\tto {PathManager.GetPath(dest)}");
                   }
             }
 
@@ -247,7 +268,7 @@ namespace Geometry_Dash_Randomiser {
                   string[] files = gamesheetManager.GetAllFileNames(path, Config.Instance.quality)
                         .Select(f => Path.Combine(PathManager.GetPath(path), f)).ToArray();
 
-                  Log.Write(Log.Mode.Info, $"Unpacking {files.Length} {type.ToString().ToLower()} files from {PathManager.GetPath(path)}");
+                  Logger.Write(Logger.Mode.Info, $"Unpacking {files.Length} {type.ToString().ToLower()} files from {PathManager.GetPath(path)}");
 
                   this.progressState.NewFileBatch(files.Length);
 
@@ -315,7 +336,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             void RandomiseData(int seed) {
-                  Log.Write(Log.Mode.Info, $"Randomising game data using the seed {seed}");
+                  Logger.Write(Logger.Mode.Info, $"Randomising game data using the seed {seed}");
 
                   Randomiser randomiser = new Randomiser(this, seed);
                   List<Sprite> randomisedSprites = randomiser.RandomiseData();

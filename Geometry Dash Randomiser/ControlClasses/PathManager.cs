@@ -16,7 +16,7 @@ namespace Geometry_Dash_Randomiser {
                               return highQualityName;
 
                         default:
-                              Log.Write(Log.Mode.Fatal, $"The quality \"{quality}\" does not exist");
+                              Logger.Write(Logger.Mode.Fatal, $"The quality \"{quality}\" does not exist");
                               throw new System.Exception("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                   }
             }

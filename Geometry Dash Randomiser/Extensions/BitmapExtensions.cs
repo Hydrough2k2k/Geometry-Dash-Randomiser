@@ -73,11 +73,11 @@ namespace Geometry_Dash_Randomiser {
             }
 
             // Overload to support Lists and not just arrays
-            public static Bitmap[] Multicrop(this Bitmap source, List<Rectangle> crops, int sliceSize = 512, float sliceThresholdMuiltiplier = 1.25f) {
+            public static Bitmap[] Multicrop(this Bitmap source, List<Rectangle> crops, int sliceSize = 128, float sliceThresholdMuiltiplier = 1.25f) {
                   return Multicrop(source, crops.ToArray(), sliceSize, sliceThresholdMuiltiplier);
             }
 
-            public static Bitmap[] Multicrop(this Bitmap source, Rectangle[] crops, int sliceSize = 512, float sliceThresholdMuiltiplier = 1.25f) {
+            public static Bitmap[] Multicrop(this Bitmap source, Rectangle[] crops, int sliceSize = 128, float sliceThresholdMuiltiplier = 1.25f) {
                   if (source.Width > sliceSize * sliceThresholdMuiltiplier || source.Height > sliceSize * sliceThresholdMuiltiplier) {
                         Bitmap[,] slices = source.Slice(sliceSize);
                         Bitmap[] ret = MulticropFromSlices(slices, crops, sliceSize);
@@ -89,7 +89,7 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            public static Bitmap[] MulticropFromSlices(this Bitmap source, Rectangle[] crops, int sliceSize = 512) {
+            public static Bitmap[] MulticropFromSlices(this Bitmap source, Rectangle[] crops, int sliceSize = 128) {
                   Bitmap[,] slices = source.Slice(sliceSize);
                   Bitmap[] ret = MulticropFromSlices(slices, crops, sliceSize);
                   slices.Dispose();

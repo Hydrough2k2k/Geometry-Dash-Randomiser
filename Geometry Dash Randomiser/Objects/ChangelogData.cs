@@ -1,5 +1,17 @@
-﻿using System;
+﻿using Geometry_Dash_Randomiser.Properties;
+using Ionic.Zlib;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Security.Cryptography;
+using System.Security.Policy;
+using static Geometry_Dash_Randomiser.Logger;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TreeView;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -29,26 +41,31 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public static ChangelogData Default => new ChangelogData(
-                  version: "V2.4.2.0",
+                  version: "V2.5.0.0",
 
                   newStuff: new string[] {
-                        " - The UI has been made a lot more responsive",
-                        " - Texture Size Multiplier slider's position is updated correctly when the application launches",
-                        " - Added a setting button next to the theme selector for enabling and disabling the Random and System themes",
-                        " - Added a logger system. It is only be partially implemented for now, but will be expanded in the future"
+                        " - Reworked and massively expanded font randomisation settings. Go wild",
+                        " - Made the connector beams have a different colour when the setting it branched away from is disabled",
+                        " - Split the config file into \"congif.ini\" and \"adv_config.ini\". Randomisation settings are all stored in the first one",
+                        " - Made the parent checkboxes (like the icon randomisation one) have a square instead of a check mark when not all child settings are enabled",
+                        " - Added milliseconds to the elapsed time display, because why not"
                   },
 
                   bugfixes: new string[] {
-                        " - Fixed the Icon Settings group value not changing",
-                        " - On bootup the settings for icon randomisations settings were not loaded properly",
-                        " - Fixed the Debug Console not printing anything sometimes. You can enable it in the config.txt file for debugging purposes",
-                        " - Fixed a crash when refreshing themes and there were fewer themes than the current theme index",
-                        " - Potentially fixed fonts not rendering sometimes. More testing is required"
+                        " - When you closed GDR during a randomisation, it would keep working on it until it was done",
+                        " - Made the application remove old log files. The default limit can be adjusted in the advanced config file"
                   },
 
                   knownBugs: new string[] {
                         " - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can make levels easier or impossible in some cases",
                         " - Mystery bugs that I haven't discovered yet"
+<<<<<<< Updated upstream
+=======
+                  },
+
+                  notes: new string[] {
+                        " - This update breaks old settings exported via the \"Export Config\" button as the system was completely overhauled"
+>>>>>>> Stashed changes
                   }
             );
 
