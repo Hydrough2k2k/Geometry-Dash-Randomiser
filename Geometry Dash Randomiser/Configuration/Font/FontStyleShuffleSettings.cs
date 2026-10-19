@@ -6,14 +6,14 @@ namespace Geometry_Dash_Randomiser {
 
             public enum ShufflingMode {
                   /// <summary>
-                  /// Each character gets a random sprite from a different font
-                  /// </summary>
-                  PerLetter,
-
-                  /// <summary>
                   /// Each font's style remains consistent between it's characters when possible, but the styles will be shuffled around
                   /// </summary>
                   PerFont,
+
+                  /// <summary>
+                  /// Each character gets a random sprite from a different font
+                  /// </summary>
+                  PerCharacter,
             }
 
             public FontStyleShuffleSettings() { }
@@ -36,7 +36,7 @@ namespace Geometry_Dash_Randomiser {
                   Mode = (ShufflingMode)modeID;
             }
 
-            private ShufflingMode _mode = ShufflingMode.PerLetter;
+            private ShufflingMode _mode = ShufflingMode.PerCharacter;
 
             private static int maxMode = Enum.GetValues(typeof(ShufflingMode)).Length;
       }

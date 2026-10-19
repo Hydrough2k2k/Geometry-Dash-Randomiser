@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using static Geometry_Dash_Randomiser.PathManager;
 
@@ -15,16 +16,15 @@ namespace Geometry_Dash_Randomiser {
             // this is missing a bunch of logic that will be moved from GameFileManager.cs to here, but only later
 
 
-            public static string[] GetAllFileNames(GDR_Path source, Quality quality)
+            public static IEnumerable<string> GetAllFileNames(GDR_Path source, Quality quality)
                   => GetAllFileNames(PathManager.GetPath(source), quality);
 
-            public static string[] GetAllFileNames(string path, Quality quality) {
+            public static IEnumerable<string> GetAllFileNames(string path, Quality quality) {
                   return Directory.GetFiles(path)
                         .Where(f => Path.GetExtension(f) == ".plist")
                         .FilterFilesByQuality(quality)
                         .Where(f => File.Exists(f + ".png") && File.Exists(f + ".plist"))
-                        .Select(f => Path.GetFileName(f))
-                        .ToArray();
+                        .Select(f => Path.GetFileName(f));
             }
       }
 }

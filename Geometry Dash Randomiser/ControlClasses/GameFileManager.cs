@@ -20,8 +20,8 @@ namespace Geometry_Dash_Randomiser {
             }
 
             // Not yet in use
-            private List<TextureGameSheet> textureSheets = new List<TextureGameSheet>();
-            private List<FontGameSheet> fontSheets = new List<FontGameSheet>();
+            private readonly List<TextureGameSheet> textureSheets = new List<TextureGameSheet>();
+            private readonly List<FontGameSheet> fontSheets = new List<FontGameSheet>();
 
             private readonly GDR_Form GDR;
 
@@ -135,18 +135,17 @@ namespace Geometry_Dash_Randomiser {
 
                   this.progressState.CurrentStage = ApplicationState.Unpacking;
 
-                  if (spriteList.Count == 0) {
-                        this.spriteList.AddRange(ExtractGameFiles());
-                  }
+                  //if (spriteList.Count == 0) {
+                  //      this.spriteList.AddRange(ExtractGameFiles());
+                  //}
 
-                  if (fontManager.fontCount == 0)
-                        fontManager.ReadAllFontFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
+                  fontManager.ReadAllFontFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
 
-                  return;
+                  //return;
 
-                  this.progressState.CurrentStage = ApplicationState.Randomising;
+                  //this.progressState.CurrentStage = ApplicationState.Randomising;
                   Font[] randomisedFonts = fontManager.RandomiseFiles(seed);
-                  RandomiseData(seed);
+                  //RandomiseData(seed);
 
                   this.progressState.CurrentStage = ApplicationState.Repackaging;
                   this.progressState.CurrentFileType = GameFileType.Font;
@@ -184,14 +183,14 @@ namespace Geometry_Dash_Randomiser {
                   switch (type) {
                         case GameFileType.Resource:
                         case GameFileType.Icon:
-                              missingFiles = GamesheetManager.GetAllFileNames(source, AdvancedConfig.Instance.Quality);
-                              backedUpFiles = GamesheetManager.GetAllFileNames(dest, AdvancedConfig.Instance.Quality);
+                              missingFiles = GamesheetManager.GetAllFileNames(source, AdvancedConfig.Instance.Quality).ToArray();
+                              backedUpFiles = GamesheetManager.GetAllFileNames(dest, AdvancedConfig.Instance.Quality).ToArray();
                               fileExtensions = new string[] { ".plist", ".png" };
                               break;
 
                         case GameFileType.Font:
-                              missingFiles = FontManager.GetAllFileNames(source, AdvancedConfig.Instance.Quality);
-                              backedUpFiles = FontManager.GetAllFileNames(dest, AdvancedConfig.Instance.Quality);
+                              missingFiles = FontManager.GetAllFileNames(source, AdvancedConfig.Instance.Quality).ToArray();
+                              backedUpFiles = FontManager.GetAllFileNames(dest, AdvancedConfig.Instance.Quality).ToArray();
                               fileExtensions = new string[] { ".fnt", ".png" };
                               break;
                         default:

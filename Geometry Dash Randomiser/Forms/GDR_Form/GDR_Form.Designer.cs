@@ -1263,7 +1263,7 @@
                   // iconTextureWarningIcon
                   // 
                   this.iconTextureWarningIcon.Image = ((System.Drawing.Image)(resources.GetObject("iconTextureWarningIcon.Image")));
-                  this.iconTextureWarningIcon.Location = new System.Drawing.Point(166, 28);
+                  this.iconTextureWarningIcon.Location = new System.Drawing.Point(166, 25);
                   this.iconTextureWarningIcon.Name = "iconTextureWarningIcon";
                   this.iconTextureWarningIcon.Size = new System.Drawing.Size(22, 19);
                   this.iconTextureWarningIcon.TabIndex = 110;
@@ -1273,7 +1273,7 @@
                   // 
                   this.iconTextureTypeLabel.AutoSize = true;
                   this.iconTextureTypeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-                  this.iconTextureTypeLabel.Location = new System.Drawing.Point(40, 25);
+                  this.iconTextureTypeLabel.Location = new System.Drawing.Point(40, 22);
                   this.iconTextureTypeLabel.Name = "iconTextureTypeLabel";
                   this.iconTextureTypeLabel.Size = new System.Drawing.Size(118, 22);
                   this.iconTextureTypeLabel.TabIndex = 107;
@@ -1283,7 +1283,7 @@
                   // 
                   this.label3.AutoSize = true;
                   this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-                  this.label3.Location = new System.Drawing.Point(229, 25);
+                  this.label3.Location = new System.Drawing.Point(229, 22);
                   this.label3.Name = "label3";
                   this.label3.Size = new System.Drawing.Size(60, 22);
                   this.label3.TabIndex = 107;
@@ -1334,7 +1334,7 @@
                   // gameTextureWarningIcon
                   // 
                   this.gameTextureWarningIcon.Image = global::Geometry_Dash_Randomiser.Properties.Resources.Warning;
-                  this.gameTextureWarningIcon.Location = new System.Drawing.Point(166, 28);
+                  this.gameTextureWarningIcon.Location = new System.Drawing.Point(166, 25);
                   this.gameTextureWarningIcon.Name = "gameTextureWarningIcon";
                   this.gameTextureWarningIcon.Size = new System.Drawing.Size(22, 19);
                   this.gameTextureWarningIcon.TabIndex = 111;
@@ -1344,7 +1344,7 @@
                   // 
                   this.gameTextureTypeLabel.AutoSize = true;
                   this.gameTextureTypeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-                  this.gameTextureTypeLabel.Location = new System.Drawing.Point(40, 25);
+                  this.gameTextureTypeLabel.Location = new System.Drawing.Point(40, 22);
                   this.gameTextureTypeLabel.Name = "gameTextureTypeLabel";
                   this.gameTextureTypeLabel.Size = new System.Drawing.Size(118, 22);
                   this.gameTextureTypeLabel.TabIndex = 106;
@@ -1354,7 +1354,7 @@
                   // 
                   this.label1.AutoSize = true;
                   this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-                  this.label1.Location = new System.Drawing.Point(229, 25);
+                  this.label1.Location = new System.Drawing.Point(229, 22);
                   this.label1.Name = "label1";
                   this.label1.Size = new System.Drawing.Size(60, 22);
                   this.label1.TabIndex = 105;
@@ -1618,8 +1618,8 @@
                   this.fontStyleModeSelector.Font = new System.Drawing.Font("Cambria", 12F);
                   this.fontStyleModeSelector.FormattingEnabled = true;
                   this.fontStyleModeSelector.Items.AddRange(new object[] {
-            "Per Letter",
-            "Per Font"});
+            "Per Font",
+            "Per Letter"});
                   this.fontStyleModeSelector.Location = new System.Drawing.Point(115, 82);
                   this.fontStyleModeSelector.Name = "fontStyleModeSelector";
                   this.fontStyleModeSelector.Size = new System.Drawing.Size(120, 27);
@@ -2016,4 +2016,3 @@
             private System.Windows.Forms.NumericUpDown characterSpecialRandGroupDisplay;
       }
 }
-

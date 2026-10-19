@@ -18,6 +18,7 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
+            public string Name { get; set; } = string.Empty;
             public string InfoFace { get; set; } = string.Empty;
             public int Size { get; set; }
             public int Bold { get; set; }
@@ -40,15 +41,18 @@ namespace Geometry_Dash_Randomiser {
             public FontChar[] Chars { get; set; } = Array.Empty<FontChar>();
             public FontKerning[] Kernings { get; set; } = Array.Empty<FontKerning>();
 
+            public static Font DeserialiseFromPath(string path) => Font.Deserialise(System.IO.File.ReadAllLines(path));
+
             public static Font Deserialise(string[] fileStream) {
                   Font font = FontSerializer.Deserialise(fileStream);
 
-                  // Important for the binary search
-                  Sort(font.Chars);
-                  Sort(font.Kernings);
+                  // Will be important for the binary search
+                  Font.SortArrays(font);
 
                   return font;
             }
+
+            public static void SortArrays(Font font) => font.SortArrays();
 
             public void SortArrays() {
                   Sort(this.Chars);
@@ -84,96 +88,6 @@ namespace Geometry_Dash_Randomiser {
                   return FontSerializer.SerialiseTextFile(this);
             }
 
-            public void RandomiseProperties(int level, Random random) {
-                  if (level <= 0) return;
-
-                  RandomiseCharacterProperties(level, random);
-                  RandomiseKerningsProperties(level, random);
-            }
-
-            public void RandomiseCharacterProperties(int level, Random random) {
-                  switch (level) {
-                        case 1:
-                              RandomiseCharacterProperties(0.925f, 1.1f, random);
-                              break;
-
-                        case 2:
-                              RandomiseCharacterProperties(0.825f, 1.2666f, random);
-                              break;
-
-                        case 3:
-                              RandomiseCharacterProperties(0.625f, 1.6f, random);
-                              break;
-
-                        case 4:
-                              RandomiseCharacterProperties(0.4f, 2.25f, random);
-                              break;
-
-                        case 5:
-                              RandomiseCharacterProperties(0.25f, 4f, random);
-                              break;
-
-                        default:
-                              break;
-                  }
-            }
-
-            public void RandomiseCharacterProperties(int min, int max, Random random) {
-                  for (int i = 0; i < this.Chars.Length; i++) {
-                        this.Chars[i].X_Advance += random.Next(min, max);
-                  }
-            }
-
-            public void RandomiseCharacterProperties(float minMult, float maxMult, Random random) {
-                  for (int i = 0; i < this.Chars.Length; i++) {
-                        this.Chars[i].X_Advance = (int)(this.Chars[i].X_Advance * RandomExtensions.NextFloat(random, minMult, maxMult));
-                  }
-            }
-
-            public void RandomiseKerningsProperties(int level, Random random) {
-                  switch (level) {
-                        case 1:
-                              RandomiseKerningsProperties(20, -15, 25, random);
-                              break;
-
-                        case 2:
-                              RandomiseKerningsProperties(35, -25, 40, random);
-                              break;
-
-                        case 3:
-                              RandomiseKerningsProperties(55, -40, 75, random);
-                              break;
-
-                        case 4:
-                              RandomiseKerningsProperties(80, -75, 100, random);
-                              break;
-
-                        case 5:
-                              RandomiseKerningsProperties(100, -100, 150, random);
-                              break;
-
-                        default:
-                              break;
-                  }
-            }
-
-            /// <param name="probability">What percent chance there is for the kerning between 2 characters to be altered, or for new kerning to be added</param>
-            public void RandomiseKerningsProperties(int probabilityPercent, int min, int max, Random random) {
-                  List<FontKerning> newKernings = new List<FontKerning>();
-
-                  for (int j = 0; j < this.Chars.Length; j++) {
-                        for (int i = 0; i < this.Chars.Length; i++) {
-
-                              if (random.Next(100) > probabilityPercent) {
-                                    int first = j, second = i, kerning = random.Next(min, max);
-                                    newKernings.Add(new FontKerning(first, second, kerning));
-                              }
-                        }
-                  }
-
-                  this.Kernings = newKernings.ToArray();
-            }
-
             public int GetCharPositionInArray(int charID) {
                   for (int i = 0; i < this.Chars.Length; i++) {
                         if (this.Chars[i].CharID == charID) {
@@ -192,9 +106,15 @@ namespace Geometry_Dash_Randomiser {
                   return -1;
             }
 
-            public FontChar GetChar(int charID) {
+            public FontChar GetChar(int charID, out bool found) {
                   int ID = GetCharPositionInArray(charID);
-                  return ID == -1 ? new FontChar() : this.Chars[ID];
+                  if (ID != -1) {
+                        found = true;
+                        return this.Chars[ID];
+                  } else {
+                        found = false;
+                        return null;
+                  }
             }
 
             public FontChar GetChar(char letter) {

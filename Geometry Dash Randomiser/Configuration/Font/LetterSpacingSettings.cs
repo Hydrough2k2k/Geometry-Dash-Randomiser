@@ -1,5 +1,4 @@
 ﻿using System;
-using static Geometry_Dash_Randomiser.FontStyleShuffleSettings;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -33,7 +32,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _xOffset;
                   set {
                         if (value == null) {
-                              Logger.Error("LSS.X_Offset was passed as null");
+                              Logger.Error("LSS.X_Offset was passed as null. Setting value to default");
                               value = CappedRange.Default;
 
                         } else {
@@ -41,11 +40,12 @@ namespace Geometry_Dash_Randomiser {
                         }
                   }
             }
+
             public CappedRange Kerning {
                   get => _kerning;
                   set {
                         if (value == null) {
-                              Logger.Error("LSS.Kerning was passed as null");
+                              Logger.Error("LSS.Kerning was passed as null. Setting value to default");
                               value = CappedRange.Default;
 
                         } else {
@@ -68,7 +68,7 @@ namespace Geometry_Dash_Randomiser {
             public void SetRangeValue(string value, int index) {
                   bool success = Int32.TryParse(value, out Int32 castValue);
                   if (!success) {
-                        Logger.Write(Logger.Mode.Warn, $"Casting value {value} to Int32 failed in \"LetterSpacingSettings\".");
+                        Logger.Write(Logger.Mode.Warn, $"Casting value {value} to Int32 failed in \"LetterSpacingSettings\". Index: {index}");
                         return;
                   }
 
