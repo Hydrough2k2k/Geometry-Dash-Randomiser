@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Geometry_Dash_Randomiser.Log;
+using static Geometry_Dash_Randomiser.Logger;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -44,7 +44,7 @@ namespace Geometry_Dash_Randomiser {
                   RefreshUI();
 
                   Thread cleanerThread = new Thread(() => {
-                        Log.CleanUpLogs();
+                        Logger.CleanUpLogs();
                   });
                   cleanerThread.Start();
 
@@ -52,12 +52,12 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void WriteSystemAnalysisInfoToConsole() {
-                  Log.Write(Log.Mode.Verbose, $"Total thread count: {Environment.ProcessorCount}");
-                  Log.Write(Log.Mode.Verbose, $"Is 64bit Process: {Environment.Is64BitProcess}");
-                  Log.Write(Log.Mode.Verbose, $"Is 64bit OS: {Environment.Is64BitOperatingSystem}");
-                  Log.Write(Log.Mode.Verbose, $"OS Version: {Environment.OSVersion}");
-                  Log.Write(Log.Mode.Verbose, $"System Page Size: {Environment.SystemPageSize}");
-                  Log.Write(Log.Mode.Verbose, $"CLR Version: {Environment.Version}");
+                  Logger.Write(Logger.Mode.Verbose, $"Total thread count: {Environment.ProcessorCount}");
+                  Logger.Write(Logger.Mode.Verbose, $"Is 64bit Process: {Environment.Is64BitProcess}");
+                  Logger.Write(Logger.Mode.Verbose, $"Is 64bit OS: {Environment.Is64BitOperatingSystem}");
+                  Logger.Write(Logger.Mode.Verbose, $"OS Version: {Environment.OSVersion}");
+                  Logger.Write(Logger.Mode.Verbose, $"System Page Size: {Environment.SystemPageSize}");
+                  Logger.Write(Logger.Mode.Verbose, $"CLR Version: {Environment.Version}");
             }
 
             #region UI Control
@@ -112,12 +112,12 @@ namespace Geometry_Dash_Randomiser {
 
             private void ToggleLinkedControls(IToggleableSetting setting, CheckBox parentControl, Control childControl = null) {
                   if (setting == null) {
-                        Log.Write(Mode.Error, $"The \"randomisationSetting\" was passed as null to \"ToggleLinkedControls\"");
+                        Logger.Write(Mode.Error, $"The \"randomisationSetting\" was passed as null to \"ToggleLinkedControls\"");
                         return;
                   }
 
                   if (parentControl == null) {
-                        Log.Write(Mode.Error, $"The \"parentControl\" was passed as null to \"ToggleLinkedControls\"");
+                        Logger.Write(Mode.Error, $"The \"parentControl\" was passed as null to \"ToggleLinkedControls\"");
                         return;
                   }
 
@@ -292,14 +292,10 @@ namespace Geometry_Dash_Randomiser {
 
                   this.randomiseCharactersCheckBox.Checked = CRS.Enabled;
 
-                  this.characterLetterRandCheckBox.Enabled = CRS.Enabled;
                   ChangeControlStates(characterLetterRandCheckBox, characterLetterRandGroupDisplay, CRS.Letter);
-
-                  this.characterNumberRandCheckBox.Enabled = CRS.Enabled;
                   ChangeControlStates(characterNumberRandCheckBox, characterNumberRandGroupDisplay, CRS.Number);
-
-                  this.characterSymbolRandCheckBox.Enabled = CRS.Enabled;
                   ChangeControlStates(characterSymbolRandCheckBox, characterSymbolRandGroupDisplay, CRS.Symbol);
+                  ChangeControlStates(characterSpecialRandCheckBox, characterSpecialRandGroupDisplay, CRS.Special);
             }
 
             private void FontLetterSpacingControlToggle() {
@@ -587,7 +583,7 @@ namespace Geometry_Dash_Randomiser {
                         this.themeController.Current.CopyColoursFrom(randomTheme);
                         SetTheme(randomTheme);
 
-                        Log.Write(Log.Mode.Verbose,
+                        Logger.Write(Logger.Mode.Verbose,
                               $"New random theme:\n\t" +
                               $"Background:  {randomTheme.BackgroundColour}\n\t" +
                               $"Text:        {randomTheme.TextColour}\n\t" +
@@ -610,7 +606,7 @@ namespace Geometry_Dash_Randomiser {
                         this.themeController.Current.CopyColoursFrom(systemTheme);
                         SetTheme(systemTheme);
 
-                        Log.Write(Log.Mode.Verbose,
+                        Logger.Write(Logger.Mode.Verbose,
                               $"New system theme:\n\t" +
                               $"Background:  {systemTheme.BackgroundColour}\n\t" +
                               $"Text:        {systemTheme.TextColour}\n\t" +
@@ -800,7 +796,7 @@ namespace Geometry_Dash_Randomiser {
                         ChangeConfigData(numericUpDown, setting);
 
                   } else {
-                        Log.Write(Log.Mode.Warn, $"Sender is not a supported type for changing properties of {setting}");
+                        Logger.Write(Logger.Mode.Warn, $"Sender is not a supported type for changing properties of {setting}");
                   }
 
                   UpdateAllImageThemes();
@@ -959,7 +955,7 @@ namespace Geometry_Dash_Randomiser {
             private void FontRandEnabledCheckbox_Click(object sender, EventArgs e) {
                   CheckBox checkBox = sender as CheckBox;
                   if (checkBox == null) {
-                        Log.Write(Mode.Error, "Checkbox returned null in the \"FontRandEnabledCheckbox_Click\" method");
+                        Logger.Write(Mode.Error, "Checkbox returned null in the \"FontRandEnabledCheckbox_Click\" method");
                         return;
                   }
 
@@ -983,15 +979,14 @@ namespace Geometry_Dash_Randomiser {
 
             private void FontShuffleStylesMode_Change(object sender, EventArgs e) {
                   ComboBox comboBox = sender as ComboBox;
-                  config.FontRand.ShuffleSettings.SetMode(comboBox.SelectedItem.ToString());
+                  config.FontRand.ShuffleSettings.SetMode(comboBox.SelectedIndex);
 
-                  Log.Write(Log.Mode.Debug, $"New shuffling mode is {config.FontRand.ShuffleSettings.Mode}");
+                  Logger.Write(Logger.Mode.Debug, $"New shuffling mode is {config.FontRand.ShuffleSettings.Mode}");
                   RefreshUI();
             }
 
             private void RandomiseCharactersSettingsChanged(object sender, EventArgs e) {
                   bool newState = (sender as CheckBox).Checked;
-                  config.FontRand.CharacterRandSettings.Enabled = newState;
 
                   // If the form is not initialised, skip the rest of the changes
                   // Otherwise some of the configuration data will be overwritten when the form is first initialised
@@ -999,7 +994,7 @@ namespace Geometry_Dash_Randomiser {
                         return;
                   }
 
-                  config.FontRand.CharacterRandSettings.SetAll(newState);
+                  config.FontRand.CharacterRandSettings.Enabled = newState;
 
                   RefreshUI();
             }
@@ -1013,6 +1008,9 @@ namespace Geometry_Dash_Randomiser {
             private void SymbolsRandomisationSettingsChanged(object sender, EventArgs e)
                   => ChangeConfigData(sender, config.FontRand.CharacterRandSettings.Symbol, characterSymbolRandGroupDisplay);
 
+            private void SpecialsRandomisationSettingsChanged(object sender, EventArgs e)
+                  => ChangeConfigData(sender, config.FontRand.CharacterRandSettings.Special, characterSpecialRandGroupDisplay);
+
             private void LetterSpacingSettingsChanged(object sender, EventArgs e) {
                   bool newState = (sender as CheckBox).Checked;
                   config.FontRand.LetterSpacingSettings.Enabled = newState;
@@ -1022,28 +1020,28 @@ namespace Geometry_Dash_Randomiser {
 
             private void LetterSpacingModeSettingsChanged(object sender, EventArgs e) {
                   ComboBox comboBox = sender as ComboBox;
-                  config.FontRand.LetterSpacingSettings.SetMode(comboBox.SelectedItem.ToString());
+                  config.FontRand.LetterSpacingSettings.SetMode(comboBox.SelectedIndex);
 
-                  Log.Write(Log.Mode.Debug, $"New letter spacing mode is {config.FontRand.LetterSpacingSettings.Mode}");
+                  Logger.Write(Logger.Mode.Debug, $"New letter spacing mode is {config.FontRand.LetterSpacingSettings.Mode}");
                   RefreshUI();
             }
 
-            private void KerningMinInput_TextChanged(object sender, EventArgs e)
+            private void X_OffsetMinInput_TextChanged(object sender, EventArgs e)
                   => ChangeLetterSpacingValue(sender, 0);
 
-            private void KerningMaxInput_TextChanged(object sender, EventArgs e)
+            private void X_OffsetMaxInput_TextChanged(object sender, EventArgs e)
                   => ChangeLetterSpacingValue(sender, 1);
 
-            private void X_OffsetMinInput_TextChanged(object sender, EventArgs e)
+            private void KerningMinInput_TextChanged(object sender, EventArgs e)
                   => ChangeLetterSpacingValue(sender, 2);
 
-            private void X_OffsetMaxInput_TextChanged(object sender, EventArgs e)
+            private void KerningMaxInput_TextChanged(object sender, EventArgs e)
                   => ChangeLetterSpacingValue(sender, 3);
 
             private void ChangeLetterSpacingValue(object sender, int settingID) {
                   TextBox textBox = sender as TextBox;
                   if (textBox == null) {
-                        Log.Write(Mode.Error, $"The sender returned null when cast to a TextBox. ID: {settingID}");
+                        Logger.Write(Mode.Error, $"The sender returned null when cast to a TextBox. ID: {settingID}");
                         return;
                   }
 
@@ -1288,7 +1286,7 @@ namespace Geometry_Dash_Randomiser {
                   this.themeController.ActiveThemeID = newThemeID;
                   advancedConfig.ThemeID = newThemeID;
 
-                  Log.Write(Log.Mode.Verbose, $"Switching to theme ID {newThemeID}: {themeController.Current.Name}");
+                  Logger.Write(Logger.Mode.Verbose, $"Switching to theme ID {newThemeID}: {themeController.Current.Name}");
 
                   SetTheme();
             }
@@ -1311,7 +1309,7 @@ namespace Geometry_Dash_Randomiser {
                   this.themeController.GetAllThemesFromFile();
 
                   if (this.themeController.GetThemeCount() <= advancedConfig.ThemeID) {
-                        Log.Write(Log.Mode.Warn, $"The theme ID [{advancedConfig.ThemeID}] is out of range");
+                        Logger.Write(Logger.Mode.Warn, $"The theme ID [{advancedConfig.ThemeID}] is out of range");
 
                         advancedConfig.ThemeID = 0;
                   }

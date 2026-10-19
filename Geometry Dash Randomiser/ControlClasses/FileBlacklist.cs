@@ -11,12 +11,12 @@ namespace Geometry_Dash_Randomiser {
             public FileBlacklist() {
                   // If the file doesn't exist, create it with default data
                   if (File.Exists(blacklistedFilePath) == false) {
-                        Log.Write(Log.Mode.Info, $"The file \"{blacklistedFilePath}\" does not exist. Creating the file now.");
+                        Logger.Write(Logger.Mode.Info, $"The file \"{blacklistedFilePath}\" does not exist. Creating the file now.");
 
                         File.WriteAllLines(blacklistedFilePath, blacklistedFiles);
 
                   } else {
-                        Log.Write(Log.Mode.Verbose, "Loading the blacklisted file...");
+                        Logger.Write(Logger.Mode.Verbose, "Loading the blacklisted file...");
 
                         blacklistedFiles = File.ReadAllLines(blacklistedFilePath)
                               .Select(l => l.RemoveExtension().RemoveQualityExtension())

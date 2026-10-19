@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using static Geometry_Dash_Randomiser.Log;
+using static Geometry_Dash_Randomiser.Logger;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -50,8 +50,8 @@ namespace Geometry_Dash_Randomiser {
                         }
                   }
 
-                  Log.Write(Log.Mode.Info, $"Total themes loaded: {this.GetThemeCount()}");
-                  Log.Write(Log.Mode.Verbose, "Loaded themes: \n\t" + string.Join("\n\t", this.GetAllThemeNames()));
+                  Logger.Write(Logger.Mode.Info, $"Total themes loaded: {this.GetThemeCount()}");
+                  Logger.Write(Logger.Mode.Verbose, "Loaded themes: \n\t" + string.Join("\n\t", this.GetAllThemeNames()));
             }
 
             public void AddTheme(Theme theme) {
@@ -69,14 +69,14 @@ namespace Geometry_Dash_Randomiser {
             public void CreateThemeFolder() {
 
                   if (Directory.Exists(themeFolderPath) == false) {
-                        Log.Write(Log.Mode.Info, "Theme folder does not exist, time to create it");
+                        Logger.Write(Logger.Mode.Info, "Theme folder does not exist, time to create it");
 
                         Directory.CreateDirectory(themeFolderPath);
                   }
 
                   string sampleThemePath = Path.Combine(themeFolderPath, sampleThemeFileName);
                   if (File.Exists(sampleThemePath)) {
-                        Log.Write(Log.Mode.Info, $"Sample theme file \"{sampleThemeFileName}\" already exists, skipping creation");
+                        Logger.Write(Logger.Mode.Info, $"Sample theme file \"{sampleThemeFileName}\" already exists, skipping creation");
                         return;
                   }
 
@@ -90,7 +90,7 @@ namespace Geometry_Dash_Randomiser {
 
                   File.WriteAllText(sampleThemePath, sampleThemeData);
 
-                  Log.Write(Log.Mode.Verbose, $"Finished writing \"{sampleThemeFileName}\"");
+                  Logger.Write(Logger.Mode.Verbose, $"Finished writing \"{sampleThemeFileName}\"");
             }
 
             public void ValidateCurrentThemeID() {
@@ -106,13 +106,13 @@ namespace Geometry_Dash_Randomiser {
 
             public Theme GetActiveTheme() {
                   if (ActiveThemeID >= themes.Count) {
-                        Log.Write(Log.Mode.Warn, $"Failed to get Active Theme ID {ActiveThemeID}, ID parameter was out of range. Total themes count: {this.themes.Count}");
+                        Logger.Write(Logger.Mode.Warn, $"Failed to get Active Theme ID {ActiveThemeID}, ID parameter was out of range. Total themes count: {this.themes.Count}");
                         ActiveThemeID = 0;
                         AdvancedConfig.Instance.ThemeID = ActiveThemeID;
                         return themes[0];
 
                   } else if (ActiveThemeID < 0) {
-                        Log.Write(Log.Mode.Warn, $"The theme ID was negative. Setting it to 0");
+                        Logger.Write(Logger.Mode.Warn, $"The theme ID was negative. Setting it to 0");
                         AdvancedConfig.Instance.ThemeID = 0;
                         this.ActiveThemeID = 0;
                         return themes[0];
@@ -122,7 +122,7 @@ namespace Geometry_Dash_Randomiser {
 
             public Theme GetThemeByID(int ID) {
                   if (ID > themes.Count) {
-                        Log.Write(Log.Mode.Warn, $"Failed to get Theme ID {ID}, ID parameter was out of range. Total themes count: {this.themes.Count}");
+                        Logger.Write(Logger.Mode.Warn, $"Failed to get Theme ID {ID}, ID parameter was out of range. Total themes count: {this.themes.Count}");
                         return themes[0];
                   }
                   return themes[ID];

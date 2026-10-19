@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using static Geometry_Dash_Randomiser.Log;
+using static Geometry_Dash_Randomiser.Logger;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -40,7 +40,7 @@ namespace Geometry_Dash_Randomiser {
 
                   // -------------------------------------------------------------------
 
-                  Log.Write(Mode.Info, "Application is exiting...");
+                  Logger.Write(Mode.Info, "Application is exiting...");
 
                   // Everything below this happens on when the mainForm exits
                   if (mainForm.randomisationThread != null) {
@@ -48,14 +48,14 @@ namespace Geometry_Dash_Randomiser {
                         mainForm.randomisationThread.Abort();
                   }
 
-                  Log.Write(Mode.Info, "Writing Config files...");
+                  Logger.Write(Mode.Info, "Writing Config files...");
 
                   // Write the config files
                   RandomisationConfig.Instance.WriteFile();
                   AdvancedConfig.Instance.WriteFile();
 
                   // Finally close the log file stream to make it accessible to othger applications
-                  Log.CloseFileStream();
+                  Logger.CloseFileStream();
             }
 
             public static void ForceAllocConsole() {

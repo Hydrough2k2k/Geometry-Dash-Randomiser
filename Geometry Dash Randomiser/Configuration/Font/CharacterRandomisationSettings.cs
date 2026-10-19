@@ -11,15 +11,17 @@ namespace Geometry_Dash_Randomiser {
             private readonly RandomisationSetting _letter = new RandomisationSetting(1, true);
             private readonly RandomisationSetting _number = new RandomisationSetting(2, true);
             private readonly RandomisationSetting _symbol = new RandomisationSetting(0, false);
+            private readonly RandomisationSetting _special = new RandomisationSetting(0, false);
 
             public CharacterRandomisationSettings() {
                   _randomisationSettings = new RandomisationSetting[] {
-                        _letter, _number, _symbol
+                        _letter, _number, _symbol, _special
                   };
 
                   _letter.MaxGroupNumber = 10;
                   _number.MaxGroupNumber = 10;
                   _symbol.MaxGroupNumber = 10;
+                  _special.MaxGroupNumber = 10;
 
                   Enabled = true;
             }
@@ -39,13 +41,14 @@ namespace Geometry_Dash_Randomiser {
                   set => _symbol.CopyDataFrom(value);
             }
 
+            public RandomisationSetting Special {
+                  get => _special;
+                  set => _special.CopyDataFrom(value);
+            }
+
             public virtual bool Enabled {
-                  get {
-                        return AnySettingEnabled();
-                  }
-                  set {
-                        SetAll(value);
-                  }
+                  get => AnySettingEnabled();
+                  set => SetAll(value);
             }
 
             [JsonIgnore]
@@ -59,8 +62,8 @@ namespace Geometry_Dash_Randomiser {
                   return GetEnabledSettingsCount() > 0;
             }
 
-            public void SetAll(bool state) {
-                  _randomisationSettings.ToList().ForEach(r => r.Enabled = state);
+            private void SetAll(bool state) {
+                  _randomisationSettings.ToList().ForEach(s => s.Enabled = state);
             }
       }
 }

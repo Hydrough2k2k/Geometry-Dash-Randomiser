@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Geometry Dash Randomiser Packer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a20cba609dd0ef7328a47cdc4dce51f9a32f1062")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1695fc09f0da8cb9cc73eada7116e3d5af052c34")]
 [assembly: System.Reflection.AssemblyProductAttribute("Geometry Dash Randomiser Packer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Geometry Dash Randomiser Packer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

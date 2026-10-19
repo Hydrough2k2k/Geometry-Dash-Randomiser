@@ -39,7 +39,7 @@ namespace Geometry_Dash_Randomiser {
                   fontFileNames = GetAllFileNames(path, quality);
                   fonts = new Font[fontFileNames.Length];
 
-                  Log.Write(Log.Mode.Info, $"Unpacking {fontFileNames.Length} font files from {PathManager.GetPath(GDR_Path.BackupResourcesFolder)}");
+                  Logger.Write(Logger.Mode.Info, $"Unpacking {fontFileNames.Length} font files from {PathManager.GetPath(GDR_Path.BackupResourcesFolder)}");
 
                   gameFileManager.progressState.NewFileBatch(fontFileNames.Length);
 
@@ -77,7 +77,7 @@ namespace Geometry_Dash_Randomiser {
                               } else {
                                     missingFile = gamesheetFilePath;
                               }
-                              Log.Write(Log.Mode.Warn, $"The file \"{missingFile}\" could not be located in the local backup resources folder");
+                              Logger.Write(Logger.Mode.Warn, $"The file \"{missingFile}\" could not be located in the local backup resources folder");
                         }
                         gameFileManager.progressState.CompletedFiles++;
                   }

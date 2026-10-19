@@ -70,12 +70,12 @@ namespace Geometry_Dash_Randomiser {
                         _instance = Deserialise(inStream);
 
                   } else {
-                        Log.WriteToFile(Log.Mode.Info, $"The file \"{configFileName}\" does not exist. Loading default configuration.");
+                        Logger.WriteToFile(Logger.Mode.Info, $"The file \"{configFileName}\" does not exist. Loading default configuration.");
                   }
             }
 
             public void WriteFile() {
-                  Log.Write(Log.Mode.Verbose, "Saving Config File");
+                  Logger.Write(Logger.Mode.Verbose, "Saving Config File");
 
                   string outStream = this.Serialize();
 
@@ -83,7 +83,7 @@ namespace Geometry_Dash_Randomiser {
                         File.WriteAllText(configFileName, outStream);
 
                   } catch (IOException ioExcept) {
-                        Log.Write(Log.Mode.Error, $"Failed to write config file. Reason: {ioExcept}");
+                        Logger.Write(Logger.Mode.Error, $"Failed to write config file. Reason: {ioExcept}");
                   }
             }
 
@@ -104,7 +104,7 @@ namespace Geometry_Dash_Randomiser {
                         ret = JsonSerializer.Deserialize<RandomisationConfig>(data);
 
                   } catch (JsonException JSON_Except) {
-                        Log.Write(Log.Mode.Error, $"Failed to convert the config file from JSON. Reason: {JSON_Except}");
+                        Logger.Write(Logger.Mode.Error, $"Failed to convert the config file from JSON. Reason: {JSON_Except}");
                         ret = _instance;
                   }
 
@@ -141,7 +141,7 @@ namespace Geometry_Dash_Randomiser {
                         importedConfig = JsonSerializer.Deserialize<RandomisationConfig>(decompressedStream);
                   }
                   catch (JsonException JSON_Except) {
-                        Log.Write(Log.Mode.Error, $"Failed to convert the config file from JSON. Reason: {JSON_Except}");
+                        Logger.Write(Logger.Mode.Error, $"Failed to convert the config file from JSON. Reason: {JSON_Except}");
                         return false;
                   }
 
@@ -152,7 +152,7 @@ namespace Geometry_Dash_Randomiser {
 
             private void ApplyAllProperties(RandomisationConfig other) {
                   if (other == null) {
-                        Log.Write(Log.Mode.Error, "The parameter \"other\" was passed as null in Config.cs.");
+                        Logger.Write(Logger.Mode.Error, "The parameter \"other\" was passed as null in Config.cs.");
                         return;
                   }
 

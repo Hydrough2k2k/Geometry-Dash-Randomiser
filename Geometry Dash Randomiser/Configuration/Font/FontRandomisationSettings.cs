@@ -7,12 +7,8 @@ namespace Geometry_Dash_Randomiser {
             public FontRandomisationSettings() { }
 
             public bool Enabled {
-                  get {
-                        return AnySettingEnabled();
-                  }
-                  set {
-                        SetAll(value);
-                  }
+                  get { return AnySettingEnabled(); }
+                  set { SetAll(value); }
             }
 
             public FontStyleShuffleSettings ShuffleSettings { get; set; } = new FontStyleShuffleSettings();
@@ -48,10 +44,7 @@ namespace Geometry_Dash_Randomiser {
 
             public void SetAll(bool state) {
                   ShuffleSettings.Enabled = state;
-
                   CharacterRandSettings.Enabled = state;
-                  CharacterRandSettings.SetAll(state);
-
                   LetterSpacingSettings.Enabled = state;
             }
       }

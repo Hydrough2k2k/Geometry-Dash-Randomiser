@@ -317,9 +317,10 @@
     </Compile>
     <Compile Include="Helpers\Base64.cs" />
     <Compile Include="Helpers\DataStream.cs" />
-    <Compile Include="Helpers\Log.cs" />
+    <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\Zlib.cs" />
     <Compile Include="Interfaces\IToggleableSetting.cs" />
+    <Compile Include="Objects\CappedRange.cs" />
     <Compile Include="Objects\ChangelogData.cs" />
     <Compile Include="Configuration\ConfigurationData.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />

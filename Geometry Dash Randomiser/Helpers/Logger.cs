@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Geometry_Dash_Randomiser {
 
-      public static class Log {
+      public static class Logger {
 
             // Console Settings
             internal static bool EnableColoursForConsoleWrites { get; set; } = true;
@@ -154,7 +154,7 @@ namespace Geometry_Dash_Randomiser {
                               return FatalMessageColour;
 
                         default:
-                              Log.Write(Mode.Warn, $"Could not find a matching colour for the log mode \"{logMode.ToString()}\"");
+                              Logger.Write(Mode.Warn, $"Could not find a matching colour for the log mode \"{logMode.ToString()}\"");
                               return ConsoleColor.White;
                   }
             }
@@ -163,7 +163,7 @@ namespace Geometry_Dash_Randomiser {
                   if (LogFileStream == null)
                         return;
 
-                  Log.Write(Mode.Info, "Closing Log Stream.");
+                  Logger.Write(Mode.Info, "Closing Log Stream.");
 
                   LogFileStream.Close();
                   LogFileStream.Dispose();
@@ -231,7 +231,7 @@ namespace Geometry_Dash_Randomiser {
                                     break;
 
                               default:
-                                    Log.Write(Mode.Warn, $"The log mode \"{logMode.ToString()}\" does not have a matching colour, or is not implemented.");
+                                    Logger.Write(Mode.Warn, $"The log mode \"{logMode.ToString()}\" does not have a matching colour, or is not implemented.");
                                     break;
                         }
                   }

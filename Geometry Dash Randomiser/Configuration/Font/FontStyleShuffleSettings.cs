@@ -16,39 +16,28 @@ namespace Geometry_Dash_Randomiser {
                   PerFont,
             }
 
-            private ShufflingMode _mode = ShufflingMode.PerLetter;
-
             public FontStyleShuffleSettings() { }
 
             public bool Enabled { get; set; } = true;
 
             public ShufflingMode Mode {
-                  get { return _mode; }
+                  get => _mode;
                   set {
-                        _mode = value;
-
-                        int totalValues = Enum.GetValues(typeof(ShufflingMode)).Length;
-                        if ((int)Mode > totalValues) {
-                              Mode = 0;
+                        if ((int)Mode > maxMode) {
+                              Logger.Warn($"The setting for FSSS.Mode was out of expected range");
+                              _mode = 0;
+                        } else {
+                              _mode = value;
                         }
                   }
             }
 
-            public void SetMode(string modeStr) {
-                  switch (modeStr) {
-                        case "Per Letter":
-                              Mode = ShufflingMode.PerLetter;
-                              break;
-
-                        case "Per Font":
-                              Mode = ShufflingMode.PerFont;
-                              break;
-
-                        default:
-                              Log.Write(Log.Mode.Error, $"Unrecognised text shuffling mode was received: \"{modeStr}\". Applying default value");
-                              Mode = ShufflingMode.PerLetter;
-                              break;
-                  }
+            public void SetMode(int modeID) {
+                  Mode = (ShufflingMode)modeID;
             }
+
+            private ShufflingMode _mode = ShufflingMode.PerLetter;
+
+            private static int maxMode = Enum.GetValues(typeof(ShufflingMode)).Length;
       }
 }

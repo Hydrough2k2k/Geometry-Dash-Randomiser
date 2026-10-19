@@ -2,3 +2,11 @@ packages
 CopilotIndices
 *.vsidx
 *.cache
+*.log
+*.db
+*.v2
+*.suo
+*.ini
+*.exe
+*.application
+*.manifest

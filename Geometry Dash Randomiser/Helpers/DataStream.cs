@@ -28,7 +28,7 @@ namespace Geometry_Dash_Randomiser.Helpers {
                         return Zlib.Decompress(Base64.Decode(compressedData));
                   }
                   catch (Exception ex) {
-                        Log.Write(Log.Mode.Error, $"Failed to decompress data: {ex.Message}");
+                        Logger.Write(Logger.Mode.Error, $"Failed to decompress data: {ex.Message}");
                         return string.Empty;
                   }
             }

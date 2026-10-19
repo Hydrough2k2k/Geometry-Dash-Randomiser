@@ -43,7 +43,7 @@ namespace Geometry_Dash_Randomiser {
                         case FormatMode.Json:
                               return Json.Serialise(this);
                         default:
-                              Log.Write(Log.Mode.Error, $"Format Mode \"{format}\" does not exist for object type \"{this.GetType()}\"");
+                              Logger.Write(Logger.Mode.Error, $"Format Mode \"{format}\" does not exist for object type \"{this.GetType()}\"");
                               return string.Empty;
                   }
             }

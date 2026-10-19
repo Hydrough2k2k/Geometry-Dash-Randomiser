@@ -111,7 +111,7 @@ namespace Geometry_Dash_Randomiser {
                         type = ResourceType.Miscellaneous;
 
                   } else {
-                        Log.Write(Log.Mode.Warn, $"Unknown sprite type for sprite name: {spriteName} from source file: {sourceFile}");
+                        Logger.Write(Logger.Mode.Warn, $"Unknown sprite type for sprite name: {spriteName} from source file: {sourceFile}");
                   }
             }
 
@@ -143,7 +143,7 @@ namespace Geometry_Dash_Randomiser {
                   } else if (sourceFile.StartsWith("GJ_GameSheet")) {
                         return getTypeFromGameSheet_1();
                   }
-                  Log.Write(Log.Mode.Warn, $"Type of file {spriteName} could not be determined, the source file {sourceFile}");
+                  Logger.Write(Logger.Mode.Warn, $"Type of file {spriteName} could not be determined, the source file {sourceFile}");
 
                   return ResourceType.Unknown;
             }

@@ -44,12 +44,12 @@ namespace Geometry_Dash_Randomiser {
                         _instance = Deserialise(inStream);
 
                   } else {
-                        Log.WriteToFile(Log.Mode.Info, $"The file \"{configFileName}\" does not exist. Loading default configuration.");
+                        Logger.WriteToFile(Logger.Mode.Info, $"The file \"{configFileName}\" does not exist. Loading default configuration.");
                   }
             }
 
             public void WriteFile() {
-                  Log.Write(Log.Mode.Verbose, "Saving Config File");
+                  Logger.Write(Logger.Mode.Verbose, "Saving Config File");
 
                   string outStream = this.Serialize();
 
@@ -58,7 +58,7 @@ namespace Geometry_Dash_Randomiser {
 
                   }
                   catch (IOException ioExcept) {
-                        Log.Write(Log.Mode.Error, $"Failed to write config file. Reason: {ioExcept}");
+                        Logger.Write(Logger.Mode.Error, $"Failed to write config file. Reason: {ioExcept}");
                   }
             }
 
@@ -77,7 +77,7 @@ namespace Geometry_Dash_Randomiser {
 
                   }
                   catch (JsonException JSON_Except) {
-                        Log.Write(Log.Mode.Error, $"Failed to convert the config file from JSON. Reason: {JSON_Except}");
+                        Logger.Write(Logger.Mode.Error, $"Failed to convert the config file from JSON. Reason: {JSON_Except}");
                         ret = _instance;
                   }
 

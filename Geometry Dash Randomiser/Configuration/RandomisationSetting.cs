@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -18,18 +19,12 @@ namespace Geometry_Dash_Randomiser {
             internal virtual int MaxGroupNumber {get; set; } = RandomisationConfig.maxTextureGroups;
 
             public virtual bool Enabled {
-                  get {
-                        return _enabled;
-                  }
-                  set {
-                        _enabled = value;
-                  }
+                  get { return _enabled; }
+                  set { _enabled = value; }
             }
 
             public virtual int Group {
-                  get {
-                        return _group;
-                  }
+                  get { return _group; }
                   set {
                         if (value < 0)
                               _group = 0;
@@ -40,6 +35,7 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
+            [JsonIgnore]
             public virtual int TotalSettingsCount => 1;
 
             public virtual int GetEnabledSettingsCount() {

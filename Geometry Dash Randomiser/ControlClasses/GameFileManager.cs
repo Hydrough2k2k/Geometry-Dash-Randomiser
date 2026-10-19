@@ -195,7 +195,7 @@ namespace Geometry_Dash_Randomiser {
                               fileExtensions = new string[] { ".fnt", ".png" };
                               break;
                         default:
-                              Log.Write(Log.Mode.Error, $"The game file type \"{type}\" does not exist. Cannot proceed with backing up the original files");
+                              Logger.Write(Logger.Mode.Error, $"The game file type \"{type}\" does not exist. Cannot proceed with backing up the original files");
                               return;
                   }
 
@@ -229,7 +229,7 @@ namespace Geometry_Dash_Randomiser {
                   }
 
                   if (copiedFiles != 0) {
-                        Log.Write(Log.Mode.Info, $"Copied {copiedFiles} files\n\tfrom {PathManager.GetPath(source)}\n\tto {PathManager.GetPath(dest)}");
+                        Logger.Write(Logger.Mode.Info, $"Copied {copiedFiles} files\n\tfrom {PathManager.GetPath(source)}\n\tto {PathManager.GetPath(dest)}");
                   }
             }
 
@@ -250,7 +250,7 @@ namespace Geometry_Dash_Randomiser {
                   string[] files = GamesheetManager.GetAllFileNames(path, AdvancedConfig.Instance.Quality)
                         .Select(f => Path.Combine(PathManager.GetPath(path), f)).ToArray();
 
-                  Log.Write(Log.Mode.Info, $"Unpacking {files.Length} {type.ToString().ToLower()} files from {PathManager.GetPath(path)}");
+                  Logger.Write(Logger.Mode.Info, $"Unpacking {files.Length} {type.ToString().ToLower()} files from {PathManager.GetPath(path)}");
 
                   this.progressState.NewFileBatch(files.Length);
 
@@ -318,7 +318,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             void RandomiseData(int seed) {
-                  Log.Write(Log.Mode.Info, $"Randomising game data using the seed {seed}");
+                  Logger.Write(Logger.Mode.Info, $"Randomising game data using the seed {seed}");
 
                   Randomiser randomiser = new Randomiser(this, seed);
                   List<Sprite> randomisedSprites = randomiser.RandomiseData();
