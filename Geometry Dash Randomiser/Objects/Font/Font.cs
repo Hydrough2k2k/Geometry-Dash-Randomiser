@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using RectpackSharp;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using RectpackSharp;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -88,18 +89,9 @@ namespace Geometry_Dash_Randomiser {
                   return FontSerializer.SerialiseTextFile(this);
             }
 
-            public int GetCharPositionInArray(int charID) {
+            private int GetCharPositionInArray(int charID) {
                   for (int i = 0; i < this.Chars.Length; i++) {
                         if (this.Chars[i].CharID == charID) {
-                              return i;
-                        }
-                  }
-                  return -1;
-            }
-
-            public int GetCharPositionInArray(char letter) {
-                  for (int i = 0; i < this.Chars.Length; i++) {
-                        if (this.Chars[i].Letter == letter) {
                               return i;
                         }
                   }
@@ -117,33 +109,6 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            public FontChar GetChar(char letter) {
-                  int ID = GetCharPositionInArray(letter);
-                  return ID == -1 ? new FontChar() : this.Chars[ID];
-            }
-
-            public int GetDistanceBetweenChars(char first, char second) {
-                  int firstVal = GetCharPositionInArray(first);
-                  int secondVal = GetCharPositionInArray(second);
-
-                  if (firstVal != -1 && secondVal != -1)
-                        return GetDistanceBetweenChars(firstVal, secondVal);
-                  return 0;
-            }
-
-            public int GetDistanceBetweenChars(int first, int second) {
-                  int firstChar = GetCharPositionInArray(first);
-                  return firstChar == -1 ? 0 : this.Chars[firstChar].X_Advance + GetKerningBetween(first, second);
-            }
-
-            public bool HasCharID(int ID) {
-                  for (int i = 0; i < this.Chars.Length; i++) {
-                        if (this.Chars[i].CharID == ID)
-                              return true;
-                  }
-                  return false;
-            }
-
             public Rectangle[] GetCharRects() {
                   Rectangle[] rects = new Rectangle[this.Chars.Length];
                   for (int i = 0; i < this.Chars.Length; i++) {
@@ -153,15 +118,15 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public void Repack() {
-                  PackingRectangle[] packingRects = GetPackingRects();
+                  PackingRectangle[] packingRects = GetPackingRects().ToArray();
 
                   // Get the new position for the images, then sort the array of packing rects
                   RectanglePacker.Pack(packingRects, out PackingRectangle bounds);
                   Array.Sort(packingRects, (a, b) => a.Id.CompareTo(b.Id));
 
                   int maxDimentionSize = Math.Max((int)bounds.Height, (int)bounds.Width);
-                  // Snap it to the next number divisible by 512
-                  maxDimentionSize = ((maxDimentionSize - 1) / 512 + 1) * 512;
+                  // Snap it to the next number divisible by 256
+                  maxDimentionSize = ((maxDimentionSize - 1) / 256 + 1) * 256;
 
                   // Set the width and height of the font image
                   Scale_W = maxDimentionSize;
@@ -177,12 +142,11 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            public PackingRectangle[] GetPackingRects() {
+            public IEnumerable<PackingRectangle> GetPackingRects() {
                   return Chars
                         .Select((ch, index) => new { ch, index })
                         .Where(pair => pair.ch.Width != 0 && pair.ch.Height != 0)
-                        .Select(pair => pair.ch.GetPackingRect(pair.index))
-                        .ToArray();
+                        .Select(pair => pair.ch.GetPackingRect(pair.index));
             }
 
             public Bitmap AssembleGamesheet() {
@@ -192,6 +156,7 @@ namespace Geometry_Dash_Randomiser {
             public Font PartialCopy() {
                   Font copy = new Font();
 
+                  copy.Name = this.Name;
                   copy.InfoFace = this.InfoFace;
                   copy.Size = this.Size;
                   copy.Bold = this.Bold;
@@ -216,27 +181,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public Font DeepCopy() {
-                  Font copy = new Font();
-
-                  copy.InfoFace = this.InfoFace;
-                  copy.Size = this.Size;
-                  copy.Bold = this.Bold;
-                  copy.Italic = this.Italic;
-                  copy.CharSet = this.CharSet;
-                  copy.Unicode = this.Unicode;
-                  copy.Stretch_H = this.Stretch_H;
-                  copy.Smooth = this.Smooth;
-                  copy.AA = this.AA;
-                  copy.Padding = this.Padding;
-                  copy.Spacing = this.Spacing;
-                  copy.LineHeight = this.LineHeight;
-                  copy.BaseVal = this.BaseVal;
-                  copy.Scale_W = this.Scale_W;
-                  copy.Scale_H = this.Scale_H;
-                  copy.Pages = this.Pages;
-                  copy.Packed = this.Packed;
-                  copy.PageID = this.PageID;
-                  copy.File = this.File;
+                  Font copy = this.PartialCopy();
 
                   copy.Chars = this.Chars.Select(c => c.DeepCopy()).ToArray();
                   copy.Kernings = this.Kernings.Select(c => c.DeepCopy()).ToArray();

@@ -152,9 +152,9 @@ namespace Geometry_Dash_Randomiser {
 
                   fontManager.WriteFontsToDisk(randomisedFonts);
 
-                  if (AdvancedConfig.Instance.AutoOverwriteFiles == true) {
-                        AutoOverwriteFiles();
-                  }
+                  //if (AdvancedConfig.Instance.AutoOverwriteFiles == true) {
+                  //      AutoOverwriteFiles();
+                  //}
 
                   this.progressState.CurrentStage = ApplicationState.Idle;
 

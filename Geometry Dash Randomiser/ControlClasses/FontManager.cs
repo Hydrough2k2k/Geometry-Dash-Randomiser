@@ -133,10 +133,11 @@ namespace Geometry_Dash_Randomiser {
             private void ShuffleFontStyles(Random random, ref Font[] fonts, ShufflingMode mode) {
                   switch (mode) {
                         case ShufflingMode.PerFont:
-
+                              ShuffleFontStylesByFont(random, ref fonts);
                               break;
-                        case ShufflingMode.PerCharacter:
 
+                        case ShufflingMode.PerCharacter:
+                              ShuffleFontStylesByLetter(random, ref fonts);
                               break;
                         default:
                               Logger.Warn($"Unrecognised Font Shuffling Mode: {mode}. Defaulting to Per Font mode");
@@ -145,7 +146,34 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void ShuffleFontStylesByFont(Random random, ref Font[] fonts) {
+                  int[] newOrder = random.GetShuffledIntRange(fonts.Length);
 
+                  for (int fontID = 0; fontID < fonts.Length; fontID++) {
+                        int newFontStyleID = newOrder[fontID];
+
+                        // Get references to the original and the replacement font styles
+                        Font originalFontStyle = _fonts[fontID];
+                        Font newFontStyle = _fonts[newFontStyleID];
+
+                        List<FontChar> newChars = new List<FontChar>();
+
+                        for (int @char = 0; @char < originalFontStyle.Chars.Length; @char++) {
+                              int charID = originalFontStyle.Chars[@char].CharID;
+
+                              // Try and get the character with the given ID from the new font stlye
+                              FontChar newChar = newFontStyle.GetChar(charID, out bool found);
+
+                              if (!found) {
+                                    // If it doesn't exist, get it from the original one
+                                    newChar = originalFontStyle.GetChar(charID, out found);
+                              }
+
+                              // Add it to the temporary list
+                              newChars.Add(newChar.DeepCopy());
+                        }
+
+                        fonts[fontID].Chars = newChars.ToArray();
+                  }
             }
 
             private void ShuffleFontStylesByLetter(Random random, ref Font[] fonts) {
