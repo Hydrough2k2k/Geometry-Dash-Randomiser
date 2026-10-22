@@ -13,7 +13,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public static Point Point(string data) {
-                  data = Regex.Replace(data, "[^0-9-,]+", "", RegexOptions.Compiled);
+                  data = System.Text.RegularExpressions.Regex.Replace(data, "[^0-9-,]+", "", RegexOptions.Compiled);
                   string[] values = data.Split(',');
                   Array.Resize(ref values, 2);
 
@@ -26,7 +26,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public static PointF PointF(string data) {
-                  data = Regex.Replace(data, "[^0-9-,.]+", "", RegexOptions.Compiled);
+                  data = System.Text.RegularExpressions.Regex.Replace(data, "[^0-9-,.]+", "", RegexOptions.Compiled);
                   string[] values = data.Split(',');
                   Array.Resize(ref values, 2);
 
@@ -39,7 +39,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public static Size Size(string data) {
-                  data = Regex.Replace(data, "[^0-9-,]+", "", RegexOptions.Compiled);
+                  data = System.Text.RegularExpressions.Regex.Replace(data, "[^0-9-,]+", "", RegexOptions.Compiled);
                   string[] values = data.Split(',');
                   Array.Resize(ref values, 2);
 

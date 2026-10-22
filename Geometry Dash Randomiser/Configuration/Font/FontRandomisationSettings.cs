@@ -15,21 +15,6 @@ namespace Geometry_Dash_Randomiser {
             public CharacterRandomisationSettings CharacterRandSettings { get; set; } = new CharacterRandomisationSettings();
             public LetterSpacingSettings LetterSpacingSettings { get; set; } = new LetterSpacingSettings();
 
-            public bool RandomisationNeeded {
-                  get {
-                        if (Enabled == false)
-                              return false;
-
-                        if (ShuffleSettings.Enabled)
-                              return true;
-
-                        if (ShuffleSettings.Enabled)
-                              return true;
-
-                        return false;
-                  }
-            }
-
             public int TotalSettingsCount => 3;
 
             public bool AnySettingEnabled() {

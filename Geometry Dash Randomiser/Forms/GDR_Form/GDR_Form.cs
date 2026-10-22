@@ -233,8 +233,16 @@ namespace Geometry_Dash_Randomiser {
                   return ret;
             }
 
-            private void ChangeControlStates(CheckBox checkBox, NumericUpDown groupDisplay, RandomisationSetting setting) {
+            private void UpdateRandomisationControlsStates(CheckBox checkBox, NumericUpDown groupDisplay, RandomizationSetting setting) {
                   checkBox.Checked = setting.Enabled;
+                  groupDisplay.Enabled = setting.Enabled;
+                  groupDisplay.Value = setting.Group;
+            }
+
+            private void UpdateRandomisationControlsStates(CheckBox checkBox, TextBox textBox, NumericUpDown groupDisplay, RandomizationSetting setting) {
+                  checkBox.Checked = setting.Enabled;
+                  textBox.Enabled = setting.Enabled;
+                  textBox.Text = setting.PercentageRandomised.ToString() + "%";
                   groupDisplay.Enabled = setting.Enabled;
                   groupDisplay.Value = setting.Group;
             }
@@ -242,30 +250,30 @@ namespace Geometry_Dash_Randomiser {
             private void SetAllIconTexturesElementStates() {
                   ToggleAllLinkedControls();
 
-                  ChangeControlStates(IconTexturesCheckbox, IconTexturesGroupDisplay, config.IconTextures.ToRandSetting());
+                  UpdateRandomisationControlsStates(IconTexturesCheckbox, IconTexturesGroupDisplay, config.IconTextures.ToRandSetting());
 
-                  ChangeControlStates(CubeTexturesCheckbox, CubeTexturesGroupDisplay, config.IconTextures.Cube);
-                  ChangeControlStates(ShipTexturesCheckbox, ShipTexturesGroupDisplay, config.IconTextures.Ship);
-                  ChangeControlStates(BallTexturesCheckbox, BallTexturesGroupDisplay, config.IconTextures.Ball);
-                  ChangeControlStates(UFO_TexturesCheckbox, UFO_TexturesGroupDisplay, config.IconTextures.Ufo);
-                  ChangeControlStates(WaveTexturesCheckbox, WaveTexturesGroupDisplay, config.IconTextures.Wave);
-                  ChangeControlStates(RobotTexturesCheckbox, RobotTexturesGroupDisplay, config.IconTextures.Robot);
-                  ChangeControlStates(SpiderTexturesCheckbox, SpiderTexturesGroupDisplay, config.IconTextures.Spider);
-                  ChangeControlStates(SwingTexturesCheckbox, SwingTexturesGroupDisplay, config.IconTextures.Swing);
-                  ChangeControlStates(JetpackTexturesCheckbox, JetpackTexturesGroupDisplay, config.IconTextures.Jetpack);
+                  UpdateRandomisationControlsStates(CubeTexturesCheckbox, CubeTexturesGroupDisplay, config.IconTextures.Cube);
+                  UpdateRandomisationControlsStates(ShipTexturesCheckbox, ShipTexturesGroupDisplay, config.IconTextures.Ship);
+                  UpdateRandomisationControlsStates(BallTexturesCheckbox, BallTexturesGroupDisplay, config.IconTextures.Ball);
+                  UpdateRandomisationControlsStates(UFO_TexturesCheckbox, UFO_TexturesGroupDisplay, config.IconTextures.Ufo);
+                  UpdateRandomisationControlsStates(WaveTexturesCheckbox, WaveTexturesGroupDisplay, config.IconTextures.Wave);
+                  UpdateRandomisationControlsStates(RobotTexturesCheckbox, RobotTexturesGroupDisplay, config.IconTextures.Robot);
+                  UpdateRandomisationControlsStates(SpiderTexturesCheckbox, SpiderTexturesGroupDisplay, config.IconTextures.Spider);
+                  UpdateRandomisationControlsStates(SwingTexturesCheckbox, SwingTexturesGroupDisplay, config.IconTextures.Swing);
+                  UpdateRandomisationControlsStates(JetpackTexturesCheckbox, JetpackTexturesGroupDisplay, config.IconTextures.Jetpack);
             }
 
             private void SetAllGameTexturesElementStates() {
-                  ChangeControlStates(MenuTexturesCheckbox, MenuTexturesGroupDisplay, config.MenuTextures);
-                  ChangeControlStates(ShopTexturesCheckbox, ShopTexturesGroupDisplay, config.ShopTextures);
-                  ChangeControlStates(EditorTexturesCheckbox, EditorTexturesGroupDisplay, config.EditorTextures);
-                  ChangeControlStates(BlockTexturesCheckbox, TileTexturesGroupDisplay, config.TileTextures);
-                  ChangeControlStates(PortalTexturesCheckbox, PortalTexturesGroupDisplay, config.PortalTextures);
-                  ChangeControlStates(OrbsTexturesCheckbox, OrbsGroupDisplay, config.OrbTextures);
-                  ChangeControlStates(PadsTexturesCheckbox, PadsGroupDisplay, config.PadTextures);
-                  ChangeControlStates(ParticleTexturesCheckbox, ParticleTexturesGroupDisplay, config.ParticleTextures);
-                  ChangeControlStates(EffectsCheckbox, EffectsGroupDisplay, config.EffectTextures);
-                  ChangeControlStates(MiscCheckbox, MiscGroupDisplay, config.MiscTextures);
+                  UpdateRandomisationControlsStates(MenuTexturesCheckbox, MenuTexturesGroupDisplay, config.MenuTextures);
+                  UpdateRandomisationControlsStates(ShopTexturesCheckbox, ShopTexturesGroupDisplay, config.ShopTextures);
+                  UpdateRandomisationControlsStates(EditorTexturesCheckbox, EditorTexturesGroupDisplay, config.EditorTextures);
+                  UpdateRandomisationControlsStates(BlockTexturesCheckbox, TileTexturesGroupDisplay, config.TileTextures);
+                  UpdateRandomisationControlsStates(PortalTexturesCheckbox, PortalTexturesGroupDisplay, config.PortalTextures);
+                  UpdateRandomisationControlsStates(OrbsTexturesCheckbox, OrbsGroupDisplay, config.OrbTextures);
+                  UpdateRandomisationControlsStates(PadsTexturesCheckbox, PadsGroupDisplay, config.PadTextures);
+                  UpdateRandomisationControlsStates(ParticleTexturesCheckbox, ParticleTexturesGroupDisplay, config.ParticleTextures);
+                  UpdateRandomisationControlsStates(EffectsCheckbox, EffectsGroupDisplay, config.EffectTextures);
+                  UpdateRandomisationControlsStates(MiscCheckbox, MiscGroupDisplay, config.MiscTextures);
             }
 
             #region Font Rand UI Controls
@@ -292,10 +300,10 @@ namespace Geometry_Dash_Randomiser {
 
                   this.randomiseCharactersCheckBox.Checked = CRS.Enabled;
 
-                  ChangeControlStates(characterLetterRandCheckBox, characterLetterRandGroupDisplay, CRS.Letter);
-                  ChangeControlStates(characterNumberRandCheckBox, characterNumberRandGroupDisplay, CRS.Number);
-                  ChangeControlStates(characterSymbolRandCheckBox, characterSymbolRandGroupDisplay, CRS.Symbol);
-                  ChangeControlStates(characterSpecialRandCheckBox, characterSpecialRandGroupDisplay, CRS.Special);
+                  UpdateRandomisationControlsStates(characterLetterRandCheckBox, characterLetterRandPercentageBox, characterLetterRandGroupDisplay, CRS.Letter);
+                  UpdateRandomisationControlsStates(characterNumberRandCheckBox, characterNumberRandPercentageBox, characterNumberRandGroupDisplay, CRS.Number);
+                  UpdateRandomisationControlsStates(characterSymbolRandCheckBox, characterSymbolRandPercentageBox, characterSymbolRandGroupDisplay, CRS.Symbol);
+                  UpdateRandomisationControlsStates(characterSpecialRandCheckBox, characterSpecialRandPercentageBox, characterSpecialRandGroupDisplay, CRS.Special);
             }
 
             private void FontLetterSpacingControlToggle() {
@@ -772,7 +780,7 @@ namespace Geometry_Dash_Randomiser {
 
             #region Config Data Updater Methods
 
-            private void ChangeConfigData(object sender, RandomisationSetting setting, params Control[] toggledControls) {
+            private void ChangeConfigData(object sender, RandomizationSetting setting, params Control[] toggledControls) {
                   ChangeConfigData(sender, setting);
 
                   if (toggledControls == null)
@@ -781,19 +789,22 @@ namespace Geometry_Dash_Randomiser {
                   toggledControls.ToList().ForEach(c => c.Enabled = setting.Enabled);
             }
 
-            private void ChangeConfigData(object sender, RandomisationSetting setting, Control toggledControl) {
+            private void ChangeConfigData(object sender, RandomizationSetting setting, Control toggledControl) {
                   ChangeConfigData(sender, setting);
 
                   toggledControl.Enabled = setting.Enabled;
             }
 
-            private void ChangeConfigData(object sender, RandomisationSetting setting) {
+            private void ChangeConfigData(object sender, RandomizationSetting setting) {
                   if (sender is CheckBox checkBox) {
                         ChangeConfigData(checkBox, setting);
                         ValidateReadyState();
 
                   } else if (sender is NumericUpDown numericUpDown) {
                         ChangeConfigData(numericUpDown, setting);
+
+                  } else if (sender is TextBox textBox) {
+                        ChangeConfigData(textBox, setting);
 
                   } else {
                         Logger.Write(Logger.Mode.Warn, $"Sender is not a supported type for changing properties of {setting}");
@@ -802,12 +813,27 @@ namespace Geometry_Dash_Randomiser {
                   UpdateAllImageThemes();
             }
 
-            private void ChangeConfigData(CheckBox checkBox, RandomisationSetting setting) {
+            private void ChangeConfigData(CheckBox checkBox, RandomizationSetting setting) {
                   setting.Enabled = checkBox.Checked;
             }
 
-            private void ChangeConfigData(NumericUpDown numUpDown, RandomisationSetting setting) {
+            private void ChangeConfigData(NumericUpDown numUpDown, RandomizationSetting setting) {
                   setting.Group = (int)numUpDown.Value;
+            }
+
+            private void ChangeConfigData(TextBox textBox, RandomizationSetting setting) {
+                  if (textBox.Text.Length == 0)
+                        return;
+
+                  string s = Regex.FilterDigits(textBox.Text);
+
+                  bool success = Int32.TryParse(s, out int result);
+                  if (success) {
+                        setting.PercentageRandomised = result;
+
+                  } else {
+                        Logger.Warn($"Could not convert value {textBox.Text} to Int32");
+                  }    
             }
 
             #endregion
@@ -1000,16 +1026,16 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void LettersRandomisationSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.FontRand.CharacterRandSettings.Letter, characterLetterRandGroupDisplay);
+                  => ChangeConfigData(sender, config.FontRand.CharacterRandSettings.Letter, characterLetterRandPercentageBox, characterLetterRandGroupDisplay);
 
             private void NumbersRandomisationSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.FontRand.CharacterRandSettings.Number, characterNumberRandGroupDisplay);
+                  => ChangeConfigData(sender, config.FontRand.CharacterRandSettings.Number, characterNumberRandPercentageBox, characterNumberRandGroupDisplay);
 
             private void SymbolsRandomisationSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.FontRand.CharacterRandSettings.Symbol, characterSymbolRandGroupDisplay);
+                  => ChangeConfigData(sender, config.FontRand.CharacterRandSettings.Symbol, characterSymbolRandPercentageBox, characterSymbolRandGroupDisplay);
 
             private void SpecialsRandomisationSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.FontRand.CharacterRandSettings.Special, characterSpecialRandGroupDisplay);
+                  => ChangeConfigData(sender, config.FontRand.CharacterRandSettings.Special, characterSpecialRandPercentageBox, characterSpecialRandGroupDisplay);
 
             private void LetterSpacingSettingsChanged(object sender, EventArgs e) {
                   bool newState = (sender as CheckBox).Checked;

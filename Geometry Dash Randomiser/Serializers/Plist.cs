@@ -131,7 +131,7 @@ namespace Geometry_Dash_Randomiser {
 
                               } else if (key.StartsWith("textureRect")) {
                                     string data = source[i + 1].GetString();
-                                    data = Regex.Replace(data, "[^0-9,]+", "", RegexOptions.Compiled);
+                                    data = System.Text.RegularExpressions.Regex.Replace(data, "[^0-9,]+", "", RegexOptions.Compiled);
 
                                     string[] vals = data.Split(',');
                                     Array.Resize(ref vals, 4);

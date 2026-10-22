@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using static Geometry_Dash_Randomiser.FontChar;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -67,10 +68,6 @@ namespace Geometry_Dash_Randomiser {
                   Array.Sort(kernings, delegate (FontKerning x, FontKerning y) { return x.First.CompareTo(y.First); });
             }
 
-            public char[] GetCharSet() {
-                  return this.Chars.Select(c => c.Letter).ToArray();
-            }
-
             public int[] GetCharIDs() {
                   return this.Chars.Select(c => c.CharID).ToArray();
             }
@@ -116,15 +113,42 @@ namespace Geometry_Dash_Randomiser {
                               return;
                         }
                   }
-                  Logger.Error($"Could not find a character with the ID {fc.CharID} in {Name}");
+                  Logger.Warn($"Could not find a character with the ID {fc.CharID} in {Name}");
             }
 
-            public void ShuffleCharactersByType(int[] charIDs) {
+            public void ShuffleCharacters(Random random, CharacterType characterTypes) {
+                  List<FontChar> charsToShuffle = new List<FontChar>();
 
+                  for (int i = 0; i < Chars.Length; i++) {
+                        CharacterType type = Chars[i].CharType;
+
+                        if (characterTypes.HasFlag(type)) {
+                              charsToShuffle.Add(Chars[i]);
+                        }
+                  }
+
+                  ShuffleCharacters(random, ref charsToShuffle);
             }
 
-            private void ShuffleCharacters(int[] indexes) {
+            private void ShuffleCharacters(Random random, ref List<FontChar> chars) {
+                  // Get all of the CharIDs
+                  int[] IDs = chars.Select(c => c.CharID).ToArray();
 
+                  Console.WriteLine($"Randomising in {Name}:\n{string.Join(", ", IDs)}");
+
+                  // Shuffle them
+                  random.Shuffle<int>(IDs);
+
+                  Console.WriteLine($"{string.Join(", ", IDs)}");
+
+                  for (int i = 0; i < chars.Count; i++) {
+                        chars[i].CharID = IDs[i];
+                  }
+
+                  // Unsure if it works, I'm keeping it here to test it later
+                  //// Assign the new indexes to the array of characters
+                  //chars.Select((ch, index) => new { ch, index }).ToList()
+                  //      .ForEach(pair => pair.ch.CharID = IDs[pair.index]);
             }
 
             public Rectangle[] GetCharRects() {
@@ -136,6 +160,8 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public void Repack() {
+                  this.SortArrays();
+
                   PackingRectangle[] packingRects = GetPackingRects().ToArray();
 
                   // Get the new position for the images, then sort the array of packing rects

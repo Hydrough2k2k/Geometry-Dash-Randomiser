@@ -9,7 +9,7 @@ namespace Geometry_Dash_Randomiser {
       public class FontChar {
 
             [Flags]
-            public enum CharacterType { Letter = 1, Number = 2, Symbol = 4, Special = 8 }
+            public enum CharacterType { None = 0, Letter = 1, Number = 2, Symbol = 4, Special = 8 }
 
             public int CharID { get; set; }
             public int X { get; set; }
@@ -21,7 +21,7 @@ namespace Geometry_Dash_Randomiser {
             public int X_Advance { get; set; }
             public int Page { get; set; }
             public int Channel { get; set; }
-            public char Letter { get; set; }
+            public string Letter { get; set; } = string.Empty;
             [JsonIgnore]
             public Bitmap Texture { get; set; }
 
@@ -34,26 +34,6 @@ namespace Geometry_Dash_Randomiser {
 
             public string Serialise() {
                   return FontSerializer.SerialiseFontChar(this);
-            }
-
-            public CharacterType GetCharType() {
-                  if ((CharID >= 65 && CharID <= 90)
-                        || (CharID >= 97 && CharID <= 122)) {
-                        return CharacterType.Letter;
-
-                  } else if (CharID >= 48 && CharID <= 57) {
-                        return CharacterType.Number;
-
-                  } else if ((CharID >= 30 && CharID <= 47)
-                        || (CharID >= 58 && CharID <= 64)
-                        || (CharID >= 91 && CharID <= 96)
-                        || (CharID >= 123 && CharID <= 127)
-                        || CharID == 8226) {
-                        return CharacterType.Symbol;
-
-                  } else {
-                        return CharacterType.Special;
-                  }
             }
 
             public PackingRectangle GetPackingRect(int ID = 0) {
@@ -84,6 +64,26 @@ namespace Geometry_Dash_Randomiser {
                   copy.Texture = this.Texture;
 
                   return copy;
+            }
+
+            private CharacterType GetCharType() {
+                  if ((CharID >= 65 && CharID <= 90)
+                        || (CharID >= 97 && CharID <= 122)) {
+                        return CharacterType.Letter;
+
+                  } else if (CharID >= 48 && CharID <= 57) {
+                        return CharacterType.Number;
+
+                  } else if ((CharID >= 30 && CharID <= 47)
+                        || (CharID >= 58 && CharID <= 64)
+                        || (CharID >= 91 && CharID <= 96)
+                        || (CharID >= 123 && CharID <= 127)
+                        || CharID == 8226) {
+                        return CharacterType.Symbol;
+
+                  } else {
+                        return CharacterType.Special;
+                  }
             }
 
             public static int[] LetterIDs => new int[] {

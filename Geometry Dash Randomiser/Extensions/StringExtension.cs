@@ -42,7 +42,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public static string FilterDigits(this string str) {
-                  return Regex.Replace(str, "[^0-9]+", "", RegexOptions.Compiled);
+                  return System.Text.RegularExpressions.Regex.Replace(str, "[^0-9]+", "", RegexOptions.Compiled);
             }
       }
 }

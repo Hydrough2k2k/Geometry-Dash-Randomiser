@@ -119,7 +119,7 @@ namespace Geometry_Dash_Randomiser {
                   return randomisedSprites;
             }
 
-            List<Sprite> ShuffleOrReturnOriginalSpritesOfType(RandomisationSetting setting, Sprite.IconType iconType) {
+            List<Sprite> ShuffleOrReturnOriginalSpritesOfType(RandomizationSetting setting, Sprite.IconType iconType) {
                   if (setting.Enabled == false) {
                         // If the setting is disabled return all sprites unaltered
                         return gameFiles.getAllSpritesOfType(iconType);
@@ -131,7 +131,7 @@ namespace Geometry_Dash_Randomiser {
                   return new List<Sprite>();
             }
 
-            List<Sprite> ShuffleOrReturnOriginalSpritesOfType(RandomisationSetting setting, Sprite.ResourceType type) {
+            List<Sprite> ShuffleOrReturnOriginalSpritesOfType(RandomizationSetting setting, Sprite.ResourceType type) {
                   if (setting.Enabled == false) {
                         // If the setting is disabled return all sprites unaltered
                         return gameFiles.getAllSpritesOfType(type);

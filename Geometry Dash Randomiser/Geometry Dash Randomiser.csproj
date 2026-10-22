@@ -294,6 +294,7 @@
     <Compile Include="Configuration\Font\FontStyleShuffleSettings.cs" />
     <Compile Include="Configuration\Font\CharacterRandomisationSettings.cs" />
     <Compile Include="Configuration\Font\LetterSpacingSettings.cs" />
+    <Compile Include="Debug\DebugOptions.cs" />
     <Compile Include="Enums\ApplicationState.cs" />
     <Compile Include="Enums\FormatMode.cs" />
     <Compile Include="Enums\GDR_Path.cs" />
@@ -304,6 +305,7 @@
     <Compile Include="Extensions\Int32Extensions.cs" />
     <Compile Include="Extensions\Math.cs" />
     <Compile Include="Extensions\ReadyStateExtensions.cs" />
+    <Compile Include="Extensions\Regex.cs" />
     <Compile Include="Forms\GDR_Form\GDR_Form_Intrinsics.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -318,7 +320,7 @@
     </Compile>
     <Compile Include="Helpers\Base64.cs" />
     <Compile Include="Helpers\DataStream.cs" />
-    <Compile Include="Helpers\Logger.cs" />
+    <Compile Include="Debug\Logger.cs" />
     <Compile Include="Helpers\Zlib.cs" />
     <Compile Include="Interfaces\IToggleableSetting.cs" />
     <Compile Include="Objects\CappedRange.cs" />
@@ -395,7 +397,7 @@
     </Compile>
     <Compile Include="Enums\Quality.cs" />
     <Compile Include="Extensions\RandomExtensions.cs" />
-    <Compile Include="Configuration\RandomisationSetting.cs" />
+    <Compile Include="Configuration\RandomizationSetting.cs" />
     <Compile Include="ControlClasses\Randomiser.cs" />
     <Compile Include="Enums\ReadyState.cs" />
     <Compile Include="Libraries\RetpackSharp\RectanglePacker.cs" />

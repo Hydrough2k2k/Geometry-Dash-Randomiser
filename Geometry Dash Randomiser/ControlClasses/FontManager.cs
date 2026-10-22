@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Dialogs.Controls;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using static Geometry_Dash_Randomiser.FontStyleShuffleSettings;
+using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -90,7 +94,7 @@ namespace Geometry_Dash_Randomiser {
             public Font[] RandomiseFiles(int seed) => RandomiseFiles(new Random(seed));
 
             public Font[] RandomiseFiles(Random random = null) {
-                  if (config.FontRand.RandomisationNeeded == false) {
+                  if (config.FontRand.Enabled == false) {
                         return _fonts.ToArray();
                   }
 
@@ -106,6 +110,10 @@ namespace Geometry_Dash_Randomiser {
 
                   } else {
                         newFonts = _fonts.Select(f => f.DeepCopy()).ToArray();
+                  }
+
+                  if (config.FontRand.CharacterRandSettings.Enabled) {
+                        ShuffleCharactersInFonts(random, ref newFonts);
                   }
 
                   //if (config.FontRand.ShuffleSettings.Enabled) {
@@ -193,6 +201,7 @@ namespace Geometry_Dash_Randomiser {
                   for (int i = 0; i < commonCharIDs.Length; i++) {
                         int currentCharID = commonCharIDs[i];
 
+                        // Get all fonts from the new array that contain this characterID
                         Font[] newFontRefs = newFonts
                               .Where(f => f.HasCharID(currentCharID))
                               .ToArray();
@@ -203,11 +212,68 @@ namespace Geometry_Dash_Randomiser {
                               .Where(c => c != null)
                               .ToArray();
 
+                        // Shuflle the resulting characters
                         random.Shuffle<FontChar>(characters);
 
                         for (int l = 0; l < newFontRefs.Length; l++) {
+                              // Clone and insert them into the font
                               newFontRefs[l].ReplaceCharByID(characters[l].DeepCopy());
                         }
+                  }
+
+                  for (int f = 0; f < newFonts.Length; f++) {
+                        Font font = newFonts[f];
+                        for (int c = 0; c < font.Chars.Length; c++) {
+                              // Every character that was not copied before will get copied now
+                              if (font.Chars[c].Texture == null) {
+                                    font.ReplaceCharByID(_fonts[f].Chars[c].DeepCopy());
+                              }
+                        }
+                  }
+            }
+
+            private void ShuffleCharactersInFonts(Random random, ref Font[] newFonts) {
+                  CharacterRandomisationSettings config = RandomisationConfig.Instance.FontRand.CharacterRandSettings;
+                  int[] groups = config.GetAllGroups();
+
+                  for (int g = 0; g < groups.Length; g++) {
+                        if (groups[g] == 0)
+                              continue;
+
+                        FontChar.CharacterType charTypeCollection = FontChar.CharacterType.None;
+
+                        // Add each flag to the collection
+                        if (config.Letter.IsEnabledAndGroupIs(groups[g]))
+                              charTypeCollection |= FontChar.CharacterType.Letter;
+
+                        if (config.Number.IsEnabledAndGroupIs(groups[g]))
+                              charTypeCollection |= FontChar.CharacterType.Number;
+
+                        if (config.Symbol.IsEnabledAndGroupIs(groups[g]))
+                              charTypeCollection |= FontChar.CharacterType.Symbol;
+
+                        if (config.Special.IsEnabledAndGroupIs(groups[g]))
+                              charTypeCollection |= FontChar.CharacterType.Special;
+
+                        Console.WriteLine((int)charTypeCollection);
+
+                        for (int f = 0; f < newFonts.Length; f++) {
+                              newFonts[f].ShuffleCharacters(random, charTypeCollection);
+                        }
+                  }
+
+                  for (int f = 0; f < newFonts.Length; f++) {
+                        if (config.Letter.IsEnabledAndGroupIsZero())
+                              newFonts[f].ShuffleCharacters(random, FontChar.CharacterType.Letter);
+
+                        if (config.Number.IsEnabledAndGroupIsZero())
+                              newFonts[f].ShuffleCharacters(random, FontChar.CharacterType.Number);
+
+                        if (config.Symbol.IsEnabledAndGroupIsZero())
+                              newFonts[f].ShuffleCharacters(random, FontChar.CharacterType.Symbol);
+
+                        if (config.Special.IsEnabledAndGroupIsZero())
+                              newFonts[f].ShuffleCharacters(random, FontChar.CharacterType.Special);
                   }
             }
 
@@ -244,7 +310,13 @@ namespace Geometry_Dash_Randomiser {
                         string textFileName = Path.Combine(path, fontName + ".fnt");
                         string gamesheetFileName = Path.Combine(path, fontName + ".png");
 
-                        File.WriteAllText(textFileName, fonts[i].Serialise());
+                        using (FileStream fs = File.Create(textFileName)) {
+                              byte[] encodedText = new UTF8Encoding(true).GetBytes(fonts[i].Serialise());
+                              //byte[] encodedText = Encoding.UTF8.GetBytes(fonts[i].Serialise());
+                              fs.Write(encodedText, 0, encodedText.Length);
+                        }
+
+                        //File.WriteAllText(textFileName, fonts[i].Serialise());
                         Bitmap gamesheet = fonts[i].AssembleGamesheet();
                         gamesheet.Save(gamesheetFileName);
 

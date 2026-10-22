@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Text.Json;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization.Metadata;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -29,25 +29,21 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public IconRandSettings IconTextures { get; set; } = new IconRandSettings { Group = 0 };
-            public RandomisationSetting MenuTextures { get; set; } = new RandomisationSetting(group: 1, enabled: true);
-            public RandomisationSetting ShopTextures { get; set; } = new RandomisationSetting(group: 1, enabled: true);
-            public RandomisationSetting EditorTextures { get; set; } = new RandomisationSetting();
-            public RandomisationSetting TileTextures { get; set; } = new RandomisationSetting();
-            public RandomisationSetting PortalTextures { get; set; } = new RandomisationSetting(group: 0, true);
-            public RandomisationSetting OrbTextures { get; set; } = new RandomisationSetting(group: 3, enabled: true);
-            public RandomisationSetting PadTextures { get; set; } = new RandomisationSetting(group: 0, enabled: true);
-            public RandomisationSetting ParticleTextures { get; set; } = new RandomisationSetting(group: 3, enabled: true);
-            public RandomisationSetting EffectTextures { get; set; } = new RandomisationSetting(group: 2, enabled: true);
-            public RandomisationSetting MiscTextures { get; set; } = new RandomisationSetting();
+            public RandomizationSetting MenuTextures { get; set; } = new RandomizationSetting(group: 1, enabled: true);
+            public RandomizationSetting ShopTextures { get; set; } = new RandomizationSetting(group: 1, enabled: true);
+            public RandomizationSetting EditorTextures { get; set; } = new RandomizationSetting();
+            public RandomizationSetting TileTextures { get; set; } = new RandomizationSetting();
+            public RandomizationSetting PortalTextures { get; set; } = new RandomizationSetting(group: 0, true);
+            public RandomizationSetting OrbTextures { get; set; } = new RandomizationSetting(group: 3, enabled: true);
+            public RandomizationSetting PadTextures { get; set; } = new RandomizationSetting(group: 0, enabled: true);
+            public RandomizationSetting ParticleTextures { get; set; } = new RandomizationSetting(group: 3, enabled: true);
+            public RandomizationSetting EffectTextures { get; set; } = new RandomizationSetting(group: 2, enabled: true);
+            public RandomizationSetting MiscTextures { get; set; } = new RandomizationSetting();
             public FontRandomisationSettings FontRand { get; set; } = new FontRandomisationSettings();
 
             public float MaxSpriteMultiplier { get; set; } = 1.10f;
             public bool AllowDuplicates { get; set; } = false;
             public int Seed { get; set; } = 0;
-
-            private void SaveConfigFileAfterDelay(int seconds = 0) {
-                  Task.Delay(new TimeSpan(0, 0, seconds)).ContinueWith(o => { WriteFile(); });
-            }
 
             public int GetEnabledSettingsCount() {
                   return Convert.ToInt32(IconTextures.AnySettingEnabled()) +
@@ -88,14 +84,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             string Serialize() {
-                  JsonSerializerOptions options = new JsonSerializerOptions {
-                        WriteIndented = true
-                  };
-                  return Serialize(options);
-            }
-
-            string Serialize(JsonSerializerOptions options) {
-                  return JsonSerializer.Serialize(_instance, options);
+                  return JsonSerializer.Serialize(_instance, SerializationOptions);
             }
 
             public static RandomisationConfig Deserialise(string data) {
@@ -115,13 +104,7 @@ namespace Geometry_Dash_Randomiser {
                   return ret;
             }
 
-            public string GetExportConfigData() {
-                  JsonSerializerOptions options = new JsonSerializerOptions {
-                        WriteIndented = false
-                  };
-
-                  return DataStream.Compress(this.Serialize(options));
-            }
+            public string GetExportConfigData() => DataStream.Compress(this.Serialize());
 
             /// <returns>If the import was successful</returns>
             public bool ImportConfigData(string data) {
@@ -176,5 +159,23 @@ namespace Geometry_Dash_Randomiser {
 
             const string configFileName = "config.ini";
             public const int maxTextureGroups = 100;
+
+            private static readonly JsonSerializerOptions SerializationOptions = new JsonSerializerOptions() {
+                  WriteIndented = true,
+                  TypeInfoResolver = new DefaultJsonTypeInfoResolver {
+                        Modifiers = {
+                              typeInfo => {
+                                    if (typeInfo.Type == typeof(RandomizationSetting)) {
+                                          foreach (var property in typeInfo.Properties) {
+                                                if (property.Name == nameof(RandomizationSetting.PercentageRandomised)) {
+                                                      // Don't serialise PercentageRandomised if the value is 100
+                                                      property.ShouldSerialize = (_, value) => (int)value != 100;
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            };
       }
 }

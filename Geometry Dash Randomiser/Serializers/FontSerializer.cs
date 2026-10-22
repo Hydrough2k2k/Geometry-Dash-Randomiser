@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -212,12 +213,7 @@ namespace Geometry_Dash_Randomiser {
                         } else if (pairs[i].name == "chnl") {
                               fontChar.Channel = parsed;
                         } else if (pairs[i].name == "letter") {
-
-                              if (pairs[i].data == "space") {
-                                    fontChar.Letter = ' ';
-                              } else {
-                                    fontChar.Letter = pairs[i].data[0];
-                              }
+                              fontChar.Letter = pairs[i].data;
                         }
                   }
                   return fontChar;
@@ -294,17 +290,24 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public static string SerialiseFontChar(FontChar fontChar) {
-                  return "char id=" + fontChar.CharID +
-                        " x=" + fontChar.X +
-                        " y=" + fontChar.Y +
-                        " width=" + fontChar.Width +
-                        " height=" + fontChar.Height +
-                        " xoffset=" + fontChar.X_Offset +
-                        " yoffset=" + fontChar.Y_Offset +
-                        " xadvance=" + fontChar.X_Advance +
-                        " page=" + fontChar.Page +
-                        " chnl=" + fontChar.Channel +
-                        " letter=\"" + (fontChar.Letter == ' ' ? "space" : fontChar.Letter.ToString()) + "\"";
+                  StringBuilder sb = new StringBuilder();
+
+                  sb.Append("char id=" + fontChar.CharID);
+                  sb.Append(" x=" + fontChar.X);
+                  sb.Append(" y=" + fontChar.Y);
+                  sb.Append(" width=" + fontChar.Width);
+                  sb.Append(" height=" + fontChar.Height);
+                  sb.Append(" xoffset=" + fontChar.X_Offset);
+                  sb.Append(" yoffset=" + fontChar.Y_Offset);
+                  sb.Append(" xadvance=" + fontChar.X_Advance);
+                  sb.Append(" page=" + fontChar.Page);
+                  sb.Append(" chnl=" + fontChar.Channel);
+
+                  if (fontChar.Letter != string.Empty) {
+                        sb.Append(" letter=\"" + fontChar.Letter + "\"");
+                  }
+
+                  return sb.ToString();
             }
 
             public static string SerialiseFontKerning(FontKerning fontKerning) {

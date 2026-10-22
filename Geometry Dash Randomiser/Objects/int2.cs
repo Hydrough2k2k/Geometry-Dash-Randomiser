@@ -14,7 +14,7 @@ namespace Geometry_Dash_Randomiser {
             public int y { get; set; }
 
             public Int2(string data) {
-                  data = Regex.Replace(data, "[^0-9-,]+", "", RegexOptions.Compiled);
+                  data = System.Text.RegularExpressions.Regex.Replace(data, "[^0-9-,]+", "", RegexOptions.Compiled);
                   string[] vals = data.Split(',');
                   Array.Resize(ref vals, 2);
 

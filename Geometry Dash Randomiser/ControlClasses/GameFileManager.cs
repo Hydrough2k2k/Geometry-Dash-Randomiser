@@ -156,6 +156,8 @@ namespace Geometry_Dash_Randomiser {
                   //      AutoOverwriteFiles();
                   //}
 
+                  //DebugOptions.WriteFontCharacterFilesToDisk(randomisedFonts);
+
                   this.progressState.CurrentStage = ApplicationState.Idle;
 
                   this.progressState.NewFileBatch(0);

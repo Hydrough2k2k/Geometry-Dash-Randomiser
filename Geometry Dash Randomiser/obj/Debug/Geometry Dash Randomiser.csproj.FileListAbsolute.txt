@@ -67,5 +67,26 @@ Z:\Projects\C#\Winforms\Geometry Dash Randomiser - kopie\Geometry Dash Randomise
 Z:\Projects\C#\Winforms\Geometry Dash Randomiser - kopie\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.exe
 Z:\Projects\C#\Winforms\Geometry Dash Randomiser - kopie\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.pdb
 Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.exe.config
-Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.csproj.Fody.CopyLocal.cache
-Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.csproj.Fody.RuntimeCopyLocal.cache
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Chasm.Compatibility.HashCode.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Costura.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Iconic.Zlib.Netstandard.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.Bcl.HashCode.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.WindowsAPICodePack.Core.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.WindowsAPICodePack.Sensors.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Buffers.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Drawing.Common.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.IO.Pipelines.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Memory.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Numerics.Vectors.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Text.Encodings.Web.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Text.Json.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Threading.Tasks.Extensions.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.ValueTuple.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\System.Windows.Forms.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\bin\Debug\WindowsFormsIntegration.dll
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry.57723067.Up2Date
