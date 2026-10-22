@@ -346,7 +346,7 @@
     <Compile Include="Forms\ExportConfigForm.Designer.cs">
       <DependentUpon>ExportConfigForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="ControlClasses\FileBlacklist.cs" />
     <Compile Include="Helpers\FileIO.cs" />
     <Compile Include="Objects\Font\Font.cs" />

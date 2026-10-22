@@ -982,7 +982,7 @@
                   this.kerningLabel.Location = new System.Drawing.Point(54, 353);
                   this.kerningLabel.Name = "kerningLabel";
                   this.kerningLabel.Size = new System.Drawing.Size(69, 23);
-                  this.kerningLabel.TabIndex = 10000;
+                  this.kerningLabel.TabIndex = 100;
                   this.kerningLabel.Text = "Kerning";
                   this.toolTip.SetToolTip(this.kerningLabel, "This changes when 2 textures can be swapped. Having the value at 2x will only swa" +
         "p textures that are between 2x smaller or 2x bigger. Bigger value = more chaotic" +
@@ -1034,7 +1034,7 @@
                   this.letterSpacingLevelLabel.Location = new System.Drawing.Point(54, 323);
                   this.letterSpacingLevelLabel.Name = "letterSpacingLevelLabel";
                   this.letterSpacingLevelLabel.Size = new System.Drawing.Size(120, 23);
-                  this.letterSpacingLevelLabel.TabIndex = 10007;
+                  this.letterSpacingLevelLabel.TabIndex = 107;
                   this.letterSpacingLevelLabel.Text = "Insanity Level:";
                   this.toolTip.SetToolTip(this.letterSpacingLevelLabel, "This changes when 2 textures can be swapped. Having the value at 2x will only swa" +
         "p textures that are between 2x smaller or 2x bigger. Bigger value = more chaotic" +
@@ -1256,7 +1256,7 @@
                   this.iconTextureContainer.Location = new System.Drawing.Point(12, 76);
                   this.iconTextureContainer.Name = "iconTextureContainer";
                   this.iconTextureContainer.Size = new System.Drawing.Size(300, 386);
-                  this.iconTextureContainer.TabIndex = 104;
+                  this.iconTextureContainer.TabIndex = 100000;
                   this.iconTextureContainer.TabStop = false;
                   this.iconTextureContainer.Text = "Icon Texture Randomisation";
                   // 
@@ -1327,7 +1327,7 @@
                   this.gameTextureContainer.Location = new System.Drawing.Point(318, 76);
                   this.gameTextureContainer.Name = "gameTextureContainer";
                   this.gameTextureContainer.Size = new System.Drawing.Size(300, 386);
-                  this.gameTextureContainer.TabIndex = 105;
+                  this.gameTextureContainer.TabIndex = 100000;
                   this.gameTextureContainer.TabStop = false;
                   this.gameTextureContainer.Text = "Game Texture Randomisation";
                   // 
@@ -1777,7 +1777,7 @@
                   this.fontRandomisationSettingsContainer.Location = new System.Drawing.Point(624, 76);
                   this.fontRandomisationSettingsContainer.Name = "fontRandomisationSettingsContainer";
                   this.fontRandomisationSettingsContainer.Size = new System.Drawing.Size(300, 386);
-                  this.fontRandomisationSettingsContainer.TabIndex = 110;
+                  this.fontRandomisationSettingsContainer.TabIndex = 100000;
                   this.fontRandomisationSettingsContainer.TabStop = false;
                   this.fontRandomisationSettingsContainer.Text = "Font Randomisation";
                   // 

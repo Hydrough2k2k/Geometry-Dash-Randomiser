@@ -2,9 +2,11 @@
 using RectpackSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using static Geometry_Dash_Randomiser.PathManager;
 
 namespace Geometry_Dash_Randomiser {
@@ -141,9 +143,7 @@ namespace Geometry_Dash_Randomiser {
 
                   fontManager.ReadAllFontFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
 
-                  //return;
-
-                  //this.progressState.CurrentStage = ApplicationState.Randomising;
+                  this.progressState.CurrentStage = ApplicationState.Randomising;
                   Font[] randomisedFonts = fontManager.RandomiseFiles(seed);
                   //RandomiseData(seed);
 

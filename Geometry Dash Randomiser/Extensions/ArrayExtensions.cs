@@ -2,7 +2,7 @@
 
 namespace Geometry_Dash_Randomiser {
 
-      internal static class Extensions {
+      internal static class ArrayExtensions {
 
             // End is inclusive
             internal static T[] Trim<T>(this T[] arr, int start, int end) {

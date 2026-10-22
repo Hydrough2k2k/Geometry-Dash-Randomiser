@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using static Geometry_Dash_Randomiser.FontStyleShuffleSettings;
 
 namespace Geometry_Dash_Randomiser {
@@ -130,25 +131,26 @@ namespace Geometry_Dash_Randomiser {
                   return newFonts;
             }
 
-            private void ShuffleFontStyles(Random random, ref Font[] fonts, ShufflingMode mode) {
+            private void ShuffleFontStyles(Random random, ref Font[] newFonts, ShufflingMode mode) {
                   switch (mode) {
                         case ShufflingMode.PerFont:
-                              ShuffleFontStylesByFont(random, ref fonts);
+                              ShuffleFontStylesByFont(random, ref newFonts);
                               break;
 
                         case ShufflingMode.PerCharacter:
-                              ShuffleFontStylesByLetter(random, ref fonts);
+                              ShuffleFontStylesByLetter(random, ref newFonts);
                               break;
+
                         default:
                               Logger.Warn($"Unrecognised Font Shuffling Mode: {mode}. Defaulting to Per Font mode");
                               goto case ShufflingMode.PerFont;
                   }
             }
 
-            private void ShuffleFontStylesByFont(Random random, ref Font[] fonts) {
-                  int[] newOrder = random.GetShuffledIntRange(fonts.Length);
+            private void ShuffleFontStylesByFont(Random random, ref Font[] newFonts) {
+                  int[] newOrder = random.GetShuffledIntRange(newFonts.Length);
 
-                  for (int fontID = 0; fontID < fonts.Length; fontID++) {
+                  for (int fontID = 0; fontID < newFonts.Length; fontID++) {
                         int newFontStyleID = newOrder[fontID];
 
                         // Get references to the original and the replacement font styles
@@ -172,90 +174,42 @@ namespace Geometry_Dash_Randomiser {
                               newChars.Add(newChar.DeepCopy());
                         }
 
-                        fonts[fontID].Chars = newChars.ToArray();
+                        newFonts[fontID].Chars = newChars.ToArray();
                   }
             }
 
-            private void ShuffleFontStylesByLetter(Random random, ref Font[] fonts) {
+            private void ShuffleFontStylesByLetter(Random random, ref Font[] newFonts) {
+                  for (int f = 0; f < newFonts.Length; f++) {
+                        // Copy only the characterIDs from the old array into the new one. The randomised characters will replace the current ones based on their ID
+                        newFonts[f].Chars = _fonts[f].Chars.Select(c => new FontChar { CharID = c.CharID }).ToArray();
 
+                        // Clone the Kernings arrar in it's entirety
+                        newFonts[f].Kernings = _fonts[f].Kernings.Select(k => k.DeepCopy()).ToArray();
+                  }
+
+                  // Get all common character IDs
+                  int[] commonCharIDs = FontChar.CommonIDs;
+
+                  for (int i = 0; i < commonCharIDs.Length; i++) {
+                        int currentCharID = commonCharIDs[i];
+
+                        Font[] newFontRefs = newFonts
+                              .Where(f => f.HasCharID(currentCharID))
+                              .ToArray();
+
+                        // Get the FontChar from each font with the current charID
+                        FontChar[] characters = _fonts
+                              .Select(f => f.GetChar(currentCharID))
+                              .Where(c => c != null)
+                              .ToArray();
+
+                        random.Shuffle<FontChar>(characters);
+
+                        for (int l = 0; l < newFontRefs.Length; l++) {
+                              newFontRefs[l].ReplaceCharByID(characters[l].DeepCopy());
+                        }
+                  }
             }
-
-            //private Font[] GetNewFontsAfterShufflingFontStyles(Random random) {
-            //      Font[] newFonts = new Font[fonts.Length];
-
-            //      for (int i = 0; i < fonts.Length; i++) {
-            //            newFonts[i] = this.fonts[i].PartialCopy();
-
-            //            // Set 'chars' array size, but kernings remains empty for now
-            //            newFonts[i].Chars = new FontChar[this.fonts[i].Chars.Length];
-            //            newFonts[i].Kernings = Array.Empty<FontKerning>();
-            //      }
-
-            //      int[] allCharIDs = GetAllDistinctCharIDs();
-
-            //      if (config.FontRand.ShuffleSettings.Mode == ShufflingMode.PerLetter) {
-            //            // Contains how many chars have been added to each randomised font
-            //            int[] addedCharsCount = new int[fonts.Length];
-
-            //            // Iterate through every charID that exists in all font files
-            //            for (int i = 0; i < allCharIDs.Length; i++) {
-            //                  int currentCharID = allCharIDs[i];
-
-            //                  // Get all fontIDs that contain the charID we are looking for
-            //                  int[] fontIDs = fonts
-            //                        .Select((font, index) => new { font, index })
-            //                        .Where(pair => pair.font.HasCharID(currentCharID))
-            //                        .Select(pair => pair.index)
-            //                        .ToArray();
-
-            //                  int[] newCharacterOrder = random.GetShuffledIntRange(fontIDs.Length).ToArray();
-
-            //                  for (int j = 0; j < fontIDs.Length; j++) {
-            //                        int oldFontIndex = fontIDs[j];
-            //                        int charPosition = fonts[oldFontIndex].GetCharPositionInArray(currentCharID);
-
-            //                        // Which font in the array we are adding the character to
-            //                        int newFontIndex = fontIDs[newCharacterOrder[j]];
-            //                        int fontAddedCharsCount = addedCharsCount[newFontIndex];
-
-            //                        // Add the character and the bitmap clone
-            //                        newFonts[newFontIndex].Chars[fontAddedCharsCount] = fonts[oldFontIndex].Chars[charPosition].DeepCopy();
-
-            //                        // Signal that one character was added to the font
-            //                        addedCharsCount[newFontIndex]++;
-            //                  }
-            //            }
-
-            //      } else {
-            //            // If there is no per-character shuffling
-            //            int[] newFontOrder = random.GetShuffledIntRange(fonts.Length).ToArray();
-
-            //            for (int i = 0; i < this.fonts.Length; i++) {
-            //                  Font newFont = newFonts[i];
-            //                  int newFontID = newFontOrder[i];
-            //                  Font newFontStyle = this.fonts[newFontID];
-
-            //                  // If the ID matches, copy the font, randomisation will achieve nothing else
-            //                  if (i == newFontID) {
-            //                        newFonts[i] = this.fonts[i].DeepCopy();
-
-            //                  } else {
-            //                        for (int ch = 0; ch < newFont.Chars.Length; ch++) {
-            //                              int targetCharID = this.fonts[i].Chars[ch].CharID;
-            //                              FontChar newFontChar = newFontStyle.GetChar(targetCharID, out bool found);
-
-            //                              if (found) {
-            //                                    newFont.Chars[ch] = newFontChar.DeepCopy();
-
-            //                              } else {
-            //                                    newFont.Chars[ch] = this.fonts[i].GetChar(targetCharID).DeepCopy();
-            //                              }
-            //                        }
-            //                  }
-            //            }
-            //      }
-            //      return newFonts;
-            //}
 
             void ReorderCharIDsInFont(ref Font font, Random random) {
                   int[] newCharIDs = font.GetCharIDs();
@@ -272,6 +226,7 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
+            public void WriteFontsToDisk() => WriteFontsToDisk(GDR_Path.LocalResourcesOutputFolder, _fonts);
             public void WriteFontsToDisk(Font[] fonts) => WriteFontsToDisk(GDR_Path.LocalResourcesOutputFolder, fonts);
 
             public void WriteFontsToDisk(GDR_Path path, Font[] fonts) => WriteFontsToDisk(PathManager.GetPath(path), fonts);

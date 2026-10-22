@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Geometry Dash Randomiser.exe" size="2055152">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Geometry Dash Randomiser.exe" size="2057712">
       <assemblyIdentity name="Geometry Dash Randomiser" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>PEwM/HWEcIJJGmyslQyfdiOwZ33ijGKHo+pZsT4J1CU=</dsig:DigestValue>
+        <dsig:DigestValue>GukkbYtr8cWea/AbSxxQjQLMxlmW49BYM4ay/Fjt2h0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

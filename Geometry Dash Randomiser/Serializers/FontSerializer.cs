@@ -176,7 +176,7 @@ namespace Geometry_Dash_Randomiser {
                         if (pairs[i].name == "id") {
                               font.PageID = parsed;
                         } else if (pairs[i].name == "file") {
-                              font.File = pairs[i].data;
+                              font.GameSheetFile = pairs[i].data;
                         }
                   }
             }
@@ -290,7 +290,7 @@ namespace Geometry_Dash_Randomiser {
 
             static string SerialisePageLine(Font font) {
                   return "page id=" + font.PageID +
-                        " file=\"" + font.File + "\"";
+                        " file=\"" + font.GameSheetFile + "\"";
             }
 
             public static string SerialiseFontChar(FontChar fontChar) {

@@ -1,6 +1,5 @@
 ﻿using RectpackSharp;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -38,7 +37,7 @@ namespace Geometry_Dash_Randomiser {
             public int Pages { get; set; }
             public int Packed { get; set; }
             public int PageID { get; set; }
-            public string File { get; set; } = string.Empty;
+            public string GameSheetFile { get; set; } = string.Empty;
             public FontChar[] Chars { get; set; } = Array.Empty<FontChar>();
             public FontKerning[] Kernings { get; set; } = Array.Empty<FontKerning>();
 
@@ -76,15 +75,6 @@ namespace Geometry_Dash_Randomiser {
                   return this.Chars.Select(c => c.CharID).ToArray();
             }
 
-            public int GetKerningBetween(int first, int second) {
-                  for (int i = 0; i < this.Kernings.Length; i++) {
-                        if (Kernings[i].First == first && Kernings[i].Second == second) {
-                              return this.Kernings[i].Amount;
-                        }
-                  }
-                  return 0;
-            }
-
             public string Serialise() {
                   return FontSerializer.SerialiseTextFile(this);
             }
@@ -98,6 +88,13 @@ namespace Geometry_Dash_Randomiser {
                   return -1;
             }
 
+            public bool HasCharID(int charID) {
+                  GetChar(charID, out bool found);
+                  return found;
+            }
+
+            public FontChar GetChar(int charID) => GetChar(charID, out bool found);
+
             public FontChar GetChar(int charID, out bool found) {
                   int ID = GetCharPositionInArray(charID);
                   if (ID != -1) {
@@ -107,6 +104,27 @@ namespace Geometry_Dash_Randomiser {
                         found = false;
                         return null;
                   }
+            }
+
+            /// <summary>
+            /// This will replace a font character in the Chars array by one that matches the passed FontChar's ID
+            /// </summary>
+            public void ReplaceCharByID(FontChar fc) {
+                  for (int i = 0; i < Chars.Length; i++) {
+                        if (Chars[i].CharID == fc.CharID) {
+                              Chars[i] = fc;
+                              return;
+                        }
+                  }
+                  Logger.Error($"Could not find a character with the ID {fc.CharID} in {Name}");
+            }
+
+            public void ShuffleCharactersByType(int[] charIDs) {
+
+            }
+
+            private void ShuffleCharacters(int[] indexes) {
+
             }
 
             public Rectangle[] GetCharRects() {
@@ -125,8 +143,8 @@ namespace Geometry_Dash_Randomiser {
                   Array.Sort(packingRects, (a, b) => a.Id.CompareTo(b.Id));
 
                   int maxDimentionSize = Math.Max((int)bounds.Height, (int)bounds.Width);
-                  // Snap it to the next number divisible by 256
-                  maxDimentionSize = ((maxDimentionSize - 1) / 256 + 1) * 256;
+                  // Snap it to the next number divisible by 512
+                  maxDimentionSize = ((maxDimentionSize - 1) / 512 + 1) * 512;
 
                   // Set the width and height of the font image
                   Scale_W = maxDimentionSize;
@@ -175,7 +193,7 @@ namespace Geometry_Dash_Randomiser {
                   copy.Pages = this.Pages;
                   copy.Packed = this.Packed;
                   copy.PageID = this.PageID;
-                  copy.File = this.File;
+                  copy.GameSheetFile = this.GameSheetFile;
 
                   return copy;
             }

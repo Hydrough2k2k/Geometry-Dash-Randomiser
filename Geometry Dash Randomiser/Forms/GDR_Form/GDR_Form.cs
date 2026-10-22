@@ -456,7 +456,7 @@ namespace Geometry_Dash_Randomiser {
                               UpdateProgressStateObjects(newDisplayPrint);
                         }
 
-                        string newTimePrint = stopwatch.GetElapsedTimeFormatted(TimeExtension.TimeFormat.HH_MM_SS, true);
+                        string newTimePrint = stopwatch.GetElapsedTimeFormatted();
                         if (newTimePrint != lastTimePrint) {
                               lastTimePrint = newTimePrint;
                               UpdateProgressElapsedTime(newTimePrint);
@@ -478,7 +478,7 @@ namespace Geometry_Dash_Randomiser {
 
                   // Build the status display's string in multiple parts
                   StringBuilder statusText = new StringBuilder("Randomisation complete in " +
-                        stopwatch.GetElapsedTimeFormatted(TimeExtension.TimeFormat.HH_MM_SS, true));
+                        stopwatch.GetElapsedTimeFormatted());
 
                   if (randomSeed) {
                         statusText.Append(". The seed was ");
@@ -534,7 +534,7 @@ namespace Geometry_Dash_Randomiser {
                               UpdateProgressStateObjects(newDisplayPrint);
                         }
 
-                        string newTimePrint = stopwatch.GetElapsedTimeFormatted(TimeExtension.TimeFormat.HH_MM_SS, true);
+                        string newTimePrint = stopwatch.GetElapsedTimeFormatted();
                         if (newTimePrint != lastTimePrint) {
                               lastTimePrint = newTimePrint;
                               UpdateProgressElapsedTime(newTimePrint);
