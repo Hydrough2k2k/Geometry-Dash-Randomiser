@@ -1,3 +1,17 @@
+Changelog for V2.5.1.0:
+
+What's New?
+ - Added a new setting for what percent of letters in a given category should be shuffled
+ - The app saves config after 5 seconds of any setting being changed
+
+Bugfixes:
+ - Made the configuration system a lot more robust. There should be no crashes now. Well, hopefully
+
+Known Bugs:
+ - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can make levels easier or impossible in some cases
+
+-------------------------------------------
+
 Changelog for V2.5.0.0:
 
 What's New?

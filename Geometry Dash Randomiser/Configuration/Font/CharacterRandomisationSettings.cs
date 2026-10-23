@@ -25,6 +25,8 @@ namespace Geometry_Dash_Randomiser {
                   _special.ConfigUpdated += InvokeConfigUpdateEvent;
             }
 
+            public static CharacterRandomisationSettings Default => new CharacterRandomisationSettings();
+
             [JsonIgnore]
             public virtual bool Enabled {
                   get => AnySettingEnabled();
@@ -37,7 +39,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Letter {
                   get => _letter;
                   set {
-                        _letter.CopyDataFrom(value);
+                        _letter.CopyDataFrom(value ?? RandomizationSetting.Default);
                         InvokeEvent(ConfigUpdated, null);
                   }
             }
@@ -45,7 +47,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Number {
                   get => _number;
                   set {
-                        _number.CopyDataFrom(value);
+                        _number.CopyDataFrom(value ?? RandomizationSetting.Default);
                         InvokeEvent(ConfigUpdated, null);
                   }
             }
@@ -53,7 +55,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Symbol {
                   get => _symbol;
                   set {
-                        _symbol.CopyDataFrom(value);
+                        _symbol.CopyDataFrom(value ?? RandomizationSetting.Default);
                         InvokeEvent(ConfigUpdated, null);
                   }
             }
@@ -61,7 +63,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Special {
                   get => _special;
                   set {
-                        _special.CopyDataFrom(value);
+                        _special.CopyDataFrom(value ?? RandomizationSetting.Default);
                         InvokeEvent(ConfigUpdated, null);
                   } 
             }

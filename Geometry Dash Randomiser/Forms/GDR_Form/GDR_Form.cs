@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -443,7 +444,7 @@ namespace Geometry_Dash_Randomiser {
                   // Create a new random seed if the input value is 0
                   int seed = config.Seed;
                   if (seed == 0) {
-                        seed = Math.Abs(Guid.NewGuid().GetHashCode());
+                        seed = System.Math.Abs(Guid.NewGuid().GetHashCode());
                         randomSeed = true;
                   }
 
@@ -823,17 +824,16 @@ namespace Geometry_Dash_Randomiser {
 
             private void ChangeConfigData(TextBox textBox, RandomizationSetting setting) {
                   string s = Regex.FilterDigits(textBox.Text);
-
-                  if (s.Length == 0)
-                        return;
+                  int newValue = 0;
 
                   bool success = Int32.TryParse(s, out int result);
                   if (success) {
-                        setting.PercentageRandomised = result;
+                        newValue = result;
+                  }
 
-                  } else {
-                        Logger.Warn($"Could not convert value {textBox.Text} to Int32");
-                  }    
+                  setting.PercentageRandomised = newValue;
+
+                  textBox.Text = setting.PercentageRandomised.ToString() + "%";
             }
 
             #endregion

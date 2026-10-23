@@ -2,9 +2,6 @@
 using System;
 using System.ComponentModel;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Channels;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
@@ -20,7 +17,6 @@ namespace Geometry_Dash_Randomiser {
 
             private static RandomisationConfig _instance = new RandomisationConfig();
 
-            // This has to be public for JSON deserialization sadly
             [EditorBrowsable(EditorBrowsableState.Never)]
             public RandomisationConfig() {
                   _iconTextures.ConfigUpdated += SaveConfigAfterDelay;
@@ -44,7 +40,7 @@ namespace Geometry_Dash_Randomiser {
             public IconRandSettings IconTextures {
                   get => _iconTextures;
                   set {
-                        _iconTextures.CopyDataFrom(value);
+                        _iconTextures.CopyDataFrom(value ?? IconRandSettings.Default);
                         SaveConfigAfterDelay();
                   }
             }
@@ -52,7 +48,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting MenuTextures {
                   get => _menuTextures;
                   set {
-                        _menuTextures.CopyDataFrom(value);
+                        _menuTextures.CopyDataFrom(value ?? RandomizationSetting.Default);
                         SaveConfigAfterDelay();
                   }
             }
@@ -60,7 +56,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting ShopTextures {
                   get => _shopTextures;
                   set {
-                        _shopTextures.CopyDataFrom(value);
+                        _shopTextures.CopyDataFrom(value ?? RandomizationSetting.Default);
                         SaveConfigAfterDelay();
                   }
             }
@@ -68,7 +64,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting EditorTextures {
                   get => _editorTextures;
                   set {
-                        _editorTextures.CopyDataFrom(value);
+                        _editorTextures.CopyDataFrom(value ?? RandomizationSetting.Default);
                         SaveConfigAfterDelay();
                   }
             }
@@ -76,7 +72,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting TileTextures {
                   get => _tileTextures;
                   set {
-                        _tileTextures.CopyDataFrom(value);
+                        _tileTextures.CopyDataFrom(value ?? RandomizationSetting.Default);
                         SaveConfigAfterDelay();
                   }
             }
@@ -84,7 +80,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting PortalTextures {
                   get => _portalTextures;
                   set {
-                        _portalTextures.CopyDataFrom(value);
+                        _portalTextures.CopyDataFrom(value ?? RandomizationSetting.Default);
                         SaveConfigAfterDelay();
                   }
             }
@@ -92,7 +88,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting OrbTextures {
                   get => _orbTextures;
                   set {
-                        _orbTextures.CopyDataFrom(value);
+                        _orbTextures.CopyDataFrom(value ?? RandomizationSetting.Default);
                         SaveConfigAfterDelay();
                   }
             }
@@ -100,7 +96,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting PadTextures {
                   get => _padTextures;
                   set {
-                        _padTextures.CopyDataFrom(value);
+                        _padTextures.CopyDataFrom(value ?? RandomizationSetting.Default);
                         SaveConfigAfterDelay();
                   }
             }
@@ -108,7 +104,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting ParticleTextures {
                   get => _particleTextures;
                   set {
-                        _particleTextures.CopyDataFrom(value);
+                        _particleTextures.CopyDataFrom(value ?? RandomizationSetting.Default);
                         SaveConfigAfterDelay();
                   }
             }
@@ -116,7 +112,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting EffectTextures {
                   get => _effectTextures;
                   set {
-                        _effectTextures.CopyDataFrom(value);
+                        _effectTextures.CopyDataFrom(value ?? RandomizationSetting.Default);
                         SaveConfigAfterDelay();
                   }
             }
@@ -124,7 +120,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting MiscTextures {
                   get => _miscTextures;
                   set {
-                        _miscTextures.CopyDataFrom(value);
+                        _miscTextures.CopyDataFrom(value ?? RandomizationSetting.Default);
                         SaveConfigAfterDelay();
                   }
             }
@@ -132,7 +128,7 @@ namespace Geometry_Dash_Randomiser {
             public FontRandomisationSettings FontRand {
                   get => _fontRand;
                   set {
-                        _fontRand.CopyDataFrom(value);
+                        _fontRand.CopyDataFrom(value ?? FontRandomisationSettings.Default);
                         SaveConfigAfterDelay();
                   }
             }
@@ -140,7 +136,7 @@ namespace Geometry_Dash_Randomiser {
             public float MaxSpriteMultiplier {
                   get => _maxSpriteMultiplier;
                   set {
-                        _maxSpriteMultiplier = value;
+                        _maxSpriteMultiplier = Math.Clamp(value, 1.01f, 1000f);
                         SaveConfigAfterDelay();
                   }
             }

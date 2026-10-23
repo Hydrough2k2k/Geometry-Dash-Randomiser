@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -7,6 +8,8 @@ namespace Geometry_Dash_Randomiser {
             public event EventHandler ConfigUpdated;
 
             public FontStyleShuffleSettings() { }
+
+            public static FontStyleShuffleSettings Default => new FontStyleShuffleSettings();
 
             public bool Enabled {
                   get => _enabled;

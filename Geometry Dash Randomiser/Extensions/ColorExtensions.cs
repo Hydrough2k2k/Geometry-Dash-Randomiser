@@ -14,10 +14,10 @@ namespace Geometry_Dash_Randomiser {
                   int deltaB = (previous.B - next.B) * -1;
 
                   return Color.FromArgb(
-                        previous.A + (int)Math.Ceiling(deltaA * value),
-                        previous.R + (int)Math.Ceiling(deltaR * value),
-                        previous.G + (int)Math.Ceiling(deltaG * value),
-                        previous.B + (int)Math.Ceiling(deltaB * value)
+                        previous.A + (int)System.Math.Ceiling(deltaA * value),
+                        previous.R + (int)System.Math.Ceiling(deltaR * value),
+                        previous.G + (int)System.Math.Ceiling(deltaG * value),
+                        previous.B + (int)System.Math.Ceiling(deltaB * value)
                   );
             }
 
@@ -90,27 +90,27 @@ namespace Geometry_Dash_Randomiser {
             public static Color AdjustBrightness(this Color colour, float multiplier) {
                   return Color.FromArgb(
                         colour.A,
-                        Math.Min((int)(colour.R * multiplier), 255),
-                        Math.Min((int)(colour.G * multiplier), 255),
-                        Math.Min((int)(colour.B * multiplier), 255)
+                        System.Math.Min((int)(colour.R * multiplier), 255),
+                        System.Math.Min((int)(colour.G * multiplier), 255),
+                        System.Math.Min((int)(colour.B * multiplier), 255)
                   );
             }
 
             public static Color GetDelta(this Color c1, Color c2, bool preserveAlpha = true) {
                   return Color.FromArgb(
-                        preserveAlpha ? c1.A : Math.Abs(c1.A - c2.A),
-                        Math.Abs(c1.R - c2.R),
-                        Math.Abs(c1.G - c2.G),
-                        Math.Abs(c1.B - c2.B)
+                        preserveAlpha ? c1.A : System.Math.Abs(c1.A - c2.A),
+                        System.Math.Abs(c1.R - c2.R),
+                        System.Math.Abs(c1.G - c2.G),
+                        System.Math.Abs(c1.B - c2.B)
                   );
             }
 
             public static Color Add(this Color c1, Color c2) {
                   return Color.FromArgb(
-                        Math.Min(c1.A + c2.A, 255),
-                        Math.Min(c1.R + c2.R, 255),
-                        Math.Min(c1.G + c2.G, 255),
-                        Math.Min(c1.B + c2.B, 255)
+                        System.Math.Min(c1.A + c2.A, 255),
+                        System.Math.Min(c1.R + c2.R, 255),
+                        System.Math.Min(c1.G + c2.G, 255),
+                        System.Math.Min(c1.B + c2.B, 255)
                   );
             }
       }

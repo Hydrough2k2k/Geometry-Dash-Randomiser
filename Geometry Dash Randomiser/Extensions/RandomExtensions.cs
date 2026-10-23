@@ -18,7 +18,7 @@ namespace Geometry_Dash_Randomiser {
                   double mantissa = (random.NextDouble() * 2.0) - 1.0;
                   // write (-149, x), instead of (-126, x) to also generate subnormal floats (*)
                   // (-126, 128) will generate positive infinity as well
-                  double exponent = Math.Pow(2.0, random.Next(-126, 127));
+                  double exponent = System.Math.Pow(2.0, random.Next(-126, 127));
                   return (float)(mantissa * exponent);
             }
 

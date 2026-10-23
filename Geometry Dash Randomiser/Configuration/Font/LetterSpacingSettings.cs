@@ -11,6 +11,8 @@ namespace Geometry_Dash_Randomiser {
                   _kerning.ConfigUpdated += InvokeConfigUpdateEvent;
             }
 
+            public static LetterSpacingSettings Default => new LetterSpacingSettings();
+
             public bool Enabled {
                   get => _enabled;
                   set {
@@ -22,12 +24,7 @@ namespace Geometry_Dash_Randomiser {
             public SpacingMode Mode {
                   get => _mode;
                   set {
-                        if ((int)Mode > maxMode) {
-                              Logger.Warn($"The setting for LSS.Mode was out of expected range");
-                              _mode = 0;
-                        } else {
-                              _mode = value;
-                        }
+                        _mode = (SpacingMode)(Math.Clamp((int)value, 0, maxMode));
                         InvokeEvent(ConfigUpdated, null);
                   }
             }
@@ -36,7 +33,7 @@ namespace Geometry_Dash_Randomiser {
             public int Level {
                   get => _level;
                   set {
-                        value.Clamp(minLevel, maxLevel);
+                        _level = Math.Clamp(value, minLevel, maxLevel);
                         InvokeEvent(ConfigUpdated, null);
                   }
             }
@@ -45,13 +42,7 @@ namespace Geometry_Dash_Randomiser {
             public CappedRange X_Offset {
                   get => _xOffset;
                   set {
-                        if (value != null) {
-                              _xOffset.CopyDataFrom(value);
-
-                        } else {
-                              Logger.Error("LSS.X_Offset was passed as null. Setting value to default");
-                              value = CappedRange.Default;
-                        }
+                        _xOffset.CopyDataFrom(value ?? CappedRange.Default);
                         InvokeEvent(ConfigUpdated, null);
                   }
             }
@@ -59,13 +50,7 @@ namespace Geometry_Dash_Randomiser {
             public CappedRange Kerning {
                   get => _kerning;
                   set {
-                        if (value != null) {
-                              _kerning.CopyDataFrom(value);
-
-                        } else {
-                              Logger.Error("LSS.Kerning was passed as null. Setting value to default");
-                              value = CappedRange.Default;
-                        }
+                        _kerning.CopyDataFrom(value ?? CappedRange.Default);
                         InvokeEvent(ConfigUpdated, null);
                   }
             }

@@ -174,6 +174,10 @@ namespace Geometry_Dash_Randomiser {
                   //      .ForEach(pair => pair.ch.CharID = IDs[pair.index]);
             }
 
+            public void AlterLetterSpacing() {
+
+            }
+
             public Rectangle[] GetCharRects() {
                   Rectangle[] rects = new Rectangle[this.Chars.Length];
                   for (int i = 0; i < this.Chars.Length; i++) {
@@ -191,7 +195,7 @@ namespace Geometry_Dash_Randomiser {
                   RectanglePacker.Pack(packingRects, out PackingRectangle bounds);
                   Array.Sort(packingRects, (a, b) => a.Id.CompareTo(b.Id));
 
-                  int maxDimentionSize = Math.Max((int)bounds.Height, (int)bounds.Width);
+                  int maxDimentionSize = System.Math.Max((int)bounds.Height, (int)bounds.Width);
                   // Snap it to the next number divisible by 512
                   maxDimentionSize = ((maxDimentionSize - 1) / 512 + 1) * 512;
 
@@ -254,6 +258,57 @@ namespace Geometry_Dash_Randomiser {
                   copy.Kernings = this.Kernings.Select(c => c.DeepCopy()).ToArray();
 
                   return copy;
+            }
+
+            public class KerningData {
+
+                  public int xOffsetMin;
+                  public int xOffsetMax;
+                  public int kerningMin;
+                  public int kerningMax;
+                  public int probability;
+
+                  public KerningData() { }
+
+                  public KerningData(int x_OffsetMin, int x_OffsetMax, int kerningMin, int kerningMax, int probabbility) {
+                        this.xOffsetMin = x_OffsetMin;
+                        this.xOffsetMax = x_OffsetMax;
+                        this.kerningMin = kerningMin;
+                        this.kerningMax = kerningMax;
+                        probability = probabbility;
+                  }
+
+                  public KerningData(CappedRange x_Offset, CappedRange kerning, int probabbility) {
+                        xOffsetMin = x_Offset.Min;
+                        xOffsetMax = x_Offset.Max;
+                        kerningMin = kerning.Min;
+                        kerningMax = kerning.Max;
+                        probability = probabbility;
+                  }
+
+                  public static KerningData Default => new KerningData();
+
+                  public static KerningData GetKerningLevel(int level) {
+                        if (level < 0 || level > letterKerningLevels.Length) {
+                              Logger.Error($"Invalid kerning level was passed: {level}");
+                              return KerningData.Default;
+                        }
+
+                        return letterKerningLevels[level];
+                  }
+
+                  private static KerningData[] letterKerningLevels = new KerningData[] {
+                        new KerningData(-3, 5, -3, 5, 10),
+                        new KerningData(-5, 8, -5, 8, 25),
+                        new KerningData(-10, 15, -10, 15, 40),
+                        new KerningData(-20, 30, -20, 30, 55),
+                        new KerningData(-35, 50, -35, 50, 70),
+                        new KerningData(-40, 60, -40, 60, 80),
+                        new KerningData(-50, 75, -50, 75, 90),
+                        new KerningData(-65, 100, -65, 100, 100),
+                        new KerningData(-80, 120, -80, 120, 100),
+                        new KerningData(-100, 150, -100, 150, 100)
+                  };
             }
       }
 }

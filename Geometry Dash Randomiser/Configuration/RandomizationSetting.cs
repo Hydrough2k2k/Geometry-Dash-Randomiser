@@ -14,6 +14,8 @@ namespace Geometry_Dash_Randomiser {
 
             public RandomizationSetting() { }
 
+            public static RandomizationSetting Default => new RandomizationSetting();
+
             public RandomizationSetting(int group, bool enabled) {
                   this.Group = group;
                   this.Enabled = enabled;
@@ -30,7 +32,7 @@ namespace Geometry_Dash_Randomiser {
             public virtual int Group {
                   get { return _group; }
                   set {
-                        _group = MathExt.Clamp(value, 0, MaxGroupNumber);
+                        _group = Math.Clamp(value, 0, MaxGroupNumber);
                         ConfigUpdated?.Invoke(this, null);
                   }
             }
@@ -46,7 +48,7 @@ namespace Geometry_Dash_Randomiser {
             public virtual int PercentageRandomised {
                   get { return _percentageRandomised; }
                   set {
-                        _percentageRandomised = MathExt.Clamp(value, 0, 100);
+                        _percentageRandomised = Math.Clamp(value, 0, 100);
                         ConfigUpdated?.Invoke(this, null);
                   }
             }

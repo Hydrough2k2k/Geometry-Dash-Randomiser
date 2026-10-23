@@ -116,6 +116,10 @@ namespace Geometry_Dash_Randomiser {
                         ShuffleCharactersInFonts(random, ref newFonts);
                   }
 
+                  if (config.FontRand.LetterSpacingSettings.Enabled) {
+                        AlterLetterSpacing(random, ref newFonts);
+                  }
+
                   //if (config.FontRand.ShuffleSettings.Enabled) {
                   //      newFonts = GetNewFontsAfterShufflingFontStyles(random);
 
@@ -277,7 +281,15 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            void ReorderCharIDsInFont(ref Font font, Random random) {
+            private void AlterLetterSpacing(Random random, ref Font[] newFonts) {
+
+
+                  for (int i = 0; i < _fonts.Length; i++) {
+
+                  }
+            }
+
+            private void ReorderCharIDsInFont(ref Font font, Random random) {
                   int[] newCharIDs = font.GetCharIDs();
                   random.Shuffle(newCharIDs);
 

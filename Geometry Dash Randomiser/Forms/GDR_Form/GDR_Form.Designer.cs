@@ -1788,6 +1788,7 @@
                   // 
                   this.characterSpecialRandPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
                   this.characterSpecialRandPercentageBox.Location = new System.Drawing.Point(178, 232);
+                  this.characterSpecialRandPercentageBox.MaxLength = 4;
                   this.characterSpecialRandPercentageBox.Name = "characterSpecialRandPercentageBox";
                   this.characterSpecialRandPercentageBox.Size = new System.Drawing.Size(60, 28);
                   this.characterSpecialRandPercentageBox.TabIndex = 10014;
@@ -1798,6 +1799,7 @@
                   // 
                   this.characterSymbolRandPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
                   this.characterSymbolRandPercentageBox.Location = new System.Drawing.Point(178, 202);
+                  this.characterSymbolRandPercentageBox.MaxLength = 4;
                   this.characterSymbolRandPercentageBox.Name = "characterSymbolRandPercentageBox";
                   this.characterSymbolRandPercentageBox.Size = new System.Drawing.Size(60, 28);
                   this.characterSymbolRandPercentageBox.TabIndex = 10013;
@@ -1808,6 +1810,7 @@
                   // 
                   this.characterNumberRandPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
                   this.characterNumberRandPercentageBox.Location = new System.Drawing.Point(178, 172);
+                  this.characterNumberRandPercentageBox.MaxLength = 4;
                   this.characterNumberRandPercentageBox.Name = "characterNumberRandPercentageBox";
                   this.characterNumberRandPercentageBox.Size = new System.Drawing.Size(60, 28);
                   this.characterNumberRandPercentageBox.TabIndex = 10012;
@@ -1818,6 +1821,7 @@
                   // 
                   this.characterLetterRandPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
                   this.characterLetterRandPercentageBox.Location = new System.Drawing.Point(178, 142);
+                  this.characterLetterRandPercentageBox.MaxLength = 4;
                   this.characterLetterRandPercentageBox.Name = "characterLetterRandPercentageBox";
                   this.characterLetterRandPercentageBox.Size = new System.Drawing.Size(60, 28);
                   this.characterLetterRandPercentageBox.TabIndex = 116;

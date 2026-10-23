@@ -27,6 +27,8 @@ namespace Geometry_Dash_Randomiser {
                   _jetpack.ConfigUpdated += InvokeConfigUpdateEvent;
             }
 
+            public static IconRandSettings Default => new IconRandSettings();
+
             [JsonIgnore]
             public RandomizationSetting[] RandomisationSettings => _randomisationSettings;
 
@@ -52,7 +54,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Cube {
                   get => _cube;
                   set {
-                        _cube.CopyDataFrom(value);
+                        _cube.CopyDataFrom(value ?? RandomizationSetting.Default);
                         InvokeEvent(ConfigUpdated, null);
                   }
             }
@@ -60,7 +62,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Ship {
                   get => _ship;
                   set {
-                        _ship.CopyDataFrom(value);
+                        _ship.CopyDataFrom(value ?? RandomizationSetting.Default);
                         InvokeEvent(ConfigUpdated, null);
                   }
             }
@@ -68,7 +70,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Ball {
                   get => _ball;
                   set {
-                        _ball.CopyDataFrom(value);
+                        _ball.CopyDataFrom(value ?? RandomizationSetting.Default);
                         InvokeEvent(ConfigUpdated, null);
                   }
             }
@@ -76,7 +78,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Ufo {
                   get => _ufo;
                   set {
-                        _ufo.CopyDataFrom(value);
+                        _ufo.CopyDataFrom(value ?? RandomizationSetting.Default);
                         InvokeEvent(ConfigUpdated, null);
                   }
             }
@@ -84,7 +86,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Wave {
                   get => _wave;
                   set {
-                        _wave.CopyDataFrom(value);
+                        _wave.CopyDataFrom(value ?? RandomizationSetting.Default);
                         InvokeEvent(ConfigUpdated, null);
                   }
             }
@@ -92,7 +94,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Robot {
                   get => _robot;
                   set {
-                        _robot.CopyDataFrom(value);
+                        _robot.CopyDataFrom(value ?? RandomizationSetting.Default);
                         InvokeEvent(ConfigUpdated, null);
                   }
             }
@@ -100,7 +102,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Spider {
                   get => _spider;
                   set {
-                        _spider.CopyDataFrom(value);
+                        _spider.CopyDataFrom(value ?? RandomizationSetting.Default);
                         InvokeEvent(ConfigUpdated, null);
                   }
             }
@@ -108,7 +110,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Swing {
                   get => _swing;
                   set {
-                        _swing.CopyDataFrom(value);
+                        _swing.CopyDataFrom(value ?? RandomizationSetting.Default);
                         InvokeEvent(ConfigUpdated, null);
                   }
             }
@@ -116,7 +118,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Jetpack {
                   get => _jetpack;
                   set {
-                        _jetpack.CopyDataFrom(value);
+                        _jetpack.CopyDataFrom(value ?? RandomizationSetting.Default);
                         InvokeEvent(ConfigUpdated, null);
                   }
             }

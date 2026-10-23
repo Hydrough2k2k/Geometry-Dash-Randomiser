@@ -74,11 +74,11 @@ namespace Geometry_Dash_Randomiser {
                   } else if (CharID >= 48 && CharID <= 57) {
                         return CharacterType.Number;
 
-                  } else if ((CharID >= 30 && CharID <= 47)
+                  } else if ((CharID >= 32 && CharID <= 47)
                         || (CharID >= 58 && CharID <= 64)
                         || (CharID >= 91 && CharID <= 96)
                         || (CharID >= 123 && CharID <= 127)
-                        || CharID == 8226) {
+                        || CharID == 30 || CharID == 8226) {
                         return CharacterType.Symbol;
 
                   } else {

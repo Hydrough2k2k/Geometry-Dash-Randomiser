@@ -218,8 +218,8 @@ namespace Geometry_Dash_Randomiser {
                         for (int x = 0; x < verticalSlices; x++) {
 
                               // How big the cropped subsheet will be, max will be "maxSliceSize"
-                              int cropWidth = Math.Min(maxSliceSize, b.Width - x * maxSliceSize);
-                              int cropHeight = Math.Min(maxSliceSize, b.Height - y * maxSliceSize);
+                              int cropWidth = System.Math.Min(maxSliceSize, b.Width - x * maxSliceSize);
+                              int cropHeight = System.Math.Min(maxSliceSize, b.Height - y * maxSliceSize);
 
                               Point point = new Point(x * maxSliceSize, y * maxSliceSize);
                               Size size = new Size(cropWidth, cropHeight);
@@ -288,17 +288,17 @@ namespace Geometry_Dash_Randomiser {
 
                   // If upsizing wanted or clipping not OK calculate the size of the resulting bitmap
                   if (upsizeOk || !clipOk) {
-                        double angleRadians = angleDegrees * Math.PI / 180d;
+                        double angleRadians = angleDegrees * System.Math.PI / 180d;
 
-                        double cos = Math.Abs(Math.Cos(angleRadians));
-                        double sin = Math.Abs(Math.Sin(angleRadians));
-                        newWidth = (int)Math.Round(oldWidth * cos + oldHeight * sin);
-                        newHeight = (int)Math.Round(oldWidth * sin + oldHeight * cos);
+                        double cos = System.Math.Abs(System.Math.Cos(angleRadians));
+                        double sin = System.Math.Abs(System.Math.Sin(angleRadians));
+                        newWidth = (int)System.Math.Round(oldWidth * cos + oldHeight * sin);
+                        newHeight = (int)System.Math.Round(oldWidth * sin + oldHeight * cos);
                   }
 
                   // If upsizing not wanted and clipping not OK need a scaling factor
                   if (!upsizeOk && !clipOk) {
-                        scaleFactor = Math.Min((float)oldWidth / newWidth, (float)oldHeight / newHeight);
+                        scaleFactor = System.Math.Min((float)oldWidth / newWidth, (float)oldHeight / newHeight);
                         newWidth = oldWidth;
                         newHeight = oldHeight;
                   }
@@ -415,7 +415,7 @@ namespace Geometry_Dash_Randomiser {
 
             public static Bitmap Assemble(Bitmap[] images, Rectangle[] rects, Size imageSize) {
                   Bitmap gamesheet = new Bitmap(imageSize.Width, imageSize.Height);
-                  int loops = Math.Min(images.Length, rects.Length);
+                  int loops = System.Math.Min(images.Length, rects.Length);
 
                   for (int i = 0; i < loops; i++) {
                         if (images[i] != null && images[i].Width != 0 && images[i].Height != 0) {
