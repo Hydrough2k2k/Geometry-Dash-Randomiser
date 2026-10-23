@@ -1,6 +1,10 @@
-﻿namespace Geometry_Dash_Randomiser {
+﻿using System;
+
+namespace Geometry_Dash_Randomiser {
 
       public class CappedRange {
+
+            public event EventHandler ConfigUpdated;
 
             public CappedRange() { }
 
@@ -26,6 +30,8 @@
 
                         if (_min > _max)
                               _min = _max;
+
+                        ConfigUpdated?.Invoke(this, null);
                   }
             }
 
@@ -36,7 +42,14 @@
 
                         if (_max < _min)
                               _max = _min;
+
+                        ConfigUpdated?.Invoke(this, null);
                   }
+            }
+
+            public void CopyDataFrom(CappedRange source) {
+                  Min = source._min;
+                  Max = source._max;
             }
 
             private int _min;

@@ -354,11 +354,6 @@
                   // 
                   this.IconTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
                   this.IconTexturesGroupDisplay.Location = new System.Drawing.Point(226, 51);
-                  this.IconTexturesGroupDisplay.Maximum = new decimal(new int[] {
-            127,
-            0,
-            0,
-            0});
                   this.IconTexturesGroupDisplay.Name = "IconTexturesGroupDisplay";
                   this.IconTexturesGroupDisplay.Size = new System.Drawing.Size(69, 28);
                   this.IconTexturesGroupDisplay.TabIndex = 31;

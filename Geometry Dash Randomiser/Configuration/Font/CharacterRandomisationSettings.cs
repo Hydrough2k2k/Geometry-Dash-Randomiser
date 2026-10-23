@@ -1,19 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
-using static Geometry_Dash_Randomiser.Logger;
 
 namespace Geometry_Dash_Randomiser {
 
       public class CharacterRandomisationSettings : IToggleableSetting {
 
-            // Array for storing references to all settings for easy iteration
-            private readonly RandomizationSetting[] _randomisationSettings;
-
-            private readonly RandomizationSetting _letter = new RandomizationSetting(1, true);
-            private readonly RandomizationSetting _number = new RandomizationSetting(2, true);
-            private readonly RandomizationSetting _symbol = new RandomizationSetting(0, false);
-            private readonly RandomizationSetting _special = new RandomizationSetting(0, false);
+            public event EventHandler ConfigUpdated;
 
             public CharacterRandomisationSettings() {
                   _randomisationSettings = new RandomizationSetting[] {
@@ -24,32 +18,52 @@ namespace Geometry_Dash_Randomiser {
                   _number.MaxGroupNumber = 10;
                   _symbol.MaxGroupNumber = 10;
                   _special.MaxGroupNumber = 10;
+
+                  _letter.ConfigUpdated += InvokeConfigUpdateEvent;
+                  _number.ConfigUpdated += InvokeConfigUpdateEvent;
+                  _symbol.ConfigUpdated += InvokeConfigUpdateEvent;
+                  _special.ConfigUpdated += InvokeConfigUpdateEvent;
             }
 
             [JsonIgnore]
             public virtual bool Enabled {
                   get => AnySettingEnabled();
-                  set => SetAll(value);
+                  set {
+                        SetAll(value);
+                        InvokeEvent(ConfigUpdated, null);
+                  }
             }
 
             public RandomizationSetting Letter {
                   get => _letter;
-                  set => _letter.CopyDataFrom(value);
+                  set {
+                        _letter.CopyDataFrom(value);
+                        InvokeEvent(ConfigUpdated, null);
+                  }
             }
 
             public RandomizationSetting Number {
                   get => _number;
-                  set => _number.CopyDataFrom(value);
+                  set {
+                        _number.CopyDataFrom(value);
+                        InvokeEvent(ConfigUpdated, null);
+                  }
             }
 
             public RandomizationSetting Symbol {
                   get => _symbol;
-                  set => _symbol.CopyDataFrom(value);
+                  set {
+                        _symbol.CopyDataFrom(value);
+                        InvokeEvent(ConfigUpdated, null);
+                  }
             }
 
             public RandomizationSetting Special {
                   get => _special;
-                  set => _special.CopyDataFrom(value);
+                  set {
+                        _special.CopyDataFrom(value);
+                        InvokeEvent(ConfigUpdated, null);
+                  } 
             }
 
             [JsonIgnore]
@@ -74,5 +88,26 @@ namespace Geometry_Dash_Randomiser {
             private void SetAll(bool state) {
                   _randomisationSettings.ToList().ForEach(s => s.Enabled = state);
             }
+
+            public void CopyDataFrom(CharacterRandomisationSettings source) {
+                  Letter = source.Letter;
+                  Number = source.Number;
+                  Symbol = source.Symbol;
+                  Special = source.Special;
+            }
+
+            private void InvokeConfigUpdateEvent(object sender, EventArgs e) => InvokeEvent(ConfigUpdated, null);
+
+            private void InvokeEvent(EventHandler @event, EventArgs e) {
+                  @event?.Invoke(this, e);
+            }
+
+            private readonly RandomizationSetting _letter = new RandomizationSetting(1, true);
+            private readonly RandomizationSetting _number = new RandomizationSetting(2, true);
+            private readonly RandomizationSetting _symbol = new RandomizationSetting(0, false);
+            private readonly RandomizationSetting _special = new RandomizationSetting(0, false);
+
+            // Array for storing references to all settings for easy iteration
+            private readonly RandomizationSetting[] _randomisationSettings;
       }
 }

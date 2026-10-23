@@ -2,8 +2,12 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Channels;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
+using System.Threading.Tasks;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -14,39 +18,151 @@ namespace Geometry_Dash_Randomiser {
       /// </summary>
       public class RandomisationConfig {
 
-            private static RandomisationConfig _instance;
+            private static RandomisationConfig _instance = new RandomisationConfig();
 
             // This has to be public for JSON deserialization sadly
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public RandomisationConfig() { }
+            public RandomisationConfig() {
+                  _iconTextures.ConfigUpdated += SaveConfigAfterDelay;
+                  _menuTextures.ConfigUpdated += SaveConfigAfterDelay;
+                  _shopTextures.ConfigUpdated += SaveConfigAfterDelay;
+                  _editorTextures.ConfigUpdated += SaveConfigAfterDelay;
+                  _tileTextures.ConfigUpdated += SaveConfigAfterDelay;
+                  _portalTextures.ConfigUpdated += SaveConfigAfterDelay;
+                  _orbTextures.ConfigUpdated += SaveConfigAfterDelay;
+                  _padTextures.ConfigUpdated += SaveConfigAfterDelay;
+                  _particleTextures.ConfigUpdated += SaveConfigAfterDelay;
+                  _effectTextures.ConfigUpdated += SaveConfigAfterDelay;
+                  _miscTextures.ConfigUpdated += SaveConfigAfterDelay;
+                  _fontRand.ConfigUpdated += SaveConfigAfterDelay;
+            }
 
             public static RandomisationConfig Instance {
-                  get {
-                        if (_instance == null)
-                              _instance = new RandomisationConfig();
-                        return _instance;
+                  get => _instance;
+            }
+
+            public IconRandSettings IconTextures {
+                  get => _iconTextures;
+                  set {
+                        _iconTextures.CopyDataFrom(value);
+                        SaveConfigAfterDelay();
                   }
             }
 
-            public IconRandSettings IconTextures { get; set; } = new IconRandSettings { Group = 0 };
-            public RandomizationSetting MenuTextures { get; set; } = new RandomizationSetting(group: 1, enabled: true);
-            public RandomizationSetting ShopTextures { get; set; } = new RandomizationSetting(group: 1, enabled: true);
-            public RandomizationSetting EditorTextures { get; set; } = new RandomizationSetting();
-            public RandomizationSetting TileTextures { get; set; } = new RandomizationSetting();
-            public RandomizationSetting PortalTextures { get; set; } = new RandomizationSetting(group: 0, true);
-            public RandomizationSetting OrbTextures { get; set; } = new RandomizationSetting(group: 3, enabled: true);
-            public RandomizationSetting PadTextures { get; set; } = new RandomizationSetting(group: 0, enabled: true);
-            public RandomizationSetting ParticleTextures { get; set; } = new RandomizationSetting(group: 3, enabled: true);
-            public RandomizationSetting EffectTextures { get; set; } = new RandomizationSetting(group: 2, enabled: true);
-            public RandomizationSetting MiscTextures { get; set; } = new RandomizationSetting();
-            public FontRandomisationSettings FontRand { get; set; } = new FontRandomisationSettings();
+            public RandomizationSetting MenuTextures {
+                  get => _menuTextures;
+                  set {
+                        _menuTextures.CopyDataFrom(value);
+                        SaveConfigAfterDelay();
+                  }
+            }
 
-            public float MaxSpriteMultiplier { get; set; } = 1.10f;
-            public bool AllowDuplicates { get; set; } = false;
-            public int Seed { get; set; } = 0;
+            public RandomizationSetting ShopTextures {
+                  get => _shopTextures;
+                  set {
+                        _shopTextures.CopyDataFrom(value);
+                        SaveConfigAfterDelay();
+                  }
+            }
+
+            public RandomizationSetting EditorTextures {
+                  get => _editorTextures;
+                  set {
+                        _editorTextures.CopyDataFrom(value);
+                        SaveConfigAfterDelay();
+                  }
+            }
+
+            public RandomizationSetting TileTextures {
+                  get => _tileTextures;
+                  set {
+                        _tileTextures.CopyDataFrom(value);
+                        SaveConfigAfterDelay();
+                  }
+            }
+
+            public RandomizationSetting PortalTextures {
+                  get => _portalTextures;
+                  set {
+                        _portalTextures.CopyDataFrom(value);
+                        SaveConfigAfterDelay();
+                  }
+            }
+
+            public RandomizationSetting OrbTextures {
+                  get => _orbTextures;
+                  set {
+                        _orbTextures.CopyDataFrom(value);
+                        SaveConfigAfterDelay();
+                  }
+            }
+
+            public RandomizationSetting PadTextures {
+                  get => _padTextures;
+                  set {
+                        _padTextures.CopyDataFrom(value);
+                        SaveConfigAfterDelay();
+                  }
+            }
+
+            public RandomizationSetting ParticleTextures {
+                  get => _particleTextures;
+                  set {
+                        _particleTextures.CopyDataFrom(value);
+                        SaveConfigAfterDelay();
+                  }
+            }
+
+            public RandomizationSetting EffectTextures {
+                  get => _effectTextures;
+                  set {
+                        _effectTextures.CopyDataFrom(value);
+                        SaveConfigAfterDelay();
+                  }
+            }
+
+            public RandomizationSetting MiscTextures {
+                  get => _miscTextures;
+                  set {
+                        _miscTextures.CopyDataFrom(value);
+                        SaveConfigAfterDelay();
+                  }
+            }
+
+            public FontRandomisationSettings FontRand {
+                  get => _fontRand;
+                  set {
+                        _fontRand.CopyDataFrom(value);
+                        SaveConfigAfterDelay();
+                  }
+            }
+
+            public float MaxSpriteMultiplier {
+                  get => _maxSpriteMultiplier;
+                  set {
+                        _maxSpriteMultiplier = value;
+                        SaveConfigAfterDelay();
+                  }
+            }
+
+            public bool AllowDuplicates {
+                  get => _allowDuplicates;
+                  set {
+                        _allowDuplicates = value;
+                        SaveConfigAfterDelay();
+                  }
+            }
+
+            public int Seed {
+                  get => _seed;
+                  set {
+                        _seed = value;
+                        SaveConfigAfterDelay();
+                  }
+            }
 
             public int GetEnabledSettingsCount() {
-                  return Convert.ToInt32(IconTextures.AnySettingEnabled()) +
+                  return Convert.ToInt32(IconTextures.Enabled) +
                         Convert.ToInt32(MenuTextures.Enabled) +
                         Convert.ToInt32(ShopTextures.Enabled) +
                         Convert.ToInt32(EditorTextures.Enabled) +
@@ -70,6 +186,17 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
+            public void SaveConfigAfterDelay() => SaveConfigAfterDelay(this, null);
+
+            public void SaveConfigAfterDelay(object sender, EventArgs e) {
+                  if (_fileSaveNeeded == true)
+                        return;
+
+                  Console.WriteLine("Saving Task started");
+                  _fileSaveNeeded = true;
+                  Task.Delay(new TimeSpan(0, 0, 5)).ContinueWith(o => { WriteFile(); });
+            }
+
             public void WriteFile() {
                   Logger.Write(Logger.Mode.Verbose, "Saving Config File");
 
@@ -81,6 +208,8 @@ namespace Geometry_Dash_Randomiser {
                   } catch (IOException ioExcept) {
                         Logger.Write(Logger.Mode.Error, $"Failed to write config file. Reason: {ioExcept}");
                   }
+
+                  _fileSaveNeeded = false;
             }
 
             string Serialize() {
@@ -157,8 +286,27 @@ namespace Geometry_Dash_Randomiser {
                   _instance.Seed = other.Seed;
             }
 
+            private readonly IconRandSettings _iconTextures = new IconRandSettings { Group = 0 };
+            private readonly RandomizationSetting _menuTextures = new RandomizationSetting(group: 1, enabled: true);
+            private readonly RandomizationSetting _shopTextures = new RandomizationSetting(group: 1, enabled: true);
+            private readonly RandomizationSetting _editorTextures = new RandomizationSetting();
+            private readonly RandomizationSetting _tileTextures  = new RandomizationSetting();
+            private readonly RandomizationSetting _portalTextures = new RandomizationSetting(group: 0, true);
+            private readonly RandomizationSetting _orbTextures = new RandomizationSetting(group: 3, enabled: true);
+            private readonly RandomizationSetting _padTextures = new RandomizationSetting(group: 0, enabled: true);
+            private readonly RandomizationSetting _particleTextures = new RandomizationSetting(group: 3, enabled: true);
+            private readonly RandomizationSetting _effectTextures = new RandomizationSetting(group: 2, enabled: true);
+            private readonly RandomizationSetting _miscTextures = new RandomizationSetting();
+            private readonly FontRandomisationSettings _fontRand = new FontRandomisationSettings();
+
+            private float _maxSpriteMultiplier = 1.10f;
+            private bool _allowDuplicates = false;
+            private int _seed = 0;
+
             const string configFileName = "config.ini";
             public const int maxTextureGroups = 100;
+
+            private bool _fileSaveNeeded = false;
 
             private static readonly JsonSerializerOptions SerializationOptions = new JsonSerializerOptions() {
                   WriteIndented = true,

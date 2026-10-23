@@ -4,11 +4,21 @@ namespace Geometry_Dash_Randomiser {
 
       public class LetterSpacingSettings {
 
-            public enum SpacingMode { Simple, Advanced }
+            public event EventHandler ConfigUpdated;
 
-            public LetterSpacingSettings() { }
+            public LetterSpacingSettings() {
+                  _xOffset.ConfigUpdated += InvokeConfigUpdateEvent;
+                  _kerning.ConfigUpdated += InvokeConfigUpdateEvent;
+            }
 
-            public bool Enabled { get; set; }
+            public bool Enabled {
+                  get => _enabled;
+                  set {
+                        _enabled = value;
+                        InvokeEvent(ConfigUpdated, null);
+                  }
+            }
+
             public SpacingMode Mode {
                   get => _mode;
                   set {
@@ -18,39 +28,45 @@ namespace Geometry_Dash_Randomiser {
                         } else {
                               _mode = value;
                         }
+                        InvokeEvent(ConfigUpdated, null);
                   }
             }
 
             // Simple Mode
             public int Level {
                   get => _level;
-                  set => value.Clamp(minLevel, maxLevel);
+                  set {
+                        value.Clamp(minLevel, maxLevel);
+                        InvokeEvent(ConfigUpdated, null);
+                  }
             }
             
             // Advanced Mode
             public CappedRange X_Offset {
                   get => _xOffset;
                   set {
-                        if (value == null) {
-                              Logger.Error("LSS.X_Offset was passed as null. Setting value to default");
-                              value = CappedRange.Default;
+                        if (value != null) {
+                              _xOffset.CopyDataFrom(value);
 
                         } else {
-                              _xOffset = value;
+                              Logger.Error("LSS.X_Offset was passed as null. Setting value to default");
+                              value = CappedRange.Default;
                         }
+                        InvokeEvent(ConfigUpdated, null);
                   }
             }
 
             public CappedRange Kerning {
                   get => _kerning;
                   set {
-                        if (value == null) {
-                              Logger.Error("LSS.Kerning was passed as null. Setting value to default");
-                              value = CappedRange.Default;
+                        if (value != null) {
+                              _kerning.CopyDataFrom(value);
 
                         } else {
-                              _kerning = value;
+                              Logger.Error("LSS.Kerning was passed as null. Setting value to default");
+                              value = CappedRange.Default;
                         }
+                        InvokeEvent(ConfigUpdated, null);
                   }
             }
 
@@ -95,16 +111,30 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
+            public void CopyDataFrom(LetterSpacingSettings source) {
+                  X_Offset.CopyDataFrom(source.X_Offset);
+                  Kerning.CopyDataFrom(source.Kerning);
+            }
+
+            private void InvokeConfigUpdateEvent(object sender, EventArgs e) => InvokeEvent(ConfigUpdated, null);
+
+            private void InvokeEvent(EventHandler @event, EventArgs e) {
+                  @event?.Invoke(this, e);
+            }
+
+            private bool _enabled = true;
             private SpacingMode _mode = SpacingMode.Simple;
 
             private int _level = 1;
 
-            private CappedRange _xOffset = CappedRange.Default;
-            private CappedRange _kerning = CappedRange.Default;
+            private readonly CappedRange _xOffset = CappedRange.Default;
+            private readonly CappedRange _kerning = CappedRange.Default;
 
             private static int maxMode = Enum.GetValues(typeof(SpacingMode)).Length;
 
             private static int minLevel = 1;
             private static int maxLevel = 10;
+
+            public enum SpacingMode { Simple, Advanced }
       }
 }

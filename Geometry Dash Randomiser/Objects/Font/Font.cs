@@ -119,11 +119,38 @@ namespace Geometry_Dash_Randomiser {
             public void ShuffleCharacters(Random random, CharacterType characterTypes) {
                   List<FontChar> charsToShuffle = new List<FontChar>();
 
+                  CharacterRandomisationSettings CRS = RandomisationConfig.Instance.FontRand.CharacterRandSettings;
+
                   for (int i = 0; i < Chars.Length; i++) {
                         CharacterType type = Chars[i].CharType;
 
                         if (characterTypes.HasFlag(type)) {
-                              charsToShuffle.Add(Chars[i]);
+                              int includeProbability = 0;
+
+                              switch (type) {
+                                    case CharacterType.Letter:
+                                          includeProbability = CRS.Letter.PercentageRandomised;
+                                          break;
+
+                                    case CharacterType.Number:
+                                          includeProbability = CRS.Number.PercentageRandomised;
+                                          break;
+
+                                    case CharacterType.Symbol:
+                                          includeProbability = CRS.Symbol.PercentageRandomised;
+                                          break;
+
+                                    case CharacterType.Special:
+                                          includeProbability = CRS.Special.PercentageRandomised;
+                                          break;
+
+                                    default:
+                                          break;
+                              }
+
+                              if (random.Next(0, 100) < includeProbability) {
+                                    charsToShuffle.Add(Chars[i]);
+                              }
                         }
                   }
 
@@ -134,12 +161,8 @@ namespace Geometry_Dash_Randomiser {
                   // Get all of the CharIDs
                   int[] IDs = chars.Select(c => c.CharID).ToArray();
 
-                  Console.WriteLine($"Randomising in {Name}:\n{string.Join(", ", IDs)}");
-
                   // Shuffle them
                   random.Shuffle<int>(IDs);
-
-                  Console.WriteLine($"{string.Join(", ", IDs)}");
 
                   for (int i = 0; i < chars.Count; i++) {
                         chars[i].CharID = IDs[i];

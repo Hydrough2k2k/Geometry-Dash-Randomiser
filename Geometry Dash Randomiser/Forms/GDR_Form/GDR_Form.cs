@@ -822,10 +822,10 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void ChangeConfigData(TextBox textBox, RandomizationSetting setting) {
-                  if (textBox.Text.Length == 0)
-                        return;
-
                   string s = Regex.FilterDigits(textBox.Text);
+
+                  if (s.Length == 0)
+                        return;
 
                   bool success = Int32.TryParse(s, out int result);
                   if (success) {
@@ -880,7 +880,7 @@ namespace Geometry_Dash_Randomiser {
                         return;
                   }
 
-                  config.IconTextures.SetAll(newState);
+                  config.IconTextures.Enabled = newState;
                   
                   RefreshUI();
             }

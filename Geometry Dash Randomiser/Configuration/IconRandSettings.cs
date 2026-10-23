@@ -1,27 +1,30 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace Geometry_Dash_Randomiser {
 
       public class IconRandSettings : IToggleableSetting {
 
+            public event EventHandler ConfigUpdated;
+
             // Array for storing references to all settings for easy iteration
             private readonly RandomizationSetting[] _randomisationSettings;
-
-            private readonly RandomizationSetting _cube = new RandomizationSetting(0, true);
-            private readonly RandomizationSetting _ship = new RandomizationSetting(0, true);
-            private readonly RandomizationSetting _ball = new RandomizationSetting(0, true);
-            private readonly RandomizationSetting _ufo = new RandomizationSetting(0, true);
-            private readonly RandomizationSetting _wave = new RandomizationSetting(0, true);
-            private readonly RandomizationSetting _robot = new RandomizationSetting(0, true);
-            private readonly RandomizationSetting _spider = new RandomizationSetting(0, true);
-            private readonly RandomizationSetting _swing = new RandomizationSetting(0, true);
-            private readonly RandomizationSetting _jetpack = new RandomizationSetting(0, true);
 
             public IconRandSettings() {
                   _randomisationSettings = new RandomizationSetting[] {
                         _cube, _ship, _ball, _ufo, _wave, _robot, _spider, _swing, _jetpack
                   };
+
+                  _cube.ConfigUpdated += InvokeConfigUpdateEvent;
+                  _ship.ConfigUpdated += InvokeConfigUpdateEvent;
+                  _ball.ConfigUpdated += InvokeConfigUpdateEvent;
+                  _ufo.ConfigUpdated += InvokeConfigUpdateEvent;
+                  _wave.ConfigUpdated += InvokeConfigUpdateEvent;
+                  _robot.ConfigUpdated += InvokeConfigUpdateEvent;
+                  _spider.ConfigUpdated += InvokeConfigUpdateEvent;
+                  _swing.ConfigUpdated += InvokeConfigUpdateEvent;
+                  _jetpack.ConfigUpdated += InvokeConfigUpdateEvent;
             }
 
             [JsonIgnore]
@@ -33,21 +36,90 @@ namespace Geometry_Dash_Randomiser {
                   }
                   set {
                         SetAll(value);
+                        InvokeEvent(ConfigUpdated, null);
                   }
             }
 
-            public int Group { get; set; } = 0;
+            public int Group {
+                  get => _group;
+                  set {
+                        _group = value.Clamp(0, RandomisationConfig.maxTextureGroups);
+                        InvokeEvent(ConfigUpdated, null);
+                  }
+            }
 
             // These setters only copy the setters' data to the existing readonly fields, thus the reference stays, but the values don't
-            public RandomizationSetting Cube { get => _cube; set => _cube.CopyDataFrom(value); }
-            public RandomizationSetting Ship { get => _ship; set => _ship.CopyDataFrom(value); }
-            public RandomizationSetting Ball { get => _ball; set => _ball.CopyDataFrom(value); }
-            public RandomizationSetting Ufo { get => _ufo; set => _ufo.CopyDataFrom(value); }
-            public RandomizationSetting Wave { get => _wave; set => _wave.CopyDataFrom(value); }
-            public RandomizationSetting Robot { get => _robot; set => _robot.CopyDataFrom(value); }
-            public RandomizationSetting Spider { get => _spider; set => _spider.CopyDataFrom(value); }
-            public RandomizationSetting Swing { get => _swing; set => _swing.CopyDataFrom(value); }
-            public RandomizationSetting Jetpack { get => _jetpack; set => _jetpack.CopyDataFrom(value); }
+            public RandomizationSetting Cube {
+                  get => _cube;
+                  set {
+                        _cube.CopyDataFrom(value);
+                        InvokeEvent(ConfigUpdated, null);
+                  }
+            }
+
+            public RandomizationSetting Ship {
+                  get => _ship;
+                  set {
+                        _ship.CopyDataFrom(value);
+                        InvokeEvent(ConfigUpdated, null);
+                  }
+            }
+
+            public RandomizationSetting Ball {
+                  get => _ball;
+                  set {
+                        _ball.CopyDataFrom(value);
+                        InvokeEvent(ConfigUpdated, null);
+                  }
+            }
+
+            public RandomizationSetting Ufo {
+                  get => _ufo;
+                  set {
+                        _ufo.CopyDataFrom(value);
+                        InvokeEvent(ConfigUpdated, null);
+                  }
+            }
+
+            public RandomizationSetting Wave {
+                  get => _wave;
+                  set {
+                        _wave.CopyDataFrom(value);
+                        InvokeEvent(ConfigUpdated, null);
+                  }
+            }
+
+            public RandomizationSetting Robot {
+                  get => _robot;
+                  set {
+                        _robot.CopyDataFrom(value);
+                        InvokeEvent(ConfigUpdated, null);
+                  }
+            }
+
+            public RandomizationSetting Spider {
+                  get => _spider;
+                  set {
+                        _spider.CopyDataFrom(value);
+                        InvokeEvent(ConfigUpdated, null);
+                  }
+            }
+
+            public RandomizationSetting Swing {
+                  get => _swing;
+                  set {
+                        _swing.CopyDataFrom(value);
+                        InvokeEvent(ConfigUpdated, null);
+                  }
+            }
+
+            public RandomizationSetting Jetpack {
+                  get => _jetpack;
+                  set {
+                        _jetpack.CopyDataFrom(value);
+                        InvokeEvent(ConfigUpdated, null);
+                  }
+            }
 
             [JsonIgnore]
             public int TotalSettingsCount => RandomisationSettings.Length;
@@ -69,8 +141,40 @@ namespace Geometry_Dash_Randomiser {
                   return false;
             }
 
+            private void InvokeConfigUpdateEvent(object sender, EventArgs e) => InvokeEvent(ConfigUpdated, null);
+
+            private void InvokeEvent(EventHandler @event, EventArgs e) {
+                  @event?.Invoke(this, e);
+            }
+
+            public void CopyDataFrom(IconRandSettings source) {
+                  Group = source.Group;
+
+                  Cube = source.Cube;
+                  Ship = source.Ship;
+                  Ball = source.Ball;
+                  Ufo = source.Ufo;
+                  Wave = source.Wave;
+                  Robot = source.Robot;
+                  Spider = source.Spider;
+                  Swing = source.Swing;
+                  Jetpack = source.Jetpack;
+            }
+
             public RandomizationSetting ToRandSetting() {
                   return new RandomizationSetting(Group, Enabled);
             }
+
+            private int _group = 0;
+
+            private readonly RandomizationSetting _cube = new RandomizationSetting(0, true);
+            private readonly RandomizationSetting _ship = new RandomizationSetting(0, true);
+            private readonly RandomizationSetting _ball = new RandomizationSetting(0, true);
+            private readonly RandomizationSetting _ufo = new RandomizationSetting(0, true);
+            private readonly RandomizationSetting _wave = new RandomizationSetting(0, true);
+            private readonly RandomizationSetting _robot = new RandomizationSetting(0, true);
+            private readonly RandomizationSetting _spider = new RandomizationSetting(0, true);
+            private readonly RandomizationSetting _swing = new RandomizationSetting(0, true);
+            private readonly RandomizationSetting _jetpack = new RandomizationSetting(0, true);
       }
 }
