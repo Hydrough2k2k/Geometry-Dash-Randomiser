@@ -5,9 +5,9 @@ using System.Text.Json.Serialization;
 
 namespace Geometry_Dash_Randomiser {
 
-      public class CharacterRandomisationSettings : IToggleableSetting {
+      public class CharacterRandomisationSettings : IToggleableSetting, IUpdateNotify {
 
-            public event EventHandler ConfigUpdated;
+            public event EventHandler Updated;
 
             public CharacterRandomisationSettings() {
                   _randomisationSettings = new RandomizationSetting[] {
@@ -19,10 +19,10 @@ namespace Geometry_Dash_Randomiser {
                   _symbol.MaxGroupNumber = 10;
                   _special.MaxGroupNumber = 10;
 
-                  _letter.ConfigUpdated += InvokeConfigUpdateEvent;
-                  _number.ConfigUpdated += InvokeConfigUpdateEvent;
-                  _symbol.ConfigUpdated += InvokeConfigUpdateEvent;
-                  _special.ConfigUpdated += InvokeConfigUpdateEvent;
+                  _letter.Updated += InvokeUpdateEvent;
+                  _number.Updated += InvokeUpdateEvent;
+                  _symbol.Updated += InvokeUpdateEvent;
+                  _special.Updated += InvokeUpdateEvent;
             }
 
             public static CharacterRandomisationSettings Default => new CharacterRandomisationSettings();
@@ -32,7 +32,7 @@ namespace Geometry_Dash_Randomiser {
                   get => AnySettingEnabled();
                   set {
                         SetAll(value);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -40,7 +40,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _letter;
                   set {
                         _letter.CopyDataFrom(value ?? RandomizationSetting.Default);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -48,7 +48,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _number;
                   set {
                         _number.CopyDataFrom(value ?? RandomizationSetting.Default);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -56,7 +56,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _symbol;
                   set {
                         _symbol.CopyDataFrom(value ?? RandomizationSetting.Default);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -64,7 +64,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _special;
                   set {
                         _special.CopyDataFrom(value ?? RandomizationSetting.Default);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   } 
             }
 
@@ -98,7 +98,7 @@ namespace Geometry_Dash_Randomiser {
                   Special = source.Special;
             }
 
-            private void InvokeConfigUpdateEvent(object sender, EventArgs e) => InvokeEvent(ConfigUpdated, null);
+            private void InvokeUpdateEvent(object sender, EventArgs e) => InvokeEvent(Updated, null);
 
             private void InvokeEvent(EventHandler @event, EventArgs e) {
                   @event?.Invoke(this, e);

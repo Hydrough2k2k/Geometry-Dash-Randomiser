@@ -19,18 +19,18 @@ namespace Geometry_Dash_Randomiser {
 
             [EditorBrowsable(EditorBrowsableState.Never)]
             public RandomisationConfig() {
-                  _iconTextures.ConfigUpdated += SaveConfigAfterDelay;
-                  _menuTextures.ConfigUpdated += SaveConfigAfterDelay;
-                  _shopTextures.ConfigUpdated += SaveConfigAfterDelay;
-                  _editorTextures.ConfigUpdated += SaveConfigAfterDelay;
-                  _tileTextures.ConfigUpdated += SaveConfigAfterDelay;
-                  _portalTextures.ConfigUpdated += SaveConfigAfterDelay;
-                  _orbTextures.ConfigUpdated += SaveConfigAfterDelay;
-                  _padTextures.ConfigUpdated += SaveConfigAfterDelay;
-                  _particleTextures.ConfigUpdated += SaveConfigAfterDelay;
-                  _effectTextures.ConfigUpdated += SaveConfigAfterDelay;
-                  _miscTextures.ConfigUpdated += SaveConfigAfterDelay;
-                  _fontRand.ConfigUpdated += SaveConfigAfterDelay;
+                  _iconTextures.Updated += SaveConfigAfterDelay;
+                  _menuTextures.Updated += SaveConfigAfterDelay;
+                  _shopTextures.Updated += SaveConfigAfterDelay;
+                  _editorTextures.Updated += SaveConfigAfterDelay;
+                  _tileTextures.Updated += SaveConfigAfterDelay;
+                  _portalTextures.Updated += SaveConfigAfterDelay;
+                  _orbTextures.Updated += SaveConfigAfterDelay;
+                  _padTextures.Updated += SaveConfigAfterDelay;
+                  _particleTextures.Updated += SaveConfigAfterDelay;
+                  _effectTextures.Updated += SaveConfigAfterDelay;
+                  _miscTextures.Updated += SaveConfigAfterDelay;
+                  _fontRand.Updated += SaveConfigAfterDelay;
             }
 
             public static RandomisationConfig Instance {
@@ -282,7 +282,7 @@ namespace Geometry_Dash_Randomiser {
                   _instance.Seed = other.Seed;
             }
 
-            private readonly IconRandSettings _iconTextures = new IconRandSettings { Group = 0 };
+            private readonly IconRandSettings _iconTextures = new IconRandSettings { Group = 0, Enabled = true };
             private readonly RandomizationSetting _menuTextures = new RandomizationSetting(group: 1, enabled: true);
             private readonly RandomizationSetting _shopTextures = new RandomizationSetting(group: 1, enabled: true);
             private readonly RandomizationSetting _editorTextures = new RandomizationSetting();

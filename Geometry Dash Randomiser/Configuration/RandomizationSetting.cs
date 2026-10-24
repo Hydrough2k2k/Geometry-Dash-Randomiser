@@ -4,9 +4,9 @@ using System.Text.Json.Serialization;
 namespace Geometry_Dash_Randomiser {
 
       [Serializable]
-      public class RandomizationSetting : IToggleableSetting {
+      public class RandomizationSetting : IToggleableSetting, IUpdateNotify {
 
-            public event EventHandler ConfigUpdated;
+            public event EventHandler Updated;
 
             private bool _enabled;
             private int _group;
@@ -33,7 +33,7 @@ namespace Geometry_Dash_Randomiser {
                   get { return _group; }
                   set {
                         _group = Math.Clamp(value, 0, MaxGroupNumber);
-                        ConfigUpdated?.Invoke(this, null);
+                        Updated?.Invoke(this, null);
                   }
             }
 
@@ -41,7 +41,7 @@ namespace Geometry_Dash_Randomiser {
                   get { return _enabled; }
                   set {
                         _enabled = value;
-                        ConfigUpdated?.Invoke(this, null);
+                        Updated?.Invoke(this, null);
                   }
             }
 
@@ -49,7 +49,7 @@ namespace Geometry_Dash_Randomiser {
                   get { return _percentageRandomised; }
                   set {
                         _percentageRandomised = Math.Clamp(value, 0, 100);
-                        ConfigUpdated?.Invoke(this, null);
+                        Updated?.Invoke(this, null);
                   }
             }
 

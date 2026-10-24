@@ -42,5 +42,9 @@ namespace Geometry_Dash_Randomiser {
             public static Color GetRandomRGBColor(this Random random) {
                   return Color.FromArgb(random.Next(256), random.Next(256), random.Next(256));
             }
+
+            public static bool NextTrue(this Random random, int probabilityChance) {
+                  return (random.Next(0, 100) < probabilityChance);
+            }
       }
 }

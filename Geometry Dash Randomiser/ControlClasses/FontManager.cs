@@ -120,23 +120,6 @@ namespace Geometry_Dash_Randomiser {
                         AlterLetterSpacing(random, ref newFonts);
                   }
 
-                  //if (config.FontRand.ShuffleSettings.Enabled) {
-                  //      newFonts = GetNewFontsAfterShufflingFontStyles(random);
-
-                  //} else {
-                  //      newFonts = new Font[fonts.Length];
-                  //      for (int i = 0; i < fonts.Length; i++) {
-                  //            newFonts[i] = fonts[i].DeepCopy();
-                  //      }
-                  //}
-
-                  //// Shuffle the chars around within all fonts separately if ShuffleLetters is found
-                  //if (config.FontRand.CharacterRandSettings.Enabled) {
-                  //      for (int i = 0; i < newFonts.Length; i++) {
-                  //            ReorderCharIDsInFont(ref newFonts[i], random);
-                  //      }
-                  //}
-
                   // Finally rearrange the boxes for where the chars will go on the assembled gamesheet
                   RepackFonts(ref newFonts);
 
@@ -282,10 +265,12 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void AlterLetterSpacing(Random random, ref Font[] newFonts) {
+                  LetterSpacingSettings LSS = RandomisationConfig.Instance.FontRand.LetterSpacingSettings;
 
+                  LetterSpacingSettings.KerningData kerningData = LSS.GetKerningData();
 
-                  for (int i = 0; i < _fonts.Length; i++) {
-
+                  for (int i = 0; i < newFonts.Length; i++) {
+                        newFonts[i].AlterLetterSpacing(random, kerningData);
                   }
             }
 

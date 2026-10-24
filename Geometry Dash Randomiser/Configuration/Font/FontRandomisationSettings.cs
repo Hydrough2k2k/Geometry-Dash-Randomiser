@@ -2,14 +2,14 @@
 
 namespace Geometry_Dash_Randomiser {
 
-      public class FontRandomisationSettings : IToggleableSetting {
+      public class FontRandomisationSettings : IToggleableSetting, IUpdateNotify {
 
-            public event EventHandler ConfigUpdated;
+            public event EventHandler Updated;
 
             public FontRandomisationSettings() {
-                  _shuffleSettings.ConfigUpdated += InvokeConfigUpdateEvent;
-                  _characterRandSettings.ConfigUpdated += InvokeConfigUpdateEvent;
-                  _letterSpacingSettings.ConfigUpdated += InvokeConfigUpdateEvent;
+                  _shuffleSettings.Updated += InvokeUpdateEvent;
+                  _characterRandSettings.Updated += InvokeUpdateEvent;
+                  _letterSpacingSettings.Updated += InvokeUpdateEvent;
             }
 
             public static FontRandomisationSettings Default => new FontRandomisationSettings();
@@ -18,7 +18,7 @@ namespace Geometry_Dash_Randomiser {
                   get => AnySettingEnabled();
                   set {
                         SetAll(value);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -26,7 +26,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _shuffleSettings;
                   set {
                         _shuffleSettings.CopyDataFrom(value ?? FontStyleShuffleSettings.Default);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   } 
             }
 
@@ -34,7 +34,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _characterRandSettings;
                   set {
                         _characterRandSettings.CopyDataFrom(value ?? CharacterRandomisationSettings.Default);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -42,7 +42,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _letterSpacingSettings;
                   set {
                         _letterSpacingSettings.CopyDataFrom(value ?? Geometry_Dash_Randomiser.LetterSpacingSettings.Default);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -58,7 +58,7 @@ namespace Geometry_Dash_Randomiser {
                         Convert.ToInt32(LetterSpacingSettings.Enabled);
             }
 
-            public void SetAll(bool state) {
+            private void SetAll(bool state) {
                   ShuffleSettings.Enabled = state;
                   CharacterRandSettings.Enabled = state;
                   LetterSpacingSettings.Enabled = state;
@@ -70,7 +70,7 @@ namespace Geometry_Dash_Randomiser {
                   LetterSpacingSettings = source.LetterSpacingSettings;
             }
 
-            private void InvokeConfigUpdateEvent(object sender, EventArgs e) => InvokeEvent(ConfigUpdated, null);
+            private void InvokeUpdateEvent(object sender, EventArgs e) => InvokeEvent(Updated, null);
 
             private void InvokeEvent(EventHandler @event, EventArgs e) {
                   @event?.Invoke(this, e);

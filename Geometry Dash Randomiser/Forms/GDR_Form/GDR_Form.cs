@@ -899,15 +899,15 @@ namespace Geometry_Dash_Randomiser {
                         return;
                   }
 
-                  CubeTexturesSettingsChanged(sender, e);
-                  ShipTexturesSettingsChanged(sender, e);
-                  BallTexturesSettingsChanged(sender, e);
-                  UFO_TexturesSettingsChanged(sender, e);
-                  WaveTexturesSettingsChanged(sender, e);
-                  RobotTexturesSettingsChanged(sender, e);
-                  SpiderTexturesSettingsChanged(sender, e);
-                  SwingTexturesSettingsChanged(sender, e);
-                  JetpackTexturesSettingsChanged(sender, e);
+                  //CubeTexturesSettingsChanged(sender, e);
+                  //ShipTexturesSettingsChanged(sender, e);
+                  //BallTexturesSettingsChanged(sender, e);
+                  //UFO_TexturesSettingsChanged(sender, e);
+                  //WaveTexturesSettingsChanged(sender, e);
+                  //RobotTexturesSettingsChanged(sender, e);
+                  //SpiderTexturesSettingsChanged(sender, e);
+                  //SwingTexturesSettingsChanged(sender, e);
+                  //JetpackTexturesSettingsChanged(sender, e);
 
                   SetAllIconTexturesElementStates();
                   ValidateReadyState();
@@ -985,7 +985,7 @@ namespace Geometry_Dash_Randomiser {
                         return;
                   }
 
-                  config.FontRand.SetAll(checkBox.Checked);
+                  config.FontRand.Enabled = checkBox.Checked;
 
                   // If the form is not initialised, skip the rest of the changes
                   // Otherwise some of the configuration data will be overwritten when the form is first initialised

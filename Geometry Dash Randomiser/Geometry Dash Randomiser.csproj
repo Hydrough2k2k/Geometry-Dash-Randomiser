@@ -323,6 +323,7 @@
     <Compile Include="Debug\Logger.cs" />
     <Compile Include="Helpers\Zlib.cs" />
     <Compile Include="Interfaces\IToggleableSetting.cs" />
+    <Compile Include="Interfaces\IUpdateNotify.cs" />
     <Compile Include="Objects\CappedRange.cs" />
     <Compile Include="Objects\ChangelogData.cs" />
     <Compile Include="Configuration\ConfigurationData.cs" />
@@ -358,6 +359,7 @@
     <Compile Include="Objects\GameSheet\GameSheet.cs" />
     <Compile Include="Objects\GameSheet\TextureGameSheet.cs" />
     <Compile Include="Objects\PropertyPair.cs" />
+    <Compile Include="Objects\Range.cs" />
     <Compile Include="Serializers\FontSerializer.cs" />
     <Compile Include="Extensions\GameFilesExtension.cs" />
     <Compile Include="Enums\GameFileType.cs" />

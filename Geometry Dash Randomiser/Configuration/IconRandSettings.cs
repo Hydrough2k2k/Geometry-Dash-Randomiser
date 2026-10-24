@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Text.Json.Serialization;
+using static System.Windows.Forms.AxHost;
 
 namespace Geometry_Dash_Randomiser {
 
-      public class IconRandSettings : IToggleableSetting {
+      public class IconRandSettings : IToggleableSetting, IUpdateNotify {
 
-            public event EventHandler ConfigUpdated;
+            public event EventHandler Updated;
 
             // Array for storing references to all settings for easy iteration
             private readonly RandomizationSetting[] _randomisationSettings;
@@ -16,15 +17,15 @@ namespace Geometry_Dash_Randomiser {
                         _cube, _ship, _ball, _ufo, _wave, _robot, _spider, _swing, _jetpack
                   };
 
-                  _cube.ConfigUpdated += InvokeConfigUpdateEvent;
-                  _ship.ConfigUpdated += InvokeConfigUpdateEvent;
-                  _ball.ConfigUpdated += InvokeConfigUpdateEvent;
-                  _ufo.ConfigUpdated += InvokeConfigUpdateEvent;
-                  _wave.ConfigUpdated += InvokeConfigUpdateEvent;
-                  _robot.ConfigUpdated += InvokeConfigUpdateEvent;
-                  _spider.ConfigUpdated += InvokeConfigUpdateEvent;
-                  _swing.ConfigUpdated += InvokeConfigUpdateEvent;
-                  _jetpack.ConfigUpdated += InvokeConfigUpdateEvent;
+                  _cube.Updated += InvokeUpdateEvent;
+                  _ship.Updated += InvokeUpdateEvent;
+                  _ball.Updated += InvokeUpdateEvent;
+                  _ufo.Updated += InvokeUpdateEvent;
+                  _wave.Updated += InvokeUpdateEvent;
+                  _robot.Updated += InvokeUpdateEvent;
+                  _spider.Updated += InvokeUpdateEvent;
+                  _swing.Updated += InvokeUpdateEvent;
+                  _jetpack.Updated += InvokeUpdateEvent;
             }
 
             public static IconRandSettings Default => new IconRandSettings();
@@ -37,8 +38,8 @@ namespace Geometry_Dash_Randomiser {
                         return AnySettingEnabled();
                   }
                   set {
-                        SetAll(value);
-                        InvokeEvent(ConfigUpdated, null);
+                        SetAllEnabled(value);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -46,7 +47,8 @@ namespace Geometry_Dash_Randomiser {
                   get => _group;
                   set {
                         _group = value.Clamp(0, RandomisationConfig.maxTextureGroups);
-                        InvokeEvent(ConfigUpdated, null);
+                        SetAllGroups(_group);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -55,7 +57,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _cube;
                   set {
                         _cube.CopyDataFrom(value ?? RandomizationSetting.Default);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -63,7 +65,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _ship;
                   set {
                         _ship.CopyDataFrom(value ?? RandomizationSetting.Default);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -71,7 +73,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _ball;
                   set {
                         _ball.CopyDataFrom(value ?? RandomizationSetting.Default);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -79,7 +81,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _ufo;
                   set {
                         _ufo.CopyDataFrom(value ?? RandomizationSetting.Default);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -87,7 +89,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _wave;
                   set {
                         _wave.CopyDataFrom(value ?? RandomizationSetting.Default);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -95,7 +97,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _robot;
                   set {
                         _robot.CopyDataFrom(value ?? RandomizationSetting.Default);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -103,7 +105,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _spider;
                   set {
                         _spider.CopyDataFrom(value ?? RandomizationSetting.Default);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -111,7 +113,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _swing;
                   set {
                         _swing.CopyDataFrom(value ?? RandomizationSetting.Default);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -119,15 +121,19 @@ namespace Geometry_Dash_Randomiser {
                   get => _jetpack;
                   set {
                         _jetpack.CopyDataFrom(value ?? RandomizationSetting.Default);
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
             [JsonIgnore]
             public int TotalSettingsCount => RandomisationSettings.Length;
 
-            public void SetAll(bool state) {
+            private void SetAllEnabled(bool state) {
                   _randomisationSettings.ToList().ForEach(r => r.Enabled = state);
+            }
+
+            private void SetAllGroups(int group) {
+                  _randomisationSettings.ToList().ForEach(r => r.Group = group);
             }
 
             public int GetEnabledSettingsCount() {
@@ -143,7 +149,7 @@ namespace Geometry_Dash_Randomiser {
                   return false;
             }
 
-            private void InvokeConfigUpdateEvent(object sender, EventArgs e) => InvokeEvent(ConfigUpdated, null);
+            private void InvokeUpdateEvent(object sender, EventArgs e) => InvokeEvent(Updated, null);
 
             private void InvokeEvent(EventHandler @event, EventArgs e) {
                   @event?.Invoke(this, e);

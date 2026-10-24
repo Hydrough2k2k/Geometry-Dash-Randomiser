@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace Geometry_Dash_Randomiser {
 
-      public class FontStyleShuffleSettings {
+      public class FontStyleShuffleSettings : IUpdateNotify {
 
-            public event EventHandler ConfigUpdated;
+            public event EventHandler Updated;
 
             public FontStyleShuffleSettings() { }
 
@@ -15,7 +15,7 @@ namespace Geometry_Dash_Randomiser {
                   get => _enabled;
                   set {
                         _enabled = value;
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
@@ -29,7 +29,7 @@ namespace Geometry_Dash_Randomiser {
                               _mode = value;
                         }
 
-                        InvokeEvent(ConfigUpdated, null);
+                        InvokeEvent(Updated, null);
                   }
             }
 
