@@ -185,12 +185,11 @@ namespace Geometry_Dash_Randomiser {
             public void SaveConfigAfterDelay() => SaveConfigAfterDelay(this, null);
 
             public void SaveConfigAfterDelay(object sender, EventArgs e) {
-                  if (_fileSaveNeeded == true)
+                  if (_fileSaveQueued == true)
                         return;
 
-                  Console.WriteLine("Saving Task started");
-                  _fileSaveNeeded = true;
-                  Task.Delay(new TimeSpan(0, 0, 5)).ContinueWith(o => { WriteFile(); });
+                  _fileSaveQueued = true;
+                  Task.Delay(new TimeSpan(0, 0, AdvancedConfig.Instance.ConfigSaveDelay)).ContinueWith(o => { WriteFile(); });
             }
 
             public void WriteFile() {
@@ -205,7 +204,7 @@ namespace Geometry_Dash_Randomiser {
                         Logger.Write(Logger.Mode.Error, $"Failed to write config file. Reason: {ioExcept}");
                   }
 
-                  _fileSaveNeeded = false;
+                  _fileSaveQueued = false;
             }
 
             string Serialize() {
@@ -302,7 +301,7 @@ namespace Geometry_Dash_Randomiser {
             const string configFileName = "config.ini";
             public const int maxTextureGroups = 100;
 
-            private bool _fileSaveNeeded = false;
+            private bool _fileSaveQueued = false;
 
             private static readonly JsonSerializerOptions SerializationOptions = new JsonSerializerOptions() {
                   WriteIndented = true,

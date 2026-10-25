@@ -462,6 +462,7 @@
     <None Include="Resources\Error_half_size.png" />
     <None Include="Resources\ConnectorBeamWhite.png" />
     <None Include="Resources\FontConnectorBeam.png" />
+    <None Include="Resources\44x44WhiteBG.png" />
     <Content Include="Resources\GDR Logo 256px.ico" />
   </ItemGroup>
   <ItemGroup>

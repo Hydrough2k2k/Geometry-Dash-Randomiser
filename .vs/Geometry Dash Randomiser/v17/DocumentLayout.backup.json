@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\geometry dash randomiser\\configuration\\iconrandsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|solutionrelative:geometry dash randomiser\\configuration\\iconrandsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|c:\\visual studio\\c#\\winforms\\geometry-dash-randomiser\\geometry dash randomiser\\forms\\gdr_form\\gdr_form.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|solutionrelative:geometry dash randomiser\\forms\\gdr_form\\gdr_form.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|c:\\visual studio\\c#\\winforms\\geometry-dash-randomiser\\geometry dash randomiser\\configuration\\advancedconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|solutionrelative:geometry dash randomiser\\configuration\\advancedconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\geometry dash randomiser\\forms\\gdr_form\\gdr_form.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -15,15 +19,23 @@
       "RelativeMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|solutionrelative:geometry dash randomiser\\configuration\\randomisationconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\geometry dash randomiser\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|solutionrelative:geometry dash randomiser\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\geometry dash randomiser\\configuration\\iconrandsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|solutionrelative:geometry dash randomiser\\configuration\\iconrandsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\geometry dash randomiser\\configuration\\font\\fontrandomisationsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|solutionrelative:geometry dash randomiser\\configuration\\font\\fontrandomisationsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|c:\\visual studio\\c#\\winforms\\geometry-dash-randomiser\\geometry dash randomiser\\configuration\\font\\characterrandomisationsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\geometry dash randomiser\\configuration\\font\\characterrandomisationsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|solutionrelative:geometry dash randomiser\\configuration\\font\\characterrandomisationsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|c:\\visual studio\\c#\\winforms\\geometry-dash-randomiser\\geometry dash randomiser\\objects\\range.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\geometry dash randomiser\\objects\\range.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|solutionrelative:geometry dash randomiser\\objects\\range.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -35,7 +47,7 @@
       "RelativeMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|solutionrelative:geometry dash randomiser\\configuration\\randomizationsetting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|c:\\visual studio\\c#\\winforms\\geometry-dash-randomiser\\geometry dash randomiser\\objects\\cappedrange.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\geometry dash randomiser\\objects\\cappedrange.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|solutionrelative:geometry dash randomiser\\objects\\cappedrange.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -49,10 +61,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\geometry dash randomiser\\extensions\\randomextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|solutionrelative:geometry dash randomiser\\extensions\\randomextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|c:\\visual studio\\c#\\winforms\\geometry-dash-randomiser\\geometry dash randomiser\\forms\\gdr_form\\gdr_form.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|solutionrelative:geometry dash randomiser\\forms\\gdr_form\\gdr_form.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Changelog.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
@@ -73,10 +81,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\geometry dash randomiser\\controlclasses\\gamefilemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|solutionrelative:geometry dash randomiser\\controlclasses\\gamefilemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\geometry dash randomiser\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|solutionrelative:geometry dash randomiser\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}|Geometry Dash Randomiser\\Geometry Dash Randomiser.csproj|C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\geometry dash randomiser\\debug\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -102,16 +106,16 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 23,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 0,
               "Title": "GDR_Form.cs [Design]",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Forms\\GDR_Form\\GDR_Form.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Forms\\GDR_Form\\GDR_Form.cs",
-              "ToolTip": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Forms\\GDR_Form\\GDR_Form.cs [Design]",
-              "RelativeToolTip": "Geometry Dash Randomiser\\Forms\\GDR_Form\\GDR_Form.cs [Design]",
+              "ToolTip": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Forms\\GDR_Form\\GDR_Form.cs [Design]*",
+              "RelativeToolTip": "Geometry Dash Randomiser\\Forms\\GDR_Form\\GDR_Form.cs [Design]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-14T13:28:40.538Z",
               "IsPinned": true,
@@ -119,13 +123,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "GDR_Form.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Forms\\GDR_Form\\GDR_Form.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Forms\\GDR_Form\\GDR_Form.cs",
-              "ToolTip": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Forms\\GDR_Form\\GDR_Form.cs",
-              "RelativeToolTip": "Geometry Dash Randomiser\\Forms\\GDR_Form\\GDR_Form.cs",
-              "ViewState": "AgIAAHEDAAAAAAAAAAAhwH0DAAArAAAAAAAAAA==",
+              "ToolTip": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Forms\\GDR_Form\\GDR_Form.cs*",
+              "RelativeToolTip": "Geometry Dash Randomiser\\Forms\\GDR_Form\\GDR_Form.cs*",
+              "ViewState": "AgIAAAgFAAAAAAAAAAAiwCAFAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-14T13:28:45.261Z",
               "IsPinned": true,
@@ -133,7 +137,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "GDR_Form_Intrinsics.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Forms\\GDR_Form\\GDR_Form_Intrinsics.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Forms\\GDR_Form\\GDR_Form_Intrinsics.cs",
@@ -146,7 +150,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 19,
               "Title": "GameFileManager.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\ControlClasses\\GameFileManager.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\ControlClasses\\GameFileManager.cs",
@@ -159,7 +163,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "FontManager.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\ControlClasses\\FontManager.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\ControlClasses\\FontManager.cs",
@@ -168,12 +172,11 @@
               "ViewState": "AgIAAPkAAAAAAAAAAAAAABABAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-30T11:39:16.728Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "Font.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Objects\\Font\\Font.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Objects\\Font\\Font.cs",
@@ -182,47 +185,7 @@
               "ViewState": "AgIAAHMAAAAAAAAAAAAiwLUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-09-30T09:12:09.065Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CharacterRandomisationSettings.cs",
-              "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Configuration\\Font\\CharacterRandomisationSettings.cs",
-              "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Configuration\\Font\\CharacterRandomisationSettings.cs",
-              "ToolTip": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Configuration\\Font\\CharacterRandomisationSettings.cs",
-              "RelativeToolTip": "Geometry Dash Randomiser\\Configuration\\Font\\CharacterRandomisationSettings.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAswGEAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-24T15:34:40.769Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Range.cs",
-              "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Objects\\Range.cs",
-              "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Objects\\Range.cs",
-              "ToolTip": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Objects\\Range.cs",
-              "RelativeToolTip": "Geometry Dash Randomiser\\Objects\\Range.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-24T13:53:45.184Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "CappedRange.cs",
-              "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Objects\\CappedRange.cs",
-              "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Objects\\CappedRange.cs",
-              "ToolTip": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Objects\\CappedRange.cs",
-              "RelativeToolTip": "Geometry Dash Randomiser\\Objects\\CappedRange.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-24T13:53:23.079Z",
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
@@ -234,7 +197,43 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 7,
+              "Title": "CharacterRandomisationSettings.cs",
+              "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Configuration\\Font\\CharacterRandomisationSettings.cs",
+              "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Configuration\\Font\\CharacterRandomisationSettings.cs",
+              "ToolTip": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Configuration\\Font\\CharacterRandomisationSettings.cs",
+              "RelativeToolTip": "Geometry Dash Randomiser\\Configuration\\Font\\CharacterRandomisationSettings.cs",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAswGEAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-24T15:34:40.769Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Range.cs",
+              "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Objects\\Range.cs",
+              "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Objects\\Range.cs",
+              "ToolTip": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Objects\\Range.cs",
+              "RelativeToolTip": "Geometry Dash Randomiser\\Objects\\Range.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-24T13:53:45.184Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CappedRange.cs",
+              "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Objects\\CappedRange.cs",
+              "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Objects\\CappedRange.cs",
+              "ToolTip": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Objects\\CappedRange.cs",
+              "RelativeToolTip": "Geometry Dash Randomiser\\Objects\\CappedRange.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-24T13:53:23.079Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "Changelog.txt",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Changelog.txt",
               "RelativeDocumentMoniker": "Changelog.txt",
@@ -247,7 +246,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "Math.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Extensions\\Math.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Extensions\\Math.cs",
@@ -259,7 +258,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "LetterSpacingSettings.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Configuration\\Font\\LetterSpacingSettings.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Configuration\\Font\\LetterSpacingSettings.cs",
@@ -267,12 +266,11 @@
               "RelativeToolTip": "Geometry Dash Randomiser\\Configuration\\Font\\LetterSpacingSettings.cs",
               "ViewState": "AgIAAGwAAAAAAAAAAAAkwIUAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-23T13:03:23.966Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-23T13:03:23.966Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "FontRandomisationSettings.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Configuration\\Font\\FontRandomisationSettings.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Configuration\\Font\\FontRandomisationSettings.cs",
@@ -280,24 +278,24 @@
               "RelativeToolTip": "Geometry Dash Randomiser\\Configuration\\Font\\FontRandomisationSettings.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAAowD4AAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-23T13:01:49.302Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-23T13:01:49.302Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Program.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Program.cs",
               "ToolTip": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Program.cs",
               "RelativeToolTip": "Geometry Dash Randomiser\\Program.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwCEAAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAQwBwAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-23T11:27:19.522Z"
+              "WhenOpened": "2026-10-23T11:27:19.522Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "FontSerializer.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Serializers\\FontSerializer.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Serializers\\FontSerializer.cs",
@@ -309,7 +307,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "FontChar.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Objects\\Font\\FontChar.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Objects\\Font\\FontChar.cs",
@@ -321,7 +319,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "Logger.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Debug\\Logger.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Debug\\Logger.cs",
@@ -333,7 +331,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "RandomExtensions.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Extensions\\RandomExtensions.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Extensions\\RandomExtensions.cs",
@@ -341,12 +339,11 @@
               "RelativeToolTip": "Geometry Dash Randomiser\\Extensions\\RandomExtensions.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAA0wC0AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-22T15:35:10.043Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-22T15:35:10.043Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "CreditsForm.Designer.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Forms\\CreditsForm.Designer.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Forms\\CreditsForm.Designer.cs",
@@ -358,7 +355,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "GamesheetManager.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\ControlClasses\\GamesheetManager.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\ControlClasses\\GamesheetManager.cs",
@@ -370,7 +367,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "RandomizationSetting.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Configuration\\RandomizationSetting.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Configuration\\RandomizationSetting.cs",
@@ -378,33 +375,44 @@
               "RelativeToolTip": "Geometry Dash Randomiser\\Configuration\\RandomizationSetting.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-29T21:10:43.373Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-09-29T21:10:43.373Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "IconRandSettings.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Configuration\\IconRandSettings.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Configuration\\IconRandSettings.cs",
               "ToolTip": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Configuration\\IconRandSettings.cs",
               "RelativeToolTip": "Geometry Dash Randomiser\\Configuration\\IconRandSettings.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAowDEAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAIAAAAAAAAAAAADwv44AAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-30T11:25:34.756Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-30T11:25:34.756Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "RandomisationConfig.cs",
               "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Configuration\\RandomisationConfig.cs",
               "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Configuration\\RandomisationConfig.cs",
               "ToolTip": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Configuration\\RandomisationConfig.cs",
               "RelativeToolTip": "Geometry Dash Randomiser\\Configuration\\RandomisationConfig.cs",
-              "ViewState": "AgIAABYBAAAAAAAAAAAkwBwBAABSAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-06T21:00:01.705Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AdvancedConfig.cs",
+              "DocumentMoniker": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Configuration\\AdvancedConfig.cs",
+              "RelativeDocumentMoniker": "Geometry Dash Randomiser\\Configuration\\AdvancedConfig.cs",
+              "ToolTip": "C:\\Visual Studio\\C#\\Winforms\\Geometry-Dash-Randomiser\\Geometry Dash Randomiser\\Configuration\\AdvancedConfig.cs",
+              "RelativeToolTip": "Geometry Dash Randomiser\\Configuration\\AdvancedConfig.cs",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAiwHMAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-25T09:28:51.555Z",
               "EditorCaption": ""
             }
           ]
