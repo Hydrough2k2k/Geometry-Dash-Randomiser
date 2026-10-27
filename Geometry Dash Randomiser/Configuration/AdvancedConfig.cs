@@ -15,7 +15,9 @@ namespace Geometry_Dash_Randomiser {
 
             // This has to be public for JSON deserialization sadly
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public AdvancedConfig() { }
+            public AdvancedConfig() {
+                  _created = DateTime.Now;
+            }
 
             public static AdvancedConfig Instance {
                   get {
@@ -84,7 +86,6 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            // More Log related settings for minimum log value for file and console writing.
             public int MaxLogFileCount {
                   get => _maxLogFileCount;
                   set {
@@ -114,6 +115,10 @@ namespace Geometry_Dash_Randomiser {
             public void SaveConfigAfterDelay() => SaveConfigAfterDelay(this, null);
 
             public void SaveConfigAfterDelay(object sender, EventArgs e) {
+                  TimeSpan elapsedSinceCreated = DateTime.Now - _created;
+                  if (elapsedSinceCreated.Seconds < 1)
+                        return;
+
                   if (_fileSaveQueued == true)
                         return;
 
@@ -188,6 +193,9 @@ namespace Geometry_Dash_Randomiser {
             private bool _debugMode = false;
 
             private bool _fileSaveQueued = false;
+
+            // This exists to make it so upon creation it doesn't immediately try to save the config file
+            private DateTime _created;
 
             const string configFileName = "adv_config.ini";
       }

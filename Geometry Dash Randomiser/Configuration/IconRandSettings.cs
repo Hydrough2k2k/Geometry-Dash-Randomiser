@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Text.Json.Serialization;
-using static System.Windows.Forms.AxHost;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -46,13 +45,22 @@ namespace Geometry_Dash_Randomiser {
             public int Group {
                   get => _group;
                   set {
-                        _group = value.Clamp(0, RandomisationConfig.maxTextureGroups);
+                        _group = Math.Clamp(value, 0, RandomisationConfig.maxTextureGroups);
                         SetAllGroups(_group);
                         InvokeEvent(Updated, null);
                   }
             }
 
-            // These setters only copy the setters' data to the existing readonly fields, thus the reference stays, but the values don't
+            public int PercentageRandomised {
+                  get => _percentageRandomized;
+                  set {
+                        _percentageRandomized = Math.Clamp(value, 0, 100);
+                        SetAllPercentages(_percentageRandomized);
+                        InvokeEvent(Updated, null);
+                  }
+            }
+
+            // These only copy the setters' data to the existing readonly fields, thus the reference stays, but the values don't
             public RandomizationSetting Cube {
                   get => _cube;
                   set {
@@ -128,12 +136,16 @@ namespace Geometry_Dash_Randomiser {
             [JsonIgnore]
             public int TotalSettingsCount => RandomisationSettings.Length;
 
-            private void SetAllEnabled(bool state) {
-                  _randomisationSettings.ToList().ForEach(r => r.Enabled = state);
+            private void SetAllEnabled(bool value) {
+                  _randomisationSettings.ToList().ForEach(r => r.Enabled = value);
             }
 
-            private void SetAllGroups(int group) {
-                  _randomisationSettings.ToList().ForEach(r => r.Group = group);
+            private void SetAllGroups(int value) {
+                  _randomisationSettings.ToList().ForEach(r => r.Group = value);
+            }
+
+            private void SetAllPercentages(int value) {
+                  _randomisationSettings.ToList().ForEach(r => r.PercentageRandomised = value);
             }
 
             public int GetEnabledSettingsCount() {
@@ -157,6 +169,7 @@ namespace Geometry_Dash_Randomiser {
 
             public void CopyDataFrom(IconRandSettings source) {
                   Group = source.Group;
+                  PercentageRandomised = source.PercentageRandomised;
 
                   Cube = source.Cube;
                   Ship = source.Ship;
@@ -169,11 +182,14 @@ namespace Geometry_Dash_Randomiser {
                   Jetpack = source.Jetpack;
             }
 
-            public RandomizationSetting ToRandSetting() {
-                  return new RandomizationSetting(Group, Enabled);
+            public static explicit operator RandomizationSetting(IconRandSettings icrs) => icrs.ToRandSetting();
+
+            private RandomizationSetting ToRandSetting() {
+                  return new RandomizationSetting(Group, Enabled, PercentageRandomised);
             }
 
             private int _group = 0;
+            private int _percentageRandomized = 0;
 
             private readonly RandomizationSetting _cube = new RandomizationSetting(0, true);
             private readonly RandomizationSetting _ship = new RandomizationSetting(0, true);

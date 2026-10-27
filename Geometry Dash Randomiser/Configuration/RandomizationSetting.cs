@@ -8,10 +8,6 @@ namespace Geometry_Dash_Randomiser {
 
             public event EventHandler Updated;
 
-            private bool _enabled;
-            private int _group;
-            private int _percentageRandomised = 100;
-
             public RandomizationSetting() { }
 
             public static RandomizationSetting Default => new RandomizationSetting();
@@ -75,5 +71,9 @@ namespace Geometry_Dash_Randomiser {
             public bool IsEnabledAndGroupIs(int group) {
                   return Enabled == true && group == this.Group;
             }
+
+            private bool _enabled = true;
+            private int _group = 0;
+            private int _percentageRandomised = 100;
       }
 }

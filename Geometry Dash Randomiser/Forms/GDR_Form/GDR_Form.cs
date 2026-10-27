@@ -234,16 +234,10 @@ namespace Geometry_Dash_Randomiser {
                   return ret;
             }
 
-            private void UpdateRandomisationControlsStates(CheckBox checkBox, NumericUpDown groupDisplay, RandomizationSetting setting) {
-                  checkBox.Checked = setting.Enabled;
-                  groupDisplay.Enabled = setting.Enabled;
-                  groupDisplay.Value = setting.Group;
-            }
-
             private void UpdateRandomisationControlsStates(CheckBox checkBox, TextBox textBox, NumericUpDown groupDisplay, RandomizationSetting setting) {
                   checkBox.Checked = setting.Enabled;
                   textBox.Enabled = setting.Enabled;
-                  textBox.Text = setting.PercentageRandomised.ToString() + "%";
+                  textBox.Text = setting.PercentageRandomised + "%";
                   groupDisplay.Enabled = setting.Enabled;
                   groupDisplay.Value = setting.Group;
             }
@@ -251,30 +245,32 @@ namespace Geometry_Dash_Randomiser {
             private void SetAllIconTexturesElementStates() {
                   ToggleAllLinkedControls();
 
-                  UpdateRandomisationControlsStates(IconTexturesCheckbox, IconTexturesGroupDisplay, config.IconTextures.ToRandSetting());
+                  // I know all of these are horribly long, but to keep the names distinct, I kinda have to do this :/
+                  UpdateRandomisationControlsStates(IconTexturesCheckbox, IconTexturesPercentageBox, IconTexturesGroupDisplay, (RandomizationSetting)config.IconTextures);
 
-                  UpdateRandomisationControlsStates(CubeTexturesCheckbox, CubeTexturesGroupDisplay, config.IconTextures.Cube);
-                  UpdateRandomisationControlsStates(ShipTexturesCheckbox, ShipTexturesGroupDisplay, config.IconTextures.Ship);
-                  UpdateRandomisationControlsStates(BallTexturesCheckbox, BallTexturesGroupDisplay, config.IconTextures.Ball);
-                  UpdateRandomisationControlsStates(UFO_TexturesCheckbox, UFO_TexturesGroupDisplay, config.IconTextures.Ufo);
-                  UpdateRandomisationControlsStates(WaveTexturesCheckbox, WaveTexturesGroupDisplay, config.IconTextures.Wave);
-                  UpdateRandomisationControlsStates(RobotTexturesCheckbox, RobotTexturesGroupDisplay, config.IconTextures.Robot);
-                  UpdateRandomisationControlsStates(SpiderTexturesCheckbox, SpiderTexturesGroupDisplay, config.IconTextures.Spider);
-                  UpdateRandomisationControlsStates(SwingTexturesCheckbox, SwingTexturesGroupDisplay, config.IconTextures.Swing);
-                  UpdateRandomisationControlsStates(JetpackTexturesCheckbox, JetpackTexturesGroupDisplay, config.IconTextures.Jetpack);
+                  UpdateRandomisationControlsStates(CubeTexturesCheckbox, CubeTexturesPercentageBox, CubeTexturesGroupDisplay, config.IconTextures.Cube);
+                  UpdateRandomisationControlsStates(ShipTexturesCheckbox, ShipTexturesPercentageBox, ShipTexturesGroupDisplay, config.IconTextures.Ship);
+                  UpdateRandomisationControlsStates(BallTexturesCheckbox, BallTexturesPercentageBox, BallTexturesGroupDisplay, config.IconTextures.Ball);
+                  UpdateRandomisationControlsStates(UFO_TexturesCheckbox, UFO_TexturesPercentageBox, UFO_TexturesGroupDisplay, config.IconTextures.Ufo);
+                  UpdateRandomisationControlsStates(WaveTexturesCheckbox, WaveTexturesPercentageBox, WaveTexturesGroupDisplay, config.IconTextures.Wave);
+                  UpdateRandomisationControlsStates(RobotTexturesCheckbox, RobotTexturesPercentageBox, RobotTexturesGroupDisplay, config.IconTextures.Robot);
+                  UpdateRandomisationControlsStates(SpiderTexturesCheckbox, SpiderTexturesPercentageBox, SpiderTexturesGroupDisplay, config.IconTextures.Spider);
+                  UpdateRandomisationControlsStates(SwingTexturesCheckbox, SwingTexturesPercentageBox, SwingTexturesGroupDisplay, config.IconTextures.Swing);
+                  UpdateRandomisationControlsStates(JetpackTexturesCheckbox, JetpackTexturesPercentageBox, JetpackTexturesGroupDisplay, config.IconTextures.Jetpack);
             }
 
             private void SetAllGameTexturesElementStates() {
-                  UpdateRandomisationControlsStates(MenuTexturesCheckbox, MenuTexturesGroupDisplay, config.MenuTextures);
-                  UpdateRandomisationControlsStates(ShopTexturesCheckbox, ShopTexturesGroupDisplay, config.ShopTextures);
-                  UpdateRandomisationControlsStates(EditorTexturesCheckbox, EditorTexturesGroupDisplay, config.EditorTextures);
-                  UpdateRandomisationControlsStates(BlockTexturesCheckbox, TileTexturesGroupDisplay, config.TileTextures);
-                  UpdateRandomisationControlsStates(PortalTexturesCheckbox, PortalTexturesGroupDisplay, config.PortalTextures);
-                  UpdateRandomisationControlsStates(OrbsTexturesCheckbox, OrbsGroupDisplay, config.OrbTextures);
-                  UpdateRandomisationControlsStates(PadsTexturesCheckbox, PadsGroupDisplay, config.PadTextures);
-                  UpdateRandomisationControlsStates(ParticleTexturesCheckbox, ParticleTexturesGroupDisplay, config.ParticleTextures);
-                  UpdateRandomisationControlsStates(EffectsCheckbox, EffectsGroupDisplay, config.EffectTextures);
-                  UpdateRandomisationControlsStates(MiscCheckbox, MiscGroupDisplay, config.MiscTextures);
+                  // I know all of these are horribly long, but to keep the names distinct, I kinda have to do this :/
+                  UpdateRandomisationControlsStates(MenuTexturesCheckbox, MenuTexturesPercentageBox, MenuTexturesGroupDisplay, config.MenuTextures);
+                  UpdateRandomisationControlsStates(ShopTexturesCheckbox, ShopTexturesPercentageBox, ShopTexturesGroupDisplay, config.ShopTextures);
+                  UpdateRandomisationControlsStates(EditorTexturesCheckbox, EditorTexturesPercentageBox, EditorTexturesGroupDisplay, config.EditorTextures);
+                  UpdateRandomisationControlsStates(BlockTexturesCheckbox, TileTexturesPercentageBox, TileTexturesGroupDisplay, config.TileTextures);
+                  UpdateRandomisationControlsStates(PortalTexturesCheckbox, PortalTexturesPercentageBox, PortalTexturesGroupDisplay, config.PortalTextures);
+                  UpdateRandomisationControlsStates(OrbsTexturesCheckbox, OrbTexturesPercentageBox, OrbTexturesGroupDisplay, config.OrbTextures);
+                  UpdateRandomisationControlsStates(PadsTexturesCheckbox, PadTexturesPercentageBox, PadTexturesGroupDisplay, config.PadTextures);
+                  UpdateRandomisationControlsStates(ParticleTexturesCheckbox, ParticleTexturesPercentageBox, ParticleTexturesGroupDisplay, config.ParticleTextures);
+                  UpdateRandomisationControlsStates(EffectTexturesCheckbox, EffectTexturesPercentageBox, EffectTexturesGroupDisplay, config.EffectTextures);
+                  UpdateRandomisationControlsStates(MiscTexturesCheckbox, MiscTexturesPercentageBox, MiscTexturesGroupDisplay, config.MiscTextures);
             }
 
             #region Font Rand UI Controls
@@ -823,17 +819,14 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void ChangeConfigData(TextBox textBox, RandomizationSetting setting) {
-                  string s = Regex.FilterDigits(textBox.Text);
+                  bool success = textBox.ParseNumericValue(out Int32 result);
                   int newValue = 0;
 
-                  bool success = Int32.TryParse(s, out int result);
                   if (success) {
                         newValue = result;
                   }
 
                   setting.PercentageRandomised = newValue;
-
-                  textBox.Text = setting.PercentageRandomised.ToString() + "%";
             }
 
             #endregion
@@ -887,9 +880,6 @@ namespace Geometry_Dash_Randomiser {
 
             private void IconTexturesGroupChanged(object sender, EventArgs e) {
                   NumericUpDown numericUpDown = sender as NumericUpDown;
-                  if (numericUpDown.Value > 100) {
-                        numericUpDown.Value = 100;
-                  }
 
                   config.IconTextures.Group = (int)numericUpDown.Value;
 
@@ -899,15 +889,21 @@ namespace Geometry_Dash_Randomiser {
                         return;
                   }
 
-                  //CubeTexturesSettingsChanged(sender, e);
-                  //ShipTexturesSettingsChanged(sender, e);
-                  //BallTexturesSettingsChanged(sender, e);
-                  //UFO_TexturesSettingsChanged(sender, e);
-                  //WaveTexturesSettingsChanged(sender, e);
-                  //RobotTexturesSettingsChanged(sender, e);
-                  //SpiderTexturesSettingsChanged(sender, e);
-                  //SwingTexturesSettingsChanged(sender, e);
-                  //JetpackTexturesSettingsChanged(sender, e);
+                  SetAllIconTexturesElementStates();
+                  ValidateReadyState();
+            }
+
+            private void IconTexturesPercentageChanged(object sender, EventArgs e) {
+                  TextBox textBox = sender as TextBox;
+                  bool success = textBox.ParseNumericValue(out Int32 result);
+
+                  config.IconTextures.PercentageRandomised = result;
+
+                  //// If the form is not initialised, skip the rest of the changes
+                  //// Otherwise some of the configuration data will be overwritten when the form is first initialised
+                  if (autoRefreshLinkedControls == false) {
+                        return;
+                  }
 
                   SetAllIconTexturesElementStates();
                   ValidateReadyState();
@@ -960,19 +956,19 @@ namespace Geometry_Dash_Randomiser {
                   => ChangeConfigData(sender, config.PortalTextures, PortalTexturesGroupDisplay);
 
             private void OrbsTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.OrbTextures, OrbsGroupDisplay);
+                  => ChangeConfigData(sender, config.OrbTextures, OrbTexturesGroupDisplay);
 
             private void PadsTexturesSettingChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.PadTextures, PadsGroupDisplay);
+                  => ChangeConfigData(sender, config.PadTextures, PadTexturesGroupDisplay);
 
             private void ParticleTexturesSettingsChanged(object sender, EventArgs e)
                   => ChangeConfigData(sender, config.ParticleTextures, ParticleTexturesGroupDisplay);
 
             private void EffectsTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.EffectTextures, EffectsGroupDisplay);
+                  => ChangeConfigData(sender, config.EffectTextures, EffectTexturesGroupDisplay);
 
             private void MiscTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.MiscTextures, MiscGroupDisplay);
+                  => ChangeConfigData(sender, config.MiscTextures, MiscTexturesGroupDisplay);
 
             #endregion
 
@@ -1446,6 +1442,29 @@ namespace Geometry_Dash_Randomiser {
                   };
 
                   timer.Start();
+            }
+
+            #endregion
+
+            #region Validations
+
+            /// <summary>
+            /// Makes sure the displayed percentage value is accurate to what is in the back end.<br/>
+            /// This should be always called as a "Validated" event
+            /// </summary>
+            /// <param name="sender">The object to update</param>
+            private void ValidatePercentageTextBox(object sender, EventArgs e) {
+                  if (sender is TextBox textbox) {
+                        bool success = Int32.TryParse(Regex.FilterDigits(textbox.Text), out Int32 result);
+                        if (success) {
+                              result = Math.Clamp(result, 0, 100);
+                        }
+
+                        textbox.Text = result + "%";
+
+                  } else {
+                        Logger.Warn("Cannot append percentage to non-TextBox controls");
+                  }
             }
 
             #endregion

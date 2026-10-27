@@ -22,7 +22,7 @@
             public override int Min {
                   get { return _min; }
                   set {
-                        _min = value.Clamp(_minCap, _maxCap);
+                        _min = Math.Clamp(value, _minCap, _maxCap);
 
                         if (_min > _max)
                               _min = _max;
@@ -34,7 +34,7 @@
             public override int Max {
                   get { return _max; }
                   set {
-                        _max = value.Clamp(_minCap, _maxCap);
+                        _max = Math.Clamp(value, _minCap, _maxCap);
 
                         if (_max < _min)
                               _max = _min;

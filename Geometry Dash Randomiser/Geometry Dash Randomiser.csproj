@@ -302,10 +302,10 @@
     <Compile Include="Extensions\BooleanExtensions.cs" />
     <Compile Include="Extensions\ComboBoxExtensions.cs" />
     <Compile Include="Extensions\ControlExtensions.cs" />
-    <Compile Include="Extensions\Int32Extensions.cs" />
     <Compile Include="Extensions\Math.cs" />
     <Compile Include="Extensions\ReadyStateExtensions.cs" />
     <Compile Include="Extensions\Regex.cs" />
+    <Compile Include="Extensions\TextBoxExtensions.cs" />
     <Compile Include="Forms\GDR_Form\GDR_Form_Intrinsics.cs">
       <SubType>Form</SubType>
     </Compile>

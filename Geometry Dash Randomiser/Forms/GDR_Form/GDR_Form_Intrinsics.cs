@@ -13,7 +13,7 @@ namespace Geometry_Dash_Randomiser {
             [DllImport("user32.dll", CharSet = CharSet.Auto)]
             public static extern int GetSysColor(int nIndex);
 
-            public const string version = "V2.5.0.0 D";
+            public const string version = "V2.5.1.0 D";
 
             private readonly TextCorruptor textCorruptor = new TextCorruptor {
                   CorruptionLevel = 0,

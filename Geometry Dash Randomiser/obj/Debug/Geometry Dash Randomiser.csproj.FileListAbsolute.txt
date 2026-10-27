@@ -66,9 +66,6 @@ Z:\Projects\C#\Winforms\Geometry Dash Randomiser - kopie\Geometry Dash Randomise
 Z:\Projects\C#\Winforms\Geometry Dash Randomiser - kopie\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.application
 Z:\Projects\C#\Winforms\Geometry Dash Randomiser - kopie\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.exe
 Z:\Projects\C#\Winforms\Geometry Dash Randomiser - kopie\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.pdb
-Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.exe.config
-Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.csproj.Fody.CopyLocal.cache
-Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.csproj.Fody.RuntimeCopyLocal.cache
 C:\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\Geometry Dash Randomiser.exe.config
 C:\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\Geometry Dash Randomiser.exe.manifest
 C:\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\bin\Debug\Geometry Dash Randomiser.application
@@ -93,3 +90,6 @@ C:\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\o
 C:\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.exe.config
 C:\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.csproj.Fody.CopyLocal.cache
 C:\Visual Studio\C#\Winforms\Geometry-Dash-Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.csproj.Fody.RuntimeCopyLocal.cache
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.exe.config
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.csproj.Fody.CopyLocal.cache
+Z:\Projects\C#\Winforms\Geometry Dash Randomiser\Geometry Dash Randomiser\obj\Debug\Geometry Dash Randomiser.csproj.Fody.RuntimeCopyLocal.cache

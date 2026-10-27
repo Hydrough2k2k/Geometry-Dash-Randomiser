@@ -11,15 +11,6 @@ namespace Geometry_Dash_Randomiser.Helpers {
 
             internal static string Compress(string uncompressedData, CompressionLevel level = CompressionLevel.BestCompression) {
                   string compressedData = Base64.EncodeAndTrim(Zlib.Compress(uncompressedData, level));
-
-                  //      .TrimEnd('=')
-                  //      .TrimEnd('A');
-
-                  //int neededEqualsSigns = 4 - (compressedData.Length % 4);
-                  //if (neededEqualsSigns < 3) {
-                  //      compressedData += new string('=', neededEqualsSigns);
-                  //}
-
                   return compressedData;
             }
 

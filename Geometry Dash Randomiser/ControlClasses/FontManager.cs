@@ -274,15 +274,6 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            private void ReorderCharIDsInFont(ref Font font, Random random) {
-                  int[] newCharIDs = font.GetCharIDs();
-                  random.Shuffle(newCharIDs);
-
-                  for (int i = 0; i < font.Chars.Length; i++) {
-                        font.Chars[i].CharID = newCharIDs[i];
-                  }
-            }
-
             public static void RepackFonts(ref Font[] fonts) {
                   for (int i = 0; i < fonts.Length; i++) {
                         fonts[i].Repack();
@@ -290,6 +281,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public void WriteFontsToDisk() => WriteFontsToDisk(GDR_Path.LocalResourcesOutputFolder, _fonts);
+
             public void WriteFontsToDisk(Font[] fonts) => WriteFontsToDisk(GDR_Path.LocalResourcesOutputFolder, fonts);
 
             public void WriteFontsToDisk(GDR_Path path, Font[] fonts) => WriteFontsToDisk(PathManager.GetPath(path), fonts);
@@ -331,13 +323,6 @@ namespace Geometry_Dash_Randomiser {
                   return allCharIDs.ToArray();
             }
 
-            public static void Dispose(ref Font font) {
-                  for (int ch = 0; ch < font.Chars.Length; ch++) {
-                        font.Chars[ch].Texture.Dispose();
-                  }
-                  font = null;
-            }
-
             public static string[] SerialiseTextFiles(Font[] fonts) {
                   string[] ret = new string[fonts.Length];
                   for (int i = 0; i < fonts.Length; i++) {
@@ -346,13 +331,9 @@ namespace Geometry_Dash_Randomiser {
                   return ret;
             }
 
-            public static string SerialiseTextFile(Font font) {
-                  return font.Serialise();
-            }
+            public static string SerialiseTextFile(Font font) => font.Serialise();
 
-            public static IEnumerable<string> GetAllFileNames(GDR_Path source, Quality quality) {
-                  return GetAllFileNames(PathManager.GetPath(source), quality);
-            }
+            public static IEnumerable<string> GetAllFileNames(GDR_Path source, Quality quality) => GetAllFileNames(PathManager.GetPath(source), quality);
 
             public static IEnumerable<string> GetAllFileNames(string path, Quality quality) {
                   return Directory.GetFiles(path)
