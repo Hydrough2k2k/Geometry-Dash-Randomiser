@@ -389,9 +389,9 @@
                   // MenuTexturesGroupDisplay
                   // 
                   this.MenuTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.MenuTexturesGroupDisplay.Location = new System.Drawing.Point(270, 51);
+                  this.MenuTexturesGroupDisplay.Location = new System.Drawing.Point(275, 51);
                   this.MenuTexturesGroupDisplay.Name = "MenuTexturesGroupDisplay";
-                  this.MenuTexturesGroupDisplay.Size = new System.Drawing.Size(65, 28);
+                  this.MenuTexturesGroupDisplay.Size = new System.Drawing.Size(60, 28);
                   this.MenuTexturesGroupDisplay.TabIndex = 32;
                   this.MenuTexturesGroupDisplay.Value = new decimal(new int[] {
             100,
@@ -403,9 +403,9 @@
                   // EditorTexturesGroupDisplay
                   // 
                   this.EditorTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.EditorTexturesGroupDisplay.Location = new System.Drawing.Point(270, 111);
+                  this.EditorTexturesGroupDisplay.Location = new System.Drawing.Point(275, 111);
                   this.EditorTexturesGroupDisplay.Name = "EditorTexturesGroupDisplay";
-                  this.EditorTexturesGroupDisplay.Size = new System.Drawing.Size(65, 28);
+                  this.EditorTexturesGroupDisplay.Size = new System.Drawing.Size(60, 28);
                   this.EditorTexturesGroupDisplay.TabIndex = 34;
                   this.EditorTexturesGroupDisplay.Value = new decimal(new int[] {
             100,
@@ -417,9 +417,9 @@
                   // ShopTexturesGroupDisplay
                   // 
                   this.ShopTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.ShopTexturesGroupDisplay.Location = new System.Drawing.Point(270, 81);
+                  this.ShopTexturesGroupDisplay.Location = new System.Drawing.Point(275, 81);
                   this.ShopTexturesGroupDisplay.Name = "ShopTexturesGroupDisplay";
-                  this.ShopTexturesGroupDisplay.Size = new System.Drawing.Size(65, 28);
+                  this.ShopTexturesGroupDisplay.Size = new System.Drawing.Size(60, 28);
                   this.ShopTexturesGroupDisplay.TabIndex = 33;
                   this.ShopTexturesGroupDisplay.Value = new decimal(new int[] {
             100,
@@ -431,9 +431,9 @@
                   // ParticleTexturesGroupDisplay
                   // 
                   this.ParticleTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.ParticleTexturesGroupDisplay.Location = new System.Drawing.Point(270, 261);
+                  this.ParticleTexturesGroupDisplay.Location = new System.Drawing.Point(275, 261);
                   this.ParticleTexturesGroupDisplay.Name = "ParticleTexturesGroupDisplay";
-                  this.ParticleTexturesGroupDisplay.Size = new System.Drawing.Size(65, 28);
+                  this.ParticleTexturesGroupDisplay.Size = new System.Drawing.Size(60, 28);
                   this.ParticleTexturesGroupDisplay.TabIndex = 38;
                   this.ParticleTexturesGroupDisplay.Value = new decimal(new int[] {
             100,
@@ -445,9 +445,9 @@
                   // OrbTexturesGroupDisplay
                   // 
                   this.OrbTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.OrbTexturesGroupDisplay.Location = new System.Drawing.Point(270, 201);
+                  this.OrbTexturesGroupDisplay.Location = new System.Drawing.Point(275, 201);
                   this.OrbTexturesGroupDisplay.Name = "OrbTexturesGroupDisplay";
-                  this.OrbTexturesGroupDisplay.Size = new System.Drawing.Size(65, 28);
+                  this.OrbTexturesGroupDisplay.Size = new System.Drawing.Size(60, 28);
                   this.OrbTexturesGroupDisplay.TabIndex = 37;
                   this.OrbTexturesGroupDisplay.Value = new decimal(new int[] {
             100,
@@ -459,9 +459,9 @@
                   // PortalTexturesGroupDisplay
                   // 
                   this.PortalTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.PortalTexturesGroupDisplay.Location = new System.Drawing.Point(270, 171);
+                  this.PortalTexturesGroupDisplay.Location = new System.Drawing.Point(275, 171);
                   this.PortalTexturesGroupDisplay.Name = "PortalTexturesGroupDisplay";
-                  this.PortalTexturesGroupDisplay.Size = new System.Drawing.Size(65, 28);
+                  this.PortalTexturesGroupDisplay.Size = new System.Drawing.Size(60, 28);
                   this.PortalTexturesGroupDisplay.TabIndex = 36;
                   this.PortalTexturesGroupDisplay.Value = new decimal(new int[] {
             100,
@@ -473,9 +473,9 @@
                   // TileTexturesGroupDisplay
                   // 
                   this.TileTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.TileTexturesGroupDisplay.Location = new System.Drawing.Point(270, 141);
+                  this.TileTexturesGroupDisplay.Location = new System.Drawing.Point(275, 141);
                   this.TileTexturesGroupDisplay.Name = "TileTexturesGroupDisplay";
-                  this.TileTexturesGroupDisplay.Size = new System.Drawing.Size(65, 28);
+                  this.TileTexturesGroupDisplay.Size = new System.Drawing.Size(60, 28);
                   this.TileTexturesGroupDisplay.TabIndex = 35;
                   this.TileTexturesGroupDisplay.Value = new decimal(new int[] {
             100,
@@ -487,9 +487,9 @@
                   // MiscTexturesGroupDisplay
                   // 
                   this.MiscTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.MiscTexturesGroupDisplay.Location = new System.Drawing.Point(270, 321);
+                  this.MiscTexturesGroupDisplay.Location = new System.Drawing.Point(275, 321);
                   this.MiscTexturesGroupDisplay.Name = "MiscTexturesGroupDisplay";
-                  this.MiscTexturesGroupDisplay.Size = new System.Drawing.Size(65, 28);
+                  this.MiscTexturesGroupDisplay.Size = new System.Drawing.Size(60, 28);
                   this.MiscTexturesGroupDisplay.TabIndex = 40;
                   this.MiscTexturesGroupDisplay.Value = new decimal(new int[] {
             100,
@@ -501,9 +501,9 @@
                   // EffectTexturesGroupDisplay
                   // 
                   this.EffectTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.EffectTexturesGroupDisplay.Location = new System.Drawing.Point(270, 291);
+                  this.EffectTexturesGroupDisplay.Location = new System.Drawing.Point(275, 291);
                   this.EffectTexturesGroupDisplay.Name = "EffectTexturesGroupDisplay";
-                  this.EffectTexturesGroupDisplay.Size = new System.Drawing.Size(65, 28);
+                  this.EffectTexturesGroupDisplay.Size = new System.Drawing.Size(60, 28);
                   this.EffectTexturesGroupDisplay.TabIndex = 39;
                   this.EffectTexturesGroupDisplay.Value = new decimal(new int[] {
             100,
@@ -1291,9 +1291,9 @@
                   // PadTexturesGroupDisplay
                   // 
                   this.PadTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.PadTexturesGroupDisplay.Location = new System.Drawing.Point(270, 231);
+                  this.PadTexturesGroupDisplay.Location = new System.Drawing.Point(275, 231);
                   this.PadTexturesGroupDisplay.Name = "PadTexturesGroupDisplay";
-                  this.PadTexturesGroupDisplay.Size = new System.Drawing.Size(65, 28);
+                  this.PadTexturesGroupDisplay.Size = new System.Drawing.Size(60, 28);
                   this.PadTexturesGroupDisplay.TabIndex = 88;
                   this.PadTexturesGroupDisplay.Value = new decimal(new int[] {
             100,
@@ -1618,7 +1618,7 @@
                   // 
                   this.label4.AutoSize = true;
                   this.label4.Font = new System.Drawing.Font("Microsoft Tai Le", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.label4.Location = new System.Drawing.Point(224, 24);
+                  this.label4.Location = new System.Drawing.Point(229, 24);
                   this.label4.Name = "label4";
                   this.label4.Size = new System.Drawing.Size(25, 22);
                   this.label4.TabIndex = 10036;
@@ -1628,7 +1628,7 @@
                   // 
                   this.MiscTexturesPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
                   this.MiscTexturesPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.MiscTexturesPercentageBox.Location = new System.Drawing.Point(208, 321);
+                  this.MiscTexturesPercentageBox.Location = new System.Drawing.Point(213, 321);
                   this.MiscTexturesPercentageBox.MaxLength = 4;
                   this.MiscTexturesPercentageBox.Name = "MiscTexturesPercentageBox";
                   this.MiscTexturesPercentageBox.Size = new System.Drawing.Size(60, 28);
@@ -1650,7 +1650,7 @@
                   // 
                   this.EffectTexturesPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
                   this.EffectTexturesPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.EffectTexturesPercentageBox.Location = new System.Drawing.Point(208, 291);
+                  this.EffectTexturesPercentageBox.Location = new System.Drawing.Point(213, 291);
                   this.EffectTexturesPercentageBox.MaxLength = 4;
                   this.EffectTexturesPercentageBox.Name = "EffectTexturesPercentageBox";
                   this.EffectTexturesPercentageBox.Size = new System.Drawing.Size(60, 28);
@@ -1673,7 +1673,7 @@
                   // 
                   this.ParticleTexturesPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
                   this.ParticleTexturesPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.ParticleTexturesPercentageBox.Location = new System.Drawing.Point(208, 261);
+                  this.ParticleTexturesPercentageBox.Location = new System.Drawing.Point(213, 261);
                   this.ParticleTexturesPercentageBox.MaxLength = 4;
                   this.ParticleTexturesPercentageBox.Name = "ParticleTexturesPercentageBox";
                   this.ParticleTexturesPercentageBox.Size = new System.Drawing.Size(60, 28);
@@ -1686,7 +1686,7 @@
                   // 
                   this.label1.AutoSize = true;
                   this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-                  this.label1.Location = new System.Drawing.Point(269, 22);
+                  this.label1.Location = new System.Drawing.Point(274, 22);
                   this.label1.Name = "label1";
                   this.label1.Size = new System.Drawing.Size(60, 22);
                   this.label1.TabIndex = 105;
@@ -1696,7 +1696,7 @@
                   // 
                   this.PadTexturesPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
                   this.PadTexturesPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.PadTexturesPercentageBox.Location = new System.Drawing.Point(208, 231);
+                  this.PadTexturesPercentageBox.Location = new System.Drawing.Point(213, 231);
                   this.PadTexturesPercentageBox.MaxLength = 4;
                   this.PadTexturesPercentageBox.Name = "PadTexturesPercentageBox";
                   this.PadTexturesPercentageBox.Size = new System.Drawing.Size(60, 28);
@@ -1709,7 +1709,7 @@
                   // 
                   this.OrbTexturesPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
                   this.OrbTexturesPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.OrbTexturesPercentageBox.Location = new System.Drawing.Point(208, 201);
+                  this.OrbTexturesPercentageBox.Location = new System.Drawing.Point(213, 201);
                   this.OrbTexturesPercentageBox.MaxLength = 4;
                   this.OrbTexturesPercentageBox.Name = "OrbTexturesPercentageBox";
                   this.OrbTexturesPercentageBox.Size = new System.Drawing.Size(60, 28);
@@ -1722,7 +1722,7 @@
                   // 
                   this.PortalTexturesPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
                   this.PortalTexturesPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.PortalTexturesPercentageBox.Location = new System.Drawing.Point(208, 171);
+                  this.PortalTexturesPercentageBox.Location = new System.Drawing.Point(213, 171);
                   this.PortalTexturesPercentageBox.MaxLength = 4;
                   this.PortalTexturesPercentageBox.Name = "PortalTexturesPercentageBox";
                   this.PortalTexturesPercentageBox.Size = new System.Drawing.Size(60, 28);
@@ -1735,7 +1735,7 @@
                   // 
                   this.TileTexturesPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
                   this.TileTexturesPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.TileTexturesPercentageBox.Location = new System.Drawing.Point(208, 141);
+                  this.TileTexturesPercentageBox.Location = new System.Drawing.Point(213, 141);
                   this.TileTexturesPercentageBox.MaxLength = 4;
                   this.TileTexturesPercentageBox.Name = "TileTexturesPercentageBox";
                   this.TileTexturesPercentageBox.Size = new System.Drawing.Size(60, 28);
@@ -1748,7 +1748,7 @@
                   // 
                   this.EditorTexturesPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
                   this.EditorTexturesPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.EditorTexturesPercentageBox.Location = new System.Drawing.Point(208, 111);
+                  this.EditorTexturesPercentageBox.Location = new System.Drawing.Point(213, 111);
                   this.EditorTexturesPercentageBox.MaxLength = 4;
                   this.EditorTexturesPercentageBox.Name = "EditorTexturesPercentageBox";
                   this.EditorTexturesPercentageBox.Size = new System.Drawing.Size(60, 28);
@@ -1761,7 +1761,7 @@
                   // 
                   this.ShopTexturesPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
                   this.ShopTexturesPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.ShopTexturesPercentageBox.Location = new System.Drawing.Point(208, 81);
+                  this.ShopTexturesPercentageBox.Location = new System.Drawing.Point(213, 81);
                   this.ShopTexturesPercentageBox.MaxLength = 4;
                   this.ShopTexturesPercentageBox.Name = "ShopTexturesPercentageBox";
                   this.ShopTexturesPercentageBox.Size = new System.Drawing.Size(60, 28);
@@ -1774,7 +1774,7 @@
                   // 
                   this.MenuTexturesPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
                   this.MenuTexturesPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.MenuTexturesPercentageBox.Location = new System.Drawing.Point(208, 51);
+                  this.MenuTexturesPercentageBox.Location = new System.Drawing.Point(213, 51);
                   this.MenuTexturesPercentageBox.MaxLength = 4;
                   this.MenuTexturesPercentageBox.Name = "MenuTexturesPercentageBox";
                   this.MenuTexturesPercentageBox.Size = new System.Drawing.Size(60, 28);

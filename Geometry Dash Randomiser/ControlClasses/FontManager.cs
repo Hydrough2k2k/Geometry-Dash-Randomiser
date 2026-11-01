@@ -4,19 +4,14 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using static Geometry_Dash_Randomiser.FontStyleShuffleSettings;
-using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Geometry_Dash_Randomiser {
 
       public class FontManager {
 
-            public FontManager(GameFileManager creator) {
-                  gameFileManager = creator;
-            }
+            public FontManager() { }
 
             // Ideas:
             // Add a field for what percentage of characters should be randomised. Int 0 -> 100
@@ -26,10 +21,7 @@ namespace Geometry_Dash_Randomiser {
             // FixCharacterSpacing
             // AllowDuplicates
 
-            public int fontCount => _fonts.Length;
-            public Font[] Fonts => _fonts;
-
-            public void ReadAllFontFiles(string path, Quality quality) {
+            public void ReadAllFiles(string path, Quality quality) {
                   if (_fonts.Length != 0) {
                         return;
                   }
@@ -39,40 +31,22 @@ namespace Geometry_Dash_Randomiser {
 
                   Logger.Write(Logger.Mode.Info, $"Unpacking {fontFileNames.Count} font files from {PathManager.GetPath(GDR_Path.BackupResourcesFolder)}");
 
-                  gameFileManager.progressState.NewFileBatch(fontFileNames.Count);
+                  ProgressState.Instance.CurrentFileType = GameFileType.Font;
+                  ProgressState.Instance.NewFileBatch(fontFileNames.Count);
 
-                  string outputPath = PathManager.BackupResourcesFolder;
+                  string backupPath = PathManager.BackupResourcesFolder;
 
                   for (int i = 0; i < fontFileNames.Count; i++) {
-                        gameFileManager.progressState.CurrentFile = fontFileNames[i];
+                        ProgressState.Instance.CurrentFile = fontFileNames[i];
 
-                        string textFilePath = Path.Combine(outputPath, fontFileNames[i] + ".fnt");
-                        string gamesheetFilePath = Path.Combine(outputPath, fontFileNames[i] + ".png");
+                        string textFilePath = Path.Combine(backupPath, fontFileNames[i] + ".fnt");
+                        string gamesheetFilePath = Path.Combine(backupPath, fontFileNames[i] + ".png");
 
                         bool textFileFound = File.Exists(textFilePath);
                         bool gamesheetFileFound = File.Exists(gamesheetFilePath);
 
-                        // If both files exist, read and unpack them
-                        if (textFileFound && gamesheetFileFound) {
-                              // Deserialise the new font file
-                              Font newFont = Font.DeserialiseFromPath(textFilePath);
-                              newFont.Name = fontFileNames[i];
-
-                              // Extract and crop all characters from all fontsheets
-                              Rectangle[] cropRects = newFont.GetCharRects();
-                              Bitmap fontsheet = new Bitmap(gamesheetFilePath);
-                              Bitmap[] croppedChars = fontsheet.Multicrop(cropRects);
-
-                              for (int j = 0; j < croppedChars.Length; j++) {
-                                    newFont.Chars[j].Texture = croppedChars[j];
-                              }
-
-                              fontsheet.Dispose();
-
-                              gameFileManager.progressState.CompletedFiles++;
-                              newFontsList.Add(newFont);
-
-                        } else {
+                        // If either file is missing
+                        if (textFileFound == false || gamesheetFileFound == false) {
                               // Log the missing files
                               if (!textFileFound)
                                     Logger.Write(Logger.Mode.Warn, $"The file \"{textFilePath}\" could not be located in the local backup resources folder");
@@ -80,12 +54,32 @@ namespace Geometry_Dash_Randomiser {
                                     Logger.Write(Logger.Mode.Warn, $"The file \"{gamesheetFilePath}\" could not be located in the local backup resources folder");
 
                               // Remove 1 from the total expected files list
-                              gameFileManager.progressState.TotalFiles -= 1;
+                              ProgressState.Instance.TotalFiles -= 1;
 
                               // Finally remove the not found file from the list
                               fontFileNames.RemoveAt(i);
                               i--;
+
+                              continue;
                         }
+
+                        // Otherwise deserialize the new font file
+                        Font newFont = Font.DeserialiseFromPath(textFilePath);
+                        newFont.Name = fontFileNames[i];
+
+                        // Extract and crop all characters from all fontsheets
+                        Rectangle[] cropRects = newFont.GetCharRects();
+                        Bitmap fontsheet = new Bitmap(gamesheetFilePath);
+                        Bitmap[] croppedChars = fontsheet.Multicrop(cropRects, AdvancedConfig.Instance.TextureCropSize);
+
+                        for (int j = 0; j < croppedChars.Length; j++) {
+                              newFont.Chars[j].Texture = croppedChars[j];
+                        }
+
+                        fontsheet.Dispose();
+
+                        ProgressState.Instance.CompletedFiles++;
+                        newFontsList.Add(newFont);
                   }
 
                   _fonts = newFontsList.ToArray();
@@ -282,19 +276,20 @@ namespace Geometry_Dash_Randomiser {
 
             public void WriteFontsToDisk() => WriteFontsToDisk(GDR_Path.LocalResourcesOutputFolder, _fonts);
 
-            public void WriteFontsToDisk(Font[] fonts) => WriteFontsToDisk(GDR_Path.LocalResourcesOutputFolder, fonts);
+            public void WriteFilesToDisk(Font[] fonts) => WriteFontsToDisk(GDR_Path.LocalResourcesOutputFolder, fonts);
 
             public void WriteFontsToDisk(GDR_Path path, Font[] fonts) => WriteFontsToDisk(PathManager.GetPath(path), fonts);
 
             public void WriteFontsToDisk(string path, Font[] fonts) {
                   Directory.CreateDirectory(path);
 
-                  gameFileManager.progressState.NewFileBatch(fonts.Length);
+                  ProgressState.Instance.NewFileBatch(fonts.Length);
+                  ProgressState.Instance.CurrentFileType = GameFileType.Font;
 
                   for (int i = 0; i < fonts.Length; i++) {
                         string fontName = fonts[i].Name;
 
-                        gameFileManager.progressState.CurrentFile = fontName;
+                        ProgressState.Instance.CurrentFile = fontName;
 
                         string textFileName = Path.Combine(path, fontName + ".fnt");
                         string gamesheetFileName = Path.Combine(path, fontName + ".png");
@@ -309,7 +304,7 @@ namespace Geometry_Dash_Randomiser {
                         Bitmap gamesheet = fonts[i].AssembleGamesheet();
                         gamesheet.Save(gamesheetFileName);
 
-                        gameFileManager.progressState.CompletedFiles++;
+                        ProgressState.Instance.CompletedFiles++;
                   }
             }
 
@@ -339,13 +334,12 @@ namespace Geometry_Dash_Randomiser {
                   return Directory.GetFiles(path)
                         .Where(f => Path.GetExtension(f) == ".fnt")
                         .FilterFilesByQuality(quality)
-                        .Where(f => File.Exists(f + ".png") && File.Exists(f + ".fnt"))
+                        //.Where(f => File.Exists(f + ".png") && File.Exists(f + ".fnt"))
                         .Select(f => Path.GetFileName(f));
             }
 
             private Font[] _fonts = Array.Empty<Font>();
 
-            private GameFileManager gameFileManager;
             private RandomisationConfig config = RandomisationConfig.Instance;
       }
 }

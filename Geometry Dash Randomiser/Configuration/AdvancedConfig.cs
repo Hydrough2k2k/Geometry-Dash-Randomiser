@@ -102,6 +102,17 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
+            public int TextureCropSize {
+                  get => _textureCropSize;
+                  set {
+                        if (value < 1) {
+                              _textureCropSize = 256;
+                        } else {
+                              _textureCropSize = value;
+                        }
+                  }
+            }
+
             public static void ReadFile() {
                   if (File.Exists(configFileName)) {
                         string inStream = File.ReadAllText(configFileName);
@@ -174,6 +185,7 @@ namespace Geometry_Dash_Randomiser {
                   ConfigSaveDelay = config.ConfigSaveDelay;
                   MaxLogFileCount = config.MaxLogFileCount;
                   DebugMode = config.DebugMode;
+                  TextureCropSize = config.TextureCropSize;
             }
 
             private string _gameDirectory = string.Empty;
@@ -192,11 +204,15 @@ namespace Geometry_Dash_Randomiser {
 
             private bool _debugMode = false;
 
+            private int _textureCropSize = 256;
+
+            // ------------------------------------------------
+
             private bool _fileSaveQueued = false;
 
             // This exists to make it so upon creation it doesn't immediately try to save the config file
             private DateTime _created;
 
-            const string configFileName = "adv_config.ini";
+            private const string configFileName = "adv_config.ini";
       }
 }

@@ -413,7 +413,7 @@ namespace Geometry_Dash_Randomiser {
             private void UpdateProgressStateObjects(string newDisplayPrint) {
 
                   this.randomisingProgressDisplay.Text = this.textCorruptor.CorruptText(newDisplayPrint);
-                  this.randomisingProgressBar.Value = (int)gameFileManager.progressState.PercentComplete;
+                  this.randomisingProgressBar.Value = (int)ProgressState.Instance.PercentComplete;
             }
 
             private void UpdateProgressElapsedTime(string newTimePrint) {
@@ -455,7 +455,7 @@ namespace Geometry_Dash_Randomiser {
                   string lastTimePrint = string.Empty;
 
                   while (randomisationThread.IsAlive == true) {
-                        string newDisplayPrint = gameFileManager.progressState.GetProgressString();
+                        string newDisplayPrint = ProgressState.Instance.GetProgressString();
                         if (newDisplayPrint != lastDisplayPrint) {
                               lastDisplayPrint = newDisplayPrint;
                               UpdateProgressStateObjects(newDisplayPrint);
@@ -533,7 +533,7 @@ namespace Geometry_Dash_Randomiser {
                   string lastTimePrint = string.Empty;
 
                   while (restoreThread.IsAlive == true) {
-                        string newDisplayPrint = gameFileManager.progressState.GetProgressString();
+                        string newDisplayPrint = ProgressState.Instance.GetProgressString();
                         if (newDisplayPrint != lastDisplayPrint) {
                               lastDisplayPrint = newDisplayPrint;
                               UpdateProgressStateObjects(newDisplayPrint);

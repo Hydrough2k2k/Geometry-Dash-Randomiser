@@ -136,8 +136,8 @@ namespace Geometry_Dash_Randomiser {
 
             private static int maxMode = Enum.GetValues(typeof(SpacingMode)).Length;
 
-            private static int minLevel = 1;
-            private static int maxLevel = 10;
+            private const int minLevel = 1;
+            private const int maxLevel = 10;
 
             public enum SpacingMode { Simple, Advanced }
 

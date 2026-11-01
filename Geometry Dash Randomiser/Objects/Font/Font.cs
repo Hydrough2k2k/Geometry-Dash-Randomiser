@@ -122,11 +122,14 @@ namespace Geometry_Dash_Randomiser {
                   CharacterRandomisationSettings CRS = RandomisationConfig.Instance.FontRand.CharacterRandSettings;
 
                   for (int i = 0; i < Chars.Length; i++) {
+                        // Get the type of each character
                         CharacterType type = Chars[i].CharType;
 
+                        // If we are looking for that type
                         if (characterTypes.HasFlag(type)) {
                               int includeProbability = 0;
 
+                              // Then we get the probability base on what type it is
                               switch (type) {
                                     case CharacterType.Letter:
                                           includeProbability = CRS.Letter.PercentageRandomised;
@@ -148,12 +151,14 @@ namespace Geometry_Dash_Randomiser {
                                           break;
                               }
 
+                              // Then we roll a die to see if we need to include it into the shuffling pool
                               if (random.Next(0, 100) < includeProbability) {
                                     charsToShuffle.Add(Chars[i]);
                               }
                         }
                   }
 
+                  // Then finally shuffle them all
                   ShuffleCharacters(random, ref charsToShuffle);
             }
 

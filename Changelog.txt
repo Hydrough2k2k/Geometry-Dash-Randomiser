@@ -2,7 +2,7 @@ Changelog for V2.5.1.0:
 
 What's New?
  - Added a new setting for what percent of letters in a given category should be shuffled
- - The app saves config after 5 seconds of any setting being changed
+ - The app saves config after 5 seconds of any setting being changed. Configurable in advanced settings
 
 Bugfixes:
  - Made the configuration system a lot more robust. There should be no crashes now. Well, hopefully

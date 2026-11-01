@@ -14,7 +14,7 @@ namespace Geometry_Dash_Randomiser {
                   return ret.ToArray();
             }
 
-            public static string[] FilterFilesByQuality(this IEnumerable<string> files, Quality quality) {
+            public static IEnumerable<string> FilterFilesByQuality(this IEnumerable<string> files, Quality quality) {
                   files = files.Select(f => f.RemoveExtension());
                   if (quality == Quality.Low) {
                         return files
@@ -23,8 +23,7 @@ namespace Geometry_Dash_Randomiser {
                               .ToArray();
                   }
                   return files
-                        .Where(f => f.EndsWith(GetQualityExtension(quality)) == true)
-                        .ToArray();
+                        .Where(f => f.EndsWith(GetQualityExtension(quality)) == true);
             }
 
             public static string GetQualityExtension(Quality quality) {
@@ -36,6 +35,16 @@ namespace Geometry_Dash_Randomiser {
                         default:
                               return string.Empty;
                   }
+            }
+
+            public static Quality GetQualityFromFileName(string fileName) {
+                  if (fileName.EndsWith(GameFilesExtension.GetQualityExtension(Quality.High))) {
+                        return Quality.High;
+
+                  } else if (fileName.EndsWith(GameFilesExtension.GetQualityExtension(Quality.Medium))) {
+                        return Quality.Medium;
+                  }
+                  return Quality.Low;
             }
 
             public static List<string> RemoveQualityExtension(this List<string> str) {

@@ -12,13 +12,13 @@ namespace Geometry_Dash_Randomiser {
             // The Packing rects will be calculated when the gamesheet will be assembled to make working with this less of a nightmare
             // Yeah, I should probably do this
 
-            public static Bitmap Assemble(Sprite[] sprites, PackingRectangle[] rects, PackingRectangle bounds) {
+            public static Bitmap Assemble(ResourceSprite[] sprites, PackingRectangle[] rects, PackingRectangle bounds) {
 
                   Bitmap gamesheet = new Bitmap((int)bounds.Width, (int)bounds.Height);
 
                   for (int i = 0; i < sprites.Length; i++) {
                         // Add 1 pixels to both X and Y axes to account for the 1 pixel added around every sprite to avoid images flowing into each other
-                        gamesheet.PasteImage(sprites[i].texture, (int)rects[i].X + 1, (int)rects[i].Y + 1);
+                        gamesheet.PasteImage(sprites[i].Texture, (int)rects[i].X + 1, (int)rects[i].Y + 1);
                   }
 
                   return gamesheet;

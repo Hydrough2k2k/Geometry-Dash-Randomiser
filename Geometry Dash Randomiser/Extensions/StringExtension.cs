@@ -7,7 +7,8 @@ namespace Geometry_Dash_Randomiser {
 
             public static string RemoveExtension(this string fileName) {
                   int index = fileName.LastIndexOf('.');
-                  if (index == -1) return fileName;
+                  if (index == -1)
+                        return fileName;
 
                   return fileName.Substring(0, index);
             }
@@ -29,12 +30,42 @@ namespace Geometry_Dash_Randomiser {
                   return str.Substring(0, str.Length - index);
             }
 
+            public static bool StartsWithAny(this string str, string[] contains) {
+                  if (contains == null) {
+                        Logger.Error("StringExtension.StartsWithAny: contains is null");
+                        return false;
+                  }
+
+                  for (int i = 0; i < contains.Length; i++) {
+                        if (str.StartsWith(contains[i])) {
+                              return true;
+                        }
+                  }
+                  return false;
+            }
+
             public static bool ContainsAny(this string str, string[] contains) {
-                  if (contains == null)
-                        throw new Exception("Array cannot be null");
+                  if (contains == null) {
+                        Logger.Error("StringExtension.ContainsAny: contains is null");
+                        return false;
+                  }
 
                   for (int i = 0; i < contains.Length; i++) {
                         if (str.Contains(contains[i])) {
+                              return true;
+                        }
+                  }
+                  return false;
+            }
+
+            public static bool EndsWithAny(this string str, string[] contains) {
+                  if (contains == null) {
+                        Logger.Error("StringExtension.EndsWithAny: contains is null");
+                        return false;
+                  }
+
+                  for (int i = 0; i < contains.Length; i++) {
+                        if (str.EndsWith(contains[i])) {
                               return true;
                         }
                   }

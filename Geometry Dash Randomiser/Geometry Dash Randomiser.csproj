@@ -298,6 +298,7 @@
     <Compile Include="Enums\ApplicationState.cs" />
     <Compile Include="Enums\FormatMode.cs" />
     <Compile Include="Enums\GDR_Path.cs" />
+    <Compile Include="Enums\ResourceType.cs" />
     <Compile Include="Extensions\BitmapExtensions.cs" />
     <Compile Include="Extensions\BooleanExtensions.cs" />
     <Compile Include="Extensions\ComboBoxExtensions.cs" />
@@ -353,11 +354,11 @@
     <Compile Include="ControlClasses\FileBlacklist.cs" />
     <Compile Include="Helpers\FileIO.cs" />
     <Compile Include="Objects\Font\Font.cs" />
-    <Compile Include="Objects\GameSheet\FontGameSheet.cs" />
     <Compile Include="Objects\Font\FontKerning.cs" />
     <Compile Include="ControlClasses\FontManager.cs" />
+    <Compile Include="Objects\GameSheet\GameSheet_SpriteAssign.cs" />
+    <Compile Include="Objects\GameSheet\ResourceSprite.cs" />
     <Compile Include="Objects\GameSheet\GameSheet.cs" />
-    <Compile Include="Objects\GameSheet\TextureGameSheet.cs" />
     <Compile Include="Objects\PropertyPair.cs" />
     <Compile Include="Objects\Range.cs" />
     <Compile Include="Serializers\FontSerializer.cs" />
@@ -403,7 +404,6 @@
     <Compile Include="ControlClasses\Randomiser.cs" />
     <Compile Include="Enums\ReadyState.cs" />
     <Compile Include="Libraries\RetpackSharp\RectanglePacker.cs" />
-    <Compile Include="Objects\Sprite.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Configuration\Font\FontRandomisationSettings.cs" />
     <Compile Include="Helpers\TextCorruptor.cs" />
