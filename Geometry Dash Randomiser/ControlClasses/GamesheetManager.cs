@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 using static Geometry_Dash_Randomiser.PathManager;
 
 namespace Geometry_Dash_Randomiser {
@@ -17,7 +18,7 @@ namespace Geometry_Dash_Randomiser {
                   }
 
                   ExtractResourceFiles(GameFileType.Resource, GDR_Path.BackupResourcesFolder);
-                  ExtractResourceFiles(GameFileType.Icon, GDR_Path.BackupResourcesFolder);
+                  ExtractResourceFiles(GameFileType.Icon, GDR_Path.BackupIconsFolder);
             }
 
             public void ExtractResourceFiles(GameFileType fileType, GDR_Path path) {
@@ -28,7 +29,7 @@ namespace Geometry_Dash_Randomiser {
                   ProgressState.Instance.CurrentFileType = fileType;
                   ProgressState.Instance.NewFileBatch(fileNames.Count);
 
-                  string backupPath = PathManager.BackupResourcesFolder;
+                  string backupPath = PathManager.GetPath(path);
 
                   for (int i = 0; i < fileNames.Count; i++) {
                         ProgressState.Instance.CurrentFile = fileNames[i];
@@ -69,28 +70,51 @@ namespace Geometry_Dash_Randomiser {
 
             private GameSheet ExtractGameSheet(string textFilePath, string gamesheetFilePath, GameFileType fileType) {
                   string[] fileData = File.ReadAllLines(textFilePath);
-                  List<ResourceSprite> sprites = Plist.BulkDeserialise(fileData);
-
                   string gameSheetName = Path.GetFileName(textFilePath).RemoveExtension();
-                  GameSheet gameSheet = new GameSheet(gameSheetName);
-                  gameSheet.FileType = fileType;
+                  Bitmap gameSheetTexture = new Bitmap(gamesheetFilePath);
+                  return GameSheet.Deserialize(gameSheetName, fileType, fileData, gameSheetTexture);
+            }
 
-                  Bitmap gamesheet = new Bitmap(gamesheetFilePath);
-                  if (gamesheet == null) {
-                        Logger.Error($"Failed to load gamesheet image from {gamesheetFilePath}");
-                        return null;
+            public void WriteFilesToDisk() => WriteFilesToDisk(_gameSheets.ToArray());
+
+            public static void WriteFilesToDisk(GameSheet[] gameSheets) {
+                  WriteFilesToDisk(gameSheets.Where(g => g.FileType == GameFileType.Resource).ToArray(), PathManager.LocalResourcesOutputFolder, GameFileType.Resource);
+                  WriteFilesToDisk(gameSheets.Where(g => g.FileType == GameFileType.Icon).ToArray(), PathManager.LocalIconsOutputFolder, GameFileType.Icon);
+            }
+
+            private static void WriteFilesToDisk(GameSheet[] gameSheets, string path, GameFileType type) {
+                  Directory.CreateDirectory(path);
+
+                  ProgressState.Instance.NewFileBatch(gameSheets.Length);
+                  ProgressState.Instance.CurrentFileType = type;
+
+                  for (int i = 0; i < gameSheets.Length; i++) {
+                        string gameSheetName = gameSheets[i].FileName;
+
+                        ProgressState.Instance.CurrentFile = gameSheetName;
+
+                        string textFileName = Path.Combine(path, gameSheetName + ".plist");
+                        string gamesheetFileName = Path.Combine(path, gameSheetName + ".png");
+
+                        File.WriteAllLines(textFileName, gameSheets[i].Serialize());
+
+                        Bitmap gameSheetImage = gameSheets[i].AssembleGameSheet();
+
+                        //for (int y = 0; y < gameSheetImage.Height; y++) {
+                        //      for (int x = 0; x < gameSheetImage.Width; x++) {
+                        //            Color ogColor = gameSheets[i].Resource.GetPixel(x, y);
+                        //            Color newColor = gameSheetImage.GetPixel(x, y);
+
+                        //            if (ogColor.A != newColor.A || ogColor.R != newColor.R || ogColor.G != newColor.G || ogColor.B != newColor.B) {
+                        //                  gameSheetImage.SetPixel(x, y, Color.Red);
+                        //            }
+                        //      }
+                        //}
+
+                        gameSheetImage.Save(gamesheetFileName);
+
+                        ProgressState.Instance.CompletedFiles++;
                   }
-
-                  Rectangle[] rects = sprites.Select(s => s.CroppingRect).ToArray();
-                  Bitmap[] cropped = gamesheet.Multicrop(rects, AdvancedConfig.Instance.TextureCropSize);
-                  gamesheet.Dispose();
-
-                  for (int i = 0; i < sprites.Count; i++) {
-                        sprites[i].Texture = cropped[i];
-                  }
-
-                  gameSheet.Sprites = sprites.ToArray();
-                  return gameSheet;
             }
 
             public static IEnumerable<string> GetAllFileNames(GDR_Path source, Quality quality)
@@ -100,7 +124,6 @@ namespace Geometry_Dash_Randomiser {
                   return Directory.GetFiles(path)
                         .Where(f => Path.GetExtension(f) == ".plist")
                         .FilterFilesByQuality(quality)
-                        //.Where(f => File.Exists(f + ".png") && File.Exists(f + ".plist"))
                         .Select(f => Path.GetFileName(f));
             }
 

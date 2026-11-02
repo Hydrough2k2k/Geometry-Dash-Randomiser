@@ -59,11 +59,7 @@ namespace Geometry_Dash_Randomiser {
                   "</plist>"
             };
 
-            public static List<ResourceSprite> BulkDeserialise(List<string> source) {
-                  return BulkDeserialise(source.ToArray());
-            }
-
-            public static List<ResourceSprite> BulkDeserialise(string[] source) {
+            public static ResourceSprite[] BulkDeserialize(string[] source) {
                   List<ResourceSprite> sprites = new List<ResourceSprite>();
                   int i = 0;
 
@@ -102,7 +98,7 @@ namespace Geometry_Dash_Randomiser {
                         }
                   }
 
-                  return sprites;
+                  return sprites.ToArray();
             }
 
             public static ResourceSprite Deserialise(string[] source) {
@@ -151,7 +147,6 @@ namespace Geometry_Dash_Randomiser {
                         }
                   }
 
-                  // I am not sure why this exists anymore, but I'm sure there is a reason for why it's here
                   //if (sprite.Rotated) {
                   //      sprite.TextureRect = new Rectangle(sprite.TextureRect.X, sprite.TextureRect.Y, sprite.TextureRect.Height, sprite.TextureRect.Width);
                   //}
@@ -167,7 +162,7 @@ namespace Geometry_Dash_Randomiser {
                   return line.Substring(8, line.Length - 17);
             }
 
-            static string ConvertToString(this string value) {
+            static string ConvertToStringKey(this string value) {
                   return "<string>" + value + "</string>";
             }
 
@@ -215,7 +210,7 @@ namespace Geometry_Dash_Randomiser {
                   return "<string>" + value.ToStringSimple() + "</string>";
             }
 
-            public static string[] Serialise(ResourceSprite[] sprites, PackingRectangle[] newRects, string fileName, Size bitmapSize) {
+            public static string[] Serialize(ResourceSprite[] sprites, PackingRectangle[] newRects, string fileName, Size bitmapSize) {
                   List<string> ret = new List<string>();
                   ret.AddRange(fileBegin);
 
@@ -242,9 +237,9 @@ namespace Geometry_Dash_Randomiser {
 
                   // Add the custom metadata
                   string[] ending = (string[]) fileEnd.Clone();
-                  ending[11] += (fileName + ".png").ConvertToString();
+                  ending[11] += (fileName + ".png").ConvertToStringKey();
                   ending[13] += bitmapSize.ConvertToString();
-                  ending[18] += (fileName + ".png").ConvertToString();
+                  ending[18] += (fileName + ".png").ConvertToStringKey();
 
                   ret.AddRange(ending);
                   return ret.ToArray();
@@ -277,9 +272,9 @@ namespace Geometry_Dash_Randomiser {
 
                   // Add the custom metadata
                   string[] ending = (string[])fileEnd.Clone();
-                  ending[11] += (fileName + ".png").ConvertToString();
+                  ending[11] += (fileName + ".png").ConvertToStringKey();
                   ending[13] += bitmapSize.ConvertToString();
-                  ending[18] += (fileName + ".png").ConvertToString();
+                  ending[18] += (fileName + ".png").ConvertToStringKey();
 
                   ret.AddRange(ending);
                   return ret.ToArray();

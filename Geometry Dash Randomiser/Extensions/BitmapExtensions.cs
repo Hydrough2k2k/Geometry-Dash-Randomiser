@@ -39,21 +39,16 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public static Bitmap cropImage(this Bitmap img, int x, int y, int width, int height) {
-                  return cropImage(img, new Rectangle(new Point(x, y), new Size(width, height)));
+                  return CropImage(img, new Rectangle(new Point(x, y), new Size(width, height)));
             }
 
             public static Bitmap cropImage(this Bitmap img, Point point, Size size) {
-                  return cropImage(img, new Rectangle(point, size));
+                  return CropImage(img, new Rectangle(point, size));
             }
 
-            public static Bitmap cropImage(this Bitmap img, Rectangle cropArea) {
+            public static Bitmap CropImage(this Bitmap img, Rectangle cropArea) {
 
                   if (cropArea.X + cropArea.Width > img.Width || cropArea.Y + cropArea.Height > img.Height) {
-                        // Removed for now, as it just spams a bilion messages.
-                        // The cropping algo needs updating for this to go away.
-                        // I will delegate this to my future self, as any good programmer would
-                        //Log.Write(Log.Mode.Error, $"Cropping area {cropArea} is partially out of the image {img.Size}. Adjusting crop area to fit within the image bounds.");
-
                         cropArea = new Rectangle(new Point(cropArea.X, cropArea.Y), new Size(img.Width - cropArea.X, img.Height - cropArea.Y));
                   }
 
@@ -68,20 +63,17 @@ namespace Geometry_Dash_Randomiser {
                             cropArea,
                             GraphicsUnit.Pixel);
                   }
+
                   return target;
             }
 
-            // Overload to support Lists and not just arrays
-            public static Bitmap[] Multicrop(this Bitmap source, List<Rectangle> crops, int sliceSize, float sliceThresholdMuiltiplier = 1.25f)
-                  => Multicrop(source, crops.ToArray(), sliceSize, sliceThresholdMuiltiplier);
-
-            public static Bitmap[] Multicrop(this Bitmap source, Rectangle[] crops, int sliceSize, float sliceThresholdMuiltiplier = 1.25f) {
-                  if (source.Width > sliceSize * sliceThresholdMuiltiplier || source.Height > sliceSize * sliceThresholdMuiltiplier) {
+            public static Bitmap[] Multicrop(this Bitmap source, Rectangle[] crops, int sliceSize) {
+                  if (source.Width > sliceSize || source.Height > sliceSize ) {
                         Bitmap[,] slices = source.Slice(sliceSize);
                         Bitmap[] ret = MulticropFromSlices(slices, crops, sliceSize);
                         slices.Dispose();
-
                         return ret;
+
                   } else {
                         return Multicrop(source, crops);
                   }
@@ -90,7 +82,7 @@ namespace Geometry_Dash_Randomiser {
             static Bitmap[] Multicrop(this Bitmap source, Rectangle[] crops) {
                   Bitmap[] ret = new Bitmap[crops.Length];
                   for (int i = 0; i < crops.Length; i++)
-                        ret[i] = source.cropImage(crops[i]);
+                        ret[i] = source.CropImage(crops[i]);
                   return ret;
             }
 
@@ -111,7 +103,7 @@ namespace Geometry_Dash_Randomiser {
                               cropRect = new Rectangle(point, size);
 
                               // Crop the image from a subsheet, since it's entirely within it
-                              ret[i] = source[column, row].cropImage(cropRect);
+                              ret[i] = source[column, row].CropImage(cropRect);
 
                         } else {
                               // Cropping from the subsheets. Way faster than copying from the big gamesheet
@@ -187,7 +179,12 @@ namespace Geometry_Dash_Randomiser {
                               Size size = new Size(columnWidths[x - startingColumn], rowHeights[y - startingRow]);
 
                               Rectangle crop = new Rectangle(point, size);
-                              Bitmap fragment = source[x, y].cropImage(crop);
+
+                              if (x >= source.GetLength(0) || y >= source.GetLength(1)) {
+                                    continue;
+                              }
+
+                              Bitmap fragment = source[x, y].CropImage(crop);
                               ret.PasteImage(fragment, X_offset, Y_offset);
 
                               X_offset += columnWidths[x - startingColumn];
@@ -216,7 +213,7 @@ namespace Geometry_Dash_Randomiser {
                               Point point = new Point(x * maxSliceSize, y * maxSliceSize);
                               Size size = new Size(cropWidth, cropHeight);
 
-                              sub[x, y] = cropImage(b, new Rectangle(point, size));
+                              sub[x, y] = CropImage(b, new Rectangle(point, size));
                         }
                   }
                   return sub;
@@ -263,8 +260,7 @@ namespace Geometry_Dash_Randomiser {
             /// <param name="clipOk">see comments above, not used if upsizeOk = true</param>
             /// <param name="backgroundColor">color to fill exposed parts of the background</param>
             /// <returns>new Bitmap object, may be larger than input image</returns>
-            public static Bitmap RotateImage_2(this Bitmap inputImage, float angleDegrees, bool upsizeOk = true,
-                                             bool clipOk = false) {
+            public static Bitmap RotateImage_2(this Bitmap inputImage, float angleDegrees, bool upsizeOk = true, bool clipOk = false) {
                   Color backgroundColor = Color.Transparent;
 
                   // Test for zero rotation and return a clone of the input image

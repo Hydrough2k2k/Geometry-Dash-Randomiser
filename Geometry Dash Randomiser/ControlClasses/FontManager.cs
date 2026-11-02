@@ -274,13 +274,13 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            public void WriteFontsToDisk() => WriteFontsToDisk(GDR_Path.LocalResourcesOutputFolder, _fonts);
+            public void WriteFilesToDisk() => WriteFilesToDisk(GDR_Path.LocalResourcesOutputFolder, _fonts);
 
-            public void WriteFilesToDisk(Font[] fonts) => WriteFontsToDisk(GDR_Path.LocalResourcesOutputFolder, fonts);
+            public static void WriteFilesToDisk(Font[] fonts) => WriteFilesToDisk(GDR_Path.LocalResourcesOutputFolder, fonts);
 
-            public void WriteFontsToDisk(GDR_Path path, Font[] fonts) => WriteFontsToDisk(PathManager.GetPath(path), fonts);
+            public static void WriteFilesToDisk(GDR_Path path, Font[] fonts) => WriteFilesToDisk(PathManager.GetPath(path), fonts);
 
-            public void WriteFontsToDisk(string path, Font[] fonts) {
+            public static void WriteFilesToDisk(string path, Font[] fonts) {
                   Directory.CreateDirectory(path);
 
                   ProgressState.Instance.NewFileBatch(fonts.Length);
@@ -296,11 +296,9 @@ namespace Geometry_Dash_Randomiser {
 
                         using (FileStream fs = File.Create(textFileName)) {
                               byte[] encodedText = new UTF8Encoding(true).GetBytes(fonts[i].Serialise());
-                              //byte[] encodedText = Encoding.UTF8.GetBytes(fonts[i].Serialise());
                               fs.Write(encodedText, 0, encodedText.Length);
                         }
 
-                        //File.WriteAllText(textFileName, fonts[i].Serialise());
                         Bitmap gamesheet = fonts[i].AssembleGamesheet();
                         gamesheet.Save(gamesheetFileName);
 

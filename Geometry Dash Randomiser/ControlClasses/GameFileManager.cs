@@ -124,19 +124,20 @@ namespace Geometry_Dash_Randomiser {
                   CreateFolders();
 
                   this.progressState.CurrentStage = ApplicationState.Backing_Up;
-                  backupOriginalFiles();
+                  BackupOriginalFiles();
 
                   this.progressState.CurrentStage = ApplicationState.Unpacking;
                   gamesheetManager.ReadAllFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
                   //fontManager.ReadAllFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
 
                   this.progressState.CurrentStage = ApplicationState.Randomising;
+                  //GameSheet[] randomisedSprites = gamesheetManager.RandomiseFiles(seed);
                   //Font[] randomisedFonts = fontManager.RandomiseFiles(seed);
-                  //ResourceSprite[] randomisedSprites = gamesheetManager.RandomiseFiles(seed);
 
                   this.progressState.CurrentStage = ApplicationState.Repackaging;
+                  gamesheetManager.WriteFilesToDisk();
+                  //gamesheetManager.WriteFilesToDisk(randomisedSprites);
                   //fontManager.WriteFilesToDisk(randomisedFonts);
-                  //gamesheetManager.WriteFontsToDisk(randomisedSprites);
 
                   //if (AdvancedConfig.Instance.AutoOverwriteFiles == true) {
                   //      AutoOverwriteFiles();
@@ -151,7 +152,7 @@ namespace Geometry_Dash_Randomiser {
                   Directory.CreateDirectory(PathManager.BackupResourcesFolder);
             }
 
-            public void backupOriginalFiles() {
+            public void BackupOriginalFiles() {
                   this.progressState.CurrentFileType = GameFileType.Resource;
                   BackupGameFiles(GDR_Path.GameResourcesFolder, GDR_Path.BackupResourcesFolder, GameFileType.Resource);
                   this.progressState.CurrentFileType = GameFileType.Icon;
@@ -216,90 +217,6 @@ namespace Geometry_Dash_Randomiser {
                         Logger.Write(Logger.Mode.Info, $"Copied {copiedFiles} files\n\tfrom {PathManager.GetPath(source)}\n\tto {PathManager.GetPath(dest)}");
                   }
             }
-
-            //public List<Sprite> ExtractGameFiles() {
-            //      List<Sprite> extractedSprites = new List<Sprite>();
-
-            //      extractedSprites.AddRange(ExtractResourceFiles(GameFileType.Resource, GDR_Path.BackupResourcesFolder));
-            //      extractedSprites.AddRange(ExtractResourceFiles(GameFileType.Icon, GDR_Path.BackupIconsFolder));
-
-            //      return extractedSprites;
-            //}
-
-            //public List<Sprite> ExtractResourceFiles(GameFileType type, GDR_Path path) {
-            //      List<Sprite> extractedSprites = new List<Sprite>();
-
-            //      this.progressState.CurrentFileType = type;
-
-            //      string[] files = GamesheetManager.GetAllFileNames(path, AdvancedConfig.Instance.Quality)
-            //            .Select(f => Path.Combine(PathManager.GetPath(path), f)).ToArray();
-
-            //      Logger.Write(Logger.Mode.Info, $"Unpacking {files.Length} {type.ToString().ToLower()} files from {PathManager.GetPath(path)}");
-
-            //      this.progressState.NewFileBatch(files.Length);
-
-            //      for (int i = 0; i < files.Length; i++) {
-            //            this.progressState.CurrentFile = Path.GetFileName(files[i]);
-            //            extractedSprites.AddRange(getAllSpritesFromGameFile(files[i]));
-            //            this.progressState.CompletedFiles++;
-            //      }
-
-            //      return extractedSprites;
-            //}
-
-            //public List<Sprite> getAllSpritesOfType(ResourceType type) {
-            //      return spriteList.Where(s => s.ResourceType == type).ToList();
-            //}
-
-            //public List<Sprite> getAllSpritesOfType(IconType iconType) {
-            //      return spriteList.Where(s => s.IconType == iconType).ToList();
-            //}
-
-            //List<Sprite> getAllSpritesFromGameFile(string path) {
-            //      string textFile = path + ".plist";
-            //      string imageFile = path + ".png";
-                  
-            //      if (!File.Exists(textFile) || !File.Exists(imageFile)) {
-            //            return new List<Sprite>();
-            //      }
-
-            //      string[] data = File.ReadAllLines(textFile);
-            //      List<Sprite> sprites = Plist.BulkDeserialise(data);
-
-            //      string fileName = Path.GetFileName(path).RemoveExtension();
-                  
-            //      for (int i = 0; i < sprites.Count; i++) {
-            //            sprites[i].SourceFile = fileName;
-            //            sprites[i].AssignType();
-
-            //            sprites[i].CropRect = sprites[i].TextureRect;
-            //      }
-
-            //      if (fileName.StartsWith("GJ_GameSheet03") == false &&
-            //            fileName.StartsWith("PixelSheet_01") == false) {
-
-            //            for (int i = 0; i < sprites.Count; i++) {
-
-            //                  sprites[i].CropRect = new Rectangle(
-            //                        sprites[i].TextureRect.X - 1, sprites[i].TextureRect.Y - 1,
-            //                        sprites[i].TextureRect.Width + 2, sprites[i].TextureRect.Height + 2);
-            //            }
-            //      }
-
-            //      Rectangle[] rects = sprites.Select(s => s.CropRect).ToArray();
-            //      int sliceSize = 512;
-            //      Bitmap gamesheet = new Bitmap(imageFile);
-            //      Bitmap[] cropped = gamesheet.Multicrop(rects, sliceSize);
-
-            //      for (int i = 0; i < cropped.Length; i++) {
-            //            sprites[i].Texture = cropped[i];
-            //      }
-
-            //      // Free memory
-            //      gamesheet.Dispose();
-
-            //      return sprites;
-            //}
 
             //void RandomiseData(int seed) {
             //      Logger.Write(Logger.Mode.Info, $"Randomising game data using the seed {seed}");

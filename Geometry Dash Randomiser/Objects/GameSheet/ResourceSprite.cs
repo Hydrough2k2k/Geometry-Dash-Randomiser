@@ -54,12 +54,14 @@ namespace Geometry_Dash_Randomiser {
 
             /// <summary>
             /// Gets the rectangle we need to crop from the full gamesheet.<br/>
-            /// If the texture is rotated, we swap the Width and Height values
+            /// If the texture is rotated, we swap the Width and Height values.<br/><br/>
+            /// Also adds 1 pixel of padding to each side of the rectangle, since some sprites are missing 1 pixel on either side.<br/>
+            /// This seems like the easiest solution for now
             /// </summary>
             private Rectangle GetCroppingRect() {
                   if (Rotated)
-                        return new Rectangle(TextureRect.X, TextureRect.Y, TextureRect.Height, TextureRect.Width);
-                  return TextureRect;
+                        return new Rectangle(TextureRect.X - 1, TextureRect.Y - 1, TextureRect.Height + 2, TextureRect.Width + 2);
+                  return new Rectangle(TextureRect.X - 1, TextureRect.Y - 1, TextureRect.Width + 2, TextureRect.Height + 2); ;
             }
       }
 }

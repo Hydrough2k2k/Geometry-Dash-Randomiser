@@ -26,20 +26,20 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private static string GetDays(this TimeSpan timeSpan) {
-                  return timeSpan.Days > 0 ? $"{timeSpan.Days:D1} h" : string.Empty;
+                  return $"{timeSpan.Days:D1} h";
             }
 
             private static string GetHours(this TimeSpan timeSpan) {
-                  return timeSpan.Hours > 0 ? $"{timeSpan.Hours:D1} h" : string.Empty;
+                  return $"{timeSpan.Hours:D1} h";
             }
 
             private static string GetMinutes(this TimeSpan timeSpan) {
-                  return timeSpan.Minutes > 0 ? $"{timeSpan.Minutes:D1} m" : string.Empty;
+                  return $"{timeSpan.Minutes:D1} m";
             }
 
             private static string GetSeconds(this TimeSpan timeSpan, bool includeMillisec = true) {
                   if (includeMillisec) {
-                        return timeSpan.Seconds > 0 ? $"{timeSpan.Seconds:D1}.{timeSpan.Milliseconds:D3} s" : string.Empty;
+                        return $"{timeSpan.Seconds:D1}.{timeSpan.Milliseconds:D3} s";
 
                   } else {
                         return timeSpan.Seconds > 0 ? $"{timeSpan.Seconds:D1} s" : string.Empty;
