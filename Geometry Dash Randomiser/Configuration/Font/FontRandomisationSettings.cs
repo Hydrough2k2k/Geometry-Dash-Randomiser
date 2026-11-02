@@ -41,7 +41,7 @@ namespace Geometry_Dash_Randomiser {
             public LetterSpacingSettings LetterSpacingSettings {
                   get => _letterSpacingSettings;
                   set {
-                        _letterSpacingSettings.CopyDataFrom(value ?? Geometry_Dash_Randomiser.LetterSpacingSettings.Default);
+                        _letterSpacingSettings.CopyDataFrom(value ?? LetterSpacingSettings.Default);
                         InvokeEvent(Updated, null);
                   }
             }

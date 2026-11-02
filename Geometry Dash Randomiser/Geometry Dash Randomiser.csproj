@@ -349,7 +349,7 @@
     </Compile>
     <Compile Include="Objects\Color2.cs" />
     <Compile Include="Extensions\ColorExtensions.cs" />
-    <Compile Include="Configuration\RandomisationConfig.cs" />
+    <Compile Include="Configuration\RandomizationConfig.cs" />
     <Compile Include="Forms\CreditsForm.cs">
       <SubType>Form</SubType>
     </Compile>

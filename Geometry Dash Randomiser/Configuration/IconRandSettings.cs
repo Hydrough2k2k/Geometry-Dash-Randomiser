@@ -45,7 +45,7 @@ namespace Geometry_Dash_Randomiser {
             public int Group {
                   get => _group;
                   set {
-                        _group = Math.Clamp(value, 0, RandomisationConfig.maxTextureGroups);
+                        _group = Math.Clamp(value, 0, RandomizationConfig.maxTextureGroups);
                         SetAllGroups(_group);
                         InvokeEvent(Updated, null);
                   }
@@ -64,7 +64,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Cube {
                   get => _cube;
                   set {
-                        _cube.CopyDataFrom(value ?? RandomizationSetting.Default);
+                        _cube.CopyDataFrom(value ?? _defaultCube);
                         InvokeEvent(Updated, null);
                   }
             }
@@ -72,7 +72,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Ship {
                   get => _ship;
                   set {
-                        _ship.CopyDataFrom(value ?? RandomizationSetting.Default);
+                        _ship.CopyDataFrom(value ?? _defaultShip);
                         InvokeEvent(Updated, null);
                   }
             }
@@ -80,7 +80,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Ball {
                   get => _ball;
                   set {
-                        _ball.CopyDataFrom(value ?? RandomizationSetting.Default);
+                        _ball.CopyDataFrom(value ?? _defaultBall);
                         InvokeEvent(Updated, null);
                   }
             }
@@ -88,7 +88,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Ufo {
                   get => _ufo;
                   set {
-                        _ufo.CopyDataFrom(value ?? RandomizationSetting.Default);
+                        _ufo.CopyDataFrom(value ?? _defaultUfo);
                         InvokeEvent(Updated, null);
                   }
             }
@@ -96,7 +96,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Wave {
                   get => _wave;
                   set {
-                        _wave.CopyDataFrom(value ?? RandomizationSetting.Default);
+                        _wave.CopyDataFrom(value ?? _defaultWave);
                         InvokeEvent(Updated, null);
                   }
             }
@@ -104,7 +104,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Robot {
                   get => _robot;
                   set {
-                        _robot.CopyDataFrom(value ?? RandomizationSetting.Default);
+                        _robot.CopyDataFrom(value ?? _defaultRobot);
                         InvokeEvent(Updated, null);
                   }
             }
@@ -112,7 +112,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Spider {
                   get => _spider;
                   set {
-                        _spider.CopyDataFrom(value ?? RandomizationSetting.Default);
+                        _spider.CopyDataFrom(value ?? _defaultSpider);
                         InvokeEvent(Updated, null);
                   }
             }
@@ -120,7 +120,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Swing {
                   get => _swing;
                   set {
-                        _swing.CopyDataFrom(value ?? RandomizationSetting.Default);
+                        _swing.CopyDataFrom(value ?? _defaultSwing);
                         InvokeEvent(Updated, null);
                   }
             }
@@ -128,7 +128,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Jetpack {
                   get => _jetpack;
                   set {
-                        _jetpack.CopyDataFrom(value ?? RandomizationSetting.Default);
+                        _jetpack.CopyDataFrom(value ?? _defaultJetpack);
                         InvokeEvent(Updated, null);
                   }
             }
@@ -185,20 +185,30 @@ namespace Geometry_Dash_Randomiser {
             public static explicit operator RandomizationSetting(IconRandSettings icrs) => icrs.ToRandSetting();
 
             private RandomizationSetting ToRandSetting() {
-                  return new RandomizationSetting(Group, Enabled, PercentageRandomised);
+                  return new RandomizationSetting(Group, Enabled, PercentageRandomised, ResourceType.Unknown);
             }
 
             private int _group = 0;
             private int _percentageRandomized = 0;
 
-            private readonly RandomizationSetting _cube = new RandomizationSetting(0, true);
-            private readonly RandomizationSetting _ship = new RandomizationSetting(0, true);
-            private readonly RandomizationSetting _ball = new RandomizationSetting(0, true);
-            private readonly RandomizationSetting _ufo = new RandomizationSetting(0, true);
-            private readonly RandomizationSetting _wave = new RandomizationSetting(0, true);
-            private readonly RandomizationSetting _robot = new RandomizationSetting(0, true);
-            private readonly RandomizationSetting _spider = new RandomizationSetting(0, true);
-            private readonly RandomizationSetting _swing = new RandomizationSetting(0, true);
-            private readonly RandomizationSetting _jetpack = new RandomizationSetting(0, true);
+            private readonly RandomizationSetting _cube = _defaultCube;
+            private readonly RandomizationSetting _ship = _defaultShip;
+            private readonly RandomizationSetting _ball = _defaultBall;
+            private readonly RandomizationSetting _ufo = _defaultUfo;
+            private readonly RandomizationSetting _wave = _defaultWave;
+            private readonly RandomizationSetting _robot = _defaultRobot;
+            private readonly RandomizationSetting _spider = _defaultSpider;
+            private readonly RandomizationSetting _swing = _defaultSwing;
+            private readonly RandomizationSetting _jetpack = _defaultJetpack;
+
+            private static RandomizationSetting _defaultCube => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Cube);
+            private static RandomizationSetting _defaultShip => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Ship);
+            private static RandomizationSetting _defaultBall => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Ball);
+            private static RandomizationSetting _defaultUfo => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.UFO);
+            private static RandomizationSetting _defaultWave => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Wave);
+            private static RandomizationSetting _defaultRobot => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Robot);
+            private static RandomizationSetting _defaultSpider => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Spider);
+            private static RandomizationSetting _defaultSwing => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Swing);
+            private static RandomizationSetting _defaultJetpack => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Jetpack);
       }
 }

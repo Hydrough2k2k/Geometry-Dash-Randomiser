@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using static Geometry_Dash_Randomiser.RandomisationConfig;
+using static Geometry_Dash_Randomiser.RandomizationConfig;
 
 namespace Geometry_Dash_Randomiser {
 

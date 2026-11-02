@@ -12,6 +12,8 @@ namespace Geometry_Dash_Randomiser {
 
             public GamesheetManager() { }
 
+            public List<GameSheet> GameSheets => _gameSheets;
+
             public void ReadAllFiles(string path, Quality quality) {
                   if (_gameSheets.Count != 0) {
                         return;
@@ -75,11 +77,86 @@ namespace Geometry_Dash_Randomiser {
                   return GameSheet.Deserialize(gameSheetName, fileType, fileData, gameSheetTexture);
             }
 
+            public void RandomizeFiles(Random random) {
+                  // Get a list of randomization settings, and filter for ones that are enabled
+                  RandomizationSetting[] randSettings = RandomizationConfig.Instance.GetAllRandSettings().Where(r => r.Enabled).ToArray();
+
+                  int[] groups = RandomizationConfig.Instance.GetDistinctGroups().ToArray();
+                  Array.Sort(groups);
+
+                  for (int g = 0; g < groups.Length; g++) {
+                        // Skip group 0, as it is a special case
+                        if (groups[g] == 0)
+                              continue;
+
+                        // Get every sprite we want to shuffle
+                        List<ResourceSprite> sprites = GetAllSpritesByGroup(randSettings, groups[g], random);
+                        ShuffleSprites(sprites, random);
+                  }
+
+                  if (groups[0] == 0) {
+                        // Get every sprite we want to shuffle
+                        RandomizationSetting[] filteredSettings = randSettings.Where(r => r.Group == 0).ToArray();
+
+                        for (int i = 0; i < filteredSettings.Length; i++) {
+                              List<ResourceSprite> sprites = GetSpritesFromRandSetting(filteredSettings[i], random);
+                              ShuffleSprites(sprites, random);
+                        }
+                  }
+
+                  RepackGameSheets();
+            }
+
+            private List<ResourceSprite> GetAllSpritesByGroup(RandomizationSetting[] randSettings, int group, Random random) {
+                  // Get every randSetting that has the group we are looking for
+                  RandomizationSetting[] filteredSettings = randSettings.Where(r => r.Group == group).ToArray();
+
+                  // Get every sprite we want to shuffle
+                  return GetSpritesFromRandSettings(filteredSettings, random);
+            }
+
+            private List<ResourceSprite> GetSpritesFromRandSettings(RandomizationSetting[] randSettings, Random random) {
+                  List<ResourceSprite> sprites = new List<ResourceSprite>();
+
+                  for (int r = 0; r < randSettings.Length; r++) {
+                        sprites.AddRange(GetSpritesFromRandSetting(randSettings[r], random));
+                  }
+
+                  return sprites;
+            }
+
+            private List<ResourceSprite> GetSpritesFromRandSetting(RandomizationSetting randSettings, Random random) {
+                  return GetSpritesByType(randSettings.AssociatedType, randSettings.PercentageRandomised, random);
+            }
+
+            private List<ResourceSprite> GetSpritesByType(ResourceType type, int probability, Random random) {
+                  List<ResourceSprite> sprites = new List<ResourceSprite>();
+                  
+                  for (int i = 0; i < _gameSheets.Count; i++) {
+                        sprites.AddRange(_gameSheets[i].GetSpritesByType(type, probability, random));
+                  }
+
+                  return sprites;
+            }
+
+            private void ShuffleSprites(List<ResourceSprite> sprites, Random random) {
+
+            }
+
+            public void RepackGameSheets() {
+                  _gameSheets.ToList().ForEach(g => g.Repack());
+            }
+
             public void WriteFilesToDisk() => WriteFilesToDisk(_gameSheets.ToArray());
 
             public static void WriteFilesToDisk(GameSheet[] gameSheets) {
-                  WriteFilesToDisk(gameSheets.Where(g => g.FileType == GameFileType.Resource).ToArray(), PathManager.LocalResourcesOutputFolder, GameFileType.Resource);
-                  WriteFilesToDisk(gameSheets.Where(g => g.FileType == GameFileType.Icon).ToArray(), PathManager.LocalIconsOutputFolder, GameFileType.Icon);
+                  WriteFilesToDisk(gameSheets
+                        .Where(g => g.FileType == GameFileType.Resource)
+                        .ToArray(), PathManager.LocalResourcesOutputFolder, GameFileType.Resource);
+
+                  WriteFilesToDisk(gameSheets
+                        .Where(g => g.FileType == GameFileType.Icon)
+                        .ToArray(), PathManager.LocalIconsOutputFolder, GameFileType.Icon);
             }
 
             private static void WriteFilesToDisk(GameSheet[] gameSheets, string path, GameFileType type) {
@@ -99,17 +176,6 @@ namespace Geometry_Dash_Randomiser {
                         File.WriteAllLines(textFileName, gameSheets[i].Serialize());
 
                         Bitmap gameSheetImage = gameSheets[i].AssembleGameSheet();
-
-                        //for (int y = 0; y < gameSheetImage.Height; y++) {
-                        //      for (int x = 0; x < gameSheetImage.Width; x++) {
-                        //            Color ogColor = gameSheets[i].Resource.GetPixel(x, y);
-                        //            Color newColor = gameSheetImage.GetPixel(x, y);
-
-                        //            if (ogColor.A != newColor.A || ogColor.R != newColor.R || ogColor.G != newColor.G || ogColor.B != newColor.B) {
-                        //                  gameSheetImage.SetPixel(x, y, Color.Red);
-                        //            }
-                        //      }
-                        //}
 
                         gameSheetImage.Save(gamesheetFileName);
 

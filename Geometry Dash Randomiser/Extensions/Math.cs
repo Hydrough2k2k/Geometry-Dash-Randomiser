@@ -19,5 +19,9 @@ namespace Geometry_Dash_Randomiser {
                   if (value > max) return max;
                   return value;
             }
+
+            public static int Abs(int value) {
+                  return System.Math.Abs(value);
+            }
       }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Text.Json.Serialization;
 
 namespace Geometry_Dash_Randomiser {
@@ -8,22 +9,27 @@ namespace Geometry_Dash_Randomiser {
 
             public event EventHandler Updated;
 
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public RandomizationSetting() { }
 
-            public static RandomizationSetting Default => new RandomizationSetting();
+            public RandomizationSetting(ResourceType associatedType) {
+                  this._associatedType = associatedType;
+            }
 
-            public RandomizationSetting(int group, bool enabled) {
+            public RandomizationSetting(int group, bool enabled, ResourceType associatedType) {
                   this.Group = group;
                   this.Enabled = enabled;
+                  this._associatedType = associatedType;
             }
             
-            public RandomizationSetting(int group, bool enabled, int percentageRandomised) {
+            public RandomizationSetting(int group, bool enabled, int percentageRandomised, ResourceType associatedType) {
                   this.Group = group;
                   this.Enabled = enabled;
                   this.PercentageRandomised = percentageRandomised;
+                  this._associatedType = associatedType;
             }
 
-            internal virtual int MaxGroupNumber {get; set; } = RandomisationConfig.maxTextureGroups;
+            internal virtual int MaxGroupNumber {get; set; } = RandomizationConfig.maxTextureGroups;
 
             public virtual int Group {
                   get { return _group; }
@@ -48,6 +54,9 @@ namespace Geometry_Dash_Randomiser {
                         Updated?.Invoke(this, null);
                   }
             }
+
+            [JsonIgnore]
+            public virtual ResourceType AssociatedType => _associatedType;
 
             [JsonIgnore]
             public virtual int TotalSettingsCount => 1;
@@ -75,5 +84,6 @@ namespace Geometry_Dash_Randomiser {
             private bool _enabled = true;
             private int _group = 0;
             private int _percentageRandomised = 100;
+            private ResourceType _associatedType = ResourceType.Unknown;
       }
 }

@@ -13,18 +13,19 @@ namespace Geometry_Dash_Randomiser {
             public GameFileManager(GDR_Form creator) {
                   GDR = creator;
 
-                  fileBlacklist = new FileBlacklist();
-                  gamesheetManager = new GamesheetManager();
-                  fontManager = new FontManager();
+                  _fileBlacklist = new FileBlacklist();
+                  _gamesheetManager = new GamesheetManager();
+                  _fontManager = new FontManager();
             }
 
             private readonly GDR_Form GDR;
 
-            private readonly FileBlacklist fileBlacklist;
-            private readonly GamesheetManager gamesheetManager;
-            private readonly FontManager fontManager;
+            private readonly FileBlacklist _fileBlacklist;
 
-            private ProgressState progressState = ProgressState.Instance;
+            private readonly GamesheetManager _gamesheetManager;
+            private readonly FontManager _fontManager;
+
+            private readonly ProgressState _progressState = ProgressState.Instance;
 
             // -----------------------------------------------------------------------------------------------
 
@@ -43,7 +44,7 @@ namespace Geometry_Dash_Randomiser {
                   if (File.Exists(Path.Combine(AdvancedConfig.Instance.GameDirectory, "GeometryDash.exe")) == false) {
                         rs |= ReadyState.ExeNotFound;
                   }
-                  if (RandomisationConfig.Instance.GetEnabledSettingsCount() == 0) {
+                  if (RandomizationConfig.Instance.GetEnabledSettingsCount() == 0) {
                         rs |= ReadyState.NoSettingsEnabled;
                   }
 
@@ -62,19 +63,19 @@ namespace Geometry_Dash_Randomiser {
                   if (IsGameDirectoryValid() == false) {
                         return;
                   }
-                  this.progressState.CurrentStage = ApplicationState.Restoring;
+                  this._progressState.CurrentStage = ApplicationState.Restoring;
 
                   string[] resourceFiles = Directory.GetFiles(GetPath(GDR_Path.BackupResourcesFolder)).Select(f => Path.GetFileName(f)).ToArray();
-                  this.progressState.CurrentFileType = GameFileType.Resource;
-                  this.progressState.NewFileBatch(resourceFiles.Length);
+                  this._progressState.CurrentFileType = GameFileType.Resource;
+                  this._progressState.NewFileBatch(resourceFiles.Length);
                   CopyFiles(GDR_Path.BackupResourcesFolder, GDR_Path.GameResourcesFolder, resourceFiles);
 
                   string[] iconFiles = Directory.GetFiles(GetPath(GDR_Path.BackupIconsFolder)).Select(f => Path.GetFileName(f)).ToArray();
-                  this.progressState.CurrentFileType = GameFileType.Icon;
-                  this.progressState.NewFileBatch(iconFiles.Length);
+                  this._progressState.CurrentFileType = GameFileType.Icon;
+                  this._progressState.NewFileBatch(iconFiles.Length);
                   CopyFiles(GDR_Path.BackupIconsFolder, GDR_Path.GameIconsFolder, iconFiles);
 
-                  this.progressState.CurrentStage = ApplicationState.Idle;
+                  this._progressState.CurrentStage = ApplicationState.Idle;
             }
 
             public void AutoOverwriteFiles() {
@@ -82,26 +83,26 @@ namespace Geometry_Dash_Randomiser {
                         return;
                   }
 
-                  this.progressState.CurrentStage = ApplicationState.Copying_Randomised_Files;
+                  this._progressState.CurrentStage = ApplicationState.Copying_Randomised_Files;
 
                   string[] resourceFiles = Directory.GetFiles(GetPath(GDR_Path.LocalResourcesOutputFolder)).Select(f => Path.GetFileName(f)).ToArray();
-                  this.progressState.CurrentFileType = GameFileType.Resource;
-                  this.progressState.NewFileBatch(resourceFiles.Length);
+                  this._progressState.CurrentFileType = GameFileType.Resource;
+                  this._progressState.NewFileBatch(resourceFiles.Length);
                   CopyFiles(GDR_Path.LocalResourcesOutputFolder, GDR_Path.GameResourcesFolder, resourceFiles);
 
                   string[] iconFiles = Directory.GetFiles(GetPath(GDR_Path.LocalIconsOutputFolder)).Select(f => Path.GetFileName(f)).ToArray();
-                  this.progressState.CurrentFileType = GameFileType.Icon;
-                  this.progressState.NewFileBatch(iconFiles.Length);
+                  this._progressState.CurrentFileType = GameFileType.Icon;
+                  this._progressState.NewFileBatch(iconFiles.Length);
                   CopyFiles(GDR_Path.LocalIconsOutputFolder, GDR_Path.GameIconsFolder, iconFiles);
 
-                  this.progressState.CurrentStage = ApplicationState.Idle;
+                  this._progressState.CurrentStage = ApplicationState.Idle;
             }
 
             void CopyFiles(GDR_Path from, GDR_Path to, string[] files) => CopyFiles(PathManager.GetPath(from), PathManager.GetPath(to), files);
 
             void CopyFiles(string from, string to, string[] files) {
                   for (int i = 0; i < files.Length; i++) {
-                        this.progressState.CurrentFile = files[i];
+                        this._progressState.CurrentFile = files[i];
 
                         // If the file exists in the source folder
                         if (File.Exists(Path.Combine(from, files[i])) == true) {
@@ -115,36 +116,40 @@ namespace Geometry_Dash_Randomiser {
                         }
 
                         // Race condition, remove if multi-threading is implemented
-                        this.progressState.CompletedFiles++;
+                        this._progressState.CompletedFiles++;
                   }
             }
 
             public void StartRandomising(int seed) {
-                  this.progressState.CurrentStage = ApplicationState.Setting_Up;
+                  Random random = new Random(seed);
+
+                  this._progressState.CurrentStage = ApplicationState.Setting_Up;
                   CreateFolders();
 
-                  this.progressState.CurrentStage = ApplicationState.Backing_Up;
+                  this._progressState.CurrentStage = ApplicationState.Backing_Up;
                   BackupOriginalFiles();
 
-                  this.progressState.CurrentStage = ApplicationState.Unpacking;
-                  gamesheetManager.ReadAllFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
-                  //fontManager.ReadAllFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
+                  this._progressState.CurrentStage = ApplicationState.Unpacking;
+                  _gamesheetManager.ReadAllFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
+                  //_fontManager.ReadAllFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
 
-                  this.progressState.CurrentStage = ApplicationState.Randomising;
-                  //GameSheet[] randomisedSprites = gamesheetManager.RandomiseFiles(seed);
-                  //Font[] randomisedFonts = fontManager.RandomiseFiles(seed);
+                  this._progressState.CurrentStage = ApplicationState.Randomising;
+                  /*GameSheet[] randomisedSprites =*/ _gamesheetManager.RandomizeFiles(random);
+                  //Font[] randomisedFonts = _fontManager.RandomizeFiles(random);
 
-                  this.progressState.CurrentStage = ApplicationState.Repackaging;
-                  gamesheetManager.WriteFilesToDisk();
-                  //gamesheetManager.WriteFilesToDisk(randomisedSprites);
-                  //fontManager.WriteFilesToDisk(randomisedFonts);
+                  //DebugOptions.WriteGameSheetImagesToDiskByGameSheet(_gamesheetManager.GameSheets.ToArray());
+
+                  this._progressState.CurrentStage = ApplicationState.Repackaging;
+                  //_gamesheetManager.WriteFilesToDisk();
+                  //_gamesheetManager.WriteFilesToDisk(randomisedSprites);
+                  //_fontManager.WriteFilesToDisk(randomisedFonts);
 
                   //if (AdvancedConfig.Instance.AutoOverwriteFiles == true) {
                   //      AutoOverwriteFiles();
                   //}
 
-                  this.progressState.CurrentStage = ApplicationState.Idle;
-                  this.progressState.NewFileBatch(0);
+                  this._progressState.CurrentStage = ApplicationState.Idle;
+                  this._progressState.NewFileBatch(0);
             }
 
             void CreateFolders() {
@@ -153,11 +158,11 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public void BackupOriginalFiles() {
-                  this.progressState.CurrentFileType = GameFileType.Resource;
+                  this._progressState.CurrentFileType = GameFileType.Resource;
                   BackupGameFiles(GDR_Path.GameResourcesFolder, GDR_Path.BackupResourcesFolder, GameFileType.Resource);
-                  this.progressState.CurrentFileType = GameFileType.Icon;
+                  this._progressState.CurrentFileType = GameFileType.Icon;
                   BackupGameFiles(GDR_Path.GameIconsFolder, GDR_Path.BackupIconsFolder, GameFileType.Resource);
-                  this.progressState.CurrentFileType = GameFileType.Font;
+                  this._progressState.CurrentFileType = GameFileType.Font;
                   BackupGameFiles(GDR_Path.GameResourcesFolder, GDR_Path.BackupResourcesFolder, GameFileType.Font);
             }
 
@@ -184,14 +189,14 @@ namespace Geometry_Dash_Randomiser {
                               return;
                   }
 
-                  missingFiles = fileBlacklist.FilterBlacklisted(missingFiles);
+                  missingFiles = _fileBlacklist.FilterBlacklisted(missingFiles);
                   Array.Sort(backedUpFiles);
 
-                  this.progressState.NewFileBatch(missingFiles.Length);
+                  this._progressState.NewFileBatch(missingFiles.Length);
 
                   int copiedFiles = 0;
                   for (int i = 0; i < missingFiles.Length; i++) {
-                        this.progressState.CurrentFile = missingFiles[i];
+                        this._progressState.CurrentFile = missingFiles[i];
 
                         int index = Array.BinarySearch(backedUpFiles, missingFiles[i]);
                         // If the file doesn't exist in the backup folder copy it
@@ -210,7 +215,7 @@ namespace Geometry_Dash_Randomiser {
                                     copiedFiles++;
                               }
                         }
-                        this.progressState.CompletedFiles++;
+                        this._progressState.CompletedFiles++;
                   }
 
                   if (copiedFiles != 0) {

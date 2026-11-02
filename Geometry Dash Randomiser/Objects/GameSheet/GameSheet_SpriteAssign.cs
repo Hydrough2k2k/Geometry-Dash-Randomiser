@@ -25,30 +25,14 @@ namespace Geometry_Dash_Randomiser {
                   string shortFileName = fileName.RemoveQualityExtension();
 
                   // This will be used when this file type contains only 1 type of sprite and we don't need any specific conparison logic
-                  ResourceType bulkSetType = ResourceType.Unknown;
+                  ResourceType bulkSetType = GetBulkResourceType(shortFileName);
+
+                  if (bulkSetType != ResourceType.Unknown) {
+                        Sprites.ToList().ForEach(sprite => sprite.Type = bulkSetType);
+                        return;
+                  }
 
                   switch (shortFileName) {
-                        case "CCControlColourPickerSpriteSheet":
-                              bulkSetType = ResourceType.Editor;
-                              break;
-
-                        case "DungeonSheet":
-                              bulkSetType = ResourceType.Menu;
-                              break;
-
-                        case "FireSheet_01":
-                              bulkSetType = ResourceType.Block;
-                              break;
-
-                        case "GauntletSheet":
-                        case "GJ_FontSheet":
-                              bulkSetType = ResourceType.Menu;
-                              break;
-
-                        case "GJ_GameSheetEditor":
-                              bulkSetType = ResourceType.Editor;
-                              break;
-
                         case "GJ_GameSheetGlow":
                               AssignSpriteTypes(GlowSheet_Comparers, ResourceType.Block);
                               return;
@@ -69,43 +53,59 @@ namespace Geometry_Dash_Randomiser {
                               AssignSpriteTypes(GS4_Comparers, ResourceType.Menu);
                               return;
 
-                        case "GJ_LaunchSheet":
-                              bulkSetType = ResourceType.Menu;
+                        default:
+                              Logger.Write(Logger.Mode.Warn, $"Unhandled resource file \"{shortFileName}\". The file's contents won't be randomized.");
                               break;
+                  }
+            }
+
+            private ResourceType GetBulkResourceType(string fileName) {
+                  if (fileName.StartsWith("GJ_ShopSheet")) {
+                        return ResourceType.Shop;
+
+                  } else if (fileName.StartsWith("PlayerExplosion")) {
+                        return ResourceType.Miscellaneous;
+                  }
+
+                  switch (fileName) {
+                        case "CCControlColourPickerSpriteSheet":
+                              return ResourceType.Editor;
+
+                        case "DungeonSheet":
+                              return ResourceType.Menu;
+
+                        case "FireSheet_01":
+                              return ResourceType.Block;
+
+                        case "GauntletSheet":
+                        case "GJ_FontSheet":
+                              return ResourceType.Menu;
+
+                        case "GJ_GameSheetEditor":
+                              return ResourceType.Editor;
+
+                        case "GJ_LaunchSheet":
+                              return ResourceType.Menu;
 
                         case "GJ_ParticleSheet":
-                              bulkSetType = ResourceType.Particle;
-                              break;
+                              return ResourceType.Particle;
 
                         case "GJ_PathSheet":
-                              bulkSetType = ResourceType.Menu;
-                              break;
-
-                        case "GJ_ShopSheet":
-                        case "GJ_ShopSheet01":
-                        case "GJ_ShopSheet02":
-                        case "GJ_ShopSheet03":
-                              bulkSetType = ResourceType.Shop;
-                              break;
+                              return ResourceType.Menu;
 
                         case "PixelSheet_01":
-                              bulkSetType = ResourceType.Block;
-                              break;
+                              return ResourceType.Block;
 
-                        case "PlayerExplosion":
                         case "SecretSheet":
                         case "TowerSheet":
                         case "TreasureRoomSheet":
                         case "WorldSheet":
-                              bulkSetType = ResourceType.Miscellaneous;
-                              break;
+                              return ResourceType.Miscellaneous;
 
                         default:
-                              Logger.Write(Logger.Mode.Warn, $"Unhandled resource file \"{shortFileName}\". The file's contents won't be randomized.");
-                              return;
+                              // If we hit this case, then the file might be unrecognised, or might be in the other switch case
+                              return ResourceType.Unknown;
                   }
-
-                  Sprites.ToList().ForEach(sprite => sprite.Type = bulkSetType);
             }
 
             private void AssignAllIconTypes() {

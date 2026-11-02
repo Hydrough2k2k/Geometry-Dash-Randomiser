@@ -593,7 +593,7 @@ namespace Geometry_Dash_Randomiser {
                         return (float)(sliderValue - 280) / 1 + 50f; // Values between 50 and 100
 
                   } else {
-                        return 1000f;
+                        return 1_000_000f;
                   }
             }
 

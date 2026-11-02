@@ -1,7 +1,11 @@
 ﻿using Geometry_Dash_Randomiser.Helpers;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
@@ -13,12 +17,12 @@ namespace Geometry_Dash_Randomiser {
       /// These are exclusively randomisation settings<br/>
       /// Everything in this class is exported and imported via the export and import configurations buttons<br/>
       /// </summary>
-      public class RandomisationConfig {
+      public class RandomizationConfig {
 
-            private static RandomisationConfig _instance = new RandomisationConfig();
+            private static RandomizationConfig _instance = new RandomizationConfig();
 
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public RandomisationConfig() {
+            public RandomizationConfig() {
                   _created = DateTime.Now;
 
                   _iconTextures.Updated += SaveConfigAfterDelay;
@@ -35,7 +39,7 @@ namespace Geometry_Dash_Randomiser {
                   _fontRand.Updated += SaveConfigAfterDelay;
             }
 
-            public static RandomisationConfig Instance {
+            public static RandomizationConfig Instance {
                   get => _instance;
             }
 
@@ -138,7 +142,7 @@ namespace Geometry_Dash_Randomiser {
             public float MaxSpriteMultiplier {
                   get => _maxSpriteMultiplier;
                   set {
-                        _maxSpriteMultiplier = Math.Clamp(value, 1.01f, 1000f);
+                        _maxSpriteMultiplier = Math.Clamp(value, 1.01f, 1_000_000f);
                         SaveConfigAfterDelay();
                   }
             }
@@ -174,10 +178,39 @@ namespace Geometry_Dash_Randomiser {
                         Convert.ToInt32(FontRand.Enabled);
             }
 
+            public IEnumerable<int> GetDistinctGroups() {
+                  return GetAllRandSettings().Select(g => g.Group).Distinct();
+            }
+
+            public RandomizationSetting[] GetAllRandSettings() {
+                  return new RandomizationSetting[] {
+                        IconTextures.Cube,
+                        IconTextures.Ship,
+                        IconTextures.Ball,
+                        IconTextures.Ufo,
+                        IconTextures.Wave,
+                        IconTextures.Robot,
+                        IconTextures.Spider,
+                        IconTextures.Swing,
+                        IconTextures.Jetpack,
+
+                        MenuTextures,
+                        ShopTextures,
+                        EditorTextures,
+                        TileTextures,
+                        PortalTextures,
+                        OrbTextures,
+                        PadTextures,
+                        ParticleTextures,
+                        EffectTextures,
+                        MiscTextures,
+                  };
+            }
+
             public static void ReadFile() {
                   if (File.Exists(configFileName)) {
                         string inStream = File.ReadAllText(configFileName);
-                        RandomisationConfig rc = Deserialise(inStream, out bool success);
+                        RandomizationConfig rc = Deserialise(inStream, out bool success);
                         if (success) {
                               _instance.ApplyAllProperties(rc);
                         }
@@ -224,12 +257,12 @@ namespace Geometry_Dash_Randomiser {
                   return JsonSerializer.Serialize(_instance, jso);
             }
 
-            public static RandomisationConfig Deserialise(string data, out bool success) {
+            public static RandomizationConfig Deserialise(string data, out bool success) {
                   success = false;
 
-                  RandomisationConfig ret;
+                  RandomizationConfig ret;
                   try {
-                        ret = JsonSerializer.Deserialize<RandomisationConfig>(data);
+                        ret = JsonSerializer.Deserialize<RandomizationConfig>(data);
                         success = (ret != null);
 
                   } catch (JsonException JSON_Except) {
@@ -254,10 +287,10 @@ namespace Geometry_Dash_Randomiser {
                         return false;
                   }
 
-                  RandomisationConfig importedConfig = null;
+                  RandomizationConfig importedConfig = null;
 
                   try {
-                        importedConfig = JsonSerializer.Deserialize<RandomisationConfig>(decompressedStream);
+                        importedConfig = JsonSerializer.Deserialize<RandomizationConfig>(decompressedStream);
                   }
                   catch (JsonException JSON_Except) {
                         Logger.Write(Logger.Mode.Error, $"Failed to convert the config file from JSON. Reason: {JSON_Except}");
@@ -269,7 +302,7 @@ namespace Geometry_Dash_Randomiser {
                   return true;
             }
 
-            private void ApplyAllProperties(RandomisationConfig other) {
+            private void ApplyAllProperties(RandomizationConfig other) {
                   if (other == null) {
                         Logger.Write(Logger.Mode.Error, "The parameter \"other\" was passed as null in Config.cs.");
                         return;
@@ -349,16 +382,16 @@ namespace Geometry_Dash_Randomiser {
 
             // Default values for all settings
             private static IconRandSettings _defaultIconTextures => new IconRandSettings { Group = 0, Enabled = true };
-            private static RandomizationSetting _defaultMenuTextures => new RandomizationSetting { Group = 1, Enabled = true };
-            private static RandomizationSetting _defaultShopTextures => new RandomizationSetting { Group = 1, Enabled = true };
-            private static RandomizationSetting _defaultEditorTextures => new RandomizationSetting { };
-            private static RandomizationSetting _defaultTileTextures => new RandomizationSetting { };
-            private static RandomizationSetting _defaultPortalTextures => new RandomizationSetting { Group = 0, Enabled = true };
-            private static RandomizationSetting _defaultOrbTextures => new RandomizationSetting { Group = 3, Enabled = true };
-            private static RandomizationSetting _defaultPadTextures => new RandomizationSetting { Group = 0, Enabled = true };
-            private static RandomizationSetting _defaultParticleTextures => new RandomizationSetting { Group = 3, Enabled = true };
-            private static RandomizationSetting _defaultEffectTextures => new RandomizationSetting { Group = 2, Enabled = true };
-            private static RandomizationSetting _defaultMiscTextures => new RandomizationSetting { };
-            private static FontRandomisationSettings _defaultFontRand => new FontRandomisationSettings { };
+            private static RandomizationSetting _defaultMenuTextures => new RandomizationSetting(group: 1, enabled: true, associatedType: ResourceType.Menu);
+            private static RandomizationSetting _defaultShopTextures => new RandomizationSetting(group: 1, enabled: true, associatedType: ResourceType.Shop);
+            private static RandomizationSetting _defaultEditorTextures => new RandomizationSetting(associatedType: ResourceType.Editor);
+            private static RandomizationSetting _defaultTileTextures => new RandomizationSetting(associatedType: ResourceType.Block);
+            private static RandomizationSetting _defaultPortalTextures => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Portal);
+            private static RandomizationSetting _defaultOrbTextures => new RandomizationSetting(group: 3, enabled: true, associatedType: ResourceType.Orb);
+            private static RandomizationSetting _defaultPadTextures => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Pad);
+            private static RandomizationSetting _defaultParticleTextures => new RandomizationSetting(group: 3, enabled: true, associatedType: ResourceType.Particle);
+            private static RandomizationSetting _defaultEffectTextures => new RandomizationSetting(group: 2, enabled: true, associatedType: ResourceType.Effect);
+            private static RandomizationSetting _defaultMiscTextures => new RandomizationSetting(associatedType: ResourceType.Miscellaneous);
+            private static FontRandomisationSettings _defaultFontRand => new FontRandomisationSettings();
       }
 }

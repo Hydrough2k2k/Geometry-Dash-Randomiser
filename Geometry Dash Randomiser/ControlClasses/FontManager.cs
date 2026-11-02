@@ -85,9 +85,7 @@ namespace Geometry_Dash_Randomiser {
                   _fonts = newFontsList.ToArray();
             }
 
-            public Font[] RandomiseFiles(int seed) => RandomiseFiles(new Random(seed));
-
-            public Font[] RandomiseFiles(Random random = null) {
+            public Font[] RandomizeFiles(Random random = null) {
                   if (config.FontRand.Enabled == false) {
                         return _fonts.ToArray();
                   }
@@ -214,7 +212,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void ShuffleCharactersInFonts(Random random, ref Font[] newFonts) {
-                  CharacterRandomisationSettings config = RandomisationConfig.Instance.FontRand.CharacterRandSettings;
+                  CharacterRandomisationSettings config = RandomizationConfig.Instance.FontRand.CharacterRandSettings;
                   int[] groups = config.GetAllGroups();
 
                   for (int g = 0; g < groups.Length; g++) {
@@ -259,7 +257,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void AlterLetterSpacing(Random random, ref Font[] newFonts) {
-                  LetterSpacingSettings LSS = RandomisationConfig.Instance.FontRand.LetterSpacingSettings;
+                  LetterSpacingSettings LSS = RandomizationConfig.Instance.FontRand.LetterSpacingSettings;
 
                   LetterSpacingSettings.KerningData kerningData = LSS.GetKerningData();
 
@@ -338,6 +336,6 @@ namespace Geometry_Dash_Randomiser {
 
             private Font[] _fonts = Array.Empty<Font>();
 
-            private RandomisationConfig config = RandomisationConfig.Instance;
+            private RandomizationConfig config = RandomizationConfig.Instance;
       }
 }

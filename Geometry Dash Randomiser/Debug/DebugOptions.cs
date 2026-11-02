@@ -9,6 +9,12 @@ namespace Geometry_Dash_Randomiser {
 
       internal static class DebugOptions {
 
+            internal enum GameSheetImageSorting {
+                  Unsorted,
+                  ByGameSheet,
+                  ByType
+            }
+
             internal static void WriteFontCharacterFilesToDisk(Font[] fonts) {
                   Directory.CreateDirectory(DebugFontCharacterFolderPath);
 
@@ -24,6 +30,40 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
+            internal static void WriteGameSheetImagesToDisk(GameSheet[] gameSheets)
+                  => WriteGameSheetImagesToDisk(gameSheets, GameSheetImageSorting.ByGameSheet);
+
+            internal static void WriteGameSheetImagesToDisk(GameSheet[] gameSheets, GameSheetImageSorting sorting) {
+                  switch (sorting) {
+                        case GameSheetImageSorting.Unsorted:
+                              //WriteGameSheetImagesToDiskUnsorted(gameSheets);
+                              return;
+
+                        case GameSheetImageSorting.ByGameSheet:
+                              WriteGameSheetImagesToDiskByGameSheet(gameSheets);
+                              return;
+
+                        case GameSheetImageSorting.ByType:
+                              //WriteGameSheetImagesToDiskByType(gameSheets);
+                              return;
+                  }
+            }
+
+            internal static void WriteGameSheetImagesToDiskByGameSheet(GameSheet[] gameSheets) {
+                  Directory.CreateDirectory(DebugGameSheetImageFolderPath);
+
+                  for (int i = 0; i < gameSheets.Length; i++) {
+                        GameSheet gs = gameSheets[i];
+                        string folderPath = Path.Combine(DebugGameSheetImageFolderPath, gs.FileName);
+                        Directory.CreateDirectory(folderPath);
+
+                        for (int j = 0; j < gs.Sprites.Length; j++) {
+                              gs.Sprites[j].Texture.Save(Path.Combine(folderPath, gs.Sprites[j].Name + ".png"));
+                        }
+                  }
+            }
+
+            private static string DebugGameSheetImageFolderPath = Path.Combine("Debug", "GameSheet", "Sprites");
             private static string DebugFontCharacterFolderPath = Path.Combine("Debug", "Font", "Characters");
       }
 }

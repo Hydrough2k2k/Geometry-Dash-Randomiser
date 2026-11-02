@@ -4,18 +4,6 @@
             // The default value. If anything has this, a resource's type has not been recognised, and will be ignored during randomization
             Unknown,
 
-            // Main Resource types
-            Block,
-            Portal,
-            Orb,
-            Pad,
-            Editor,
-            Menu,
-            Particle,
-            Effect,
-            Miscellaneous,
-            Shop,
-
             // Icon Types
             Cube,
             Ship,
@@ -25,6 +13,24 @@
             Robot,
             Spider,
             Swing,
-            Jetpack
+            Jetpack,
+
+            // Text Types
+            Letter,
+            Number,
+            Symbol,
+            Special,
+
+            // Main Resource types
+            Menu,
+            Shop,
+            Editor,
+            Block,
+            Portal,
+            Orb,
+            Pad,
+            Particle,
+            Effect,
+            Miscellaneous
       }
 }

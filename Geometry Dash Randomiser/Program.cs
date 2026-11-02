@@ -31,7 +31,7 @@ namespace Geometry_Dash_Randomiser {
                         ForceAllocConsole();
                   }
 
-                  RandomisationConfig.ReadFile();
+                  RandomizationConfig.ReadFile();
 
                   Application.EnableVisualStyles();
                   Application.SetCompatibleTextRenderingDefault(false);
@@ -51,7 +51,7 @@ namespace Geometry_Dash_Randomiser {
                   Logger.Write(Mode.Info, "Writing Config files...");
 
                   // Write the config files
-                  RandomisationConfig.Instance.WriteFile();
+                  RandomizationConfig.Instance.WriteFile();
                   AdvancedConfig.Instance.WriteFile();
 
                   // Finally close the log file stream to make it accessible to othger applications

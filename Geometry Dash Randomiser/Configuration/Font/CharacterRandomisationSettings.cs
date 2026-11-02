@@ -39,7 +39,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Letter {
                   get => _letter;
                   set {
-                        _letter.CopyDataFrom(value ?? RandomizationSetting.Default);
+                        _letter.CopyDataFrom(value ?? _defaultLetter);
                         InvokeEvent(Updated, null);
                   }
             }
@@ -47,7 +47,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Number {
                   get => _number;
                   set {
-                        _number.CopyDataFrom(value ?? RandomizationSetting.Default);
+                        _number.CopyDataFrom(value ?? _defaultNumber);
                         InvokeEvent(Updated, null);
                   }
             }
@@ -55,7 +55,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Symbol {
                   get => _symbol;
                   set {
-                        _symbol.CopyDataFrom(value ?? RandomizationSetting.Default);
+                        _symbol.CopyDataFrom(value ?? _defaultSymbol);
                         InvokeEvent(Updated, null);
                   }
             }
@@ -63,7 +63,7 @@ namespace Geometry_Dash_Randomiser {
             public RandomizationSetting Special {
                   get => _special;
                   set {
-                        _special.CopyDataFrom(value ?? RandomizationSetting.Default);
+                        _special.CopyDataFrom(value ?? _defaultSpecial);
                         InvokeEvent(Updated, null);
                   } 
             }
@@ -104,12 +104,17 @@ namespace Geometry_Dash_Randomiser {
                   @event?.Invoke(this, e);
             }
 
-            private readonly RandomizationSetting _letter = new RandomizationSetting(1, true);
-            private readonly RandomizationSetting _number = new RandomizationSetting(2, true);
-            private readonly RandomizationSetting _symbol = new RandomizationSetting(0, false);
-            private readonly RandomizationSetting _special = new RandomizationSetting(0, false);
+            private static RandomizationSetting _letter = _defaultLetter;
+            private static RandomizationSetting _number = _defaultNumber;
+            private static RandomizationSetting _symbol = _defaultSymbol;
+            private static RandomizationSetting _special = _defaultSpecial;
 
             // Array for storing references to all settings for easy iteration
             private readonly RandomizationSetting[] _randomisationSettings;
+
+            private static RandomizationSetting _defaultLetter => new RandomizationSetting(group: 1, enabled: true, associatedType: ResourceType.Letter);
+            private static RandomizationSetting _defaultNumber => new RandomizationSetting(group: 2, enabled: true, associatedType: ResourceType.Number);
+            private static RandomizationSetting _defaultSymbol => new RandomizationSetting(group: 0, enabled: false, associatedType: ResourceType.Symbol);
+            private static RandomizationSetting _defaultSpecial => new RandomizationSetting(group: 0, enabled: false, associatedType: ResourceType.Special);
       }
 }

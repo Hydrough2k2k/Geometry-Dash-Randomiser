@@ -71,7 +71,7 @@ namespace Geometry_Dash_Randomiser {
 
             // ---------------------------------------------------------------------------------
 
-            private RandomisationConfig config => RandomisationConfig.Instance;
+            private RandomizationConfig config => RandomizationConfig.Instance;
             private AdvancedConfig advancedConfig => AdvancedConfig.Instance;
       }
 }

@@ -259,12 +259,12 @@ namespace Geometry_Dash_Randomiser {
 
                         if (sprites[i].Rotated == true) {
                               data[13] += "<true/>";
-                              Rectangle rect = new Rectangle(sprites[i].TextureRect.X, sprites[i].TextureRect.Y, sprites[i].TextureRect.Height, sprites[i].TextureRect.Width);
+                              Rectangle rect = new Rectangle(sprites[i].DrawRect.X, sprites[i].DrawRect.Y, sprites[i].DrawRect.Height, sprites[i].DrawRect.Width);
                               data[11] += rect.ConvertToString();
 
                         } else {
                               data[13] += "<false/>";
-                              Rectangle rect = new Rectangle(sprites[i].TextureRect.X, sprites[i].TextureRect.Y, sprites[i].TextureRect.Width, sprites[i].TextureRect.Height);
+                              Rectangle rect = new Rectangle(sprites[i].DrawRect.X, sprites[i].DrawRect.Y, sprites[i].DrawRect.Width, sprites[i].DrawRect.Height);
                               data[11] += rect.ConvertToString();
                         }
                         ret.AddRange(data);

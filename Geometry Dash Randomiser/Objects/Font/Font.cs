@@ -119,7 +119,7 @@ namespace Geometry_Dash_Randomiser {
             public void ShuffleCharacters(Random random, CharacterType characterTypes) {
                   List<FontChar> charsToShuffle = new List<FontChar>();
 
-                  CharacterRandomisationSettings CRS = RandomisationConfig.Instance.FontRand.CharacterRandSettings;
+                  CharacterRandomisationSettings CRS = RandomizationConfig.Instance.FontRand.CharacterRandSettings;
 
                   for (int i = 0; i < Chars.Length; i++) {
                         // Get the type of each character

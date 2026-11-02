@@ -47,13 +47,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public static Bitmap CropImage(this Bitmap img, Rectangle cropArea) {
-
-                  if (cropArea.X + cropArea.Width > img.Width || cropArea.Y + cropArea.Height > img.Height) {
-                        cropArea = new Rectangle(new Point(cropArea.X, cropArea.Y), new Size(img.Width - cropArea.X, img.Height - cropArea.Y));
-                  }
-
                   if (cropArea.Width <= 0 || cropArea.Height <= 0) {
-
                         return new Bitmap(1, 1);
                   }
 
@@ -68,7 +62,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public static Bitmap[] Multicrop(this Bitmap source, Rectangle[] crops, int sliceSize) {
-                  if (source.Width > sliceSize || source.Height > sliceSize ) {
+                  if (source.Width > sliceSize || source.Height > sliceSize) {
                         Bitmap[,] slices = source.Slice(sliceSize);
                         Bitmap[] ret = MulticropFromSlices(slices, crops, sliceSize);
                         slices.Dispose();
@@ -342,7 +336,8 @@ namespace Geometry_Dash_Randomiser {
 
                   Rectangle destRect = new Rectangle(new Point(xCoords, yCoords), new Size(copy.Width, copy.Height));
                   using (Graphics g = Graphics.FromImage(to)) {
-                        g.DrawImageUnscaledAndClipped(copy, destRect);
+                        //g.DrawImageUnscaledAndClipped(copy, destRect);
+                        g.DrawImage(copy, destRect);
                   }
                   return to;
             }

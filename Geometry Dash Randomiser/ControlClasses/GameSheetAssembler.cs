@@ -6,11 +6,23 @@ namespace Geometry_Dash_Randomiser {
       public static class GameSheetAssembler {
 
             public static Bitmap Assemble(GameSheet gameSheet) {
-                  return BitmapExtensions.Assemble(
-                        gameSheet.Sprites.Select(s => s.Texture).ToArray(),
-                        gameSheet.Sprites.Select(s => s.TextureRect).ToArray(),
-                        gameSheet.Size
-                  );
+                  ResourceSprite[] sprites = gameSheet.Sprites.ToArray();
+                  Rectangle[] rects = sprites.Select(s => s.DrawRect).ToArray();
+                  Size size = gameSheet.Size;
+
+                  Bitmap img = new Bitmap(size.Width, size.Height);
+
+                  for (int i = 0; i < sprites.Length; i++) {
+                        img.PasteImage(sprites[i].Texture, rects[i].X, rects[i].Y);
+                  }
+
+                  return img;
+
+                  //return BitmapExtensions.Assemble(
+                  //      gameSheet.Sprites.Select(s => s.Texture).ToArray(),
+                  //      gameSheet.Sprites.Select(s => s.DrawRect).ToArray(),
+                  //      gameSheet.Size
+                  //);
             }
 
             public static Bitmap Assemble(Font font) {
