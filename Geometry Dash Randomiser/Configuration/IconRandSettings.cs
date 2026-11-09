@@ -189,7 +189,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private int _group = 0;
-            private int _percentageRandomized = 0;
+            private int _percentageRandomized = 100;
 
             private readonly RandomizationSetting _cube = _defaultCube;
             private readonly RandomizationSetting _ship = _defaultShip;

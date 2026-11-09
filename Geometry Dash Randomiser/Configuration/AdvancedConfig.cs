@@ -81,7 +81,7 @@ namespace Geometry_Dash_Randomiser {
             public int ConfigSaveDelay {
                   get => _configSaveDelay;
                   set {
-                        _configSaveDelay = value;
+                        _configSaveDelay = Math.Clamp(value, 1, 60);
                         SaveConfigAfterDelay();
                   }
             }
@@ -89,7 +89,7 @@ namespace Geometry_Dash_Randomiser {
             public int MaxLogFileCount {
                   get => _maxLogFileCount;
                   set {
-                        _maxLogFileCount = value;
+                        _maxLogFileCount = Math.Clamp(value, 1, 255);
                         SaveConfigAfterDelay();
                   }
             }
@@ -113,13 +113,18 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
+            //public bool IncludeExplanations {
+            //      get => _includeExplanations;
+            //      set => _includeExplanations = value;
+            //}
+
             public static void ReadFile() {
-                  if (File.Exists(configFileName)) {
-                        string inStream = File.ReadAllText(configFileName);
+                  if (File.Exists(_configFileName)) {
+                        string inStream = File.ReadAllText(_configFileName);
                         _instance.ApplyAllValues(Deserialise(inStream));
 
                   } else {
-                        Logger.WriteToFile(Logger.Mode.Info, $"The file \"{configFileName}\" does not exist. Loading default configuration.");
+                        Logger.WriteToFile(Logger.Mode.Info, $"The file \"{_configFileName}\" does not exist. Loading default configuration.");
                   }
             }
 
@@ -138,12 +143,16 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public void WriteFile() {
-                  Logger.Write(Logger.Mode.Verbose, "Saving Advanced Config File");
+                  Logger.Write(Logger.Mode.Debug, "Saving Advanced Config File");
 
-                  string outStream = this.Serialize();
+                  string[] outStream = this.Serialize().Split('\n');
+
+                  //if (_includeExplanations) {
+                  //      outStream = AddExplanationsToJSON_Data(outStream);
+                  //}
 
                   try {
-                        File.WriteAllText(configFileName, outStream);
+                        File.WriteAllLines(_configFileName, outStream);
 
                   }
                   catch (IOException ioExcept) {
@@ -152,6 +161,10 @@ namespace Geometry_Dash_Randomiser {
 
                   _fileSaveQueued = false;
             }
+
+            //private string[] AddExplanationsToJSON_Data(string[] dataIn) {
+
+            //}
 
             string Serialize() {
                   JsonSerializerOptions options = new JsonSerializerOptions {
@@ -206,6 +219,8 @@ namespace Geometry_Dash_Randomiser {
 
             private int _textureCropSize = 256;
 
+            //private bool _includeExplanations = true;
+
             // ------------------------------------------------
 
             private bool _fileSaveQueued = false;
@@ -213,6 +228,52 @@ namespace Geometry_Dash_Randomiser {
             // This exists to make it so upon creation it doesn't immediately try to save the config file
             private DateTime _created;
 
-            private const string configFileName = "adv_config.ini";
+            private const string _configFileName = "adv_config.ini";
+
+            private static ExplanationPair[] _explanationStrings = new ExplanationPair[] {
+                  new ExplanationPair(
+                        nameof(GameDirectory),
+                        "This is where the game's executable GeometryDash.exe and it's folders, \"Resources\" and \"Resources\\icons\" are"),
+                  new ExplanationPair(
+                        nameof(AutoOverwriteFiles),
+                        "This will make the application copy the randomized files into the game's directory immediately"),
+                  new ExplanationPair(
+                        nameof(Quality),
+                        "The quality of texture file to randomize"),
+                  new ExplanationPair(
+                        nameof(ThemeID),
+                        "The ID of the theme to use for the application"),
+                  new ExplanationPair(
+                        nameof(EnableRandomTheme),
+                        "Whether \"Random Theme\" is enabled. It colours every UI elements randomly"),
+                  new ExplanationPair(
+                        nameof(EnableSystemTheme),
+                        "Whether \"System Theme\" is enabled. This one is work in progress"),
+                  new ExplanationPair(
+                        nameof(ConfigSaveDelay),
+                        "The delay for saving config files after any setting in the application has been changed"),
+                  new ExplanationPair(
+                        nameof(MaxLogFileCount),
+                        "How many log files will be stored in the \"Logs\" folder. 1 to 255 inclusive"),
+                  new ExplanationPair(
+                        nameof(DebugMode),
+                        "If enabled, there will be a console window to show if there are any warnings or errors"),
+                  new ExplanationPair(
+                        nameof(TextureCropSize),
+                        "Controls image cropping. Change this value, if the unpacking of texture files is too slow")
+            };
+
+            private class ExplanationPair {
+
+                  public ExplanationPair(string propertyName, string explanation) {
+                        PropertyName = propertyName;
+                        Explanation = explanation;
+                  }
+
+                  internal ExplanationPair() { }
+
+                  internal string PropertyName { get; set; }
+                  internal string Explanation { get; set; }
+            }
       }
 }

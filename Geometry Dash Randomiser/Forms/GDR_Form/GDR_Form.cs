@@ -308,8 +308,6 @@ namespace Geometry_Dash_Randomiser {
             private void IconTexturesSettingsChanged(object sender, EventArgs e) {
                   bool newState = (sender as CheckBox).Checked;
 
-                  // If the form is not initialised, skip the rest of the changes
-                  // Otherwise some of the configuration data will be overwritten when the form is first initialised
                   if (autoRefreshLinkedControls == false) {
                         return;
                   }
@@ -322,13 +320,11 @@ namespace Geometry_Dash_Randomiser {
             private void IconTexturesGroupChanged(object sender, EventArgs e) {
                   NumericUpDown numericUpDown = sender as NumericUpDown;
 
-                  config.IconTextures.Group = (int)numericUpDown.Value;
-
-                  // If the form is not initialised, skip the rest of the changes
-                  // Otherwise some of the configuration data will be overwritten when the form is first initialised
                   if (autoRefreshLinkedControls == false) {
                         return;
                   }
+
+                  config.IconTextures.Group = (int)numericUpDown.Value;
 
                   SetAllIconTexturesElementStates();
                   ValidateReadyState();
@@ -338,26 +334,24 @@ namespace Geometry_Dash_Randomiser {
                   TextBox textBox = sender as TextBox;
                   bool success = textBox.ParseNumericValue(out Int32 result);
 
-                  config.IconTextures.PercentageRandomised = result;
-
-                  //// If the form is not initialised, skip the rest of the changes
-                  //// Otherwise some of the configuration data will be overwritten when the form is first initialised
                   if (autoRefreshLinkedControls == false) {
                         return;
                   }
+
+                  config.IconTextures.PercentageRandomised = result;
 
                   SetAllIconTexturesElementStates();
                   ValidateReadyState();
             }
 
             private void CubeTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.IconTextures.Cube, CubeTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.IconTextures.Cube, CubeTexturesGroupDisplay_Gr);
 
             private void ShipTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.IconTextures.Ship, ShipTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.IconTextures.Ship, ShipTexturesGroupDisplay_Gr);
 
             private void BallTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.IconTextures.Ball, BallTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.IconTextures.Ball, BallTexturesGroupDisplay_Gr);
 
             private void UFO_TexturesSettingsChanged(object sender, EventArgs e)
                   => ChangeConfigData(sender, config.IconTextures.Ufo, UFO_TexturesGroupDisplay);

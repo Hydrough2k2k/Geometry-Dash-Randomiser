@@ -83,13 +83,13 @@ namespace Geometry_Dash_Randomiser {
                   Path.Combine(unalteredFiles, GetQualityFolderName(AdvancedConfig.Instance.Quality), resourcesFolderName, iconsFolderName);
 
             /// <summary>
-            /// This is where the randomised Resources files will go by default
+            /// This is where the randomised resources files will go by default
             /// </summary>
             public static string LocalResourcesOutputFolder =>
                   Path.Combine(randomisedFiles, GetQualityFolderName(AdvancedConfig.Instance.Quality), resourcesFolderName);
 
             /// <summary>
-            /// This is where the randomised Icons files will go by default
+            /// This is where the randomised icons files will go by default
             /// </summary>
             public static string LocalIconsOutputFolder =>
                   Path.Combine(randomisedFiles, GetQualityFolderName(AdvancedConfig.Instance.Quality), resourcesFolderName, iconsFolderName);

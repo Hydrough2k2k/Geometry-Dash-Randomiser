@@ -147,14 +147,13 @@ namespace Geometry_Dash_Randomiser {
                         }
                   }
 
-                  //if (sprite.Rotated) {
-                  //      sprite.TextureRect = new Rectangle(sprite.TextureRect.X, sprite.TextureRect.Y, sprite.TextureRect.Height, sprite.TextureRect.Width);
-                  //}
-
                   return sprite;
             }
 
             static string GetKey(this string line) {
+                  if (string.IsNullOrEmpty(line) || line.Length < 10) {
+                        return null;
+                  }
                   return line.Substring(5, line.Length - 11);
             }
 

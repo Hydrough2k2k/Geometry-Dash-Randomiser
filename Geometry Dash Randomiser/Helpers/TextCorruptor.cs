@@ -7,7 +7,10 @@ namespace Geometry_Dash_Randomiser {
 
             public TextCorruptor() { }
 
-            public int CorruptionLevel { get; set; } = 10;
+            public int CorruptionLevel {
+                  get => _corruptionLevel;
+                  set => _corruptionLevel = value;
+            }
 
             public double ProbabilityPercent {
                   get => _probability * 100d;
@@ -56,14 +59,15 @@ namespace Geometry_Dash_Randomiser {
 
                         for (int c = 0; c < sb.Length; c++) {
                               if (random.NextDouble() <= _probability) {
-                                    sb[c] = charSet[random.Next(charSet.Length)];
+                                    sb[c] = _charSet[random.Next(_charSet.Length)];
                               }
                         }
                   }
             }
 
+            private int _corruptionLevel = 0;
             private double _probability = 0.1f;
 
-            const string charSet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz               !\"#$%^&\'*+,-*:;<=>?@_`~";
+            const string _charSet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz               !\"#$%^&\'*+,-*:;<=>?@_`~";
       }
 }

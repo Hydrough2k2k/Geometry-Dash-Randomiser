@@ -95,9 +95,9 @@
                   this.fontRandomiseCharactersInfoIcon = new System.Windows.Forms.PictureBox();
                   this.textureQualitySelectorBox = new System.Windows.Forms.DomainUpDown();
                   this.randomSeedButton = new System.Windows.Forms.Button();
-                  this.CubeTexturesGroupDisplay = new System.Windows.Forms.NumericUpDown();
-                  this.ShipTexturesGroupDisplay = new System.Windows.Forms.NumericUpDown();
-                  this.BallTexturesGroupDisplay = new System.Windows.Forms.NumericUpDown();
+                  this.CubeTexturesGroupDisplay_Gr = new System.Windows.Forms.NumericUpDown();
+                  this.ShipTexturesGroupDisplay_Gr = new System.Windows.Forms.NumericUpDown();
+                  this.BallTexturesGroupDisplay_Gr = new System.Windows.Forms.NumericUpDown();
                   this.JetpackTexturesGroupDisplay = new System.Windows.Forms.NumericUpDown();
                   this.SwingTexturesGroupDisplay = new System.Windows.Forms.NumericUpDown();
                   this.SpiderTexturesGroupDisplay = new System.Windows.Forms.NumericUpDown();
@@ -195,9 +195,9 @@
                   ((System.ComponentModel.ISupportInitialize)(this.seedInfoIcon)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.letterSpacingModeInfoIcon)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.fontRandomiseCharactersInfoIcon)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.CubeTexturesGroupDisplay)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.ShipTexturesGroupDisplay)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.BallTexturesGroupDisplay)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.CubeTexturesGroupDisplay_Gr)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.ShipTexturesGroupDisplay_Gr)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.BallTexturesGroupDisplay_Gr)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.JetpackTexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.SwingTexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.SpiderTexturesGroupDisplay)).BeginInit();
@@ -1162,47 +1162,47 @@
                   this.randomSeedButton.UseVisualStyleBackColor = true;
                   this.randomSeedButton.Click += new System.EventHandler(this.RandomSeedButton_Click);
                   // 
-                  // CubeTexturesGroupDisplay
+                  // CubeTexturesGroupDisplay_Gr
                   // 
-                  this.CubeTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.CubeTexturesGroupDisplay.Location = new System.Drawing.Point(259, 82);
-                  this.CubeTexturesGroupDisplay.Name = "CubeTexturesGroupDisplay";
-                  this.CubeTexturesGroupDisplay.Size = new System.Drawing.Size(60, 28);
-                  this.CubeTexturesGroupDisplay.TabIndex = 75;
-                  this.CubeTexturesGroupDisplay.Value = new decimal(new int[] {
+                  this.CubeTexturesGroupDisplay_Gr.Font = new System.Drawing.Font("Cambria", 13.2F);
+                  this.CubeTexturesGroupDisplay_Gr.Location = new System.Drawing.Point(259, 82);
+                  this.CubeTexturesGroupDisplay_Gr.Name = "CubeTexturesGroupDisplay_Gr";
+                  this.CubeTexturesGroupDisplay_Gr.Size = new System.Drawing.Size(60, 28);
+                  this.CubeTexturesGroupDisplay_Gr.TabIndex = 75;
+                  this.CubeTexturesGroupDisplay_Gr.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
-                  this.CubeTexturesGroupDisplay.ValueChanged += new System.EventHandler(this.CubeTexturesSettingsChanged);
+                  this.CubeTexturesGroupDisplay_Gr.ValueChanged += new System.EventHandler(this.CubeTexturesSettingsChanged);
                   // 
-                  // ShipTexturesGroupDisplay
+                  // ShipTexturesGroupDisplay_Gr
                   // 
-                  this.ShipTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.ShipTexturesGroupDisplay.Location = new System.Drawing.Point(259, 112);
-                  this.ShipTexturesGroupDisplay.Name = "ShipTexturesGroupDisplay";
-                  this.ShipTexturesGroupDisplay.Size = new System.Drawing.Size(60, 28);
-                  this.ShipTexturesGroupDisplay.TabIndex = 76;
-                  this.ShipTexturesGroupDisplay.Value = new decimal(new int[] {
+                  this.ShipTexturesGroupDisplay_Gr.Font = new System.Drawing.Font("Cambria", 13.2F);
+                  this.ShipTexturesGroupDisplay_Gr.Location = new System.Drawing.Point(259, 112);
+                  this.ShipTexturesGroupDisplay_Gr.Name = "ShipTexturesGroupDisplay_Gr";
+                  this.ShipTexturesGroupDisplay_Gr.Size = new System.Drawing.Size(60, 28);
+                  this.ShipTexturesGroupDisplay_Gr.TabIndex = 76;
+                  this.ShipTexturesGroupDisplay_Gr.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
-                  this.ShipTexturesGroupDisplay.ValueChanged += new System.EventHandler(this.ShipTexturesSettingsChanged);
+                  this.ShipTexturesGroupDisplay_Gr.ValueChanged += new System.EventHandler(this.ShipTexturesSettingsChanged);
                   // 
-                  // BallTexturesGroupDisplay
+                  // BallTexturesGroupDisplay_Gr
                   // 
-                  this.BallTexturesGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.BallTexturesGroupDisplay.Location = new System.Drawing.Point(259, 142);
-                  this.BallTexturesGroupDisplay.Name = "BallTexturesGroupDisplay";
-                  this.BallTexturesGroupDisplay.Size = new System.Drawing.Size(60, 28);
-                  this.BallTexturesGroupDisplay.TabIndex = 77;
-                  this.BallTexturesGroupDisplay.Value = new decimal(new int[] {
+                  this.BallTexturesGroupDisplay_Gr.Font = new System.Drawing.Font("Cambria", 13.2F);
+                  this.BallTexturesGroupDisplay_Gr.Location = new System.Drawing.Point(259, 142);
+                  this.BallTexturesGroupDisplay_Gr.Name = "BallTexturesGroupDisplay_Gr";
+                  this.BallTexturesGroupDisplay_Gr.Size = new System.Drawing.Size(60, 28);
+                  this.BallTexturesGroupDisplay_Gr.TabIndex = 77;
+                  this.BallTexturesGroupDisplay_Gr.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
-                  this.BallTexturesGroupDisplay.ValueChanged += new System.EventHandler(this.BallTexturesSettingsChanged);
+                  this.BallTexturesGroupDisplay_Gr.ValueChanged += new System.EventHandler(this.BallTexturesSettingsChanged);
                   // 
                   // JetpackTexturesGroupDisplay
                   // 
@@ -1374,9 +1374,9 @@
                   this.iconTextureContainer.Controls.Add(this.SpiderTexturesCheckbox);
                   this.iconTextureContainer.Controls.Add(this.SwingTexturesCheckbox);
                   this.iconTextureContainer.Controls.Add(this.JetpackTexturesCheckbox);
-                  this.iconTextureContainer.Controls.Add(this.CubeTexturesGroupDisplay);
-                  this.iconTextureContainer.Controls.Add(this.ShipTexturesGroupDisplay);
-                  this.iconTextureContainer.Controls.Add(this.BallTexturesGroupDisplay);
+                  this.iconTextureContainer.Controls.Add(this.CubeTexturesGroupDisplay_Gr);
+                  this.iconTextureContainer.Controls.Add(this.ShipTexturesGroupDisplay_Gr);
+                  this.iconTextureContainer.Controls.Add(this.BallTexturesGroupDisplay_Gr);
                   this.iconTextureContainer.Controls.Add(this.JetpackTexturesGroupDisplay);
                   this.iconTextureContainer.Controls.Add(this.SwingTexturesGroupDisplay);
                   this.iconTextureContainer.Controls.Add(this.SpiderTexturesGroupDisplay);
@@ -2322,9 +2322,9 @@
                   ((System.ComponentModel.ISupportInitialize)(this.seedInfoIcon)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.letterSpacingModeInfoIcon)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.fontRandomiseCharactersInfoIcon)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.CubeTexturesGroupDisplay)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.ShipTexturesGroupDisplay)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.BallTexturesGroupDisplay)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.CubeTexturesGroupDisplay_Gr)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.ShipTexturesGroupDisplay_Gr)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.BallTexturesGroupDisplay_Gr)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.JetpackTexturesGroupDisplay)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.SwingTexturesGroupDisplay)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.SpiderTexturesGroupDisplay)).EndInit();
@@ -2408,9 +2408,9 @@
             private System.Windows.Forms.CheckBox SpiderTexturesCheckbox;
             private System.Windows.Forms.CheckBox SwingTexturesCheckbox;
             private System.Windows.Forms.CheckBox JetpackTexturesCheckbox;
-            private System.Windows.Forms.NumericUpDown CubeTexturesGroupDisplay;
-            private System.Windows.Forms.NumericUpDown ShipTexturesGroupDisplay;
-            private System.Windows.Forms.NumericUpDown BallTexturesGroupDisplay;
+            private System.Windows.Forms.NumericUpDown CubeTexturesGroupDisplay_Gr;
+            private System.Windows.Forms.NumericUpDown ShipTexturesGroupDisplay_Gr;
+            private System.Windows.Forms.NumericUpDown BallTexturesGroupDisplay_Gr;
             private System.Windows.Forms.NumericUpDown JetpackTexturesGroupDisplay;
             private System.Windows.Forms.NumericUpDown SwingTexturesGroupDisplay;
             private System.Windows.Forms.NumericUpDown SpiderTexturesGroupDisplay;

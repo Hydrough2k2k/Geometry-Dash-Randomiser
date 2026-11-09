@@ -107,6 +107,13 @@ namespace Geometry_Dash_Randomiser {
                   return ret;
             }
 
+            /// <summary>
+            /// Crop a specified area of the array of provided Bitmap array
+            /// </summary>
+            /// <param name="source"></param>
+            /// <param name="cropRect"></param>
+            /// <param name="sliceSize"></param>
+            /// <returns></returns>
             static Bitmap CropFromSlices(this Bitmap[,] source, Rectangle cropRect, int sliceSize) {
                   int imageStartX = cropRect.X;
                   int imageEndX = imageStartX + cropRect.Width;
@@ -234,7 +241,7 @@ namespace Geometry_Dash_Randomiser {
 
                   return returnBitmap;
             }
-
+        
             /// <summary>
             /// Method to rotate an Image object. The result can be one of three cases:
             /// - upsizeOk = true: output image will be larger than the input, and no clipping occurs 
@@ -336,6 +343,7 @@ namespace Geometry_Dash_Randomiser {
 
                   Rectangle destRect = new Rectangle(new Point(xCoords, yCoords), new Size(copy.Width, copy.Height));
                   using (Graphics g = Graphics.FromImage(to)) {
+                        // I am not sure which one to use right now
                         //g.DrawImageUnscaledAndClipped(copy, destRect);
                         g.DrawImage(copy, destRect);
                   }

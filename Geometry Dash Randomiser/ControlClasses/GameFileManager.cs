@@ -14,7 +14,7 @@ namespace Geometry_Dash_Randomiser {
                   GDR = creator;
 
                   _fileBlacklist = new FileBlacklist();
-                  _gamesheetManager = new GamesheetManager();
+                  _gamesheetManager = new GameSheetManager();
                   _fontManager = new FontManager();
             }
 
@@ -22,7 +22,7 @@ namespace Geometry_Dash_Randomiser {
 
             private readonly FileBlacklist _fileBlacklist;
 
-            private readonly GamesheetManager _gamesheetManager;
+            private readonly GameSheetManager _gamesheetManager;
             private readonly FontManager _fontManager;
 
             private readonly ProgressState _progressState = ProgressState.Instance;
@@ -130,19 +130,16 @@ namespace Geometry_Dash_Randomiser {
                   BackupOriginalFiles();
 
                   this._progressState.CurrentStage = ApplicationState.Unpacking;
-                  _gamesheetManager.ReadAllFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
-                  //_fontManager.ReadAllFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
+                  //_gamesheetManager.ReadAllFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
+                  _fontManager.ReadAllFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
 
                   this._progressState.CurrentStage = ApplicationState.Randomising;
-                  /*GameSheet[] randomisedSprites =*/ _gamesheetManager.RandomizeFiles(random);
-                  //Font[] randomisedFonts = _fontManager.RandomizeFiles(random);
-
-                  //DebugOptions.WriteGameSheetImagesToDiskByGameSheet(_gamesheetManager.GameSheets.ToArray());
+                  //GameSheet[] randomisedGameSheets = _gamesheetManager.RandomizeFiles(random);
+                  Font[] randomisedFonts = _fontManager.RandomizeFiles(random);
 
                   this._progressState.CurrentStage = ApplicationState.Repackaging;
-                  //_gamesheetManager.WriteFilesToDisk();
-                  //_gamesheetManager.WriteFilesToDisk(randomisedSprites);
-                  //_fontManager.WriteFilesToDisk(randomisedFonts);
+                  //GameSheetManager.WriteFilesToDisk(randomisedGameSheets);
+                  FontManager.WriteFilesToDisk(randomisedFonts);
 
                   //if (AdvancedConfig.Instance.AutoOverwriteFiles == true) {
                   //      AutoOverwriteFiles();
@@ -174,8 +171,8 @@ namespace Geometry_Dash_Randomiser {
                   switch (type) {
                         case GameFileType.Resource:
                         case GameFileType.Icon:
-                              missingFiles = GamesheetManager.GetAllFileNames(source, AdvancedConfig.Instance.Quality).ToArray();
-                              backedUpFiles = GamesheetManager.GetAllFileNames(dest, AdvancedConfig.Instance.Quality).ToArray();
+                              missingFiles = GameSheetManager.GetAllFileNames(source, AdvancedConfig.Instance.Quality).ToArray();
+                              backedUpFiles = GameSheetManager.GetAllFileNames(dest, AdvancedConfig.Instance.Quality).ToArray();
                               fileExtensions = new string[] { ".plist", ".png" };
                               break;
 
@@ -222,82 +219,5 @@ namespace Geometry_Dash_Randomiser {
                         Logger.Write(Logger.Mode.Info, $"Copied {copiedFiles} files\n\tfrom {PathManager.GetPath(source)}\n\tto {PathManager.GetPath(dest)}");
                   }
             }
-
-            //void RandomiseData(int seed) {
-            //      Logger.Write(Logger.Mode.Info, $"Randomising game data using the seed {seed}");
-
-            //      Randomiser randomiser = new Randomiser(this, seed);
-            //      List<Sprite> randomisedSprites = randomiser.RandomiseData();
-
-            //      // Get all distint source files from all the sprites
-            //      string[] gameSheetFiles = randomisedSprites
-            //            .Select(s => s.SourceFile)
-            //            .Distinct()
-            //            .ToArray();
-
-            //      this.progressState.CurrentStage = ApplicationState.Repackaging;
-            //      this.progressState.CurrentFileType = GameFileType.Resource;
-            //      this.progressState.NewFileBatch(gameSheetFiles.Length);
-
-            //      // Default the output folders to the game folders
-            //      string iconsOutputFolder = PathManager.LocalIconsOutputFolder;
-            //      string resourcesOutputFolder = PathManager.LocalResourcesOutputFolder;
-
-            //      Directory.CreateDirectory(iconsOutputFolder);
-            //      Directory.CreateDirectory(resourcesOutputFolder);
-
-            //      for (int i = 0; i < gameSheetFiles.Length; i++) {
-            //            this.progressState.CurrentFile = gameSheetFiles[i];
-
-            //            // Get all sprites that go into this file
-            //            Sprite[] sprites = randomisedSprites
-            //                  .Where(s => s.SourceFile == gameSheetFiles[i])
-            //                  .ToArray();
-
-            //            PackingRectangle[] rects = new PackingRectangle[sprites.Length];
-
-            //            // Populate rects array with sprite data
-            //            for (int j = 0; j < sprites.Length; j++) {
-            //                  // Add 1 pixel on every side of all sprites to not make them flow into each other
-            //                  rects[j] = new PackingRectangle(0, 0, (uint)sprites[j].CropRect.Width + 2, (uint)sprites[j].CropRect.Height + 2, j);
-            //            }
-
-            //            // Get new rectangles for how to rearrange the sprites
-            //            getPackingRects(ref rects, out PackingRectangle bounds);
-
-            //            for (int j = 0; j < sprites.Length; j++) {
-            //                  // If the texture is offset by 2 pixel on either side at least (1 + 1)
-            //                  if (sprites[j].TextureRect.X != sprites[j].CropRect.X || sprites[j].TextureRect.Y != sprites[j].CropRect.Y) {
-            //                        sprites[j].TextureRect = new Rectangle((int)rects[j].X + 2, (int)rects[j].Y + 2, (int)rects[j].Width, (int)rects[j].Height);
-
-            //                  } else {
-            //                        // Otherwise add just 1 pixel to account for sprites flowing into each other
-            //                        sprites[j].TextureRect = new Rectangle((int)rects[j].X + 1, (int)rects[j].Y + 1, (int)rects[j].Width, (int)rects[j].Height);
-            //                  }  
-            //            }
-
-            //            // Assemble new gamesheet
-            //            Bitmap finalGameSheet = GameSheetAssembler.Assemble(sprites, rects, bounds);
-
-            //            // Compile the new plist file
-            //            string[] plistFile = Plist.Serialise(sprites, gameSheetFiles[i], new Size(finalGameSheet.Width, finalGameSheet.Height));
-
-            //            // Determine if the gamesheet contains icons to determine where the new files need to be saved
-            //            bool isIconsFile = sprites.Any(s => s.ResourceType == ResourceType.Icon);
-            //            string outputFolder = isIconsFile ? iconsOutputFolder : resourcesOutputFolder;
-
-            //            File.WriteAllLines(Path.Combine(outputFolder, gameSheetFiles[i] + ".plist"), plistFile);
-            //            finalGameSheet.Save(Path.Combine(outputFolder, gameSheetFiles[i] + ".png"));
-            //            // Get rid of the bitmap once it is saved
-            //            finalGameSheet.Dispose();
-
-            //            this.progressState.CompletedFiles++;
-            //      }
-            //}
-
-            //void getPackingRects(ref PackingRectangle[] rects, out PackingRectangle bounds) {
-            //      RectanglePacker.Pack(rects, out bounds, PackingHints.TryByArea, 1, 2);
-            //      Array.Sort(rects, (x, y) => x.Id.CompareTo(y.Id));
-            //}
       }
 }

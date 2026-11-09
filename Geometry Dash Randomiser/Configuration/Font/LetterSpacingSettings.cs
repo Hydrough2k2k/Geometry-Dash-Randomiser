@@ -179,6 +179,7 @@ namespace Geometry_Dash_Randomiser {
                   }
 
                   private static KerningData[] letterKerningLevels = new KerningData[] {
+                        new KerningData(0, 0, 0, 0, 0),
                         new KerningData(-3, 5, -3, 5, 10),
                         new KerningData(-5, 8, -5, 8, 25),
                         new KerningData(-10, 15, -10, 15, 40),

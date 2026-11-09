@@ -36,7 +36,7 @@ namespace Geometry_Dash_Randomiser {
             private Theme CurrentTheme => themeController.Current;
 
             DateTime lastThemeRefresh = DateTime.MinValue;
-            private int themeRefreshCooldown = 825; // ms
+            private int themeRefreshCooldown = 1000; // ms
 
             // This is used to prevent the data arrays from being populated multiple times. This will short circuit the method that will populate the arrays
             private bool dataArraysArePopulated = false;
@@ -54,7 +54,10 @@ namespace Geometry_Dash_Randomiser {
 
             private List<Control> controlsToggledDuringRandomisation = new List<Control>();
 
-            // This is false during Config importing and loading to prevent linked controls displaying wrong values
+            /// <summary>
+            /// This stops all linked controls from getting the parent controls' values<br/>
+            /// This is mainly useful when importing a configuration from file, or applying one in the (currently inactive) configuration manager
+            /// </summary>
             private bool autoRefreshLinkedControls = false;
 
             // ---------------------------------------------------------------------------------

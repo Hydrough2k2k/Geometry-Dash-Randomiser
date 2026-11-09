@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using static Geometry_Dash_Randomiser.FontChar;
 
 namespace Geometry_Dash_Randomiser {
 
-      public class Font {
+      public class Font : IDisposable {
 
             public struct PropertyPair {
                   public readonly string name;
@@ -202,9 +203,9 @@ namespace Geometry_Dash_Randomiser {
                               if (random.NextTrue(kerningData.probability)) {
                                     newKernings.Add(
                                           new FontKerning {
-                                                First = c1,
-                                                Second = c2,
-                                                Amount = random.Next(kerningData.kerningMin, kerningData.kerningMin + 1)
+                                                First = Chars[c1].CharID,
+                                                Second = Chars[c2].CharID,
+                                                Amount = random.Next(kerningData.kerningMin, kerningData.kerningMax + 1)
                                           }
                                     );
                               }
@@ -294,6 +295,12 @@ namespace Geometry_Dash_Randomiser {
                   copy.Kernings = this.Kernings.Select(c => c.DeepCopy()).ToArray();
 
                   return copy;
+            }
+
+            public void Dispose() {
+                  for (int i = 0; i < Chars.Length; i++) {
+                        Chars[i].Texture.Dispose();
+                  }
             }
       }
 }

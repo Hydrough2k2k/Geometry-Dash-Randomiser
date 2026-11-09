@@ -1,10 +1,14 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Text.Json.Serialization;
 
 namespace Geometry_Dash_Randomiser {
 
-      public class ResourceSprite {
+      public class ResourceSprite : IDisposable {
 
+            /// <summary>
+            /// Create a new instance of this object type
+            /// </summary>
             public ResourceSprite() { }
 
             /// <summary>
@@ -91,7 +95,17 @@ namespace Geometry_Dash_Randomiser {
             /// <summary>
             /// The cropped bitmap for the sprite
             /// </summary>
-            public Bitmap Texture { get; set; } = null;
+            [JsonIgnore]
+            public Bitmap Texture {
+                  get => _texture;
+                  set => _texture = value;
+            }
+
+            /// <summary>
+            /// Get the area of the texture of this sprite
+            /// </summary>
+            [JsonIgnore]
+            public int Area => TextureRect.Width * TextureRect.Height;
 
             /// <summary>
             /// Gets the rectangle we need to crop from the full gamesheet.<br/>
@@ -105,6 +119,76 @@ namespace Geometry_Dash_Randomiser {
                   return new Rectangle(TextureRect.X - 1, TextureRect.Y - 1, TextureRect.Width + 2, TextureRect.Height + 2);
             }
 
+            /// <summary>
+            /// Swap most properties between this and 'other' instance
+            /// </summary>
+            /// <param name="other">The second ResourceSprite instance we want to swap the properties between</param>
+            public void SwapProperties(ResourceSprite other) {
+                  if (other == null) {
+                        Logger.Error("\"other\" was null in ResourceSprite.SwapProperties");
+                        return;
+                  }
+
+                  (this.Offset, other.Offset) = (other.Offset, this.Offset);
+                  (this.Size, other.Size) = (other.Size, this.Size);
+                  (this.SourceSize, other.SourceSize) = (other.SourceSize, this.SourceSize);
+                  (this.TextureRect, other.TextureRect) = (other.TextureRect, this.TextureRect);
+                  (this.Rotated, other.Rotated) = (other.Rotated, this.Rotated);
+                  (this.TextureRect, other.TextureRect) = (other.TextureRect, this.TextureRect);
+                  (this.Texture, other.Texture) = (other.Texture, this.Texture);
+            }
+
+            /// <summary>
+            /// Swap most properties between this and 'other' instance
+            /// </summary>
+            /// <param name="other">The second ResourceSprite instance we want to swap the properties between</param>
+            public void CopyPropertiesFrom(ResourceSprite other) {
+                  if (other == null) {
+                        Logger.Error("\"other\" was null in ResourceSprite.SwapProperties");
+                        return;
+                  }
+
+                  this.Offset = other.Offset;
+                  this.Size = other.Size;
+                  this.SourceSize = other.SourceSize;
+                  this.TextureRect = other.TextureRect;
+                  this.Rotated = other.Rotated;
+                  this.TextureRect = other.TextureRect;
+                  this.Texture = other.Texture;
+            }
+
+            /// <summary>
+            /// Returns a deep copy of a ResourceSprite object
+            /// </summary>
+            /// <param name="cloneTexture">Whether to clone the texture bitmap. Doing so will make it unique, so calling Dispose() will not delete both instances from memory</param>
+            /// <returns>The cloned copy of this object</returns>
+            public ResourceSprite DeepCopy(bool cloneTexture = false) {
+                  ResourceSprite clone = new ResourceSprite();
+
+                  clone.Name = this.Name;
+                  clone.Type = this.Type;
+                  clone.Offset = this.Offset;
+                  clone.Size = this.Size;
+                  clone.SourceSize = this.SourceSize;
+                  clone.TextureRect = this.TextureRect;
+                  clone.Rotated = this.Rotated;
+                  clone.DrawRect = this.DrawRect;
+
+                  if (cloneTexture) {
+                        clone.Texture = this.Texture.GetUniqueClone();
+
+                  } else {
+                        clone.Texture = this.Texture;
+                  }
+                        
+                  return clone;
+            }
+
+            public void Dispose() {
+                  Texture.Dispose();
+            }
+
+            // private fields
             private string _name = string.Empty;
             private ResourceType _type = ResourceType.Unknown;
             private PointF _offset = new PointF();
@@ -114,5 +198,6 @@ namespace Geometry_Dash_Randomiser {
             private Rectangle _renderRect = new Rectangle();
             private bool _rotated = false;
             private Rectangle _drawRect = new Rectangle();
+            private Bitmap _texture = null;
       }
 }

@@ -22,12 +22,21 @@ namespace Geometry_Dash_Randomiser {
             // AllowDuplicates
 
             public void ReadAllFiles(string path, Quality quality) {
-                  if (_fonts.Length != 0) {
+                  if (_fileQuality != AdvancedConfig.Instance.Quality) {
+                        ClearFonts();
+                  }
+
+                  if (_fonts.Count != 0) {
                         return;
                   }
 
+                  ExtractFontFiles(path, quality);
+
+                  _fileQuality = AdvancedConfig.Instance.Quality;
+            }
+
+            private void ExtractFontFiles(string path, Quality quality) {
                   List<string> fontFileNames = GetAllFileNames(path, quality).ToList();
-                  List<Font> newFontsList = new List<Font>();
 
                   Logger.Write(Logger.Mode.Info, $"Unpacking {fontFileNames.Count} font files from {PathManager.GetPath(GDR_Path.BackupResourcesFolder)}");
 
@@ -79,10 +88,8 @@ namespace Geometry_Dash_Randomiser {
                         fontsheet.Dispose();
 
                         ProgressState.Instance.CompletedFiles++;
-                        newFontsList.Add(newFont);
+                        _fonts.Add(newFont);
                   }
-
-                  _fonts = newFontsList.ToArray();
             }
 
             public Font[] RandomizeFiles(Random random = null) {
@@ -272,11 +279,16 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            public void WriteFilesToDisk() => WriteFilesToDisk(GDR_Path.LocalResourcesOutputFolder, _fonts);
+            public static void WriteFilesToDisk(Font[] fonts) {
+                  // Get the output path based on if AutoOverwriteFiles is enabled
+                  // If it's enabled, the new files will go directly to the game's folder, otherwise the local randomized files folder
+                  string outputPath = PathManager.LocalResourcesOutputFolder;
+                  if (AdvancedConfig.Instance.AutoOverwriteFiles) {
+                        outputPath = PathManager.GameResourcesFolder;
+                  }
 
-            public static void WriteFilesToDisk(Font[] fonts) => WriteFilesToDisk(GDR_Path.LocalResourcesOutputFolder, fonts);
-
-            public static void WriteFilesToDisk(GDR_Path path, Font[] fonts) => WriteFilesToDisk(PathManager.GetPath(path), fonts);
+                  WriteFilesToDisk(outputPath, fonts);
+            }
 
             public static void WriteFilesToDisk(string path, Font[] fonts) {
                   Directory.CreateDirectory(path);
@@ -306,7 +318,7 @@ namespace Geometry_Dash_Randomiser {
 
             public int[] GetAllDistinctCharIDs() {
                   List<int> allCharIDs = new List<int>();
-                  for (int i = 0; i < _fonts.Length; i++) {
+                  for (int i = 0; i < _fonts.Count; i++) {
                         allCharIDs.AddRange(_fonts[i].GetCharIDs());
                   }
                   allCharIDs = allCharIDs.Distinct().ToList();
@@ -324,6 +336,13 @@ namespace Geometry_Dash_Randomiser {
 
             public static string SerialiseTextFile(Font font) => font.Serialise();
 
+            private void ClearFonts() {
+                  for (int i = 0; i < _fonts.Count; i++) {
+                        _fonts[i].Dispose();
+                  }
+                  _fonts = new List<Font>();
+            }
+
             public static IEnumerable<string> GetAllFileNames(GDR_Path source, Quality quality) => GetAllFileNames(PathManager.GetPath(source), quality);
 
             public static IEnumerable<string> GetAllFileNames(string path, Quality quality) {
@@ -334,7 +353,8 @@ namespace Geometry_Dash_Randomiser {
                         .Select(f => Path.GetFileName(f));
             }
 
-            private Font[] _fonts = Array.Empty<Font>();
+            private List<Font> _fonts = new List<Font>();
+            private Quality _fileQuality = Quality.High;
 
             private RandomizationConfig config = RandomizationConfig.Instance;
       }

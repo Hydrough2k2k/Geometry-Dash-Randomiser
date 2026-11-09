@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
@@ -235,7 +236,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public void WriteFile() {
-                  Logger.Write(Logger.Mode.Verbose, "Saving Config File");
+                  Logger.Write(Logger.Mode.Debug, "Saving Config File");
 
                   string outStream = this.Serialize();
 

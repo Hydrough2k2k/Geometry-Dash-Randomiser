@@ -377,7 +377,7 @@
     <Compile Include="Extensions\GameFilesExtension.cs" />
     <Compile Include="Enums\GameFileType.cs" />
     <Compile Include="ControlClasses\GameSheetAssembler.cs" />
-    <Compile Include="ControlClasses\GamesheetManager.cs" />
+    <Compile Include="ControlClasses\GameSheetManager.cs" />
     <Compile Include="Configuration\IconRandSettings.cs" />
     <Compile Include="Forms\ImportConfigForm.cs">
       <SubType>Form</SubType>
@@ -413,7 +413,6 @@
     <Compile Include="Enums\Quality.cs" />
     <Compile Include="Extensions\RandomExtensions.cs" />
     <Compile Include="Configuration\RandomizationSetting.cs" />
-    <Compile Include="ControlClasses\Randomiser.cs" />
     <Compile Include="Enums\ReadyState.cs" />
     <Compile Include="Libraries\RetpackSharp\RectanglePacker.cs" />
     <Compile Include="Extensions\StringExtension.cs" />

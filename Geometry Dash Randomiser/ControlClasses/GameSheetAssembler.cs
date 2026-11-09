@@ -17,12 +17,6 @@ namespace Geometry_Dash_Randomiser {
                   }
 
                   return img;
-
-                  //return BitmapExtensions.Assemble(
-                  //      gameSheet.Sprites.Select(s => s.Texture).ToArray(),
-                  //      gameSheet.Sprites.Select(s => s.DrawRect).ToArray(),
-                  //      gameSheet.Size
-                  //);
             }
 
             public static Bitmap Assemble(Font font) {

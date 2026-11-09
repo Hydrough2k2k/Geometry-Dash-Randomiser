@@ -8,23 +8,23 @@ namespace Geometry_Dash_Randomiser {
 
             // Console Settings
             internal static bool EnableColoursForConsoleWrites { get; set; } = true;
-            internal static Mode MinimumLevelForConsole { get; set; } = Mode.Debug;
+            internal static Mode MinimumLevelForConsole { get; set; } = Mode.Verbose;
 
             // File Settings
             internal static bool MirrorToFile { get; set; } = true;
-            internal static Mode MinimumLevelForFile { get; set; } = Mode.Info;
+            internal static Mode MinimumLevelForFile { get; set; } = Mode.Warn;
 
             public enum Mode {
-                  Debug,
                   Verbose,
+                  Debug,
                   Info,
                   Warn,
                   Error,
                   Fatal
             }
 
-            public static void Debug(string message) => Write(Mode.Debug, message);
             public static void Verbose(string message) => Write(Mode.Verbose, message);
+            public static void Debug(string message) => Write(Mode.Debug, message);
             public static void Info(string message) => Write(Mode.Info, message);
             public static void Warn(string message) => Write(Mode.Warn, message);
             public static void Error(string message) => Write(Mode.Error, message);

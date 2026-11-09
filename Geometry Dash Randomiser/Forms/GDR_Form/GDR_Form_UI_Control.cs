@@ -1,4 +1,5 @@
 ﻿using Geometry_Dash_Randomiser.Properties;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using static Geometry_Dash_Randomiser.Logger;
@@ -192,9 +193,9 @@ namespace Geometry_Dash_Randomiser {
                   // I know all of these are horribly long, but to keep the names distinct, I kinda have to do this :/
                   UpdateRandomisationControlsStates(IconTexturesCheckbox, IconTexturesPercentageBox, IconTexturesGroupDisplay, (RandomizationSetting)config.IconTextures);
 
-                  UpdateRandomisationControlsStates(CubeTexturesCheckbox, CubeTexturesPercentageBox, CubeTexturesGroupDisplay, config.IconTextures.Cube);
-                  UpdateRandomisationControlsStates(ShipTexturesCheckbox, ShipTexturesPercentageBox, ShipTexturesGroupDisplay, config.IconTextures.Ship);
-                  UpdateRandomisationControlsStates(BallTexturesCheckbox, BallTexturesPercentageBox, BallTexturesGroupDisplay, config.IconTextures.Ball);
+                  UpdateRandomisationControlsStates(CubeTexturesCheckbox, CubeTexturesPercentageBox, CubeTexturesGroupDisplay_Gr, config.IconTextures.Cube);
+                  UpdateRandomisationControlsStates(ShipTexturesCheckbox, ShipTexturesPercentageBox, ShipTexturesGroupDisplay_Gr, config.IconTextures.Ship);
+                  UpdateRandomisationControlsStates(BallTexturesCheckbox, BallTexturesPercentageBox, BallTexturesGroupDisplay_Gr, config.IconTextures.Ball);
                   UpdateRandomisationControlsStates(UFO_TexturesCheckbox, UFO_TexturesPercentageBox, UFO_TexturesGroupDisplay, config.IconTextures.Ufo);
                   UpdateRandomisationControlsStates(WaveTexturesCheckbox, WaveTexturesPercentageBox, WaveTexturesGroupDisplay, config.IconTextures.Wave);
                   UpdateRandomisationControlsStates(RobotTexturesCheckbox, RobotTexturesPercentageBox, RobotTexturesGroupDisplay, config.IconTextures.Robot);

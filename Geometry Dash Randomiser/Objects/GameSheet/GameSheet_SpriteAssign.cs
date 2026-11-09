@@ -6,7 +6,10 @@ namespace Geometry_Dash_Randomiser {
       public partial class GameSheet {
 
             private void AssignAllSpriteTypes() {
-                  switch (FileType) {
+                  if (FileType == GameFileType.None)
+                        return;
+
+                  switch (this.FileType) {
                         case GameFileType.Resource:
                               AssignAllSpriteTypes(this.FileName);
                               break;
@@ -15,8 +18,9 @@ namespace Geometry_Dash_Randomiser {
                               AssignAllIconTypes();
                               break;
 
+                        case GameFileType.Font: // This will have it's own logic when GameSheetManager and FontManager will be merged
                         default:
-                              Logger.Warn($"Tried to assign sprite types for file {FileName} with invalid file type {FileType.ToString()}.");
+                              Logger.Error($"Cannot assign sprite typpes to invalid file type: {FileType}");
                               break;
                   }
             }
