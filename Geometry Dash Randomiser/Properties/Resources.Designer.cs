@@ -63,6 +63,16 @@ namespace Geometry_Dash_Randomiser.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _44x44WhiteBG {
+            get {
+                object obj = ResourceManager.GetObject("44x44WhiteBG", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ConnectorBeamWhite {
             get {
                 object obj = ResourceManager.GetObject("ConnectorBeamWhite", resourceCulture);
@@ -76,6 +86,16 @@ namespace Geometry_Dash_Randomiser.Properties {
         internal static System.Drawing.Bitmap Error {
             get {
                 object obj = ResourceManager.GetObject("Error", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FontConnectorBeam {
+            get {
+                object obj = ResourceManager.GetObject("FontConnectorBeam", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

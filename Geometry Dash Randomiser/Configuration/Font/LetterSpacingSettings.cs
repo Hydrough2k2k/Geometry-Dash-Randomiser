@@ -1,77 +1,94 @@
 ﻿using System;
+using static Geometry_Dash_Randomiser.Font;
 
 namespace Geometry_Dash_Randomiser {
 
-      public class LetterSpacingSettings {
+      public class LetterSpacingSettings : IUpdateNotify {
 
-            public enum SpacingMode { Simple = 0, Advanced = 1 }
+            public event EventHandler Updated;
 
-            public LetterSpacingSettings() { }
+            public LetterSpacingSettings() {
+                  _xOffset.Updated += InvokeConfigUpdateEvent;
+                  _kerning.Updated += InvokeConfigUpdateEvent;
+            }
 
-            public bool Enabled { get; set; }
+            public static LetterSpacingSettings Default => new LetterSpacingSettings();
 
-            public SpacingMode Mode {
-                  get { return _mode; }
+            public bool Enabled {
+                  get => _enabled;
                   set {
-                        if ((int)value < 0) {
-                              _mode = SpacingMode.Simple;
-
-                        } else if (value > maxSpacingMode) {
-                              _mode = maxSpacingMode;
-
-                        } else {
-                              _mode = value;
-                        }
+                        _enabled = value;
+                        InvokeEvent(Updated, null);
                   }
             }
 
-            public SimpleMode Simple {
-                  get { return _simple; }
-                  set { _simple = value ?? new SimpleMode(); }
+            public SpacingMode Mode {
+                  get => _mode;
+                  set {
+                        _mode = (SpacingMode)(Math.Clamp((int)value, 0, maxMode));
+                        InvokeEvent(Updated, null);
+                  }
             }
 
-            public AdvancedMode Advanced {
-                  get { return _advanced; }
-                  set { _advanced = value ?? new AdvancedMode(); }
+            // Simple Mode
+            public int Level {
+                  get => _level;
+                  set {
+                        _level = Math.Clamp(value, minLevel, maxLevel);
+                        InvokeEvent(Updated, null);
+                  }
+            }
+            
+            // Advanced Mode
+            public CappedRange X_Offset {
+                  get => _xOffset;
+                  set {
+                        _xOffset.CopyDataFrom(value ?? CappedRange.Default);
+                        InvokeEvent(Updated, null);
+                  }
             }
 
-            public void SetMode(int mode) {
-                  Mode = (SpacingMode)mode;
+            public CappedRange Kerning {
+                  get => _kerning;
+                  set {
+                        _kerning.CopyDataFrom(value ?? CappedRange.Default);
+                        InvokeEvent(Updated, null);
+                  }
             }
 
-            public Font.LetterSpacing GetAdvancedLetterSpacing() {
-                  return new Font.LetterSpacing(Advanced.X_Offset.Min, Advanced.X_Offset.Max, Advanced.Kerning.Min, Advanced.Kerning.Max, 100);
+            public void SetMode(int modeID) {
+                  Mode = (SpacingMode)modeID;
             }
 
             /// <summary>
             /// Sets 4 different values based on the index:<br/>
-            /// 2: X_Offset.Min<br/>
-            /// 3: X_Offset.Max
-            /// 0: Kerning.Min<br/>
-            /// 1: Kerning.Max<br/>
+            /// 0: X_Offset.Min<br/>
+            /// 1: X_Offset.Max<br/>
+            /// 2: Kerning.Min<br/>
+            /// 3: Kerning.Max
             /// </summary>
             public void SetRangeValue(string value, int index) {
                   bool success = Int32.TryParse(value, out Int32 castValue);
                   if (!success) {
-                        Logger.Write(Logger.Mode.Warn, $"Casting value {value} to Int32 failed in \"LetterSpacingSettings\".");
+                        Logger.Write(Logger.Mode.Warn, $"Casting value {value} to Int32 failed in \"LetterSpacingSettings\". Index: {index}");
                         return;
                   }
 
                   switch (index) {
                         case 0:
-                              Advanced.X_Offset.Min = castValue;
+                              X_Offset.Min = castValue;
                               break;
 
                         case 1:
-                              Advanced.X_Offset.Max = castValue;
+                              X_Offset.Max = castValue;
                               break;
 
                         case 2:
-                              Advanced.Kerning.Min = castValue;
+                              Kerning.Min = castValue;
                               break;
 
                         case 3:
-                              Advanced.Kerning.Max = castValue;
+                              Kerning.Max = castValue;
                               break;
 
                         default:
@@ -80,117 +97,119 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            public class CappedRange {
-
-                  private int _min;
-                  private int _max;
-
-                  public CappedRange() { }
-
-                  public CappedRange(int min, int max) {
-                        Min = min;
-                        Max = max;
-                  }
-
-                  public CappedRange(int min, int max, int minCap, int maxCap) {
-                        Min = min;
-                        Max = max;
-                        _minimumCap = minCap;
-                        _maximumCap = maxCap;
-                  }
-
-                  public static CappedRange Default => new CappedRange();
-
-                  public int Min {
-                        get { return _min; }
-                        set {
-                              _min = value.Clamp(_minimumCap, _maximumCap);
-
-                              if (_min > _max)
-                                    _min = _max;
-                        }
-                  }
-
-                  public int Max {
-                        get { return _max; }
-                        set {
-                              _max = value.Clamp(_minimumCap, _maximumCap);
-
-                              if (_max < _min)
-                                    _max = _min;
-                        }
-                  }
-
-                  private readonly int _minimumCap = -128;
-                  private readonly int _maximumCap = 127;
+            public void CopyDataFrom(LetterSpacingSettings source) {
+                  Enabled = source.Enabled;
+                  Mode = source.Mode;
+                  Level = source.Level;
+                  X_Offset.CopyDataFrom(source.X_Offset);
+                  Kerning.CopyDataFrom(source.Kerning);
             }
 
-            public class SimpleMode {
+            public KerningData GetKerningData() {
+                  switch (this.Mode) {
+                        case LetterSpacingSettings.SpacingMode.Simple:
+                              return KerningData.GetSimpleKerningDataFromLevel(this.Level);
 
-                  public SimpleMode() { }
+                        case LetterSpacingSettings.SpacingMode.Advanced:
+                              return this.GetAdvancedKerningData();
 
-                  public int Level {
-                        get { return _level; }
-                        set {
-                              if (value < minInsanityLevel) {
-                                    Logger.Warn("LSS.Level was smaller than the minimum allowed level");
-                                    _level = minInsanityLevel;
-
-                              } else if (value > maxInsanityLevel) {
-                                    Logger.Warn("LSS.Level was greater than the maximum allowed level");
-                                    _level = maxInsanityLevel;
-
-                              } else {
-                                    _level = value;
-                              }
-                        }
+                        default:
+                              Logger.Warn($"Unrecognised Letter Spacing Mode: {this.Mode.ToString()}. Defaulting to Simple");
+                              goto case LetterSpacingSettings.SpacingMode.Simple;
                   }
-
-                  private int _level = minInsanityLevel;
-
-                  private const int maxInsanityLevel = 10;
-                  private const int minInsanityLevel = 1;
             }
 
-            public class AdvancedMode {
-
-                  public AdvancedMode() { }
-
-                  public CappedRange X_Offset {
-                        get { return _x_Offset; }
-                        set {
-                              if (value == null) {
-                                    Logger.Warn("LSS.Advanced.X_Offset set was passed as null");
-                                    _x_Offset = CappedRange.Default;
-
-                              } else {
-                                    _x_Offset = value;
-                              }
-                        }
-                  }
-
-                  public CappedRange Kerning {
-                        get { return _kerning; }
-                        set {
-                              if (value == null) {
-                                    Logger.Warn("LSS.Advanced.Kerning set was passed as null");
-                                    _kerning = CappedRange.Default;
-
-                              } else {
-                                    _kerning = value;
-                              }
-                        }
-                  }
-
-                  private CappedRange _kerning = new CappedRange();
-                  private CappedRange _x_Offset = new CappedRange();
+            public KerningData GetAdvancedKerningData() {
+                  return new KerningData(X_Offset, Kerning, 100);
             }
 
+            private void InvokeConfigUpdateEvent(object sender, EventArgs e) => InvokeEvent(Updated, null);
+
+            private void InvokeEvent(EventHandler @event, EventArgs e) {
+                  @event?.Invoke(this, e);
+            }
+
+            private bool _enabled = true;
             private SpacingMode _mode = SpacingMode.Simple;
 
-            private SimpleMode _simple = new SimpleMode();
-            private AdvancedMode _advanced = new AdvancedMode();
+            private int _level = 1;
 
-            private const SpacingMode maxSpacingMode = SpacingMode.Advanced;
+            private readonly CappedRange _xOffset = new CappedRange(-20, 30);
+            private readonly CappedRange _kerning = new CappedRange(-20, 30);
+
+            private static readonly int maxMode = Enum.GetValues(typeof(SpacingMode)).Length - 1;
+
+            private const int minLevel = 1;
+            private const int maxLevel = 10;
+
+            public enum SpacingMode { Simple, Advanced }
+
+            public class KerningData {
+
+                  public int xOffsetMin;
+                  public int xOffsetMax;
+                  public int kerningMin;
+                  public int kerningMax;
+                  public int probability;
+
+                  public KerningData() { }
+
+                  public KerningData(int x_OffsetMin, int x_OffsetMax, int kerningMin, int kerningMax, int probability) {
+                        this.xOffsetMin = x_OffsetMin;
+                        this.xOffsetMax = x_OffsetMax;
+                        this.kerningMin = kerningMin;
+                        this.kerningMax = kerningMax;
+                        this.probability = probability;
+                  }
+
+                  public KerningData(CappedRange x_Offset, CappedRange kerning, int probability) {
+                        this.xOffsetMin = x_Offset.Min;
+                        this.xOffsetMax = x_Offset.Max;
+                        this.kerningMin = kerning.Min;
+                        this.kerningMax = kerning.Max;
+                        this.probability = probability;
+                  }
+
+                  public KerningData(CappedRange x_Offset, CappedRange kerning) {
+                        this.xOffsetMin = x_Offset.Min;
+                        this.xOffsetMax = x_Offset.Max;
+                        this.kerningMin = kerning.Min;
+                        this.kerningMax = kerning.Max;
+                        this.probability = 100;
+                  }
+
+                  public static KerningData Default => new KerningData();
+
+                  public static KerningData GetSimpleKerningDataFromLevel(int level) {
+                        if (level < 0 || level >= letterKerningLevels.Length) {
+                              Logger.Error($"Invalid kerning level was passed: {level}");
+                              return KerningData.Default;
+                        }
+
+                        KerningData data = letterKerningLevels[level];
+
+                        return new KerningData(
+                              data.xOffsetMin,
+                              data.xOffsetMax,
+                              data.kerningMin,
+                              data.kerningMax,
+                              data.probability
+                        );
+                  }
+
+                  private static KerningData[] letterKerningLevels = new KerningData[] {
+                        new KerningData(0, 0, 0, 0, 0),
+                        new KerningData(-3, 5, -3, 5, 10),
+                        new KerningData(-5, 8, -5, 8, 25),
+                        new KerningData(-10, 15, -10, 15, 40),
+                        new KerningData(-20, 30, -20, 30, 55),
+                        new KerningData(-35, 50, -35, 50, 70),
+                        new KerningData(-40, 60, -40, 60, 80),
+                        new KerningData(-50, 75, -50, 75, 90),
+                        new KerningData(-65, 100, -65, 100, 100),
+                        new KerningData(-80, 120, -80, 120, 100),
+                        new KerningData(-100, 150, -100, 150, 100)
+                  };
+            }
       }
 }

@@ -74,7 +74,7 @@ namespace Geometry_Dash_Randomiser_Installer.Enums {
                         return "The given folder is not empty. Installation can begin";
 
                   if (state.HasFlag(ReadyState.MissingDataFile))
-                        return $"The data file {InstallerCore.DataFileName} is missing";
+                        return "The data file {InstallerCore.DataFileName} is missing";
 
                   return "Unrecognised error";
             }

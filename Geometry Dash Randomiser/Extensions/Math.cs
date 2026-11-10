@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Geometry_Dash_Randomiser {
+
+      public static class Math {
+
+            public static int Clamp(int value, int min, int max) {
+                  if (value < min) return min;
+                  if (value > max) return max;
+                  return value;
+            }
+
+            public static float Clamp(float value, float min, float max) {
+                  if (value < min) return min;
+                  if (value > max) return max;
+                  return value;
+            }
+
+            public static int Abs(int value) {
+                  return System.Math.Abs(value);
+            }
+
+            public static float Abs(float value) {
+                  return System.Math.Abs(value);
+            }
+      }
+}

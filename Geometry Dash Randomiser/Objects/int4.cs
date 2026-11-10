@@ -3,9 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace Geometry_Dash_Randomiser {
 
-      public struct int4 {
+      public struct Int4 {
 
-            public int4(int x, int y, int z, int w) {
+            public Int4(int x, int y, int z, int w) {
                   this.x = x;
                   this.y = y;
                   this.z = z;
@@ -17,8 +17,8 @@ namespace Geometry_Dash_Randomiser {
             public int z { get; set; }
             public int w { get; set; }
 
-            public int4(string data) {
-                  data = Regex.Replace(data, "[^0-9-,]+", "", RegexOptions.Compiled);
+            public Int4(string data) {
+                  data = System.Text.RegularExpressions.Regex.Replace(data, "[^0-9-,]+", "", RegexOptions.Compiled);
                   string[] vals = data.Split(',');
                   Array.Resize(ref vals, 4);
 
@@ -32,8 +32,6 @@ namespace Geometry_Dash_Randomiser {
                   this.z = Int32.Parse(vals[2]);
                   this.w = Int32.Parse(vals[3]);
             }
-<<<<<<< Updated upstream
-=======
 
             public string ToString(FormatMode format) {
                   switch (format) {
@@ -48,6 +46,5 @@ namespace Geometry_Dash_Randomiser {
                               return string.Empty;
                   }
             }
->>>>>>> Stashed changes
       }
 }

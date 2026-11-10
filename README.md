@@ -4,17 +4,17 @@ An application to mess with Geometry Dash's files
 # With this app you can mess with game file in various ways.
 
 - Would you like to randomise every texture in the game to make navigating and playing damn near impossible?
-- You can shuffle icon, menu, editor, particle and font textures around however you want
+- You can shuffle icon, menu, editor and particle textures around however you want
 - Here is a video of what you can expect: [Youtube Video](https://youtu.be/joB3ZjvAnq8) (This is with every setting enabled as of 1/Nov/2023)
 - There are many configuration settings to make the results more or less chaotic
 
 # Download the app [here](https://github.com/Hydrough2k2k/Geometry-Dash-Randomiser/releases/tag/GDR_V2.4.2)
 
  - Alternatively click on Releases on the right side, and download the RAR from the most recent one
- - This application is fully compatible with Geometry Dash v2.2081 as of 2026/Jul/19
 
-![GDR Screenshot.png](https://github.com/Hydrough2k2k/Geometry-Dash-Randomiser/blob/main/GDR_Screenshot.png)
-Screenshot of Geometry Dash Randomizer V2.5.0.0
+![GDR Screenshot V2.4.2.0.png](https://github.com/Hydrough2k2k/Geometry-Dash-Randomiser/blob/dev/GDR_Screenshot.png)
+
+This application is fully compatible with Geometry Dash v2.2081 as of 2026/Jul/19
 
 # How to use the app:
 - Download the most recent version from "Releases" on the right side or using the link above.
@@ -38,7 +38,6 @@ Screenshot of Geometry Dash Randomizer V2.5.0.0
 If the app or the game crashes, feel free to bug report it to me directly
  - When reporting bugs please specify what crashed and when
  - If the game crashed, tell me what your randomisation settings and seed were
- - Also, attach the log file as well if possible
 
 My socials if you want to reach out, or report a bug:
  - Add me on discord: hydrough_7165

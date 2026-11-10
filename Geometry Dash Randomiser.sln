@@ -5,6 +5,10 @@ VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geometry Dash Randomiser", "Geometry Dash Randomiser\Geometry Dash Randomiser.csproj", "{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geometry Dash Randomiser Installer", "Geometry Dash Randomiser Installer\Geometry Dash Randomiser Installer.csproj", "{345C3B8C-D081-4BCF-9F87-436FE1C796C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geometry Dash Randomiser Packer", "Geometry Dash Randomiser Packer\Geometry Dash Randomiser Packer.csproj", "{FA4E2EC3-2CCF-405E-A806-EBB56E5F16C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7CF5B16-B683-40B2-8DAE-66620AC46CBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{345C3B8C-D081-4BCF-9F87-436FE1C796C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{345C3B8C-D081-4BCF-9F87-436FE1C796C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{345C3B8C-D081-4BCF-9F87-436FE1C796C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{345C3B8C-D081-4BCF-9F87-436FE1C796C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA4E2EC3-2CCF-405E-A806-EBB56E5F16C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA4E2EC3-2CCF-405E-A806-EBB56E5F16C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA4E2EC3-2CCF-405E-A806-EBB56E5F16C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA4E2EC3-2CCF-405E-A806-EBB56E5F16C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

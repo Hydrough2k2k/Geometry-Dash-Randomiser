@@ -1,25 +1,50 @@
 ﻿using System;
-using System.Text.Json.Serialization;
 
 namespace Geometry_Dash_Randomiser {
 
-      public class FontRandomisationSettings : IToggleableSetting {
+      public class FontRandomisationSettings : IToggleableSetting, IUpdateNotify, ICopyableSetting<FontRandomisationSettings> {
 
-            public FontRandomisationSettings() { }
+            public event EventHandler Updated;
 
-            [JsonIgnore]
+            public FontRandomisationSettings() {
+                  _shuffleSettings.Updated += InvokeUpdateEvent;
+                  _characterRandSettings.Updated += InvokeUpdateEvent;
+                  _letterSpacingSettings.Updated += InvokeUpdateEvent;
+            }
+
+            public static FontRandomisationSettings Default => new FontRandomisationSettings();
+
             public bool Enabled {
-                  get {
-                        return AnySettingEnabled();
-                  }
+                  get => AnySettingEnabled();
                   set {
                         SetAll(value);
+                        InvokeEvent(Updated, null);
                   }
             }
 
-            public FontStyleShuffleSettings StyleShuffleSettings { get; set; } = new FontStyleShuffleSettings();
-            public CharacterShuffleSettings CharacterShuffleSettings { get; set; } = new CharacterShuffleSettings();
-            public LetterSpacingSettings LetterSpacingSettings { get; set; } = new LetterSpacingSettings();
+            public FontStyleShuffleSettings ShuffleSettings {
+                  get => _shuffleSettings;
+                  set {
+                        _shuffleSettings.CopyDataFrom(value ?? FontStyleShuffleSettings.Default);
+                        InvokeEvent(Updated, null);
+                  } 
+            }
+
+            public CharacterRandomisationSettings CharacterRandSettings {
+                  get => _characterRandSettings;
+                  set {
+                        _characterRandSettings.CopyDataFrom(value ?? CharacterRandomisationSettings.Default);
+                        InvokeEvent(Updated, null);
+                  }
+            }
+
+            public LetterSpacingSettings LetterSpacingSettings {
+                  get => _letterSpacingSettings;
+                  set {
+                        _letterSpacingSettings.CopyDataFrom(value ?? LetterSpacingSettings.Default);
+                        InvokeEvent(Updated, null);
+                  }
+            }
 
             public int TotalSettingsCount => 3;
 
@@ -28,18 +53,35 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public int GetEnabledSettingsCount() {
-                  return Convert.ToInt32(StyleShuffleSettings.Enabled) +
-                        Convert.ToInt32(CharacterShuffleSettings.Enabled) +
+                  return Convert.ToInt32(ShuffleSettings.Enabled) +
+                        Convert.ToInt32(CharacterRandSettings.Enabled) +
                         Convert.ToInt32(LetterSpacingSettings.Enabled);
             }
 
-            public void SetAll(bool state) {
-                  StyleShuffleSettings.Enabled = state;
-
-                  CharacterShuffleSettings.Enabled = state;
-                  CharacterShuffleSettings.SetAll(state);
-
+            private void SetAll(bool state) {
+                  ShuffleSettings.Enabled = state;
+                  CharacterRandSettings.Enabled = state;
                   LetterSpacingSettings.Enabled = state;
             }
+
+            public void CopyDataFrom(FontRandomisationSettings source) {
+                  if (source == null) {
+                        return;
+                  }
+
+                  ShuffleSettings = source.ShuffleSettings;
+                  CharacterRandSettings = source.CharacterRandSettings;
+                  LetterSpacingSettings = source.LetterSpacingSettings;
+            }
+
+            private void InvokeUpdateEvent(object sender, EventArgs e) => InvokeEvent(Updated, null);
+
+            private void InvokeEvent(EventHandler @event, EventArgs e) {
+                  @event?.Invoke(this, e);
+            }
+
+            private readonly FontStyleShuffleSettings _shuffleSettings = new FontStyleShuffleSettings();
+            private readonly CharacterRandomisationSettings _characterRandSettings = new CharacterRandomisationSettings();
+            private readonly LetterSpacingSettings _letterSpacingSettings = new LetterSpacingSettings();
       }
 }

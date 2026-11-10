@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Geometry_Dash_Randomiser {
 
       public static class FontSerializer {
-
-            public struct PropertyPair {
-                  public string name, data;
-
-                  public PropertyPair(string name, string data) {
-                        this.name = name;
-                        this.data = data;
-                  }
-            }
 
             public static PropertyPair[] ParsePropertyPairs(string str) {
                   // Remove everything before the first space character
@@ -109,8 +99,8 @@ namespace Geometry_Dash_Randomiser {
                         }
                   }
 
-                  font.chars = chars.ToArray();
-                  font.kernings = kernings.ToArray();
+                  font.Chars = chars.ToArray();
+                  font.Kernings = kernings.ToArray();
 
                   return font;
             }
@@ -125,27 +115,27 @@ namespace Geometry_Dash_Randomiser {
                         }
 
                         if (pairs[i].name == "face") {
-                              font.infoFace = pairs[i].data;
+                              font.InfoFace = pairs[i].data;
                         } else if (pairs[i].name == "size") {
-                              font.size = parsed;
+                              font.Size = parsed;
                         } else if (pairs[i].name == "bold") {
-                              font.bold = parsed;
+                              font.Bold = parsed;
                         } else if (pairs[i].name == "italic") {
-                              font.italic = parsed;
+                              font.Italic = parsed;
                         } else if (pairs[i].name == "charset") {
-                              font.charSet = pairs[i].data;
+                              font.CharSet = pairs[i].data;
                         } else if (pairs[i].name == "unicode") {
-                              font.unicode = parsed;
+                              font.Unicode = parsed;
                         } else if (pairs[i].name == "stretchH") {
-                              font.stretchH = parsed;
+                              font.Stretch_H = parsed;
                         } else if (pairs[i].name == "smooth") {
-                              font.smooth = parsed;
+                              font.Smooth = parsed;
                         } else if (pairs[i].name == "aa") {
-                              font.aa = parsed;
+                              font.AA = parsed;
                         } else if (pairs[i].name == "padding") {
-                              font.padding = new int4(pairs[i].data);
+                              font.Padding = new Int4(pairs[i].data);
                         } else if (pairs[i].name == "spacing") {
-                              font.spacing = new int2(pairs[i].data);
+                              font.Spacing = new Int2(pairs[i].data);
                         }
                   }
             }
@@ -160,17 +150,17 @@ namespace Geometry_Dash_Randomiser {
                         }
 
                         if (pairs[i].name == "lineHeight") {
-                              font.lineHeight = parsed;
+                              font.LineHeight = parsed;
                         } else if (pairs[i].name == "base") {
-                              font.baseVal = parsed;
+                              font.BaseVal = parsed;
                         } else if (pairs[i].name == "scaleW") {
-                              font.scaleW = parsed;
+                              font.Scale_W = parsed;
                         } else if (pairs[i].name == "scaleH") {
-                              font.scaleH = parsed;
+                              font.Scale_H = parsed;
                         } else if (pairs[i].name == "pages") {
-                              font.pages = parsed;
+                              font.Pages = parsed;
                         } else if (pairs[i].name == "packed") {
-                              font.packed = parsed;
+                              font.Packed = parsed;
                         }
                   }
             }
@@ -185,9 +175,9 @@ namespace Geometry_Dash_Randomiser {
                         }
 
                         if (pairs[i].name == "id") {
-                              font.pageID = parsed;
+                              font.PageID = parsed;
                         } else if (pairs[i].name == "file") {
-                              font.file = pairs[i].data;
+                              font.GameSheetFile = pairs[i].data;
                         }
                   }
             }
@@ -203,32 +193,27 @@ namespace Geometry_Dash_Randomiser {
                         }
 
                         if (pairs[i].name == "id") {
-                              fontChar.charID = parsed;
+                              fontChar.CharID = parsed;
                         } else if (pairs[i].name == "x") {
-                              fontChar.x = parsed;
+                              fontChar.X = parsed;
                         } else if (pairs[i].name == "y") {
-                              fontChar.y = parsed;
+                              fontChar.Y = parsed;
                         } else if (pairs[i].name == "width") {
-                              fontChar.width = parsed;
+                              fontChar.Width = parsed;
                         } else if (pairs[i].name == "height") {
-                              fontChar.height = parsed;
+                              fontChar.Height = parsed;
                         } else if (pairs[i].name == "xoffset") {
-                              fontChar.xOffset = parsed;
+                              fontChar.X_Offset = parsed;
                         } else if (pairs[i].name == "yoffset") {
-                              fontChar.yOffset = parsed;
+                              fontChar.Y_Offset = parsed;
                         } else if (pairs[i].name == "xadvance") {
-                              fontChar.xAdvance = parsed;
+                              fontChar.X_Advance = parsed;
                         } else if (pairs[i].name == "page") {
-                              fontChar.page = parsed;
+                              fontChar.Page = parsed;
                         } else if (pairs[i].name == "chnl") {
-                              fontChar.channel = parsed;
+                              fontChar.Channel = parsed;
                         } else if (pairs[i].name == "letter") {
-
-                              if (pairs[i].data == "space") {
-                                    fontChar.letter = ' ';
-                              } else {
-                                    fontChar.letter = pairs[i].data[0];
-                              }
+                              fontChar.Letter = pairs[i].data;
                         }
                   }
                   return fontChar;
@@ -244,102 +229,91 @@ namespace Geometry_Dash_Randomiser {
                         }
 
                         if (pairs[i].name == "first") {
-                              fontKerning.first = parsed;
+                              fontKerning.First = parsed;
                         } else if (pairs[i].name == "second") {
-                              fontKerning.second = parsed;
+                              fontKerning.Second = parsed;
                         } else if (pairs[i].name == "amount") {
-                              fontKerning.amount = parsed;
+                              fontKerning.Amount = parsed;
                         }
                   }
                   return fontKerning;
             }
 
             public static string SerialiseTextFile(Font font) {
-<<<<<<< Updated upstream
-                  int arrayLength = 4 + font.chars.Length + 1 + font.kernings.Length;
+                  int arrayLength = 4 + font.Chars.Length + 1 + font.Kernings.Length;
 
                   string[] serialised = new string[arrayLength];
                   serialised[0] = SerialiseInfoLine(font);
                   serialised[1] = SerialiseCommonLine(font);
                   serialised[2] = SerialisePageLine(font);
-                  serialised[3] = "chars count=" + font.chars.Length;
+                  serialised[3] = "chars count=" + font.Chars.Length;
 
                   int line = 4;
-                  for (int i = 0; line < arrayLength && i < font.chars.Length; line++, i++) {
-                        serialised[line] = SerialiseFontChar(font.chars[i]);
+                  for (int i = 0; line < arrayLength && i < font.Chars.Length; line++, i++) {
+                        serialised[line] = SerialiseFontChar(font.Chars[i]);
                   }
-                  serialised[line++] = "kernings count=" + font.kernings.Length;
+                  serialised[line++] = "kernings count=" + font.Kernings.Length;
 
-                  for (int i = 0; line < arrayLength && i < font.kernings.Length; line++, i++) {
-                        serialised[line] = SerialiseFontKerning(font.kernings[i]);
-=======
-                  StringBuilder serialisedData = new StringBuilder();
-                  serialisedData.Append(font.SerialiseInfoLine() + "\n");
-                  serialisedData.Append(font.SerialiseCommonLine() + "\n");
-                  serialisedData.Append(font.SerialisePageLine() + "\n");
-                  serialisedData.Append("chars count=" + font.Chars.Length + "\n");
-
-                  for (int i = 0; i < font.Chars.Length; i++) {
-                        serialisedData.Append(font.Chars[i].Serialise() + "\n");
->>>>>>> Stashed changes
+                  for (int i = 0; line < arrayLength && i < font.Kernings.Length; line++, i++) {
+                        serialised[line] = SerialiseFontKerning(font.Kernings[i]);
                   }
 
-                  serialisedData.Append("kernings count=" + font.Kernings.Length + "\n");
+                  return string.Join("\n", serialised);
+            }
 
-<<<<<<< Updated upstream
             static string SerialiseInfoLine(Font font) {
-                  return "info face=\"" + font.infoFace + "\"" +
-                        " size=" + font.size +
-                        " bold=" + font.bold +
-                        " italic=" + font.italic +
-                        " charset=\"" + font.charSet + "\"" +
-                        " unicode=" + font.unicode +
-                        " stretchH=" + font.stretchH +
-                        " smooth=" + font.smooth +
-                        " aa=" + font.aa +
-                        " padding=" + font.padding.x + "," + font.padding.y + "," + font.padding.z + "," + font.padding.w +
-                        " spacing=" + font.spacing.x + "," + font.spacing.y;
+                  return "info face=\"" + font.InfoFace + "\"" +
+                        " size=" + font.Size +
+                        " bold=" + font.Bold +
+                        " italic=" + font.Italic +
+                        " charset=\"" + font.CharSet + "\"" +
+                        " unicode=" + font.Unicode +
+                        " stretchH=" + font.Stretch_H +
+                        " smooth=" + font.Smooth +
+                        " aa=" + font.AA +
+                        " padding=" + font.Padding.ToString(FormatMode.Plist) +
+                        " spacing=" + font.Spacing.ToString(FormatMode.Plist);
             }
 
             static string SerialiseCommonLine(Font font) {
-                  return "common lineHeight=" + font.lineHeight +
-                        " base=" + font.baseVal +
-                        " scaleW=" + font.scaleW +
-                        " scaleH=" + font.scaleH +
-                        " pages=" + font.pages +
-                        " packed=" + font.packed;
+                  return "common lineHeight=" + font.LineHeight +
+                        " base=" + font.BaseVal +
+                        " scaleW=" + font.Scale_W +
+                        " scaleH=" + font.Scale_H +
+                        " pages=" + font.Pages +
+                        " packed=" + font.Packed;
             }
 
             static string SerialisePageLine(Font font) {
-                  return "page id=" + font.pageID +
-                        " file=\"" + font.file + "\"";
+                  return "page id=" + font.PageID +
+                        " file=\"" + font.GameSheetFile + "\"";
             }
 
             public static string SerialiseFontChar(FontChar fontChar) {
-                  return "char id=" + fontChar.charID +
-                        " x=" + fontChar.x +
-                        " y=" + fontChar.y +
-                        " width=" + fontChar.width +
-                        " height=" + fontChar.height +
-                        " xoffset=" + fontChar.xOffset +
-                        " yoffset=" + fontChar.yOffset +
-                        " xadvance=" + fontChar.xAdvance +
-                        " page=" + fontChar.page +
-                        " chnl=" + fontChar.channel +
-                        " letter=\"" + (fontChar.letter == ' ' ? "space" : fontChar.letter.ToString()) + "\"";
+                  StringBuilder sb = new StringBuilder();
+
+                  sb.Append("char id=" + fontChar.CharID);
+                  sb.Append(" x=" + fontChar.X);
+                  sb.Append(" y=" + fontChar.Y);
+                  sb.Append(" width=" + fontChar.Width);
+                  sb.Append(" height=" + fontChar.Height);
+                  sb.Append(" xoffset=" + fontChar.X_Offset);
+                  sb.Append(" yoffset=" + fontChar.Y_Offset);
+                  sb.Append(" xadvance=" + fontChar.X_Advance);
+                  sb.Append(" page=" + fontChar.Page);
+                  sb.Append(" chnl=" + fontChar.Channel);
+
+                  if (fontChar.Letter != string.Empty) {
+                        sb.Append(" letter=\"" + fontChar.Letter + "\"");
+                  }
+
+                  return sb.ToString();
             }
 
             public static string SerialiseFontKerning(FontKerning fontKerning) {
-                  return "kerning first=" + fontKerning.first +
-                        " second=" + fontKerning.second +
-                        " amount=" + fontKerning.amount;
-=======
-                  for (int i = 0; i < font.Kernings.Length; i++) {
-                        serialisedData.Append(font.Kernings[i].Serialise() + "\n");
-                  }
-
-                  return serialisedData.ToString();
->>>>>>> Stashed changes
+                  return "kerning first=" + fontKerning.First +
+                        " second=" + fontKerning.Second +
+                        " amount=" + fontKerning.Amount;
             }
       }
 }

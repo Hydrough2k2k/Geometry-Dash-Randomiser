@@ -2,10 +2,6 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
-<<<<<<< Updated upstream
-=======
-using static Geometry_Dash_Randomiser.Logger;
->>>>>>> Stashed changes
 
 namespace Geometry_Dash_Randomiser {
 
@@ -44,11 +40,11 @@ namespace Geometry_Dash_Randomiser {
                   if (getDefaultThemes) {
                         themes.AddRange(DefaultThemes);
 
-                        if (Config.Instance.enableRandomTheme) {
+                        if (AdvancedConfig.Instance.EnableRandomTheme) {
                               themes.Add(randomTheme);
                         }
 
-                        if (Config.Instance.enableSystemTheme) {
+                        if (AdvancedConfig.Instance.EnableSystemTheme) {
                               themes.Add(new Theme(SystemThemeName));
                         }
                   }
@@ -99,10 +95,10 @@ namespace Geometry_Dash_Randomiser {
             public void ValidateCurrentThemeID() {
                   if (ActiveThemeID >= themes.Count) {
                         ActiveThemeID = 0;
-                        Config.Instance.themeID = ActiveThemeID;
+                        AdvancedConfig.Instance.ThemeID = ActiveThemeID;
 
                   } else if (ActiveThemeID < 0) {
-                        Config.Instance.themeID = 0;
+                        AdvancedConfig.Instance.ThemeID = 0;
                         this.ActiveThemeID = 0;
                   }
             }
@@ -111,17 +107,12 @@ namespace Geometry_Dash_Randomiser {
                   if (ActiveThemeID >= themes.Count) {
                         Logger.Write(Logger.Mode.Warn, $"Failed to get Active Theme ID {ActiveThemeID}, ID parameter was out of range. Total themes count: {this.themes.Count}");
                         ActiveThemeID = 0;
-                        Config.Instance.themeID = ActiveThemeID;
+                        AdvancedConfig.Instance.ThemeID = ActiveThemeID;
                         return themes[0];
 
                   } else if (ActiveThemeID < 0) {
-<<<<<<< Updated upstream
-                        Log.Write(Log.Mode.Warn, $"The theme ID was negative. Setting it to 0");
-                        Config.Instance.themeID = 0;
-=======
                         Logger.Write(Logger.Mode.Warn, $"The theme ID was negative. Setting it to 0");
                         AdvancedConfig.Instance.ThemeID = 0;
->>>>>>> Stashed changes
                         this.ActiveThemeID = 0;
                         return themes[0];
                   }
@@ -168,7 +159,7 @@ namespace Geometry_Dash_Randomiser {
                   return Current.BeamColour;
             }
 
-            private Theme[] DefaultThemes = new Theme[] {
+            private Theme[] DefaultThemes => new Theme[] {
                   new Theme(
                         Name: "Wisteria",
                         BackgroundColour: ColorExtensions.FromHex("7B60AC"),

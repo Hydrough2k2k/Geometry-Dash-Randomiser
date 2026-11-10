@@ -12,7 +12,7 @@ namespace Geometry_Dash_Randomiser {
 
             // File Settings
             internal static bool MirrorToFile { get; set; } = true;
-            internal static Mode MinimumLevelForFile { get; set; } = Mode.Info;
+            internal static Mode MinimumLevelForFile { get; set; } = Mode.Warn;
 
             public enum Mode {
                   Verbose,
@@ -23,21 +23,22 @@ namespace Geometry_Dash_Randomiser {
                   Fatal
             }
 
-<<<<<<< Updated upstream:Geometry Dash Randomiser/Helpers/Log.cs
-=======
-            public static void Log(string message) => Write(Mode.Debug, message);
             public static void Verbose(string message) => Write(Mode.Verbose, message);
+            public static void Debug(string message) => Write(Mode.Debug, message);
             public static void Info(string message) => Write(Mode.Info, message);
             public static void Warn(string message) => Write(Mode.Warn, message);
             public static void Error(string message) => Write(Mode.Error, message);
             public static void Fatal(string message) => Write(Mode.Fatal, message);
 
->>>>>>> Stashed changes:Geometry Dash Randomiser/Debug/Logger.cs
             public static void Write(Mode mode, string message) {
                   if (mode >= MinimumLevelForConsole) {
                         PrintMessageToConsole(mode, message);
                   }
 
+                  WriteToFile(mode, message);
+            }
+
+            public static void WriteToFile(Mode mode, string message) {
                   if (mode >= MinimumLevelForFile) {
                         PrintMessageToFile(mode, message);
                   }
@@ -111,7 +112,8 @@ namespace Geometry_Dash_Randomiser {
                         "GDR " + dt.Year.ToString("0000") +
                         "-" + dt.Month.ToString("00") +
                         "-" + dt.Day.ToString("00") +
-                        " " + GetClockTime('.') + ".log");
+                        " " + GetClockTime('.') + ".log"
+                  );
             }
 
             /// <summary>
@@ -152,7 +154,7 @@ namespace Geometry_Dash_Randomiser {
                               return FatalMessageColour;
 
                         default:
-                              Geometry_Dash_Randomiser.Logger.Write(Mode.Warn, $"Could not find a matching colour for the log mode \"{logMode.ToString()}\"");
+                              Logger.Write(Mode.Warn, $"Could not find a matching colour for the log mode \"{logMode.ToString()}\"");
                               return ConsoleColor.White;
                   }
             }
@@ -161,20 +163,39 @@ namespace Geometry_Dash_Randomiser {
                   if (LogFileStream == null)
                         return;
 
-<<<<<<< Updated upstream:Geometry Dash Randomiser/Helpers/Log.cs
-=======
-                  Write(Mode.Info, "Closing Log Stream.");
+                  Logger.Write(Mode.Info, "Closing Log Stream.");
 
->>>>>>> Stashed changes:Geometry Dash Randomiser/Debug/Logger.cs
                   LogFileStream.Close();
                   LogFileStream.Dispose();
                   LogFileStream = null;
             }
 
+            /// <summary>
+            /// Cleans up excess logs files from disc
+            /// For performance reasons, this should ideally run on a separate thread
+            /// </summary>
+            internal static void CleanUpLogs() {
+                  if (Directory.Exists(LogFolderName) == false)
+                        return;
+
+                  string[] logFiles = Directory.GetFiles(LogFolderName);
+                  FileInfo[] logFileInfos = new FileInfo[logFiles.Length];
+
+                  for (int i = 0; i < logFiles.Length; i++) {
+                        logFileInfos[i] = new FileInfo(logFiles[i]);
+                  }
+
+                  Array.Sort(logFileInfos, (a, b) => a.CreationTimeUtc.CompareTo(b.CreationTimeUtc));
+
+                  for (int i = 0; i < logFileInfos.Length - AdvancedConfig.Instance.MaxLogFileCount; i++) {
+                        File.Delete(logFileInfos[i].FullName);
+                  }
+            }
+
             // Console print colour settings
             private static ConsoleColor Default { get; set; } = ConsoleColor.White;
             private static ConsoleColor VerboseMessageColour { get; set; } = ConsoleColor.White;
-            private static ConsoleColor DebugMessageColour { get; set; } = ConsoleColor.Blue;
+            private static ConsoleColor DebugMessageColour { get; set; } = ConsoleColor.Gray;
             private static ConsoleColor InfoMessageColour { get; set; } = ConsoleColor.Cyan;
             private static ConsoleColor WarnMessageColour { get; set; } = ConsoleColor.Yellow;
             private static ConsoleColor ErrorMessageColour { get; set; } = ConsoleColor.Red;
@@ -213,7 +234,7 @@ namespace Geometry_Dash_Randomiser {
                                     break;
 
                               default:
-                                    Write(Mode.Warn, $"The log mode \"{logMode.ToString()}\" does not have a matching colour, or is not implemented.");
+                                    Logger.Write(Mode.Warn, $"The log mode \"{logMode.ToString()}\" does not have a matching colour, or is not implemented.");
                                     break;
                         }
                   }

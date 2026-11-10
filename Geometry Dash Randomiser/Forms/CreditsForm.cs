@@ -30,7 +30,7 @@ namespace Geometry_Dash_Randomiser {
 
             public override void On_Activated(object sender, EventArgs e) {
                   this.SetTheme();
-                  ResetAndCorruptFormText();
+                  this.ResetAndCorruptFormText();
             }
 
             public override void On_Deactivate(object sender, EventArgs e) {

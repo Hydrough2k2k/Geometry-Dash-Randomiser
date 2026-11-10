@@ -10,11 +10,11 @@ namespace Geometry_Dash_Randomiser {
             public Theme() { }
 
             public Theme(string Name) {
-                  this.Name = Name.Substring(0, Math.Min(maxNameLength, Name.Length));
+                  this.Name = Name.Substring(0, System.Math.Min(maxNameLength, Name.Length));
             }
 
             public Theme(string Name, Color BackgroundColour, Color TextColour, Color ObjectBackColour, Color ObjectTextColour, Color BeamColour) {
-                  this.Name = Name.Substring(0, Math.Min(maxNameLength, Name.Length));
+                  this.Name = Name.Substring(0, System.Math.Min(maxNameLength, Name.Length));
                   this.BackgroundColour = BackgroundColour;
                   this.TextColour = TextColour;
                   this.ObjectBackColour = ObjectBackColour;

@@ -1,5 +1,4 @@
-﻿using Microsoft.WindowsAPICodePack.ShellExtensions.Interop;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -40,26 +39,15 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public static Bitmap cropImage(this Bitmap img, int x, int y, int width, int height) {
-                  return cropImage(img, new Rectangle(new Point(x, y), new Size(width, height)));
+                  return CropImage(img, new Rectangle(new Point(x, y), new Size(width, height)));
             }
 
             public static Bitmap cropImage(this Bitmap img, Point point, Size size) {
-                  return cropImage(img, new Rectangle(point, size));
+                  return CropImage(img, new Rectangle(point, size));
             }
 
-            public static Bitmap cropImage(this Bitmap img, Rectangle cropArea) {
-
-                  if (cropArea.X + cropArea.Width > img.Width || cropArea.Y + cropArea.Height > img.Height) {
-                        // Removed for now, as it just spams a bilion messages.
-                        // The cropping algo needs updating for this to go away.
-                        // I will delegate this to my future self, as any good programmer would
-                        //Log.Write(Log.Mode.Error, $"Cropping area {cropArea} is partially out of the image {img.Size}. Adjusting crop area to fit within the image bounds.");
-
-                        cropArea = new Rectangle(new Point(cropArea.X, cropArea.Y), new Size(img.Width - cropArea.X, img.Height - cropArea.Y));
-                  }
-
+            public static Bitmap CropImage(this Bitmap img, Rectangle cropArea) {
                   if (cropArea.Width <= 0 || cropArea.Height <= 0) {
-
                         return new Bitmap(1, 1);
                   }
 
@@ -69,37 +57,26 @@ namespace Geometry_Dash_Randomiser {
                             cropArea,
                             GraphicsUnit.Pixel);
                   }
+
                   return target;
             }
 
-            // Overload to support Lists and not just arrays
-            public static Bitmap[] Multicrop(this Bitmap source, List<Rectangle> crops, int sliceSize = 128, float sliceThresholdMuiltiplier = 1.25f) {
-                  return Multicrop(source, crops.ToArray(), sliceSize, sliceThresholdMuiltiplier);
-            }
-
-            public static Bitmap[] Multicrop(this Bitmap source, Rectangle[] crops, int sliceSize = 128, float sliceThresholdMuiltiplier = 1.25f) {
-                  if (source.Width > sliceSize * sliceThresholdMuiltiplier || source.Height > sliceSize * sliceThresholdMuiltiplier) {
+            public static Bitmap[] Multicrop(this Bitmap source, Rectangle[] crops, int sliceSize) {
+                  if (source.Width > sliceSize || source.Height > sliceSize) {
                         Bitmap[,] slices = source.Slice(sliceSize);
                         Bitmap[] ret = MulticropFromSlices(slices, crops, sliceSize);
                         slices.Dispose();
-
                         return ret;
+
                   } else {
                         return Multicrop(source, crops);
                   }
             }
 
-            public static Bitmap[] MulticropFromSlices(this Bitmap source, Rectangle[] crops, int sliceSize = 128) {
-                  Bitmap[,] slices = source.Slice(sliceSize);
-                  Bitmap[] ret = MulticropFromSlices(slices, crops, sliceSize);
-                  slices.Dispose();
-                  return ret;
-            }
-
             static Bitmap[] Multicrop(this Bitmap source, Rectangle[] crops) {
                   Bitmap[] ret = new Bitmap[crops.Length];
                   for (int i = 0; i < crops.Length; i++)
-                        ret[i] = source.cropImage(crops[i]);
+                        ret[i] = source.CropImage(crops[i]);
                   return ret;
             }
 
@@ -120,7 +97,7 @@ namespace Geometry_Dash_Randomiser {
                               cropRect = new Rectangle(point, size);
 
                               // Crop the image from a subsheet, since it's entirely within it
-                              ret[i] = source[column, row].cropImage(cropRect);
+                              ret[i] = source[column, row].CropImage(cropRect);
 
                         } else {
                               // Cropping from the subsheets. Way faster than copying from the big gamesheet
@@ -130,6 +107,13 @@ namespace Geometry_Dash_Randomiser {
                   return ret;
             }
 
+            /// <summary>
+            /// Crop a specified area of the array of provided Bitmap array
+            /// </summary>
+            /// <param name="source"></param>
+            /// <param name="cropRect"></param>
+            /// <param name="sliceSize"></param>
+            /// <returns></returns>
             static Bitmap CropFromSlices(this Bitmap[,] source, Rectangle cropRect, int sliceSize) {
                   int imageStartX = cropRect.X;
                   int imageEndX = imageStartX + cropRect.Width;
@@ -196,8 +180,13 @@ namespace Geometry_Dash_Randomiser {
                               Size size = new Size(columnWidths[x - startingColumn], rowHeights[y - startingRow]);
 
                               Rectangle crop = new Rectangle(point, size);
-                              Bitmap fragment = source[x, y].cropImage(crop);
-                              ret.CopyTo(fragment, X_offset, Y_offset);
+
+                              if (x >= source.GetLength(0) || y >= source.GetLength(1)) {
+                                    continue;
+                              }
+
+                              Bitmap fragment = source[x, y].CropImage(crop);
+                              ret.PasteImage(fragment, X_offset, Y_offset);
 
                               X_offset += columnWidths[x - startingColumn];
                         }
@@ -219,13 +208,13 @@ namespace Geometry_Dash_Randomiser {
                         for (int x = 0; x < verticalSlices; x++) {
 
                               // How big the cropped subsheet will be, max will be "maxSliceSize"
-                              int cropWidth = Math.Min(maxSliceSize, b.Width - x * maxSliceSize);
-                              int cropHeight = Math.Min(maxSliceSize, b.Height - y * maxSliceSize);
+                              int cropWidth = System.Math.Min(maxSliceSize, b.Width - x * maxSliceSize);
+                              int cropHeight = System.Math.Min(maxSliceSize, b.Height - y * maxSliceSize);
 
                               Point point = new Point(x * maxSliceSize, y * maxSliceSize);
                               Size size = new Size(cropWidth, cropHeight);
 
-                              sub[x, y] = cropImage(b, new Rectangle(point, size));
+                              sub[x, y] = CropImage(b, new Rectangle(point, size));
                         }
                   }
                   return sub;
@@ -252,7 +241,7 @@ namespace Geometry_Dash_Randomiser {
 
                   return returnBitmap;
             }
-
+        
             /// <summary>
             /// Method to rotate an Image object. The result can be one of three cases:
             /// - upsizeOk = true: output image will be larger than the input, and no clipping occurs 
@@ -272,8 +261,7 @@ namespace Geometry_Dash_Randomiser {
             /// <param name="clipOk">see comments above, not used if upsizeOk = true</param>
             /// <param name="backgroundColor">color to fill exposed parts of the background</param>
             /// <returns>new Bitmap object, may be larger than input image</returns>
-            public static Bitmap RotateImage_2(this Bitmap inputImage, float angleDegrees, bool upsizeOk = true,
-                                             bool clipOk = false) {
+            public static Bitmap RotateImage_2(this Bitmap inputImage, float angleDegrees, bool upsizeOk = true, bool clipOk = false) {
                   Color backgroundColor = Color.Transparent;
 
                   // Test for zero rotation and return a clone of the input image
@@ -289,17 +277,17 @@ namespace Geometry_Dash_Randomiser {
 
                   // If upsizing wanted or clipping not OK calculate the size of the resulting bitmap
                   if (upsizeOk || !clipOk) {
-                        double angleRadians = angleDegrees * Math.PI / 180d;
+                        double angleRadians = angleDegrees * System.Math.PI / 180d;
 
-                        double cos = Math.Abs(Math.Cos(angleRadians));
-                        double sin = Math.Abs(Math.Sin(angleRadians));
-                        newWidth = (int)Math.Round(oldWidth * cos + oldHeight * sin);
-                        newHeight = (int)Math.Round(oldWidth * sin + oldHeight * cos);
+                        double cos = System.Math.Abs(System.Math.Cos(angleRadians));
+                        double sin = System.Math.Abs(System.Math.Sin(angleRadians));
+                        newWidth = (int)System.Math.Round(oldWidth * cos + oldHeight * sin);
+                        newHeight = (int)System.Math.Round(oldWidth * sin + oldHeight * cos);
                   }
 
                   // If upsizing not wanted and clipping not OK need a scaling factor
                   if (!upsizeOk && !clipOk) {
-                        scaleFactor = Math.Min((float)oldWidth / newWidth, (float)oldHeight / newHeight);
+                        scaleFactor = System.Math.Min((float)oldWidth / newWidth, (float)oldHeight / newHeight);
                         newWidth = oldWidth;
                         newHeight = oldHeight;
                   }
@@ -336,8 +324,7 @@ namespace Geometry_Dash_Randomiser {
                   return newBitmap;
             }
 
-            // Maybe not the best name for this method?
-            public static Bitmap CopyTo(this Bitmap to, Bitmap copy, int xCoords, int yCoords, Corner corner = Corner.TopRight) {
+            public static Bitmap PasteImage(this Bitmap to, Bitmap copy, int xCoords, int yCoords, Corner corner = Corner.TopRight) {
                   // Adjust the X and Y coordinates based on the picked corner
                   switch (corner) {
                         case Corner.TopLeft:
@@ -356,7 +343,9 @@ namespace Geometry_Dash_Randomiser {
 
                   Rectangle destRect = new Rectangle(new Point(xCoords, yCoords), new Size(copy.Width, copy.Height));
                   using (Graphics g = Graphics.FromImage(to)) {
-                        g.DrawImageUnscaledAndClipped(copy, destRect);
+                        // I am not sure which one to use right now
+                        //g.DrawImageUnscaledAndClipped(copy, destRect);
+                        g.DrawImage(copy, destRect);
                   }
                   return to;
             }
@@ -391,25 +380,37 @@ namespace Geometry_Dash_Randomiser {
                   return destImage;
             }
 
-            public static Bitmap GetClone(this Bitmap bmp) {
+            /// <summary>
+            /// Returns a unique clone of the Bitmap.<br/>
+            /// The clone can be modified and disposed of without affecting the original and vica-versa
+            /// </summary>
+            /// <param name="bmp">The Bitmap image you want to clone</param>
+            /// <returns>The unique clone</returns>
+            public static Bitmap GetUniqueClone(this Bitmap bmp) {
                   return (Bitmap)bmp.Clone();
             }
 
-            public static Bitmap[] GetClone(this Bitmap[] bmps) {
+            /// <summary>
+            /// Returns a unique clone of the Bitmap array.<br/>
+            /// The clones can be modified and disposed of without affecting the originals and vica-versa
+            /// </summary>
+            /// <param name="bmp">The Bitmap array you want to clone</param>
+            /// <returns>The unique clones</returns>
+            public static Bitmap[] GetUniqueClone(this Bitmap[] bmps) {
                   Bitmap[] ret = new Bitmap[bmps.Length];
-                  for (int i = 0; i < bmps.Length; i++)
-                        ret[i] = bmps[i].GetClone();
-                  bmps.Dispose();
+                  for (int i = 0; i < bmps.Length; i++) {
+                        ret[i] = bmps[i].GetUniqueClone();
+                  }
                   return ret;
             }
 
             public static Bitmap Assemble(Bitmap[] images, Rectangle[] rects, Size imageSize) {
                   Bitmap gamesheet = new Bitmap(imageSize.Width, imageSize.Height);
-                  int loops = Math.Min(images.Length, rects.Length);
+                  int loops = System.Math.Min(images.Length, rects.Length);
 
                   for (int i = 0; i < loops; i++) {
                         if (images[i] != null && images[i].Width != 0 && images[i].Height != 0) {
-                              gamesheet.CopyTo(images[i], rects[i].X, rects[i].Y);
+                              gamesheet.PasteImage(images[i], rects[i].X, rects[i].Y);
                         }
                   }
                   return gamesheet;
@@ -432,14 +433,14 @@ namespace Geometry_Dash_Randomiser {
                                     arr[x, y].Dispose();
             }
 
-            public static void Dispose(this Bitmap[][] arr) {
-                  if (arr == null) return;
+            public static Bitmap RepaintImage(this Bitmap baseImage, Theme theme) {
+                  return ((Bitmap)baseImage.Clone())
+                        .BlackAndWhiteRecolour(theme.BackgroundColour, theme.BeamColour);
+            }
 
-                  for (int x = 0; x < arr.GetLength(0); x++) {
-                        if (arr[x] != null) {
-                              arr[x].Dispose();
-                        }
-                  }
+            public static Bitmap RepaintImage(this Bitmap baseImage, Color back, Color front) {
+                  return ((Bitmap)baseImage.Clone())
+                        .BlackAndWhiteRecolour(back, front);
             }
       }
 }

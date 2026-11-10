@@ -1,102 +1,206 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace Geometry_Dash_Randomiser {
 
-      public class IconRandSettings : RandomisationSetting {
+      public class IconRandSettings : IToggleableSetting, IUpdateNotify, ICopyableSetting<IconRandSettings> {
+
+            public event EventHandler Updated;
 
             // Array for storing references to all settings for easy iteration
-            private readonly RandomisationSetting[] randomisationSettings;
-
-            private readonly RandomisationSetting _cube = new RandomisationSetting(0, true);
-            private readonly RandomisationSetting _ship = new RandomisationSetting(0, true);
-            private readonly RandomisationSetting _ball = new RandomisationSetting(0, true);
-            private readonly RandomisationSetting _ufo = new RandomisationSetting(0, true);
-            private readonly RandomisationSetting _wave = new RandomisationSetting(0, true);
-            private readonly RandomisationSetting _robot = new RandomisationSetting(0, true);
-            private readonly RandomisationSetting _spider = new RandomisationSetting(0, true);
-            private readonly RandomisationSetting _swing = new RandomisationSetting(0, true);
-            private readonly RandomisationSetting _jetpack = new RandomisationSetting(0, true);
+            private readonly RandomizationSetting[] _randomisationSettings;
 
             public IconRandSettings() {
-                  randomisationSettings = new RandomisationSetting[] {
-                        Base, _cube, _ship, _ball, _ufo, _wave, _robot, _spider, _swing, _jetpack
+                  _randomisationSettings = new RandomizationSetting[] {
+                        _cube, _ship, _ball, _ufo, _wave, _robot, _spider, _swing, _jetpack
                   };
+
+                  _cube.Updated += InvokeUpdateEvent;
+                  _ship.Updated += InvokeUpdateEvent;
+                  _ball.Updated += InvokeUpdateEvent;
+                  _ufo.Updated += InvokeUpdateEvent;
+                  _wave.Updated += InvokeUpdateEvent;
+                  _robot.Updated += InvokeUpdateEvent;
+                  _spider.Updated += InvokeUpdateEvent;
+                  _swing.Updated += InvokeUpdateEvent;
+                  _jetpack.Updated += InvokeUpdateEvent;
             }
 
-<<<<<<< Updated upstream
-=======
-            [JsonIgnore]
-            public RandomisationSetting[] RandomisationSettings => _randomisationSettings;
+            public static IconRandSettings Default => new IconRandSettings { Group = 0, Enabled = true };
 
             [JsonIgnore]
+            public RandomizationSetting[] RandomisationSettings => _randomisationSettings;
+
             public bool Enabled {
                   get {
                         return AnySettingEnabled();
                   }
                   set {
-                        SetAll(value);
+                        SetAllEnabled(value);
+                        InvokeEvent(Updated, null);
                   }
             }
 
-            public int Group { get; set; } = 0;
+            public int Group {
+                  get => _group;
+                  set {
+                        _group = Math.Clamp(value, 0, RandomizationConfig.maxTextureGroups);
+                        SetAllGroups(_group);
+                        InvokeEvent(Updated, null);
+                  }
+            }
 
->>>>>>> Stashed changes
-            // These setters only copy the setters' data to the existing readonly fields, thus the reference stays, but the values don't
-            public RandomisationSetting Cube { get => _cube; set => _cube.CopyDataFrom(value); }
-            public RandomisationSetting Ship { get => _ship; set => _ship.CopyDataFrom(value); }
-            public RandomisationSetting Ball { get => _ball; set => _ball.CopyDataFrom(value); }
-            public RandomisationSetting Ufo { get => _ufo; set => _ufo.CopyDataFrom(value); }
-            public RandomisationSetting Wave { get => _wave; set => _wave.CopyDataFrom(value); }
-            public RandomisationSetting Robot { get => _robot; set => _robot.CopyDataFrom(value); }
-            public RandomisationSetting Spider { get => _spider; set => _spider.CopyDataFrom(value); }
-            public RandomisationSetting Swing { get => _swing; set => _swing.CopyDataFrom(value); }
-            public RandomisationSetting Jetpack { get => _jetpack; set => _jetpack.CopyDataFrom(value); }
+            public int PercentageRandomised {
+                  get => _percentageRandomized;
+                  set {
+                        _percentageRandomized = Math.Clamp(value, 0, 100);
+                        SetAllPercentages(_percentageRandomized);
+                        InvokeEvent(Updated, null);
+                  }
+            }
+
+            // These only copy the setters' data to the existing readonly fields, thus the reference stays, but the values don't
+            public RandomizationSetting Cube {
+                  get => _cube;
+                  set => UpdateSetting(_cube, value, _defaultCube);
+            }
+
+            public RandomizationSetting Ship {
+                  get => _ship;
+                  set => UpdateSetting(_ship, value, _defaultShip);
+            }
+
+            public RandomizationSetting Ball {
+                  get => _ball;
+                  set => UpdateSetting(_ball, value, _defaultBall);
+            }
+
+            public RandomizationSetting Ufo {
+                  get => _ufo;
+                  set => UpdateSetting(_ufo, value, _defaultUfo);
+            }
+
+            public RandomizationSetting Wave {
+                  get => _wave;
+                  set => UpdateSetting(_wave, value, _defaultWave);
+            }
+
+            public RandomizationSetting Robot {
+                  get => _robot;
+                  set => UpdateSetting(_robot, value, _defaultRobot);
+            }
+
+            public RandomizationSetting Spider {
+                  get => _spider;
+                  set => UpdateSetting(_spider, value, _defaultSpider);
+            }
+
+            public RandomizationSetting Swing {
+                  get => _swing;
+                  set => UpdateSetting(_swing, value, _defaultSwing);
+            }
+
+            public RandomizationSetting Jetpack {
+                  get => _jetpack;
+                  set => UpdateSetting(_jetpack, value, _defaultJetpack);
+            }
+
+            private void UpdateSetting<T>(T target, T source, T defaults) where T : ICopyableSetting<T> {
+                  if (source == null)
+                        source = defaults;
+
+                  target.CopyDataFrom(source);
+                  InvokeEvent(Updated, null);
+            }
 
             [JsonIgnore]
-            public RandomisationSetting Base => this as RandomisationSetting;
+            public int TotalSettingsCount => RandomisationSettings.Length;
+
+            private void SetAllEnabled(bool value) {
+                  foreach (RandomizationSetting setting in _randomisationSettings) {
+                        setting.Enabled = value;
+                  }
+            }
+
+            private void SetAllGroups(int value) {
+                  foreach (RandomizationSetting setting in _randomisationSettings) {
+                        setting.Group = value;
+                  }
+            }
+
+            private void SetAllPercentages(int value) {
+                  foreach (RandomizationSetting setting in _randomisationSettings) {
+                        setting.PercentageRandomised = value;
+                  }
+            }
 
             public int GetEnabledSettingsCount() {
-                  // Go through all settings, but skip the first one (base)
-                  // If the base is enabled, but no others are, then the base being on does not matter
-                  // I will find a way to change this later
-                  return randomisationSettings.Skip(1).Where(s => s.enabled).Count();
+                  return _randomisationSettings.Count(s => s.Enabled);
             }
 
-            public new string GetStatusHex() {
-                  return string.Concat(randomisationSettings.Select(s => s.GetStatusHex()));
+            public bool AnySettingEnabled() {
+                  for (int i = 0; i < _randomisationSettings.Length; i++) {
+                        if (_randomisationSettings[i].Enabled == true) {
+                              return true;
+                        }
+                  }
+                  return false;
             }
 
-            public new void ApplyConfigFromHex(string hex) {
-                  int settingIndex = 0;
+            private void InvokeUpdateEvent(object sender, EventArgs e) => InvokeEvent(Updated, null);
 
-                  while (hex.Length >= 2 && settingIndex < 10) {
-                        // Read the incoming data stream 2 characters at a time, and convert them to an int for later use
-                        Int32.TryParse(hex.Substring(0, 2), style: System.Globalization.NumberStyles.HexNumber, null, out int nextValue);
+            private void InvokeEvent(EventHandler @event, EventArgs e) {
+                  @event?.Invoke(this, e);
+            }
 
-                        // Then remove the 2 parsed characters
-                        hex = hex.Substring(2);
-
-                        // Pass the data to the class to apply it fully
-                        randomisationSettings[settingIndex].ApplyConfigFromValue(nextValue);
-
-                        settingIndex++;
+            public void CopyDataFrom(IconRandSettings source) {
+                  if (source == null) {
+                        return;
                   }
 
-                  // Finally make sure the data is within expected range
-                  this.Validate();
+                  Group = source.Group;
+                  PercentageRandomised = source.PercentageRandomised;
+
+                  Cube = source.Cube;
+                  Ship = source.Ship;
+                  Ball = source.Ball;
+                  Ufo = source.Ufo;
+                  Wave = source.Wave;
+                  Robot = source.Robot;
+                  Spider = source.Spider;
+                  Swing = source.Swing;
+                  Jetpack = source.Jetpack;
             }
 
-<<<<<<< Updated upstream
-            public new void Validate() {
-                  foreach (var setting in randomisationSettings) {
-                        setting.Validate();
-                  }
-=======
-            public static explicit operator RandomisationSetting(IconRandSettings settings) {
-                  return new RandomisationSetting(settings.Group, settings.Enabled);
->>>>>>> Stashed changes
+            public static explicit operator RandomizationSetting(IconRandSettings icrs) => icrs.ToRandSetting();
+
+            private RandomizationSetting ToRandSetting() {
+                  return new RandomizationSetting(Group, Enabled, PercentageRandomised, ResourceType.Unknown);
             }
+
+            private int _group = 0;
+            private int _percentageRandomized = 100;
+
+            private readonly RandomizationSetting _cube = _defaultCube;
+            private readonly RandomizationSetting _ship = _defaultShip;
+            private readonly RandomizationSetting _ball = _defaultBall;
+            private readonly RandomizationSetting _ufo = _defaultUfo;
+            private readonly RandomizationSetting _wave = _defaultWave;
+            private readonly RandomizationSetting _robot = _defaultRobot;
+            private readonly RandomizationSetting _spider = _defaultSpider;
+            private readonly RandomizationSetting _swing = _defaultSwing;
+            private readonly RandomizationSetting _jetpack = _defaultJetpack;
+
+            private static RandomizationSetting _defaultCube => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Cube);
+            private static RandomizationSetting _defaultShip => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Ship);
+            private static RandomizationSetting _defaultBall => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Ball);
+            private static RandomizationSetting _defaultUfo => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.UFO);
+            private static RandomizationSetting _defaultWave => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Wave);
+            private static RandomizationSetting _defaultRobot => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Robot);
+            private static RandomizationSetting _defaultSpider => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Spider);
+            private static RandomizationSetting _defaultSwing => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Swing);
+            private static RandomizationSetting _defaultJetpack => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Jetpack);
       }
 }

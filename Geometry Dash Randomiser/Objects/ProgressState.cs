@@ -2,10 +2,10 @@
 
       public class ProgressState {
 
-            public ProgressState(int totalFiles, int completedFiles, string currentFile) {
-                  this.TotalFiles = totalFiles;
-                  this.CompletedFiles = completedFiles;
-                  this.CurrentFile = currentFile;
+            private static readonly ProgressState _instance = new ProgressState();
+
+            public static ProgressState Instance {
+                  get => _instance;
             }
 
             public ApplicationState CurrentStage { get; set; } = ApplicationState.Idle;

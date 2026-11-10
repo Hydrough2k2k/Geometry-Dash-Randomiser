@@ -1,16 +1,40 @@
-<<<<<<< Updated upstream
-=======
-Changelog for V2.5.0.0:
+Changelog V2.5.1.0:
+Release Date: 10 Nov 2026
 
 What's New?
- - Reworked and massively expanded font randomisation settings. Go wild
- - Made the connector beams have a different colour when the setting it branched away from is disabled
- - Split the config file into "congif.ini" and "adv_config.ini". Randomisation settings are all stored in the first one
- - Made the parent checkboxes (like the icon randomisation one) have a square instead of a check mark when not all child settings are enabled
- - Added milliseconds to the elapsed time display, because why not
+ - Added a new setting for what percent of letters and textures in a given category should be shuffled
+ - Added Release Date to the Changelog screen
+
+Changes:
+ - The app saves config after 5 seconds of any setting being changed. Configurable in advanced settings
+ - Corrupted just a little bit more text
+ - Added the release date to each version on the Changelogs screen
+ - Updated the Changelog screen. The textboxes get resized depending on how much text they need to display
+ - Added a "Changes" section to the Changelog file and window. Hey, that's where I am!
 
 Bugfixes:
- - When you closed GDR during a randomisation, it would keep working on it until it was done
+ - Made the configuration system a lot more robust. There should be no crashes now. Well, hopefully
+ - Fixed the Texture Size Multiplier slider not get updated when importing configs
+
+Known Bugs:
+ - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can drastically affect level difficulty
+
+-------------------------------------------
+
+Changelog V2.5.0.0:
+Release Date: 15 Okt 2026
+
+What's New?
+ - Reworked and massively expanded font randomisation settings
+
+Changes:
+ - Make the connector beams have a lighter colour when the setting it branched away from is disabled
+ - Made a new config file for advanced controls, aptly named "adv_config.ini". Some old settings were moved to it
+ - Made the parent checkboxes (like the icon randomisation one) have a square instead of a check mark when not all child settings are enabled
+ - Added a "Notes" section to the Changelog file and window
+
+Bugfixes:
+ - When you closed GDR during a randomisation, it would keep working on it until it was done. It is possible this only happened, when a Console window was open
  - Made the application remove old log files. The default limit can be adjusted in the advanced config file
 
 Known Bugs:
@@ -21,14 +45,16 @@ Notes:
 
 -------------------------------------------
 
->>>>>>> Stashed changes
-Changelog for V2.4.2.0:
+Changelog V2.4.2.0:
+Release Date: 19 Jun 2026
 
 What's New?
- - The UI has been made a lot more responsive
  - Added a new beta theme: System theme. It uses the set Windows theme colour
  - Added a setting button next to the theme selector for enabling and disabling the Random and System themes
  - Added a logger system. It is only be partially implemented for now, but will be expanded in the future
+
+Changes:
+ - The UI has been made a lot more responsive
 
 Bugfixes:
  - Fixed the Icon Settings group value not changing
@@ -43,12 +69,15 @@ Known Bugs:
 
 -------------------------------------------
 
-Changelog for V2.4.1.0:
+Changelog V2.4.1.0:
+Release Date: 15 May 2026
 
 What's New?
+ - There is now a button to refresh all themes
+
+Changes:
  - The unpacking of image files is now a lot faster
  - The credits window is now improved
- - There is now a button to refresh all themes
 
 Bugfixes:
  - The import config button was not disabled while randomising
@@ -62,17 +91,19 @@ Known Bugs:
 
 -------------------------------------------
 
-Changelog for V2.4.0.3:
+Changelog V2.4.0.3:
+Release Date: 26 Jan 2026
 
 What's New?
- - Changed header and version text font
  - Added a way to import and export the app configuration
- - Added symbols to fields or areas that prevent the app from working
- - Set the maximum randomisation group to 100 because idk
  - Added a debug console window that you can enable in the config.txt file
  - You can now make custom themes, open the "Themes" folder after launching the application
  - Added an extra "Strawberry" theme
  - Made a fancy Changelog window. You are looking at it right now! (maybe)
+
+Changes:
+ - Set the maximum randomisation group to 100 because why not
+ - Changed header and version text font
 
 Bugfixes:
  - Reduced the amount of configuration file writes
@@ -86,11 +117,14 @@ Known Bugs:
 
 -------------------------------------------
 
-Changelog for V2.3.1.0:
+Changelog V2.3.1.0:
+Release Date: 24 Aug 2025
 
 What's New?
  - Added an elapsed time display
  - You can see what the app is doing during game file restoration
+
+Changes:
  - Now the application folder has way fewer files for more clarity. All the .dll files are gone
 
 Bugfixes:
@@ -105,7 +139,8 @@ Known Bugs:
 
 -------------------------------------------
 
-Changelog for V2.3.0.1:
+Changelog V2.3.0.1:
+Release Date: 14 Aug 2025
 
 Bugfixes:
  - Fixed crash on bootup when the config file is corrupted
@@ -113,13 +148,14 @@ Bugfixes:
 
 -------------------------------------------
 
-Changelog for V2.3.0:
+Changelog V2.3.0:
+Release Date: 10 Aug 2025
 
 What's new?
  - Major visual overhaul, it should be easier to navigate this app now
  - Text Randomisation with a lot of settings with more to come later
  - Restore files button to quickly return the game to it's normal (boring) state
- - File for \"Blacklisted files\". Every file added to this will be ignored when randomising files
+ - File for "Blacklisted files". Every file added to this will be ignored when randomising files
  - Some new and reworked themes. Random theme also exists for some reason
 
 Changes:
@@ -131,20 +167,24 @@ Bugfixes:
 
 -------------------------------------------
 
-Changelog for V2.2.0:
+Changelog V2.2.0:
+Release Date: 27 May 2025
 
 What's new?
  - Added Sprite Size Multiplier setting to limit different size textures getting swapped
  - Added Allow Duplicate Textures button
- - Split the application settings into 2 smaller menus
  - There is now a Light and Dark mode selector, for you fellow eyeball users
+
+Changes:
+ - Split the application settings into 2 smaller menus
 
 Bugfixes:
  - Fixed sprites sometimes flowing into each other and creating minor visual glitches (again)
 
 -------------------------------------------
 
-Changelog for V2.1.2:
+Changelog V2.1.2:
+Release Date: 20 May 2025
 
 What's new?
  - Added a Changelog button, woohoo!

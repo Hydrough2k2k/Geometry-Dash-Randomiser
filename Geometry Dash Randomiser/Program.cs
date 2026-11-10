@@ -1,27 +1,43 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
-<<<<<<< Updated upstream
-=======
 using static Geometry_Dash_Randomiser.Logger;
->>>>>>> Stashed changes
 
 namespace Geometry_Dash_Randomiser {
 
       internal static class Program {
+
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            [DllImport("kernel32.dll", SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool AllocConsole();
+
+            private static bool consoleAllocated = false;
 
             /// <summary>
             /// The main entry point for the application.
             /// </summary>
             [STAThread]
             static void Main() {
+
+                  #if DEBUG
+                        ForceAllocConsole();
+                  #endif
+
+                  // Read config files, allocate the console if required
+                  AdvancedConfig.ReadFile();
+                  if (AdvancedConfig.Instance.DebugMode) {
+                        ForceAllocConsole();
+                  }
+
+                  RandomizationConfig.ReadFile();
+
                   Application.EnableVisualStyles();
                   Application.SetCompatibleTextRenderingDefault(false);
-                  Application.Run(new GDR_Form());
+                  GDR_Form mainForm = new GDR_Form();
+                  Application.Run(mainForm);
 
-<<<<<<< Updated upstream
-                  Config.Instance.WriteFile();
-                  Log.CloseFileStream();
-=======
                   // -------------------------------------------------------------------
 
                   Logger.Write(Mode.Info, "Application is exiting...");
@@ -35,12 +51,21 @@ namespace Geometry_Dash_Randomiser {
                   Logger.Write(Mode.Info, "Writing Config files...");
 
                   // Write the config files
-                  RandomisationConfig.Instance.WriteFile();
+                  RandomizationConfig.Instance.WriteFile();
                   AdvancedConfig.Instance.WriteFile();
 
                   // Finally close the log file stream to make it accessible to othger applications
                   Logger.CloseFileStream();
->>>>>>> Stashed changes
+            }
+
+            public static void ForceAllocConsole() {
+                  // Check if the console has been allocated
+                  // If it has, don't allocate it. It could lead to bugs I do not feel like debugging
+                  if (consoleAllocated)
+                        return;
+
+                  AllocConsole();
+                  consoleAllocated = true;
             }
       }
 }

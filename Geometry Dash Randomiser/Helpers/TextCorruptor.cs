@@ -5,11 +5,12 @@ namespace Geometry_Dash_Randomiser {
 
       public class TextCorruptor {
 
-            private double _probability = 0.075f;
-
             public TextCorruptor() { }
 
-            public int CorruptionLevel { get; set; } = 10;
+            public int CorruptionLevel {
+                  get => _corruptionLevel;
+                  set => _corruptionLevel = value;
+            }
 
             public double ProbabilityPercent {
                   get => _probability * 100d;
@@ -39,10 +40,7 @@ namespace Geometry_Dash_Randomiser {
             public string CorruptText(string text, int loops) => CorruptText(text, loops, null);
             public string CorruptText(string text) => CorruptText(text, CorruptionLevel, null);
 
-            public string CorruptText(string text, int loops, Random random) {
-
-                  return CorruptText(new StringBuilder(text), loops, random);
-            }
+            public string CorruptText(string text, int loops, Random random) => CorruptText(new StringBuilder(text), loops, random);
 
             public string CorruptText(StringBuilder sb, int loops) => CorruptText(sb, loops, null);
             public string CorruptText(StringBuilder sb) => CorruptText(sb, CorruptionLevel, null);
@@ -61,12 +59,15 @@ namespace Geometry_Dash_Randomiser {
 
                         for (int c = 0; c < sb.Length; c++) {
                               if (random.NextDouble() <= _probability) {
-                                    sb[c] = charSet[random.Next(charSet.Length)];
+                                    sb[c] = _charSet[random.Next(_charSet.Length)];
                               }
                         }
                   }
             }
 
-            const string charSet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz               !\"#$%^&\'*+,-*:;<=>?@_`~";
+            private int _corruptionLevel = 0;
+            private double _probability = 0.1f;
+
+            const string _charSet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz               !\"#$%^&\'*+,-*:;<=>?@_`~";
       }
 }

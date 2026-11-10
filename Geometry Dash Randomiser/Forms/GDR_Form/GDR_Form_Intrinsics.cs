@@ -1,26 +1,19 @@
 ﻿using Geometry_Dash_Randomiser.Forms;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Geometry_Dash_Randomiser {
 
       public partial class GDR_Form : Form {
 
-            [DllImport("kernel32.dll", SetLastError = true)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public static extern bool AllocConsole();
-
             [DllImport("user32.dll", CharSet = CharSet.Auto)]
             public static extern int GetSysColor(int nIndex);
 
-<<<<<<< Updated upstream
-            public const string version = "V2.4.2.0";
-=======
-            public const string version = "V2.5.0.0";
->>>>>>> Stashed changes
+            public const string version = "V2.5.1.0";
 
             private readonly TextCorruptor textCorruptor = new TextCorruptor {
                   CorruptionLevel = 0,
@@ -37,15 +30,13 @@ namespace Geometry_Dash_Randomiser {
             private ThemeConfigForm themeConfigForm;
 
             readonly GameFileManager gameFileManager;
+            internal Thread randomisationThread = null;
 
             readonly ThemeController themeController;
-            Theme CurrentTheme => themeController.Current;
+            private Theme CurrentTheme => themeController.Current;
 
             DateTime lastThemeRefresh = DateTime.MinValue;
-            private int themeRefreshCooldown = 825; // ms
-
-            DateTime lastThemeSwitch = DateTime.MinValue;
-            private int themeSwitchCooldown = 500; // ms
+            private int themeRefreshCooldown = 1000; // ms
 
             // This is used to prevent the data arrays from being populated multiple times. This will short circuit the method that will populate the arrays
             private bool dataArraysArePopulated = false;
@@ -58,19 +49,19 @@ namespace Geometry_Dash_Randomiser {
             private DomainUpDown[] domainUpDowns = Array.Empty<DomainUpDown>();
             private RichTextBox[] richTextBoxes = Array.Empty<RichTextBox>();
             private GroupBox[] groupBoxes = Array.Empty<GroupBox>();
-            private PictureBox[] pictureBoxes = Array.Empty<PictureBox>();
+            private ComboBox[] comboBoxes = Array.Empty<ComboBox>();
             private RadioButton[] radioButtons = Array.Empty<RadioButton>();
 
             private List<Control> controlsToggledDuringRandomisation = new List<Control>();
 
-            private bool isFormInitialised = false;
+            /// <summary>
+            /// This stops all linked controls from getting the parent controls' values<br/>
+            /// This is mainly useful when importing a configuration from file, or applying one in the (currently inactive) configuration manager
+            /// </summary>
+            private bool autoRefreshLinkedControls = false;
 
-<<<<<<< Updated upstream
-            private Config config => Config.Instance;
-=======
             // ---------------------------------------------------------------------------------
 
-            // Recoloured or redrawn images for the themes and other image based icons
             // These are populated on theme refreshes
             private Bitmap activeStandardBeam = null;
             private Bitmap inactiveStandardBeam = null;
@@ -83,8 +74,7 @@ namespace Geometry_Dash_Randomiser {
 
             // ---------------------------------------------------------------------------------
 
-            private RandomisationConfig config => RandomisationConfig.Instance;
+            private RandomizationConfig config => RandomizationConfig.Instance;
             private AdvancedConfig advancedConfig => AdvancedConfig.Instance;
->>>>>>> Stashed changes
       }
 }

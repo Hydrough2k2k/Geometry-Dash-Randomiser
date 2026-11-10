@@ -59,12 +59,8 @@ namespace Geometry_Dash_Randomiser {
                   "</plist>"
             };
 
-            public static List<Sprite> BulkDeserialise(List<string> source) {
-                  return BulkDeserialise(source);
-            }
-
-            public static List<Sprite> BulkDeserialise(string[] source) {
-                  List<Sprite> sprites = new List<Sprite>();
+            public static ResourceSprite[] BulkDeserialize(string[] source) {
+                  List<ResourceSprite> sprites = new List<ResourceSprite>();
                   int i = 0;
 
                   // Keep searching for the "frames" keyword
@@ -95,22 +91,22 @@ namespace Geometry_Dash_Randomiser {
                               // End of the item is here
                               string[] data = source.Trim(startLine, endLine);
 
-                              Sprite sprite = Deserialise(data);
+                              ResourceSprite sprite = Deserialise(data);
                               sprites.Add(sprite);
 
                               startLine = i + 1;
                         }
                   }
 
-                  return sprites;
+                  return sprites.ToArray();
             }
 
-            public static Sprite Deserialise(string[] source) {
+            public static ResourceSprite Deserialise(string[] source) {
                   if (source == null || source.Length == 0)
-                        return new Sprite();
+                        return new ResourceSprite();
 
-                  Sprite sprite = new Sprite();
-                  sprite.spriteName = source[0].Trim().GetKey();
+                  ResourceSprite sprite = new ResourceSprite();
+                  sprite.Name = source[0].Trim().GetKey();
 
                   source = source.Select(s => s.Trim()).ToArray();
 
@@ -121,44 +117,43 @@ namespace Geometry_Dash_Randomiser {
                               key = key.GetKey();
 
                               if (key.StartsWith("spriteOffset")) {
-                                    sprite.spriteOffset = Parse.PointF(source[i + 1].GetString());
+                                    sprite.Offset = Parse.PointF(source[i + 1].GetString());
 
                               } else if (key.StartsWith("spriteSize")) {
-                                    sprite.spriteSize = Parse.Size(source[i + 1].GetString());
+                                    sprite.Size = Parse.Size(source[i + 1].GetString());
 
                               } else if (key.StartsWith("spriteSourceSize")) {
-                                    sprite.spriteSourceSize = Parse.Size(source[i + 1].GetString());
+                                    sprite.SourceSize = Parse.Size(source[i + 1].GetString());
 
                               } else if (key.StartsWith("textureRect")) {
                                     string data = source[i + 1].GetString();
-                                    data = Regex.Replace(data, "[^0-9,]+", "", RegexOptions.Compiled);
+                                    data = System.Text.RegularExpressions.Regex.Replace(data, "[^0-9,]+", "", RegexOptions.Compiled);
 
                                     string[] vals = data.Split(',');
                                     Array.Resize(ref vals, 4);
 
                                     int[] values = vals.Select(v => Int32.Parse(v)).ToArray();
 
-                                    sprite.textureRect = new Rectangle(values[0], values[1], values[2], values[3]);
+                                    sprite.TextureRect = new Rectangle(values[0], values[1], values[2], values[3]);
 
                               } else if (key.StartsWith("textureRotated")) {
                                     if (source[i + 1] == "<true/>") {
-                                          sprite.textureRotated = true;
+                                          sprite.Rotated = true;
 
                                     } else if (source[i + 1] == "<false/>") {
-                                          sprite.textureRotated = false;
+                                          sprite.Rotated = false;
                                     }
                               }
                         }
-                  }
-
-                  if (sprite.textureRotated) {
-                        sprite.textureRect = new Rectangle(sprite.textureRect.X, sprite.textureRect.Y, sprite.textureRect.Height, sprite.textureRect.Width);
                   }
 
                   return sprite;
             }
 
             static string GetKey(this string line) {
+                  if (string.IsNullOrEmpty(line) || line.Length < 10) {
+                        return null;
+                  }
                   return line.Substring(5, line.Length - 11);
             }
 
@@ -166,7 +161,7 @@ namespace Geometry_Dash_Randomiser {
                   return line.Substring(8, line.Length - 17);
             }
 
-            static string ConvertToString(this string value) {
+            static string ConvertToStringKey(this string value) {
                   return "<string>" + value + "</string>";
             }
 
@@ -214,26 +209,26 @@ namespace Geometry_Dash_Randomiser {
                   return "<string>" + value.ToStringSimple() + "</string>";
             }
 
-            public static string[] Serialise(Sprite[] sprites, PackingRectangle[] newRects, string fileName, Size bitmapSize) {
+            public static string[] Serialize(ResourceSprite[] sprites, PackingRectangle[] newRects, string fileName, Size bitmapSize) {
                   List<string> ret = new List<string>();
                   ret.AddRange(fileBegin);
 
                   for (int i = 0; i < sprites.Length; i++) {
                         string[] data = (string[])spriteBase.Clone();
 
-                        data[0] += sprites[i].spriteName.ConvertToKey();
-                        data[5] += sprites[i].spriteOffset.ConvertToString();
-                        data[7] += sprites[i].spriteSize.ConvertToString();
-                        data[9] += sprites[i].spriteSourceSize.ConvertToString();
+                        data[0] += sprites[i].Name.ConvertToKey();
+                        data[5] += sprites[i].Offset.ConvertToString();
+                        data[7] += sprites[i].Size.ConvertToString();
+                        data[9] += sprites[i].SourceSize.ConvertToString();
 
-                        if (sprites[i].textureRotated == true) {
+                        if (sprites[i].Rotated == true) {
                               data[13] +=  "<true/>";
-                              Rectangle rect = new Rectangle((int)newRects[i].X + 1, (int)newRects[i].Y + 1, sprites[i].textureRect.Height, sprites[i].textureRect.Width);
+                              Rectangle rect = new Rectangle((int)newRects[i].X + 1, (int)newRects[i].Y + 1, sprites[i].TextureRect.Height, sprites[i].TextureRect.Width);
                               data[11] += rect.ConvertToString();
 
                         } else {
                               data[13] += "<false/>";
-                              Rectangle rect = new Rectangle((int)newRects[i].X + 1, (int)newRects[i].Y + 1, sprites[i].textureRect.Width, sprites[i].textureRect.Height);
+                              Rectangle rect = new Rectangle((int)newRects[i].X + 1, (int)newRects[i].Y + 1, sprites[i].TextureRect.Width, sprites[i].TextureRect.Height);
                               data[11] += rect.ConvertToString();
                         }
                         ret.AddRange(data);
@@ -241,34 +236,34 @@ namespace Geometry_Dash_Randomiser {
 
                   // Add the custom metadata
                   string[] ending = (string[]) fileEnd.Clone();
-                  ending[11] += (fileName + ".png").ConvertToString();
+                  ending[11] += (fileName + ".png").ConvertToStringKey();
                   ending[13] += bitmapSize.ConvertToString();
-                  ending[18] += (fileName + ".png").ConvertToString();
+                  ending[18] += (fileName + ".png").ConvertToStringKey();
 
                   ret.AddRange(ending);
                   return ret.ToArray();
             }
 
-            public static string[] Serialise(Sprite[] sprites, string fileName, Size bitmapSize) {
+            public static string[] Serialise(ResourceSprite[] sprites, string fileName, Size bitmapSize) {
                   List<string> ret = new List<string>();
                   ret.AddRange(fileBegin);
 
                   for (int i = 0; i < sprites.Length; i++) {
                         string[] data = (string[])spriteBase.Clone();
 
-                        data[0] += sprites[i].spriteName.ConvertToKey();
-                        data[5] += sprites[i].spriteOffset.ConvertToString();
-                        data[7] += sprites[i].spriteSize.ConvertToString();
-                        data[9] += sprites[i].spriteSourceSize.ConvertToString();
+                        data[0] += sprites[i].Name.ConvertToKey();
+                        data[5] += sprites[i].Offset.ConvertToString();
+                        data[7] += sprites[i].Size.ConvertToString();
+                        data[9] += sprites[i].SourceSize.ConvertToString();
 
-                        if (sprites[i].textureRotated == true) {
+                        if (sprites[i].Rotated == true) {
                               data[13] += "<true/>";
-                              Rectangle rect = new Rectangle(sprites[i].textureRect.X, sprites[i].textureRect.Y, sprites[i].textureRect.Height, sprites[i].textureRect.Width);
+                              Rectangle rect = new Rectangle(sprites[i].DrawRect.X, sprites[i].DrawRect.Y, sprites[i].DrawRect.Height, sprites[i].DrawRect.Width);
                               data[11] += rect.ConvertToString();
 
                         } else {
                               data[13] += "<false/>";
-                              Rectangle rect = new Rectangle(sprites[i].textureRect.X, sprites[i].textureRect.Y, sprites[i].textureRect.Width, sprites[i].textureRect.Height);
+                              Rectangle rect = new Rectangle(sprites[i].DrawRect.X, sprites[i].DrawRect.Y, sprites[i].DrawRect.Width, sprites[i].DrawRect.Height);
                               data[11] += rect.ConvertToString();
                         }
                         ret.AddRange(data);
@@ -276,9 +271,9 @@ namespace Geometry_Dash_Randomiser {
 
                   // Add the custom metadata
                   string[] ending = (string[])fileEnd.Clone();
-                  ending[11] += (fileName + ".png").ConvertToString();
+                  ending[11] += (fileName + ".png").ConvertToStringKey();
                   ending[13] += bitmapSize.ConvertToString();
-                  ending[18] += (fileName + ".png").ConvertToString();
+                  ending[18] += (fileName + ".png").ConvertToStringKey();
 
                   ret.AddRange(ending);
                   return ret.ToArray();

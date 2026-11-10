@@ -1,31 +1,17 @@
-﻿using Geometry_Dash_Randomiser.Properties;
-using Ionic.Zlib;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Security.Cryptography;
-using System.Security.Policy;
-using static Geometry_Dash_Randomiser.Logger;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TreeView;
 
 namespace Geometry_Dash_Randomiser {
 
       public class ChangelogData {
 
-            private readonly string _version;
-            private readonly string[] _newStuff = Array.Empty<string>();
-            private readonly string[] _bugfixes = Array.Empty<string>();
-            private readonly string[] _knownBugs = Array.Empty<string>();
-
             public string Version => _version;
+            public string ReleaseDate => _releaseDate;
             public string[] NewStuff => _newStuff;
+            public string[] Changes => _changes;
             public string[] Bugfixes => _bugfixes;
             public string[] KnownBugs => _knownBugs;
+            public string[] Notes => _notes;
 
             public ChangelogData() { }
 
@@ -33,39 +19,46 @@ namespace Geometry_Dash_Randomiser {
                   _version = version;
             }
 
-            public ChangelogData(string version, string[] newStuff, string[] bugfixes, string[] knownBugs) {
-                  _version = version;
-                  _newStuff = newStuff;
-                  _bugfixes = bugfixes;
-                  _knownBugs = knownBugs;
+            public ChangelogData(string version, string releaseDate, string[] newStuff, string[] changes, string[] bugfixes, string[] knownBugs, string[] notes) {
+                  this._version = version;
+                  this._releaseDate = releaseDate;
+                  this._newStuff = newStuff;
+                  this._changes = changes;
+                  this._bugfixes = bugfixes;
+                  this._knownBugs = knownBugs;
+                  this._notes = notes;
             }
 
             public static ChangelogData Default => new ChangelogData(
-                  version: "V2.5.0.0",
+                  version: "V2.5.1.0",
+                  releaseDate: "10 Nov 2026",
 
                   newStuff: new string[] {
-                        " - Reworked and massively expanded font randomisation settings. Go wild",
-                        " - Made the connector beams have a different colour when the setting it branched away from is disabled",
-                        " - Split the config file into \"congif.ini\" and \"adv_config.ini\". Randomisation settings are all stored in the first one",
-                        " - Made the parent checkboxes (like the icon randomisation one) have a square instead of a check mark when not all child settings are enabled",
-                        " - Added milliseconds to the elapsed time display, because why not"
+                        " - The UI has been made a lot more responsive",
+                        " - Texture Size Multiplier slider's position is updated correctly when the application launches",
+                        " - Added a setting button next to the theme selector for enabling and disabling the Random and System themes",
+                        " - Added a logger system. It is only be partially implemented for now, but will be expanded in the future"
+                  },
+
+                  changes: new string[] {
+
                   },
 
                   bugfixes: new string[] {
-                        " - When you closed GDR during a randomisation, it would keep working on it until it was done",
-                        " - Made the application remove old log files. The default limit can be adjusted in the advanced config file"
+                        " - Fixed the Icon Settings group value not changing",
+                        " - On bootup the settings for icon randomisations settings were not loaded properly",
+                        " - Fixed the Debug Console not printing anything sometimes. You can enable it in the config.txt file for debugging purposes",
+                        " - Fixed a crash when refreshing themes and there were fewer themes than the current theme index",
+                        " - Potentially fixed fonts not rendering sometimes. More testing is required"
                   },
 
                   knownBugs: new string[] {
                         " - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can make levels easier or impossible in some cases",
                         " - Mystery bugs that I haven't discovered yet"
-<<<<<<< Updated upstream
-=======
                   },
 
                   notes: new string[] {
-                        " - This update breaks old settings exported via the \"Export Config\" button as the system was completely overhauled"
->>>>>>> Stashed changes
+                        
                   }
             );
 
@@ -73,44 +66,64 @@ namespace Geometry_Dash_Randomiser {
 
             public static ChangelogData ConvertFromData(string[] rawData) {
                   string version = string.Empty;
+                  string releaseDate = string.Empty;
                   List<string> newStuff = new List<string>();
+                  List<string> changes = new List<string>();
                   List<string> bugfixes = new List<string>();
                   List<string> knownBugs = new List<string>();
+                  List<string> notes = new List<string>();
 
                   for (int i = 0; i < rawData.Length; i++) {
                         string line = rawData[i].Trim();
 
-                        if (line.StartsWith("Changelog for ", StringComparison.OrdinalIgnoreCase)) {
-                              int index = line.LastIndexOf(' ');
-                              if (index != -1) {
-                                    line = line.Substring(index + 1).Trim(' ').Trim(':');
-                              }
-                              version = line;
+                        if (line.StartsWith("Changelog", StringComparison.OrdinalIgnoreCase)) {
+                              version = GetPropertyAfter(' ', line, ':');
+
+                        } else if (line.StartsWith("Release Date:", StringComparison.OrdinalIgnoreCase)) {
+                              releaseDate = GetPropertyAfter(':', line, ' ');
 
                         } else if (line.StartsWith("What's New?", StringComparison.OrdinalIgnoreCase)) {
-                              i++;
-                              while (i < rawData.Length && !string.IsNullOrWhiteSpace(rawData[i])) {
-                                    newStuff.Add(rawData[i]);
-                                    i++;
-                              }
+                              AddLinesUntilNullOrWhiteSpace(newStuff, rawData, ref i);
+
+                        } else if (line.StartsWith("Changes:", StringComparison.OrdinalIgnoreCase)) {
+                              AddLinesUntilNullOrWhiteSpace(changes, rawData, ref i);
 
                         } else if (line.StartsWith("Bugfixes:", StringComparison.OrdinalIgnoreCase)) {
-                              i++;
-                              while (i < rawData.Length && !string.IsNullOrWhiteSpace(rawData[i])) {
-                                    bugfixes.Add(rawData[i]);
-                                    i++;
-                              }
+                              AddLinesUntilNullOrWhiteSpace(bugfixes, rawData, ref i);
 
                         } else if (line.StartsWith("Known Bugs:", StringComparison.OrdinalIgnoreCase)) {
-                              i++;
-                              while (i < rawData.Length && !string.IsNullOrWhiteSpace(rawData[i])) {
-                                    knownBugs.Add(rawData[i]);
-                                    i++;
-                              }
+                              AddLinesUntilNullOrWhiteSpace(knownBugs, rawData, ref i);
+
+                        } else if (line.StartsWith("Notes:", StringComparison.OrdinalIgnoreCase)) {
+                              AddLinesUntilNullOrWhiteSpace(notes, rawData, ref i);
                         }
                   }
 
-                  return new ChangelogData(version, newStuff.ToArray(), bugfixes.ToArray(), knownBugs.ToArray());
+                  return new ChangelogData(version, releaseDate, newStuff.ToArray(), changes.ToArray(), bugfixes.ToArray(), knownBugs.ToArray(), notes.ToArray());
             }
+
+            private static void AddLinesUntilNullOrWhiteSpace(List<string> to, string[] from, ref int index) {
+                  index++;
+                  while (index < from.Length && !string.IsNullOrWhiteSpace(from[index])) {
+                        to.Add(from[index]);
+                        index++;
+                  }
+            }
+
+            private static string GetPropertyAfter(char ch, string from, char trim) {
+                  int index = from.IndexOf(ch);
+                  if (index != -1) {
+                        from = from.Substring(index + 1).Trim(trim).Trim(' ');
+                  }
+                  return from;
+            }
+
+            private readonly string _version = string.Empty;
+            private readonly string _releaseDate = string.Empty;
+            private readonly string[] _newStuff = Array.Empty<string>();
+            private readonly string[] _changes = Array.Empty<string>();
+            private readonly string[] _bugfixes = Array.Empty<string>();
+            private readonly string[] _knownBugs = Array.Empty<string>();
+            private readonly string[] _notes = Array.Empty<string>();
       }
 }

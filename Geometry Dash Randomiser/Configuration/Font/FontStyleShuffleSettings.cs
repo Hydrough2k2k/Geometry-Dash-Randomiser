@@ -2,7 +2,53 @@
 
 namespace Geometry_Dash_Randomiser {
 
-      public class FontStyleShuffleSettings {
+      public class FontStyleShuffleSettings : IUpdateNotify {
+
+            public event EventHandler Updated;
+
+            public FontStyleShuffleSettings() { }
+
+            public static FontStyleShuffleSettings Default => new FontStyleShuffleSettings();
+
+            public bool Enabled {
+                  get => _enabled;
+                  set {
+                        _enabled = value;
+                        InvokeEvent(Updated, null);
+                  }
+            }
+
+            public ShufflingMode Mode {
+                  get => _mode;
+                  set {
+                        if ((int)value < 0 || (int)value >= maxMode) {
+                              Logger.Warn($"The setting for FSSS.Mode was out of expected range");
+                              _mode = 0;
+
+                        } else {
+                              _mode = value;
+                        }
+
+                        InvokeEvent(Updated, null);
+                  }
+            }
+
+            public void SetMode(int modeID) {
+                  Mode = (ShufflingMode)modeID;
+            }
+
+            public void CopyDataFrom(FontStyleShuffleSettings source) {
+                  Enabled = source.Enabled;
+                  Mode = source.Mode;
+            }
+
+            private void InvokeEvent(EventHandler @event, EventArgs e) {
+                  @event?.Invoke(this, e);
+            }
+
+            private bool _enabled = true;
+            private ShufflingMode _mode = ShufflingMode.PerCharacter;
+            private static int maxMode = Enum.GetValues(typeof(ShufflingMode)).Length;
 
             public enum ShufflingMode {
                   /// <summary>
@@ -13,29 +59,7 @@ namespace Geometry_Dash_Randomiser {
                   /// <summary>
                   /// Each character gets a random sprite from a different font
                   /// </summary>
-                  PerLetter,
-            }
-
-            private ShufflingMode _mode = ShufflingMode.PerFont;
-
-            public FontStyleShuffleSettings() { }
-
-            public bool Enabled { get; set; } = true;
-
-            public ShufflingMode Mode {
-                  get { return _mode; }
-                  set {
-                        _mode = value;
-
-                        int totalValues = Enum.GetValues(typeof(ShufflingMode)).Length;
-                        if ((int)Mode > totalValues) {
-                              Mode = 0;
-                        }
-                  }
-            }
-
-            public void SetMode(int mode) {
-                  Mode = (ShufflingMode)mode;
+                  PerCharacter,
             }
       }
 }
