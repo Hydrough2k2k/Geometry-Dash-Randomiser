@@ -31,8 +31,8 @@
                   this.knownBugsTextBox = new System.Windows.Forms.RichTextBox();
                   this.nextVersionButton = new System.Windows.Forms.Button();
                   this.previousVersionButton = new System.Windows.Forms.Button();
-                  this.changelogHeaderLabel = new System.Windows.Forms.Label();
-                  this.changelogVersionLabel = new System.Windows.Forms.Label();
+                  this.HeaderLabel = new System.Windows.Forms.Label();
+                  this.VersionLabel = new System.Windows.Forms.Label();
                   this.notesLabel = new System.Windows.Forms.Label();
                   this.notesTextBox = new System.Windows.Forms.RichTextBox();
                   this.ReleaseDateLabel = new System.Windows.Forms.Label();
@@ -125,23 +125,23 @@
                   // 
                   // changelogHeaderLabel
                   // 
-                  this.changelogHeaderLabel.AutoSize = true;
-                  this.changelogHeaderLabel.Font = new System.Drawing.Font("Javanese Text", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.changelogHeaderLabel.Location = new System.Drawing.Point(213, 8);
-                  this.changelogHeaderLabel.Name = "changelogHeaderLabel";
-                  this.changelogHeaderLabel.Size = new System.Drawing.Size(186, 73);
-                  this.changelogHeaderLabel.TabIndex = 0;
-                  this.changelogHeaderLabel.Text = "Changelog";
+                  this.HeaderLabel.AutoSize = true;
+                  this.HeaderLabel.Font = new System.Drawing.Font("Javanese Text", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.HeaderLabel.Location = new System.Drawing.Point(213, 2);
+                  this.HeaderLabel.Name = "changelogHeaderLabel";
+                  this.HeaderLabel.Size = new System.Drawing.Size(186, 73);
+                  this.HeaderLabel.TabIndex = 200;
+                  this.HeaderLabel.Text = "Changelog";
                   // 
                   // changelogVersionLabel
                   // 
-                  this.changelogVersionLabel.AutoSize = true;
-                  this.changelogVersionLabel.Font = new System.Drawing.Font("Javanese Text", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.changelogVersionLabel.Location = new System.Drawing.Point(385, 37);
-                  this.changelogVersionLabel.Name = "changelogVersionLabel";
-                  this.changelogVersionLabel.Size = new System.Drawing.Size(87, 43);
-                  this.changelogVersionLabel.TabIndex = 119;
-                  this.changelogVersionLabel.Text = "V_._._._";
+                  this.VersionLabel.AutoSize = true;
+                  this.VersionLabel.Font = new System.Drawing.Font("Javanese Text", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.VersionLabel.Location = new System.Drawing.Point(149, 47);
+                  this.VersionLabel.Name = "changelogVersionLabel";
+                  this.VersionLabel.Size = new System.Drawing.Size(87, 43);
+                  this.VersionLabel.TabIndex = 119;
+                  this.VersionLabel.Text = "V_._._._";
                   // 
                   // notesLabel
                   // 
@@ -167,7 +167,7 @@
                   // 
                   this.ReleaseDateLabel.AutoSize = true;
                   this.ReleaseDateLabel.Font = new System.Drawing.Font("Javanese Text", 12.25F);
-                  this.ReleaseDateLabel.Location = new System.Drawing.Point(501, 6);
+                  this.ReleaseDateLabel.Location = new System.Drawing.Point(329, 52);
                   this.ReleaseDateLabel.Name = "ReleaseDateLabel";
                   this.ReleaseDateLabel.Size = new System.Drawing.Size(143, 38);
                   this.ReleaseDateLabel.TabIndex = 122;
@@ -177,7 +177,7 @@
                   // 
                   this.LengthMeasurerLabel_Hidden.AutoSize = true;
                   this.LengthMeasurerLabel_Hidden.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-                  this.LengthMeasurerLabel_Hidden.Location = new System.Drawing.Point(430, 65);
+                  this.LengthMeasurerLabel_Hidden.Location = new System.Drawing.Point(497, 65);
                   this.LengthMeasurerLabel_Hidden.Name = "LengthMeasurerLabel_Hidden";
                   this.LengthMeasurerLabel_Hidden.Size = new System.Drawing.Size(208, 20);
                   this.LengthMeasurerLabel_Hidden.TabIndex = 123;
@@ -219,9 +219,9 @@
                   this.Controls.Add(this.whatsNewLabel);
                   this.Controls.Add(this.whatsNewTextBox);
                   this.Controls.Add(this.bugfixesLabel);
-                  this.Controls.Add(this.changelogVersionLabel);
+                  this.Controls.Add(this.VersionLabel);
                   this.Controls.Add(this.knownBugsLabel);
-                  this.Controls.Add(this.changelogHeaderLabel);
+                  this.Controls.Add(this.HeaderLabel);
                   this.Controls.Add(this.bugfixesTextBox);
                   this.Controls.Add(this.previousVersionButton);
                   this.Controls.Add(this.knownBugsTextBox);
@@ -248,8 +248,8 @@
             private System.Windows.Forms.RichTextBox knownBugsTextBox;
             private System.Windows.Forms.Button nextVersionButton;
             private System.Windows.Forms.Button previousVersionButton;
-            private System.Windows.Forms.Label changelogHeaderLabel;
-            private System.Windows.Forms.Label changelogVersionLabel;
+            private System.Windows.Forms.Label HeaderLabel;
+            private System.Windows.Forms.Label VersionLabel;
             private System.Windows.Forms.Label notesLabel;
             private System.Windows.Forms.RichTextBox notesTextBox;
             private System.Windows.Forms.Label ReleaseDateLabel;

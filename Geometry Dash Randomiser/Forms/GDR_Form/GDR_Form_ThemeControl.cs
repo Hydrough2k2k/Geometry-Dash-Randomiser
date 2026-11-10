@@ -136,10 +136,6 @@ namespace Geometry_Dash_Randomiser {
                   Color inactiveColourFront = theme.BackgroundColour.Add(theme.BackgroundColour.GetDelta(theme.BeamColour).AdjustBrightness(0.5f));
                   Color inactiveColourBack = theme.BackgroundColour;
 
-                  Console.WriteLine(theme.BackgroundColour.ToString());
-                  Console.WriteLine(theme.BeamColour.ToString());
-                  Console.WriteLine(inactiveColourFront.ToString());
-
                   this.activeStandardBeam = Resources.ConnectorBeamWhite.RepaintImage(theme);
                   this.inactiveStandardBeam = Resources.ConnectorBeamWhite.RepaintImage(inactiveColourBack, inactiveColourFront);
 

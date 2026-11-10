@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using static Geometry_Dash_Randomiser.Logger;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -160,7 +159,7 @@ namespace Geometry_Dash_Randomiser {
                   return Current.BeamColour;
             }
 
-            private Theme[] DefaultThemes = new Theme[] {
+            private Theme[] DefaultThemes => new Theme[] {
                   new Theme(
                         Name: "Wisteria",
                         BackgroundColour: ColorExtensions.FromHex("7B60AC"),

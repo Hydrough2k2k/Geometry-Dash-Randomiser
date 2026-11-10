@@ -89,8 +89,8 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void PopulateTextBoxes(ChangelogData data) {
-                  this.changelogHeaderLabel.Text = "Changelog";
-                  this.changelogVersionLabel.Text = data.Version;
+                  this.HeaderLabel.Text = "Changelog";
+                  this.VersionLabel.Text = data.Version;
 
                   this.ReleaseDateLabel.Text = data.ReleaseDate;
 
@@ -195,7 +195,7 @@ namespace Geometry_Dash_Randomiser {
                   this.previousVersionButton.Location = new Point(_padding, _padding);
                   this.nextVersionButton.Location = new Point(this.Width - this.nextVersionButton.Width - 2 * _padding, _padding);
 
-                  CenterHeaderAndVersionText();
+                  RelocateHeaderLabels();
             }
 
             private Size GetTextBoxHeightFromContents(RichTextBox tb) {
@@ -232,20 +232,27 @@ namespace Geometry_Dash_Randomiser {
                   return new Size(_windowWidth - _padding * 2, _maxTextboxHeight);
             }
 
-            private void CenterHeaderAndVersionText() {
+            private void RelocateHeaderLabels() {
                   int windowWidth = this.Width;
-                  int textWidth = this.changelogHeaderLabel.PreferredWidth + this.changelogVersionLabel.PreferredWidth;
-                  int headerMargin = ((windowWidth - textWidth) / 2);
 
+                  int headerMargin = (windowWidth - HeaderLabel.Width) / 2;
                   // Position the header label
-                  this.changelogHeaderLabel.Location = new Point(
+                  this.HeaderLabel.Location = new Point(
                         headerMargin,
-                        this.changelogHeaderLabel.Location.Y);
+                        this.HeaderLabel.Location.Y
+                  );
 
-                  // Position the version label next to the header
-                  this.changelogVersionLabel.Location = new Point(
-                        this.changelogHeaderLabel.Location.X + this.changelogHeaderLabel.Width - 12,
-                        this.changelogVersionLabel.Location.Y);
+                  // Position the changelog label
+                  this.VersionLabel.Location = new Point(
+                        this.HeaderLabel.Location.X - this.VersionLabel.Width / 2,
+                        this.VersionLabel.Location.Y
+                  );
+
+                  // Position the release date label
+                  this.ReleaseDateLabel.Location = new Point(
+                        this.HeaderLabel.Right - this.ReleaseDateLabel.Width / 2,
+                        this.ReleaseDateLabel.Location.Y
+                  );
             }
 
             private void PreviousVersion(object sender, EventArgs e) {
@@ -258,10 +265,9 @@ namespace Geometry_Dash_Randomiser {
 
                   ResetAllTextToDefault();
                   PopulateTextBoxes(CurrentChangelog);
-                  ResizeWindowAndElements();
-
                   CorruptFormText();
-                  LeftAlignControls();
+
+                  ResizeWindowAndElements();
             }
 
             private void NextVersion(object sender, EventArgs e) {
@@ -275,7 +281,6 @@ namespace Geometry_Dash_Randomiser {
                   ResetAllTextToDefault();
                   PopulateTextBoxes(CurrentChangelog);
                   CorruptFormText();
-                  LeftAlignControls();
 
                   ResizeWindowAndElements();
             }
@@ -289,20 +294,13 @@ namespace Geometry_Dash_Randomiser {
 
                   ResetAllTextToDefault();
                   PopulateTextBoxes(CurrentChangelog);
-                  ResizeWindowAndElements();
-
                   CorruptFormText();
-                  LeftAlignControls();
 
-                  CenterHeaderAndVersionText();
+                  ResizeWindowAndElements();
             }
 
             public override void On_Deactivate(object sender, EventArgs e) {
                   base.On_Deactivate(sender, e);
-            }
-
-            private void LeftAlignControls() {
-                  nextVersionButton.LeftAlign(ReleaseDateLabel);
             }
 
             private const string changelogFileName = "Changelog.txt";
