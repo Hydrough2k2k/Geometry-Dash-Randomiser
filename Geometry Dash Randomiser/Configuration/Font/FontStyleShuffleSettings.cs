@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -22,9 +21,10 @@ namespace Geometry_Dash_Randomiser {
             public ShufflingMode Mode {
                   get => _mode;
                   set {
-                        if ((int)Mode > maxMode) {
+                        if ((int)value < 0 || (int)value >= maxMode) {
                               Logger.Warn($"The setting for FSSS.Mode was out of expected range");
                               _mode = 0;
+
                         } else {
                               _mode = value;
                         }

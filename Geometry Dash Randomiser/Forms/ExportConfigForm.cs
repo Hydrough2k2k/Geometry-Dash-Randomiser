@@ -1,49 +1,40 @@
-﻿using System;
+﻿using Geometry_Dash_Randomiser.Forms;
+using System;
 using System.Windows.Forms;
 
 namespace Geometry_Dash_Randomiser {
 
-      public partial class ExportConfigForm : Form {
-
-            public Theme theme;
-            public TextCorruptor textCorruptor;
+      public partial class ExportConfigForm : ThemedFormBase {
 
             public ExportConfigForm() {
                   InitializeComponent();
-            }
 
-            private void SetTheme() {
-                  this.BackColor = theme.BackgroundColour.AdjustBrightness(0.60f);
-                  this.exportTextBox.BackColor = theme.ObjectBackColour.AdjustBrightness(0.50f);
-                  this.exportTextBox.ForeColor = theme.ObjectTextColour.AdjustBrightness(0.80f);
-                  this.exportLabel.ForeColor = theme.TextColour;
-
-                  this.copyToClipboardButton.ForeColor = theme.ObjectTextColour;
-                  this.copyToClipboardButton.BackColor = theme.ObjectBackColour.AdjustBrightness(0.70f);
-            }
-
-            private void _FormClosing(object sender, FormClosingEventArgs e) {
-                  e.Cancel = true;
-                  this._Deactivate(sender, e as EventArgs);
-            }
-
-            private void _Activated(object sender, EventArgs e) {
-                  SetTheme();
+                  StoreOriginalText();
 
                   this.Text = "Export Config Data";
+                  this.originalTitle = this.Text;
+            }
+
+            public override void On_FormClosing(object sender, FormClosingEventArgs e) {
+                  e.Cancel = true;
+                  this.On_Deactivate(sender, e as EventArgs);
+            }
+
+            public override void On_Activated(object sender, EventArgs e) {
+                  this.SetTheme();
+                  this.ResetAndCorruptFormText();
 
                   string exportString = RandomizationConfig.Instance.GetExportConfigData();
                   this.exportTextBox.Text = exportString;
             }
 
-            private void copyToClipboardButton_Click(object sender, EventArgs e) {
+            private void CopyToClipboardButton_Click(object sender, EventArgs e) {
                   Clipboard.SetDataObject(exportTextBox.Text);
-                  this._Deactivate(sender, e);
+                  this.On_Deactivate(sender, e);
             }
 
-            private void _Deactivate(object sender, EventArgs e) {
+            public override void On_Deactivate(object sender, EventArgs e) {
                   this.Hide();
             }
-
       }
 }

@@ -137,36 +137,24 @@ namespace Geometry_Dash_Randomiser {
 
             private void RepositionControlPairs() {
                   // Icon textures
-                  RightAlignControl(iconTextureTypeLabel, iconTextureWarningIcon);
+                  iconTextureTypeLabel.RightAlign(iconTextureWarningIcon);
 
                   // Game Textures
-                  RightAlignControl(gameTextureTypeLabel, gameTextureWarningIcon);
+                  gameTextureTypeLabel.RightAlign(gameTextureWarningIcon);
 
                   // Font Settings
-                  RightAlignControl(fontRandEnabledCheckbox, fontRandWarningIcon);
-                  RightAlignControl(fontStyleRandModeLabel, fontStyleModeSelector);
-                  RightAlignControl(randomiseCharactersCheckBox, fontRandomiseCharactersInfoIcon);
-                  RightAlignControl(letterSpacingModeLabel, letterSpacingModeSelector);
-                  RightAlignControl(letterSpacingModeSelector, letterSpacingModeInfoIcon);
-                  RightAlignControl(letterSpacingLevelLabel, letterSpacingLevelInputBox);
+                  fontRandEnabledCheckbox.RightAlign(fontRandWarningIcon);
+                  fontStyleRandModeLabel.RightAlign(fontStyleModeSelector);
+                  randomiseCharactersCheckBox.RightAlign(fontRandomiseCharactersInfoIcon);
+                  letterSpacingModeLabel.RightAlign(letterSpacingModeSelector);
+                  letterSpacingModeSelector.RightAlign(letterSpacingModeInfoIcon);
+                  letterSpacingLevelLabel.RightAlign(letterSpacingLevelInputBox);
 
                   // Randomisation Settings
-                  RightAlignControl(randomisationSeedLabel, seedInfoIcon);
+                  randomisationSeedLabel.RightAlign(seedInfoIcon);
 
                   // Application Settings
-                  RightAlignControl(gameFolderLabel, gameFolderWarningIcon);
-            }
-
-            private void RightAlignControl(Label label, Control control, int X_offset = 0) {
-                  control.Location = new Point(label.Location.X + label.PreferredWidth + X_offset, control.Location.Y);
-            }
-
-            private void RightAlignControl(CheckBox checkBox, Control control, int X_offset = -4) {
-                  control.Location = new Point(checkBox.Location.X + checkBox.Width + X_offset, control.Location.Y);
-            }
-
-            private void RightAlignControl(ComboBox left, Control right, int X_offset = 5) {
-                  right.Location = new Point(left.Location.X + left.Width + X_offset, right.Location.Y);
+                  gameFolderLabel.RightAlign(gameFolderWarningIcon);
             }
 
             private string GetReadyStatusDisplayText(ReadyState ready, bool corrupt = true) {
@@ -305,6 +293,8 @@ namespace Geometry_Dash_Randomiser {
             private void UpdateRandomisationControlStates() {
                   this.seedInputBox.Text = config.Seed.ToString();
                   this.seedInputBox.Value = config.Seed;
+
+                  SetSliderValueForSpriteSize();
 
                   // Format the sprite size multiplier display's text
                   if (config.MaxSpriteMultiplier < 1000) {

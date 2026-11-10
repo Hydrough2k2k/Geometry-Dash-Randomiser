@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace Geometry_Dash_Randomiser {
 
-      public class IconRandSettings : IToggleableSetting, IUpdateNotify {
+      public class IconRandSettings : IToggleableSetting, IUpdateNotify, ICopyableSetting<IconRandSettings> {
 
             public event EventHandler Updated;
 
@@ -27,7 +28,7 @@ namespace Geometry_Dash_Randomiser {
                   _jetpack.Updated += InvokeUpdateEvent;
             }
 
-            public static IconRandSettings Default => new IconRandSettings();
+            public static IconRandSettings Default => new IconRandSettings { Group = 0, Enabled = true };
 
             [JsonIgnore]
             public RandomizationSetting[] RandomisationSettings => _randomisationSettings;
@@ -63,93 +64,80 @@ namespace Geometry_Dash_Randomiser {
             // These only copy the setters' data to the existing readonly fields, thus the reference stays, but the values don't
             public RandomizationSetting Cube {
                   get => _cube;
-                  set {
-                        _cube.CopyDataFrom(value ?? _defaultCube);
-                        InvokeEvent(Updated, null);
-                  }
+                  set => UpdateSetting(_cube, value, _defaultCube);
             }
 
             public RandomizationSetting Ship {
                   get => _ship;
-                  set {
-                        _ship.CopyDataFrom(value ?? _defaultShip);
-                        InvokeEvent(Updated, null);
-                  }
+                  set => UpdateSetting(_ship, value, _defaultShip);
             }
 
             public RandomizationSetting Ball {
                   get => _ball;
-                  set {
-                        _ball.CopyDataFrom(value ?? _defaultBall);
-                        InvokeEvent(Updated, null);
-                  }
+                  set => UpdateSetting(_ball, value, _defaultBall);
             }
 
             public RandomizationSetting Ufo {
                   get => _ufo;
-                  set {
-                        _ufo.CopyDataFrom(value ?? _defaultUfo);
-                        InvokeEvent(Updated, null);
-                  }
+                  set => UpdateSetting(_ufo, value, _defaultUfo);
             }
 
             public RandomizationSetting Wave {
                   get => _wave;
-                  set {
-                        _wave.CopyDataFrom(value ?? _defaultWave);
-                        InvokeEvent(Updated, null);
-                  }
+                  set => UpdateSetting(_wave, value, _defaultWave);
             }
 
             public RandomizationSetting Robot {
                   get => _robot;
-                  set {
-                        _robot.CopyDataFrom(value ?? _defaultRobot);
-                        InvokeEvent(Updated, null);
-                  }
+                  set => UpdateSetting(_robot, value, _defaultRobot);
             }
 
             public RandomizationSetting Spider {
                   get => _spider;
-                  set {
-                        _spider.CopyDataFrom(value ?? _defaultSpider);
-                        InvokeEvent(Updated, null);
-                  }
+                  set => UpdateSetting(_spider, value, _defaultSpider);
             }
 
             public RandomizationSetting Swing {
                   get => _swing;
-                  set {
-                        _swing.CopyDataFrom(value ?? _defaultSwing);
-                        InvokeEvent(Updated, null);
-                  }
+                  set => UpdateSetting(_swing, value, _defaultSwing);
             }
 
             public RandomizationSetting Jetpack {
                   get => _jetpack;
-                  set {
-                        _jetpack.CopyDataFrom(value ?? _defaultJetpack);
-                        InvokeEvent(Updated, null);
-                  }
+                  set => UpdateSetting(_jetpack, value, _defaultJetpack);
+            }
+
+            private void UpdateSetting<T>(T target, T source, T defaults) where T : ICopyableSetting<T> {
+                  if (source == null)
+                        source = defaults;
+
+                  target.CopyDataFrom(source);
+                  InvokeEvent(Updated, null);
             }
 
             [JsonIgnore]
             public int TotalSettingsCount => RandomisationSettings.Length;
 
             private void SetAllEnabled(bool value) {
-                  _randomisationSettings.ToList().ForEach(r => r.Enabled = value);
+                  foreach (RandomizationSetting setting in _randomisationSettings) {
+                        setting.Enabled = value;
+                  }
             }
 
             private void SetAllGroups(int value) {
-                  _randomisationSettings.ToList().ForEach(r => r.Group = value);
+                  foreach (RandomizationSetting setting in _randomisationSettings) {
+                        setting.Group = value;
+                  }
             }
 
             private void SetAllPercentages(int value) {
-                  _randomisationSettings.ToList().ForEach(r => r.PercentageRandomised = value);
+                  foreach (RandomizationSetting setting in _randomisationSettings) {
+                        setting.PercentageRandomised = value;
+                  }
             }
 
             public int GetEnabledSettingsCount() {
-                  return _randomisationSettings.Where(s => s.Enabled).Count();
+                  return _randomisationSettings.Count(s => s.Enabled);
             }
 
             public bool AnySettingEnabled() {
@@ -168,6 +156,10 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public void CopyDataFrom(IconRandSettings source) {
+                  if (source == null) {
+                        return;
+                  }
+
                   Group = source.Group;
                   PercentageRandomised = source.PercentageRandomised;
 

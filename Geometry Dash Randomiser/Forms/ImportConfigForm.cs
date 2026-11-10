@@ -1,62 +1,51 @@
-﻿using System;
+﻿using Geometry_Dash_Randomiser.Forms;
+using System;
 using System.Windows.Forms;
 
 namespace Geometry_Dash_Randomiser {
 
-      public partial class ImportConfigForm : Form {
+      public partial class ImportConfigForm : ThemedFormBase {
 
-            public Theme theme;
-            public TextCorruptor textCorruptor;
-
-            public delegate void ConfigDataReceivedEventHandler(object sender, string configData, EventArgs e);
+            public delegate void ConfigDataReceivedEventHandler(object sender, ConfigUpdateEventArgs e);
             public event ConfigDataReceivedEventHandler ConfigDataChanged;
 
             public ImportConfigForm() {
                   InitializeComponent();
+
+                  StoreOriginalText();
+
+                  this.Text = "Import Config Data";
+                  this.originalTitle = this.Text;
             }
 
-            private void SetTheme() {
-                  this.BackColor = theme.BackgroundColour.AdjustBrightness(0.60f);
-                  this.importTextBox.BackColor = theme.ObjectBackColour.AdjustBrightness(0.50f);
-                  this.importTextBox.ForeColor = theme.ObjectTextColour.AdjustBrightness(0.80f);
-                  this.importLabel.ForeColor = theme.TextColour;
-
-                  this.acceptButton.ForeColor = theme.ObjectTextColour;
-                  this.acceptButton.BackColor = theme.ObjectBackColour.AdjustBrightness(0.70f);
-                  this.cancelButton.ForeColor = theme.ObjectTextColour;
-                  this.cancelButton.BackColor = theme.ObjectBackColour.AdjustBrightness(0.70f);
-
-                  this.pasteFromClipboardButton.ForeColor = theme.ObjectTextColour;
-                  this.pasteFromClipboardButton.BackColor = theme.ObjectBackColour.AdjustBrightness(0.70f);
-            }
-
-            private void _FormClosing(object sender, FormClosingEventArgs e) {
+            public override void On_FormClosing(object sender, FormClosingEventArgs e) {
                   e.Cancel = true;
-                  this._Deactivate(sender, e as EventArgs);
+                  this.On_Deactivate(sender, e as EventArgs);
             }
 
-            private void _Activated(object sender, EventArgs e) {
+            public override void On_Activated(object sender, EventArgs e) {
                   SetTheme();
+                  this.ResetAndCorruptFormText();
 
                   this.Text = "Import Config Data";
                   this.importTextBox.Text = string.Empty;
             }
 
-            private void _Deactivate(object sender, EventArgs e) {
+            public override void On_Deactivate(object sender, EventArgs e) {
                   this.Hide();
             }
 
-            private void acceptButton_Click(object sender, EventArgs e) {
-                  ConfigDataChanged?.Invoke(this, this.importTextBox.Text, EventArgs.Empty);
+            private void AcceptButton_Click(object sender, EventArgs e) {
+                  ConfigDataChanged?.Invoke(this, new ConfigUpdateEventArgs(this.importTextBox.Text));
 
-                  _Deactivate(sender, e);
+                  On_Deactivate(sender, e);
             }
 
-            private void cancelButton_Click(object sender, EventArgs e) {
-                  _Deactivate(sender, e);
+            private void CancelButton_Click(object sender, EventArgs e) {
+                  On_Deactivate(sender, e);
             }
 
-            private void pasteFromClipboardButton_Click(object sender, EventArgs e) {
+            private void PasteFromClipboardButton_Click(object sender, EventArgs e) {
 
                   IDataObject iData = Clipboard.GetDataObject();
                   if (iData.GetDataPresent(DataFormats.Text)) {

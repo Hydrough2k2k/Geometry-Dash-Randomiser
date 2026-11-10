@@ -98,6 +98,9 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public void CopyDataFrom(LetterSpacingSettings source) {
+                  Enabled = source.Enabled;
+                  Mode = source.Mode;
+                  Level = source.Level;
                   X_Offset.CopyDataFrom(source.X_Offset);
                   Kerning.CopyDataFrom(source.Kerning);
             }
@@ -131,10 +134,10 @@ namespace Geometry_Dash_Randomiser {
 
             private int _level = 1;
 
-            private readonly CappedRange _xOffset = CappedRange.Default;
-            private readonly CappedRange _kerning = CappedRange.Default;
+            private readonly CappedRange _xOffset = new CappedRange(-20, 30);
+            private readonly CappedRange _kerning = new CappedRange(-20, 30);
 
-            private static int maxMode = Enum.GetValues(typeof(SpacingMode)).Length;
+            private static readonly int maxMode = Enum.GetValues(typeof(SpacingMode)).Length - 1;
 
             private const int minLevel = 1;
             private const int maxLevel = 10;
@@ -151,31 +154,47 @@ namespace Geometry_Dash_Randomiser {
 
                   public KerningData() { }
 
-                  public KerningData(int x_OffsetMin, int x_OffsetMax, int kerningMin, int kerningMax, int probabbility) {
+                  public KerningData(int x_OffsetMin, int x_OffsetMax, int kerningMin, int kerningMax, int probability) {
                         this.xOffsetMin = x_OffsetMin;
                         this.xOffsetMax = x_OffsetMax;
                         this.kerningMin = kerningMin;
                         this.kerningMax = kerningMax;
-                        probability = probabbility;
+                        this.probability = probability;
                   }
 
-                  public KerningData(CappedRange x_Offset, CappedRange kerning, int probabbility) {
-                        xOffsetMin = x_Offset.Min;
-                        xOffsetMax = x_Offset.Max;
-                        kerningMin = kerning.Min;
-                        kerningMax = kerning.Max;
-                        probability = probabbility;
+                  public KerningData(CappedRange x_Offset, CappedRange kerning, int probability) {
+                        this.xOffsetMin = x_Offset.Min;
+                        this.xOffsetMax = x_Offset.Max;
+                        this.kerningMin = kerning.Min;
+                        this.kerningMax = kerning.Max;
+                        this.probability = probability;
+                  }
+
+                  public KerningData(CappedRange x_Offset, CappedRange kerning) {
+                        this.xOffsetMin = x_Offset.Min;
+                        this.xOffsetMax = x_Offset.Max;
+                        this.kerningMin = kerning.Min;
+                        this.kerningMax = kerning.Max;
+                        this.probability = 100;
                   }
 
                   public static KerningData Default => new KerningData();
 
                   public static KerningData GetSimpleKerningDataFromLevel(int level) {
-                        if (level < 0 || level > letterKerningLevels.Length) {
+                        if (level < 0 || level >= letterKerningLevels.Length) {
                               Logger.Error($"Invalid kerning level was passed: {level}");
                               return KerningData.Default;
                         }
 
-                        return letterKerningLevels[level];
+                        KerningData data = letterKerningLevels[level];
+
+                        return new KerningData(
+                              data.xOffsetMin,
+                              data.xOffsetMax,
+                              data.kerningMin,
+                              data.kerningMax,
+                              data.probability
+                        );
                   }
 
                   private static KerningData[] letterKerningLevels = new KerningData[] {

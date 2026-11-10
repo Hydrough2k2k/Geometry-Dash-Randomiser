@@ -175,6 +175,9 @@ namespace Geometry_Dash_Randomiser {
             /// For performance reasons, this should ideally run on a separate thread
             /// </summary>
             internal static void CleanUpLogs() {
+                  if (Directory.Exists(LogFolderName) == false)
+                        return;
+
                   string[] logFiles = Directory.GetFiles(LogFolderName);
                   FileInfo[] logFileInfos = new FileInfo[logFiles.Length];
 

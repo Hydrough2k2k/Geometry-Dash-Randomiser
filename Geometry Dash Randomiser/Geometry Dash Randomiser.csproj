@@ -299,6 +299,7 @@
     <Compile Include="Enums\FormatMode.cs" />
     <Compile Include="Enums\GDR_Path.cs" />
     <Compile Include="Enums\ResourceType.cs" />
+    <Compile Include="Events\ConfigUpdateEventArgs.cs" />
     <Compile Include="Extensions\BitmapExtensions.cs" />
     <Compile Include="Extensions\BooleanExtensions.cs" />
     <Compile Include="Extensions\ComboBoxExtensions.cs" />
@@ -334,7 +335,9 @@
     <Compile Include="Helpers\Base64.cs" />
     <Compile Include="Helpers\DataStream.cs" />
     <Compile Include="Debug\Logger.cs" />
+    <Compile Include="Helpers\JsonParser.cs" />
     <Compile Include="Helpers\Zlib.cs" />
+    <Compile Include="Interfaces\ICopyableSetting.cs" />
     <Compile Include="Interfaces\IToggleableSetting.cs" />
     <Compile Include="Interfaces\IUpdateNotify.cs" />
     <Compile Include="Objects\CappedRange.cs" />
@@ -365,6 +368,7 @@
     <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="ControlClasses\FileBlacklist.cs" />
     <Compile Include="Helpers\FileIO.cs" />
+    <Compile Include="Objects\Configuration.cs" />
     <Compile Include="Objects\Font\Font.cs" />
     <Compile Include="Objects\Font\FontKerning.cs" />
     <Compile Include="ControlClasses\FontManager.cs" />

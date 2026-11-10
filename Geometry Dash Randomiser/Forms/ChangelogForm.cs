@@ -11,6 +11,7 @@ namespace Geometry_Dash_Randomiser {
 
             private enum ChangelogSection {
                   WhatsNew,
+                  Changes,
                   Bugfixes,
                   KnownBugs,
                   Notes
@@ -35,15 +36,18 @@ namespace Geometry_Dash_Randomiser {
                   InitializeComponent();
 
                   arrangedElements = new Control[] {
-                        this.whatsNewLabel, this.whatsNewTextBox, this.bugfixesLabel, this.bugfixesTextBox,
-                        this.knownBugsLabel, this.knownBugsTextBox, this.notesLabel, this.notesTextBox
+                        this.whatsNewLabel, this.whatsNewTextBox,
+                        this.changesLabel, this.changesTextBox,
+                        this.bugfixesLabel, this.bugfixesTextBox,
+                        this.knownBugsLabel, this.knownBugsTextBox,
+                        this.notesLabel, this.notesTextBox
                   };
 
                   StoreOriginalText();
 
-                  ResizeWindowAndElements();
-
                   _changelogs = LoadChangelogsFromFile();
+
+                  ResizeWindowAndElements();
 
                   this.nextVersionButton.Enabled = false;
 
@@ -85,14 +89,21 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void PopulateTextBoxes(ChangelogData data) {
-                  this.changelogHeaderLabel.Text = "Changelog for";
+                  this.changelogHeaderLabel.Text = "Changelog";
                   this.changelogVersionLabel.Text = data.Version;
+
+                  this.ReleaseDateLabel.Text = data.ReleaseDate;
 
                   this.previousVersionButton.Text = "Previous Version";
                   this.nextVersionButton.Text = "Next Version";
 
+                  LengthMeasurerLabel_Hidden.Text = data.Bugfixes[0];
+
                   this.whatsNewLabel.Text = "What's New?";
                   this.whatsNewTextBox.Text = string.Join("\n", data.NewStuff);
+
+                  this.changesLabel.Text = "Changes:";
+                  this.changesTextBox.Text = string.Join("\n", data.Changes);
 
                   this.bugfixesLabel.Text = "Bugfixes:";
                   this.bugfixesTextBox.Text = string.Join("\n", data.Bugfixes);
@@ -105,15 +116,15 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void ResizeWindowAndElements() {
-                  Size size = new Size(windowMinWidth, 0);
+                  Size size = new Size(_windowWidth, 0);
 
-                  Size textboxSize = new Size(size.Width - padding * 2, maxTextboxHeight);
+                  Size textboxSize = DefaultTextBoxSize();
 
-                  // Set the size of the text boxes
-                  this.whatsNewTextBox.Size = textboxSize;
-                  this.bugfixesTextBox.Size = textboxSize;
-                  this.knownBugsTextBox.Size = textboxSize;
-                  this.notesTextBox.Size = textboxSize;
+                  this.whatsNewTextBox.Size = GetTextBoxHeightFromContents(this.whatsNewTextBox);
+                  this.changesTextBox.Size = GetTextBoxHeightFromContents(this.changesTextBox);
+                  this.bugfixesTextBox.Size = GetTextBoxHeightFromContents(this.bugfixesTextBox);
+                  this.knownBugsTextBox.Size = GetTextBoxHeightFromContents(this.knownBugsTextBox);
+                  this.notesTextBox.Size = GetTextBoxHeightFromContents(this.notesTextBox);
 
                   Control latestMovedControl = this.previousVersionButton;
 
@@ -126,6 +137,11 @@ namespace Geometry_Dash_Randomiser {
                         switch (section) {
                               case ChangelogSection.WhatsNew:
                                     if (CurrentChangelog.NewStuff.Length == 0)
+                                          skip = true;
+                                    break;
+
+                              case ChangelogSection.Changes:
+                                    if (CurrentChangelog.Changes.Length == 0)
                                           skip = true;
                                     break;
 
@@ -156,10 +172,12 @@ namespace Geometry_Dash_Randomiser {
                         Point nextLocation;
 
                         if (i % 2 == 0) {
-                              nextLocation = new Point(padding, latestMovedControl.Location.Y + latestMovedControl.Height + padding);
+                              // Label relocation logic
+                              nextLocation = new Point(_padding, latestMovedControl.Location.Y + latestMovedControl.Height + _padding);
 
                         } else {
-                              nextLocation = new Point(padding, latestMovedControl.Location.Y + latestMovedControl.Height + padding / 2);
+                              // Textbox relocation logic
+                              nextLocation = new Point(_padding, latestMovedControl.Location.Y + latestMovedControl.Height + _padding / 2);
                         }
 
                         arrangedElements[i].Location = nextLocation;
@@ -168,16 +186,50 @@ namespace Geometry_Dash_Randomiser {
                   }
 
                   // Calculate the new window height
-                  size.Height = latestMovedControl.Location.Y + latestMovedControl.Height + 3 * padding;
+                  size.Height = latestMovedControl.Location.Y + latestMovedControl.Height + 3 * _padding;
 
                   // Set the size of the window based on the calculated values
-                  this.Size = new Size(size.Width + padding, size.Height + (int)(padding * 1.5f));
+                  this.Size = new Size(size.Width + _padding, size.Height + _padding);
 
                   // Move the buttons to the correct location
-                  this.previousVersionButton.Location = new Point(padding, padding);
-                  this.nextVersionButton.Location = new Point(this.Width - this.nextVersionButton.Width - 2 * padding, padding);
+                  this.previousVersionButton.Location = new Point(_padding, _padding);
+                  this.nextVersionButton.Location = new Point(this.Width - this.nextVersionButton.Width - 2 * _padding, _padding);
 
                   CenterHeaderAndVersionText();
+            }
+
+            private Size GetTextBoxHeightFromContents(RichTextBox tb) {
+                  if (tb == null || tb.Text == string.Empty)
+                        return DefaultTextBoxSize();
+
+                  int preferredHeight = _baseTextboxHeight;
+                  string[] lines = tb.Text.Split('\n');
+
+                  for (int i = 0; i < lines.Length; i++) {
+                        preferredHeight += GetTotalLineRequirements(lines[i]) * _lineHeight;
+                  }
+
+                  return new Size(tb.Width, System.Math.Min(preferredHeight, _maxTextboxHeight));
+            }
+
+            private int GetTotalLineRequirements(string text) {
+                  int textWidth = GetPreferredTextWidth(text);
+                  if (textWidth <= _maxTextWidth) {
+                        return 1;
+
+                  } else {
+                        // This is an approximation. Might be wrong sometimes, especially if the text is too long, but it's simple
+                        return (int)System.Math.Ceiling((double)textWidth / _maxTextWidth);
+                  }
+            }
+
+            private int GetPreferredTextWidth(string text) {
+                  LengthMeasurerLabel_Hidden.Text = text;
+                  return LengthMeasurerLabel_Hidden.PreferredWidth;
+            }
+
+            private Size DefaultTextBoxSize() {
+                  return new Size(_windowWidth - _padding * 2, _maxTextboxHeight);
             }
 
             private void CenterHeaderAndVersionText() {
@@ -196,7 +248,7 @@ namespace Geometry_Dash_Randomiser {
                         this.changelogVersionLabel.Location.Y);
             }
 
-            private void PreviousVersionButton_Click(object sender, EventArgs e) {
+            private void PreviousVersion(object sender, EventArgs e) {
                   this._currentChangelogIndex++;
                   if (this._currentChangelogIndex == _changelogs.Length - 1) {
                         this.previousVersionButton.Enabled = false;
@@ -209,9 +261,10 @@ namespace Geometry_Dash_Randomiser {
                   ResizeWindowAndElements();
 
                   CorruptFormText();
+                  LeftAlignControls();
             }
 
-            private void NextVersionButton_Click(object sender, EventArgs e) {
+            private void NextVersion(object sender, EventArgs e) {
                   this._currentChangelogIndex--;
                   if (this._currentChangelogIndex == 0) {
                         this.nextVersionButton.Enabled = false;
@@ -222,6 +275,7 @@ namespace Geometry_Dash_Randomiser {
                   ResetAllTextToDefault();
                   PopulateTextBoxes(CurrentChangelog);
                   CorruptFormText();
+                  LeftAlignControls();
 
                   ResizeWindowAndElements();
             }
@@ -238,6 +292,7 @@ namespace Geometry_Dash_Randomiser {
                   ResizeWindowAndElements();
 
                   CorruptFormText();
+                  LeftAlignControls();
 
                   CenterHeaderAndVersionText();
             }
@@ -246,15 +301,20 @@ namespace Geometry_Dash_Randomiser {
                   base.On_Deactivate(sender, e);
             }
 
-            const string changelogFileName = "Changelog.txt";
+            private void LeftAlignControls() {
+                  nextVersionButton.LeftAlign(ReleaseDateLabel);
+            }
 
-            const int padding = 12;
+            private const string changelogFileName = "Changelog.txt";
+            
+            private const int _padding = 15;
+            
+            private const int _maxTextboxHeight = 105;
+            private const int _baseTextboxHeight = 5;
+            private const int _lineHeight = 20;
+            
+            private const int _windowWidth = 750;
 
-            const int maxTextboxHeight = 105;
-            const int minTextboxHeight = 25;
-            const int baseTextboxHeight = 5;
-            const int lineHeight = 20;
-
-            const int windowMinWidth = 750;
+            private const int _maxTextWidth = _windowWidth - 27;
       }
 }

@@ -45,9 +45,9 @@
                   this.exportLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
                   this.exportLabel.Location = new System.Drawing.Point(41, 12);
                   this.exportLabel.Name = "exportLabel";
-                  this.exportLabel.Size = new System.Drawing.Size(138, 26);
+                  this.exportLabel.Size = new System.Drawing.Size(144, 26);
                   this.exportLabel.TabIndex = 107;
-                  this.exportLabel.Text = "Export String";
+                  this.exportLabel.Text = "Export Config";
                   // 
                   // copyToClipboardButton
                   // 
@@ -58,7 +58,7 @@
                   this.copyToClipboardButton.TabIndex = 113;
                   this.copyToClipboardButton.Text = "Copy to Clipboard";
                   this.copyToClipboardButton.UseVisualStyleBackColor = true;
-                  this.copyToClipboardButton.Click += new System.EventHandler(this.copyToClipboardButton_Click);
+                  this.copyToClipboardButton.Click += new System.EventHandler(this.CopyToClipboardButton_Click);
                   // 
                   // ExportConfigForm
                   // 
@@ -74,9 +74,9 @@
                   this.Name = "ExportConfigForm";
                   this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
                   this.Text = "ExportConfigForm";
-                  this.Activated += new System.EventHandler(this._Activated);
-                  this.Deactivate += new System.EventHandler(this._Deactivate);
-                  this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this._FormClosing);
+                  this.Activated += new System.EventHandler(this.On_Activated);
+                  this.Deactivate += new System.EventHandler(this.On_Deactivate);
+                  this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.On_FormClosing);
                   this.ResumeLayout(false);
                   this.PerformLayout();
 

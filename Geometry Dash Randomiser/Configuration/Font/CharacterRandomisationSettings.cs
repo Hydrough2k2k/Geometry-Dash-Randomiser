@@ -38,34 +38,30 @@ namespace Geometry_Dash_Randomiser {
 
             public RandomizationSetting Letter {
                   get => _letter;
-                  set {
-                        _letter.CopyDataFrom(value ?? _defaultLetter);
-                        InvokeEvent(Updated, null);
-                  }
+                  set => UpdateSetting(_letter, value, _defaultLetter);
             }
 
             public RandomizationSetting Number {
                   get => _number;
-                  set {
-                        _number.CopyDataFrom(value ?? _defaultNumber);
-                        InvokeEvent(Updated, null);
-                  }
+                  set => UpdateSetting(_number, value, _defaultNumber);
             }
 
             public RandomizationSetting Symbol {
                   get => _symbol;
-                  set {
-                        _symbol.CopyDataFrom(value ?? _defaultSymbol);
-                        InvokeEvent(Updated, null);
-                  }
+                  set => UpdateSetting(_symbol, value, _defaultSymbol);
             }
 
             public RandomizationSetting Special {
                   get => _special;
-                  set {
-                        _special.CopyDataFrom(value ?? _defaultSpecial);
-                        InvokeEvent(Updated, null);
-                  } 
+                  set => UpdateSetting(_special, value, _defaultSpecial);
+            }
+
+            private void UpdateSetting<T>(T target, T source, T defaults) where T : ICopyableSetting<T> {
+                  if (source == null)
+                        source = defaults;
+
+                  target.CopyDataFrom(source);
+                  InvokeEvent(Updated, null);
             }
 
             [JsonIgnore]
@@ -80,7 +76,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public int GetEnabledSettingsCount() {
-                  return _randomisationSettings.Where(s => s.Enabled).Count();
+                  return _randomisationSettings.Count(s => s.Enabled);
             }
 
             public bool AnySettingEnabled() {
@@ -88,7 +84,9 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void SetAll(bool state) {
-                  _randomisationSettings.ToList().ForEach(s => s.Enabled = state);
+                  foreach (RandomizationSetting setting in _randomisationSettings) {
+                        setting.Enabled = state;
+                  }
             }
 
             public void CopyDataFrom(CharacterRandomisationSettings source) {
@@ -104,10 +102,10 @@ namespace Geometry_Dash_Randomiser {
                   @event?.Invoke(this, e);
             }
 
-            private static RandomizationSetting _letter = _defaultLetter;
-            private static RandomizationSetting _number = _defaultNumber;
-            private static RandomizationSetting _symbol = _defaultSymbol;
-            private static RandomizationSetting _special = _defaultSpecial;
+            private readonly RandomizationSetting _letter = _defaultLetter;
+            private readonly RandomizationSetting _number = _defaultNumber;
+            private readonly RandomizationSetting _symbol = _defaultSymbol;
+            private readonly RandomizationSetting _special = _defaultSpecial;
 
             // Array for storing references to all settings for easy iteration
             private readonly RandomizationSetting[] _randomisationSettings;

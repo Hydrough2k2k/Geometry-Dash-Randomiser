@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -145,14 +148,15 @@ namespace Geometry_Dash_Randomiser {
             public void WriteFile() {
                   Logger.Write(Logger.Mode.Debug, "Saving Advanced Config File");
 
-                  string[] outStream = this.Serialize().Split('\n');
+                  string outStream = this.Serialize();
 
+                  // Very unfinished
                   //if (_includeExplanations) {
-                  //      outStream = AddExplanationsToJSON_Data(outStream);
+                  //      outStream = string.Join("\n", AddExplanationsToJSON_Data(outStream.Split('\n').Where(s => s != string.Empty).ToList()));
                   //}
 
                   try {
-                        File.WriteAllLines(_configFileName, outStream);
+                        File.WriteAllText(_configFileName, outStream);
 
                   }
                   catch (IOException ioExcept) {
@@ -162,11 +166,24 @@ namespace Geometry_Dash_Randomiser {
                   _fileSaveQueued = false;
             }
 
-            //private string[] AddExplanationsToJSON_Data(string[] dataIn) {
+            // Very unfinished
+            //private string[] AddExplanationsToJSON_Data(List<string> dataIn) {
+            //      List<string> ret = new List<string>();
+            //      ret.Add("{");
 
+            //      JSON_Parser jp = new JSON_Parser(dataIn);
+
+            //      for (int i = 0; i < _explanationStrings.Length; i++) {
+            //            jp.GetProperty(_explanationStrings[i].PropertyName, true, out string[] result);
+
+            //      }
+
+
+
+            //      return ret;
             //}
 
-            string Serialize() {
+            private string Serialize() {
                   JsonSerializerOptions options = new JsonSerializerOptions {
                         WriteIndented = true
                   };

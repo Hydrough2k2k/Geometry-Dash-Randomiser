@@ -8,7 +8,7 @@ namespace Geometry_Dash_Randomiser.Forms {
       public partial class ThemedFormBase : Form {
 
             protected string originalTitle = string.Empty;
-            private string[] originalText = Array.Empty<string>();
+            private List<string> originalText = new List<string>();
 
             public Theme theme;
             public TextCorruptor textCorruptor;
@@ -103,10 +103,8 @@ namespace Geometry_Dash_Randomiser.Forms {
                               continue;
                         }
 
-                        ogText.Add(controls[i].Text);
+                        originalText.Add(controls[i].Text);
                   }
-
-                  originalText = ogText.ToArray();
             }
 
             public void CenterControlsHorizontally(Control[] controls) {

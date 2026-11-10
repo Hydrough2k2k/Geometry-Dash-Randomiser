@@ -59,7 +59,7 @@
                   this.acceptButton.TabIndex = 110;
                   this.acceptButton.Text = "Accept";
                   this.acceptButton.UseVisualStyleBackColor = true;
-                  this.acceptButton.Click += new System.EventHandler(this.acceptButton_Click);
+                  this.acceptButton.Click += new System.EventHandler(this.AcceptButton_Click);
                   // 
                   // cancelButton
                   // 
@@ -70,7 +70,7 @@
                   this.cancelButton.TabIndex = 111;
                   this.cancelButton.Text = "Cancel";
                   this.cancelButton.UseVisualStyleBackColor = true;
-                  this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+                  this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
                   // 
                   // pasteFromClipboardButton
                   // 
@@ -81,7 +81,7 @@
                   this.pasteFromClipboardButton.TabIndex = 112;
                   this.pasteFromClipboardButton.Text = "Paste from Clipboard";
                   this.pasteFromClipboardButton.UseVisualStyleBackColor = true;
-                  this.pasteFromClipboardButton.Click += new System.EventHandler(this.pasteFromClipboardButton_Click);
+                  this.pasteFromClipboardButton.Click += new System.EventHandler(this.PasteFromClipboardButton_Click);
                   // 
                   // ImportConfigForm
                   // 
@@ -99,9 +99,9 @@
                   this.Name = "ImportConfigForm";
                   this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
                   this.Text = "ImportConfigForm";
-                  this.Activated += new System.EventHandler(this._Activated);
-                  this.Deactivate += new System.EventHandler(this._Deactivate);
-                  this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this._FormClosing);
+                  this.Activated += new System.EventHandler(this.On_Activated);
+                  this.Deactivate += new System.EventHandler(this.On_Deactivate);
+                  this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.On_FormClosing);
                   this.ResumeLayout(false);
                   this.PerformLayout();
 

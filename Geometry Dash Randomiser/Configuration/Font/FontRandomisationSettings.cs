@@ -2,7 +2,7 @@
 
 namespace Geometry_Dash_Randomiser {
 
-      public class FontRandomisationSettings : IToggleableSetting, IUpdateNotify {
+      public class FontRandomisationSettings : IToggleableSetting, IUpdateNotify, ICopyableSetting<FontRandomisationSettings> {
 
             public event EventHandler Updated;
 
@@ -65,6 +65,10 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public void CopyDataFrom(FontRandomisationSettings source) {
+                  if (source == null) {
+                        return;
+                  }
+
                   ShuffleSettings = source.ShuffleSettings;
                   CharacterRandSettings = source.CharacterRandSettings;
                   LetterSpacingSettings = source.LetterSpacingSettings;

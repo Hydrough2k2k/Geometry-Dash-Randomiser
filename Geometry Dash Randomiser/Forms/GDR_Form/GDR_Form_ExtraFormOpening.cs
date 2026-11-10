@@ -22,8 +22,8 @@ namespace Geometry_Dash_Randomiser {
                   if (importConfigForm == null) {
                         importConfigForm = new ImportConfigForm();
 
-                        this.importConfigForm.ConfigDataChanged += (s, data, ev) => {
-                              ImportConfigThenRefreshUI(data);
+                        this.importConfigForm.ConfigDataChanged += (s, ev) => {
+                              ImportConfigThenRefreshUI(ev.configData);
                         };
                   }
 

@@ -5,11 +5,11 @@
             public CappedRange() { }
 
             public CappedRange(int min, int max, int minCap, int maxCap) {
-                  Min = min;
-                  Max = max;
-
                   _minCap = minCap;
                   _maxCap = maxCap;
+
+                  Min = min;
+                  Max = max;
             }
 
             public CappedRange(int min, int max) {
@@ -48,7 +48,7 @@
                   Max = source._max;
             }
 
-            private readonly int _minCap = -128;
-            private readonly int _maxCap = 127;
+            private readonly int _minCap = -255;
+            private readonly int _maxCap = 256;
       }
 }

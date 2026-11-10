@@ -1,10 +1,8 @@
-﻿using Geometry_Dash_Randomiser.Forms;
-using Geometry_Dash_Randomiser.Properties;
+﻿using Geometry_Dash_Randomiser.Properties;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -28,7 +26,7 @@ namespace Geometry_Dash_Randomiser {
             }
 
             private void FormShown(object sender, EventArgs e) {
-                  SetSpriteSizeMultiplierSliderAndTextBox();
+                  SetSliderValueForSpriteSize();
 
                   // If the game directory is valid, enable the restore button
                   this.restoreFilesButton.Enabled = gameFileManager.IsGameDirectoryValid();
@@ -62,7 +60,7 @@ namespace Geometry_Dash_Randomiser {
 
             #region Randomization
 
-            private async void StartButton_Click(object sender, EventArgs e) {
+            private async void StartRandomzation(object sender, EventArgs e) {
                   bool ready = gameFileManager.getReadyState() == ReadyState.Ready;
                   if (ready == false)
                         return;
@@ -141,7 +139,7 @@ namespace Geometry_Dash_Randomiser {
 
             #region File Restoration
 
-            private async void RestoreFilesButton_Click(object sender, EventArgs e) {
+            private async void RestoreFiles(object sender, EventArgs e) {
                   const string caption = "Restore Game Files";
                   string[] message = {
                         "This will restore all of the game's files to their defaults.",
@@ -296,6 +294,12 @@ namespace Geometry_Dash_Randomiser {
 
                   for (int i = 0; i < this.radioButtons.Length; i++) {
                         this.radioButtons[i].Text = this.textCorruptor.CorruptText(this.radioButtons[i].Text, 1);
+                  }
+
+                  for (int i = 0; i < this.comboBoxes.Length; i++) {
+                        for (int c = 0; c < this.comboBoxes[i].Items.Count; c++) {
+                              this.comboBoxes[i].Items[c] = this.textCorruptor.CorruptText(this.comboBoxes[i].Items[c].ToString(), 1);
+                        }
                   }
 
                   RepositionControlPairs();
@@ -587,23 +591,45 @@ namespace Geometry_Dash_Randomiser {
                         return (float)(sliderValue - 280) / 1 + 50f; // Values between 50 and 100
 
                   } else {
-                        return 1_000_000f;
+                        return RandomizationConfig.UnlimitedSpriteMultiplier;
                   }
             }
 
-            private void SetSpriteSizeMultiplierSliderAndTextBox() {
-                  // Get all multipliers that can be set for the texture size slider
-                  float[] multipliers = Enumerable.Range(1, this.spriteSizeMultiplierTrackbar.Maximum + 1)
-                        .Select(v => GetSliderMultiplierForSpriteSize(v))
-                        .ToArray();
-
-                  // Find the index of the current multiplier in the array
-                  int index = Array.BinarySearch(multipliers, config.MaxSpriteMultiplier);
-                  if (index >= 0) {
-                        // If found, add 1 to it, and set the slider to that value
-                        // The offset by 1 is to account for the starting value of 1 for the slider
-                        this.spriteSizeMultiplierTrackbar.Value = index + 1;
+            private void SetSliderValueForSpriteSize() {
+                  if (config.MaxSpriteMultiplier == RandomizationConfig.UnlimitedSpriteMultiplier) {
+                        this.spriteSizeMultiplierTrackbar.Value = this.spriteSizeMultiplierTrackbar.Maximum;
+                        return;
                   }
+
+                  int minIndex = 1;
+                  int maxIndex = this.spriteSizeMultiplierTrackbar.Maximum;
+                  float closestValue = float.PositiveInfinity;
+                  int closestIndex = 0;
+
+                  // My shoddy implementation of a binary search
+                  do {
+                        int searchIndex = (maxIndex - minIndex) / 2 + minIndex;
+                        float multiplier = GetSliderMultiplierForSpriteSize(searchIndex);
+                        float delta = Math.Abs(multiplier - config.MaxSpriteMultiplier);
+
+                        if (closestValue > delta) {
+                              closestValue = delta;
+                              closestIndex = searchIndex;
+                        }
+
+                        if (multiplier < config.MaxSpriteMultiplier) {
+                              minIndex = searchIndex + 1;
+
+                        } else if (multiplier >= config.MaxSpriteMultiplier) {
+                              maxIndex = searchIndex;
+
+                        } else {
+                              break;
+                        }
+
+                  } while (minIndex < maxIndex);
+
+                  this.spriteSizeMultiplierTrackbar.Value = closestIndex;
             }
 
             private void AllowDuplicatesCheckbox_Click(object sender, EventArgs e) {

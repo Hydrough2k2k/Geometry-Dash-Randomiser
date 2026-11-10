@@ -5,14 +5,10 @@ namespace Geometry_Dash_Randomiser {
 
       public class ChangelogData {
 
-            private readonly string _version;
-            private readonly string[] _newStuff = Array.Empty<string>();
-            private readonly string[] _bugfixes = Array.Empty<string>();
-            private readonly string[] _knownBugs = Array.Empty<string>();
-            private readonly string[] _notes = Array.Empty<string>();
-
             public string Version => _version;
+            public string ReleaseDate => _releaseDate;
             public string[] NewStuff => _newStuff;
+            public string[] Changes => _changes;
             public string[] Bugfixes => _bugfixes;
             public string[] KnownBugs => _knownBugs;
             public string[] Notes => _notes;
@@ -23,22 +19,29 @@ namespace Geometry_Dash_Randomiser {
                   _version = version;
             }
 
-            public ChangelogData(string version, string[] newStuff, string[] bugfixes, string[] knownBugs, string[] notes) {
-                  _version = version;
-                  _newStuff = newStuff;
-                  _bugfixes = bugfixes;
-                  _knownBugs = knownBugs;
-                  _notes = notes;
+            public ChangelogData(string version, string releaseDate, string[] newStuff, string[] changes, string[] bugfixes, string[] knownBugs, string[] notes) {
+                  this._version = version;
+                  this._releaseDate = releaseDate;
+                  this._newStuff = newStuff;
+                  this._changes = changes;
+                  this._bugfixes = bugfixes;
+                  this._knownBugs = knownBugs;
+                  this._notes = notes;
             }
 
             public static ChangelogData Default => new ChangelogData(
-                  version: "V2.4.2.0",
+                  version: "V2.5.1.0",
+                  releaseDate: "10 Nov 2026",
 
                   newStuff: new string[] {
                         " - The UI has been made a lot more responsive",
                         " - Texture Size Multiplier slider's position is updated correctly when the application launches",
                         " - Added a setting button next to the theme selector for enabling and disabling the Random and System themes",
                         " - Added a logger system. It is only be partially implemented for now, but will be expanded in the future"
+                  },
+
+                  changes: new string[] {
+
                   },
 
                   bugfixes: new string[] {
@@ -63,7 +66,9 @@ namespace Geometry_Dash_Randomiser {
 
             public static ChangelogData ConvertFromData(string[] rawData) {
                   string version = string.Empty;
+                  string releaseDate = string.Empty;
                   List<string> newStuff = new List<string>();
+                  List<string> changes = new List<string>();
                   List<string> bugfixes = new List<string>();
                   List<string> knownBugs = new List<string>();
                   List<string> notes = new List<string>();
@@ -71,44 +76,54 @@ namespace Geometry_Dash_Randomiser {
                   for (int i = 0; i < rawData.Length; i++) {
                         string line = rawData[i].Trim();
 
-                        if (line.StartsWith("Changelog for ", StringComparison.OrdinalIgnoreCase)) {
-                              int index = line.LastIndexOf(' ');
-                              if (index != -1) {
-                                    line = line.Substring(index + 1).Trim(' ').Trim(':');
-                              }
-                              version = line;
+                        if (line.StartsWith("Changelog", StringComparison.OrdinalIgnoreCase)) {
+                              version = GetPropertyAfter(' ', line, ':');
+
+                        } else if (line.StartsWith("Release Date:", StringComparison.OrdinalIgnoreCase)) {
+                              releaseDate = GetPropertyAfter(':', line, ' ');
 
                         } else if (line.StartsWith("What's New?", StringComparison.OrdinalIgnoreCase)) {
-                              i++;
-                              while (i < rawData.Length && !string.IsNullOrWhiteSpace(rawData[i])) {
-                                    newStuff.Add(rawData[i]);
-                                    i++;
-                              }
+                              AddLinesUntilNullOrWhiteSpace(newStuff, rawData, ref i);
+
+                        } else if (line.StartsWith("Changes:", StringComparison.OrdinalIgnoreCase)) {
+                              AddLinesUntilNullOrWhiteSpace(changes, rawData, ref i);
 
                         } else if (line.StartsWith("Bugfixes:", StringComparison.OrdinalIgnoreCase)) {
-                              i++;
-                              while (i < rawData.Length && !string.IsNullOrWhiteSpace(rawData[i])) {
-                                    bugfixes.Add(rawData[i]);
-                                    i++;
-                              }
+                              AddLinesUntilNullOrWhiteSpace(bugfixes, rawData, ref i);
 
                         } else if (line.StartsWith("Known Bugs:", StringComparison.OrdinalIgnoreCase)) {
-                              i++;
-                              while (i < rawData.Length && !string.IsNullOrWhiteSpace(rawData[i])) {
-                                    knownBugs.Add(rawData[i]);
-                                    i++;
-                              }
+                              AddLinesUntilNullOrWhiteSpace(knownBugs, rawData, ref i);
 
                         } else if (line.StartsWith("Notes:", StringComparison.OrdinalIgnoreCase)) {
-                              i++;
-                              while (i < rawData.Length && !string.IsNullOrWhiteSpace(rawData[i])) {
-                                    notes.Add(rawData[i]);
-                                    i++;
-                              }
+                              AddLinesUntilNullOrWhiteSpace(notes, rawData, ref i);
                         }
                   }
 
-                  return new ChangelogData(version, newStuff.ToArray(), bugfixes.ToArray(), knownBugs.ToArray(), notes.ToArray());
+                  return new ChangelogData(version, releaseDate, newStuff.ToArray(), changes.ToArray(), bugfixes.ToArray(), knownBugs.ToArray(), notes.ToArray());
             }
+
+            private static void AddLinesUntilNullOrWhiteSpace(List<string> to, string[] from, ref int index) {
+                  index++;
+                  while (index < from.Length && !string.IsNullOrWhiteSpace(from[index])) {
+                        to.Add(from[index]);
+                        index++;
+                  }
+            }
+
+            private static string GetPropertyAfter(char ch, string from, char trim) {
+                  int index = from.IndexOf(ch);
+                  if (index != -1) {
+                        from = from.Substring(index + 1).Trim(trim).Trim(' ');
+                  }
+                  return from;
+            }
+
+            private readonly string _version = string.Empty;
+            private readonly string _releaseDate = string.Empty;
+            private readonly string[] _newStuff = Array.Empty<string>();
+            private readonly string[] _changes = Array.Empty<string>();
+            private readonly string[] _bugfixes = Array.Empty<string>();
+            private readonly string[] _knownBugs = Array.Empty<string>();
+            private readonly string[] _notes = Array.Empty<string>();
       }
 }

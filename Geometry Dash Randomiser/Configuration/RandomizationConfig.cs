@@ -20,7 +20,7 @@ namespace Geometry_Dash_Randomiser {
       /// </summary>
       public class RandomizationConfig {
 
-            private static RandomizationConfig _instance = new RandomizationConfig();
+            private static readonly RandomizationConfig _instance = new RandomizationConfig();
 
             [EditorBrowsable(EditorBrowsableState.Never)]
             public RandomizationConfig() {
@@ -46,104 +46,69 @@ namespace Geometry_Dash_Randomiser {
 
             public IconRandSettings IconTextures {
                   get => _iconTextures;
-                  set {
-                        _iconTextures.CopyDataFrom(value ?? _defaultIconTextures);
-                        SaveConfigAfterDelay();
-                  }
+                  set => UpdateSetting(_iconTextures, value, _defaultIconTextures);
             }
 
             public RandomizationSetting MenuTextures {
                   get => _menuTextures;
-                  set {
-                        _menuTextures.CopyDataFrom(value ?? _defaultMenuTextures);
-                        SaveConfigAfterDelay();
-                  }
+                  set => UpdateSetting(_menuTextures, value, _defaultMenuTextures);
             }
 
             public RandomizationSetting ShopTextures {
                   get => _shopTextures;
-                  set {
-                        _shopTextures.CopyDataFrom(value ?? _defaultShopTextures);
-                        SaveConfigAfterDelay();
-                  }
+                  set => UpdateSetting(_shopTextures, value, _defaultShopTextures);
             }
 
             public RandomizationSetting EditorTextures {
                   get => _editorTextures;
-                  set {
-                        _editorTextures.CopyDataFrom(value ?? _defaultEditorTextures);
-                        SaveConfigAfterDelay();
-                  }
+                  set => UpdateSetting(_editorTextures, value, _defaultEditorTextures);
             }
 
             public RandomizationSetting TileTextures {
                   get => _tileTextures;
-                  set {
-                        _tileTextures.CopyDataFrom(value ?? _defaultTileTextures);
-                        SaveConfigAfterDelay();
-                  }
+                  set => UpdateSetting(_tileTextures, value, _defaultTileTextures);
             }
 
             public RandomizationSetting PortalTextures {
                   get => _portalTextures;
-                  set {
-                        _portalTextures.CopyDataFrom(value ?? _defaultPortalTextures);
-                        SaveConfigAfterDelay();
-                  }
+                  set => UpdateSetting(_portalTextures, value, _defaultPortalTextures);
             }
 
             public RandomizationSetting OrbTextures {
                   get => _orbTextures;
-                  set {
-                        _orbTextures.CopyDataFrom(value ?? _defaultOrbTextures);
-                        SaveConfigAfterDelay();
-                  }
+                  set => UpdateSetting(_orbTextures, value, _defaultOrbTextures);
             }
 
             public RandomizationSetting PadTextures {
                   get => _padTextures;
-                  set {
-                        _padTextures.CopyDataFrom(value ?? _defaultPadTextures);
-                        SaveConfigAfterDelay();
-                  }
+                  set => UpdateSetting(_padTextures, value, _defaultPadTextures);
             }
 
             public RandomizationSetting ParticleTextures {
                   get => _particleTextures;
-                  set {
-                        _particleTextures.CopyDataFrom(value ?? _defaultPadTextures);
-                        SaveConfigAfterDelay();
-                  }
+                  set => UpdateSetting(_particleTextures, value, _defaultParticleTextures);
             }
 
             public RandomizationSetting EffectTextures {
                   get => _effectTextures;
-                  set {
-                        _effectTextures.CopyDataFrom(value ?? _defaultEffectTextures);
-                        SaveConfigAfterDelay();
-                  }
+                  set => UpdateSetting(_effectTextures, value, _defaultEffectTextures);
             }
 
             public RandomizationSetting MiscTextures {
                   get => _miscTextures;
-                  set {
-                        _miscTextures.CopyDataFrom(value ?? _defaultMiscTextures);
-                        SaveConfigAfterDelay();
-                  }
+                  set => UpdateSetting(_miscTextures, value, _defaultMiscTextures);
+ 
             }
 
             public FontRandomisationSettings FontRand {
                   get => _fontRand;
-                  set {
-                        _fontRand.CopyDataFrom(value ?? _defaultFontRand);
-                        SaveConfigAfterDelay();
-                  }
+                  set => UpdateSetting(_fontRand, value, _defaultFontRand);
             }
 
             public float MaxSpriteMultiplier {
                   get => _maxSpriteMultiplier;
                   set {
-                        _maxSpriteMultiplier = Math.Clamp(value, 1.01f, 1_000_000f);
+                        _maxSpriteMultiplier = Math.Clamp(value, MinSpriteMultiplier, UnlimitedSpriteMultiplier);
                         SaveConfigAfterDelay();
                   }
             }
@@ -164,19 +129,27 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
+            private void UpdateSetting<T>(T target, T source, T defaults) where T : ICopyableSetting<T> {
+                  if (source == null)
+                        source = defaults;
+
+                  target.CopyDataFrom(source);
+                  SaveConfigAfterDelay();
+            }
+
             public int GetEnabledSettingsCount() {
-                  return Convert.ToInt32(IconTextures.Enabled) +
-                        Convert.ToInt32(MenuTextures.Enabled) +
-                        Convert.ToInt32(ShopTextures.Enabled) +
-                        Convert.ToInt32(EditorTextures.Enabled) +
-                        Convert.ToInt32(TileTextures.Enabled) +
-                        Convert.ToInt32(PortalTextures.Enabled) +
-                        Convert.ToInt32(OrbTextures.Enabled) +
-                        Convert.ToInt32(PadTextures.Enabled) +
-                        Convert.ToInt32(ParticleTextures.Enabled) +
-                        Convert.ToInt32(EffectTextures.Enabled) +
-                        Convert.ToInt32(MiscTextures.Enabled) +
-                        Convert.ToInt32(FontRand.Enabled);
+                  return (IconTextures.Enabled ? 1 : 0) +
+                         (MenuTextures.Enabled ? 1 : 0) +
+                         (ShopTextures.Enabled ? 1 : 0) +
+                         (EditorTextures.Enabled ? 1 : 0) +
+                         (TileTextures.Enabled ? 1 : 0) +
+                         (PortalTextures.Enabled ? 1 : 0) +
+                         (OrbTextures.Enabled ? 1 : 0) +
+                         (PadTextures.Enabled ? 1 : 0) +
+                         (ParticleTextures.Enabled ? 1 : 0) +
+                         (EffectTextures.Enabled ? 1 : 0) +
+                         (MiscTextures.Enabled ? 1 : 0) +
+                         (FontRand.Enabled ? 1 : 0);
             }
 
             public IEnumerable<int> GetDistinctGroups() {
@@ -213,7 +186,7 @@ namespace Geometry_Dash_Randomiser {
                         string inStream = File.ReadAllText(configFileName);
                         RandomizationConfig rc = Deserialise(inStream, out bool success);
                         if (success) {
-                              _instance.ApplyAllProperties(rc);
+                              _instance.ApplyFrom(rc);
                         }
 
                   } else {
@@ -225,7 +198,7 @@ namespace Geometry_Dash_Randomiser {
 
             public void SaveConfigAfterDelay(object sender, EventArgs e) {
                   TimeSpan elapsedSinceCreated = DateTime.Now - _created;
-                  if (elapsedSinceCreated.Seconds < 1)
+                  if (elapsedSinceCreated.TotalSeconds < 1)
                         return;
 
                   if (_fileSaveQueued == true)
@@ -255,7 +228,7 @@ namespace Geometry_Dash_Randomiser {
             public string SerializeExportData() => Serialize(ExportSerializationOptions);
 
             string Serialize(JsonSerializerOptions jso) {
-                  return JsonSerializer.Serialize(_instance, jso);
+                  return JsonSerializer.Serialize(this, jso);
             }
 
             public static RandomizationConfig Deserialise(string data, out bool success) {
@@ -298,33 +271,36 @@ namespace Geometry_Dash_Randomiser {
                         return false;
                   }
 
-                  this.ApplyAllProperties(importedConfig);
+                  if (importedConfig == null)
+                        return false;
+
+                  this.ApplyFrom(importedConfig);
 
                   return true;
             }
 
-            private void ApplyAllProperties(RandomizationConfig other) {
+            private void ApplyFrom(RandomizationConfig other) {
                   if (other == null) {
                         Logger.Write(Logger.Mode.Error, "The parameter \"other\" was passed as null in Config.cs.");
                         return;
                   }
 
-                  _instance.IconTextures = other.IconTextures;
-                  _instance.MenuTextures = other.MenuTextures;
-                  _instance.ShopTextures = other.ShopTextures;
-                  _instance.EditorTextures = other.EditorTextures;
-                  _instance.TileTextures = other.TileTextures;
-                  _instance.PortalTextures = other.PortalTextures;
-                  _instance.OrbTextures = other.OrbTextures;
-                  _instance.PadTextures = other.PadTextures;
-                  _instance.ParticleTextures = other.ParticleTextures;
-                  _instance.EffectTextures = other.EffectTextures;
-                  _instance.MiscTextures = other.MiscTextures;
-                  _instance.FontRand = other.FontRand;
+                  this.IconTextures = other.IconTextures;
+                  this.MenuTextures = other.MenuTextures;
+                  this.ShopTextures = other.ShopTextures;
+                  this.EditorTextures = other.EditorTextures;
+                  this.TileTextures = other.TileTextures;
+                  this.PortalTextures = other.PortalTextures;
+                  this.OrbTextures = other.OrbTextures;
+                  this.PadTextures = other.PadTextures;
+                  this.ParticleTextures = other.ParticleTextures;
+                  this.EffectTextures = other.EffectTextures;
+                  this.MiscTextures = other.MiscTextures;
+                  this.FontRand = other.FontRand;
 
-                  _instance.MaxSpriteMultiplier = other.MaxSpriteMultiplier;
-                  _instance.AllowDuplicates = other.AllowDuplicates;
-                  _instance.Seed = other.Seed;
+                  this.MaxSpriteMultiplier = other.MaxSpriteMultiplier;
+                  this.AllowDuplicates = other.AllowDuplicates;
+                  this.Seed = other.Seed;
             }
 
             // Private members
@@ -366,10 +342,10 @@ namespace Geometry_Dash_Randomiser {
                                     if (typeInfo.Type == typeof(RandomizationSetting)) {
                                           foreach (var property in typeInfo.Properties) {
                                                 if (property.Name == nameof(RandomizationSetting.PercentageRandomised)) {
-                                                      property.ShouldSerialize = (_, value) => (int)value != 100;
+                                                      property.ShouldSerialize = (_, value) => (int)value != DefaultPercentageRandomised;
 
                                                 } else if (property.Name == nameof(RandomizationSetting.Group)) {
-                                                      property.ShouldSerialize = (_, value) => (int)value != 0;
+                                                      property.ShouldSerialize = (_, value) => (int)value != DefaultGroup;
 
                                                 } else if (property.Name == nameof(RandomizationSetting.Enabled)) {
                                                       property.ShouldSerialize = (_, value) => (bool)value != true;
@@ -382,7 +358,7 @@ namespace Geometry_Dash_Randomiser {
             };
 
             // Default values for all settings
-            private static IconRandSettings _defaultIconTextures => new IconRandSettings { Group = 0, Enabled = true };
+            private static IconRandSettings _defaultIconTextures => IconRandSettings.Default;
             private static RandomizationSetting _defaultMenuTextures => new RandomizationSetting(group: 1, enabled: true, associatedType: ResourceType.Menu);
             private static RandomizationSetting _defaultShopTextures => new RandomizationSetting(group: 1, enabled: true, associatedType: ResourceType.Shop);
             private static RandomizationSetting _defaultEditorTextures => new RandomizationSetting(associatedType: ResourceType.Editor);
@@ -393,6 +369,12 @@ namespace Geometry_Dash_Randomiser {
             private static RandomizationSetting _defaultParticleTextures => new RandomizationSetting(group: 3, enabled: true, associatedType: ResourceType.Particle);
             private static RandomizationSetting _defaultEffectTextures => new RandomizationSetting(group: 2, enabled: true, associatedType: ResourceType.Effect);
             private static RandomizationSetting _defaultMiscTextures => new RandomizationSetting(associatedType: ResourceType.Miscellaneous);
-            private static FontRandomisationSettings _defaultFontRand => new FontRandomisationSettings();
+            private static FontRandomisationSettings _defaultFontRand => FontRandomisationSettings.Default;
+
+            public const float MinSpriteMultiplier = 1.01f;
+            public const float UnlimitedSpriteMultiplier = 1_000_000f;
+
+            public const int DefaultPercentageRandomised = 100;
+            public const int DefaultGroup = 0;
       }
 }

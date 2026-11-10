@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace Geometry_Dash_Randomiser {
 
       [Serializable]
-      public class RandomizationSetting : IToggleableSetting, IUpdateNotify {
+      public class RandomizationSetting : IToggleableSetting, IUpdateNotify, ICopyableSetting<RandomizationSetting> {
 
             public event EventHandler Updated;
 
@@ -70,6 +70,10 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public void CopyDataFrom(RandomizationSetting source) {
+                  if (source == null) {
+                        return;
+                  }
+
                   this.Group = source.Group;
                   this.Enabled = source.Enabled;
                   this.PercentageRandomised = source.PercentageRandomised;
@@ -84,6 +88,6 @@ namespace Geometry_Dash_Randomiser {
             private bool _enabled = true;
             private int _group = 0;
             private int _percentageRandomised = 100;
-            private ResourceType _associatedType = ResourceType.Unknown;
+            private readonly ResourceType _associatedType = ResourceType.Unknown;
       }
 }
