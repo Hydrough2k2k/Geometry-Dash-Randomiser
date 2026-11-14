@@ -30,14 +30,11 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public static ChangelogData Default => new ChangelogData(
-                  version: "V2.5.1.0",
-                  releaseDate: "10 Nov 2026",
+                  version: "V2.5.1.1",
+                  releaseDate: "14 Nov 2026",
 
                   newStuff: new string[] {
-                        " - The UI has been made a lot more responsive",
-                        " - Texture Size Multiplier slider's position is updated correctly when the application launches",
-                        " - Added a setting button next to the theme selector for enabling and disabling the Random and System themes",
-                        " - Added a logger system. It is only be partially implemented for now, but will be expanded in the future"
+                        
                   },
 
                   changes: new string[] {
@@ -45,11 +42,7 @@ namespace Geometry_Dash_Randomiser {
                   },
 
                   bugfixes: new string[] {
-                        " - Fixed the Icon Settings group value not changing",
-                        " - On bootup the settings for icon randomisations settings were not loaded properly",
-                        " - Fixed the Debug Console not printing anything sometimes. You can enable it in the config.txt file for debugging purposes",
-                        " - Fixed a crash when refreshing themes and there were fewer themes than the current theme index",
-                        " - Potentially fixed fonts not rendering sometimes. More testing is required"
+                        " - Fixed texture randomization not working at all in the last release. Oops."
                   },
 
                   knownBugs: new string[] {
