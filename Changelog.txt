@@ -10,7 +10,19 @@ Changes:
 
 Known Bugs:
  - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can drastically affect level difficulty
- 
+
+-------------------------------------------
+
+Changelog V2.5.1.1:
+Release Date: 14 Nov 2026
+
+Bugfixes:
+ - Fixed texture randomization not working at all in the last release. Oops.
+
+Known Bugs:
+ - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can drastically affect level difficulty
+ - Mystery bugs that I haven't discovered yet
+
 -------------------------------------------
 
 Changelog V2.5.1.0:
