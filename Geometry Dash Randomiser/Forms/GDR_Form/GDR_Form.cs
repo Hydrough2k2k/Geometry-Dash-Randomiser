@@ -380,34 +380,34 @@ namespace Geometry_Dash_Randomiser {
             #region Game Texture Settings Changed Events
 
             private void MenuTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.MenuTextures, MenuTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.GameTextureConfig.Menu, MenuTexturesGroupDisplay);
 
             private void ShopTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.ShopTextures, ShopTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.GameTextureConfig.Shop, ShopTexturesGroupDisplay);
 
             private void EditorTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.EditorTextures, EditorTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.GameTextureConfig.Editor, EditorTexturesGroupDisplay);
 
             private void TilesTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.TileTextures, TileTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.GameTextureConfig.Tile, TileTexturesGroupDisplay);
 
             private void PortalTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.PortalTextures, PortalTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.GameTextureConfig.Portal, PortalTexturesGroupDisplay);
 
             private void OrbsTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.OrbTextures, OrbTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.GameTextureConfig.Orb, OrbTexturesGroupDisplay);
 
             private void PadsTexturesSettingChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.PadTextures, PadTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.GameTextureConfig.Pad, PadTexturesGroupDisplay);
 
             private void ParticleTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.ParticleTextures, ParticleTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.GameTextureConfig.Particle, ParticleTexturesGroupDisplay);
 
             private void EffectsTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.EffectTextures, EffectTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.GameTextureConfig.Effect, EffectTexturesGroupDisplay);
 
             private void MiscTexturesSettingsChanged(object sender, EventArgs e)
-                  => ChangeConfigData(sender, config.MiscTextures, MiscTexturesGroupDisplay);
+                  => ChangeConfigData(sender, config.GameTextureConfig.Misc, MiscTexturesGroupDisplay);
 
             #endregion
 
@@ -814,6 +814,8 @@ namespace Geometry_Dash_Randomiser {
                               }
                         )
                   );
+
+                  controlsToggledDuringRandomisation.Remove(applicationThemeSelectorBox);
 
                   // Finally, signal that the arrays are populated
                   dataArraysArePopulated = true;

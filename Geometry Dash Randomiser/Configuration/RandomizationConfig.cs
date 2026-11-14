@@ -1,12 +1,9 @@
 ﻿using Geometry_Dash_Randomiser.Helpers;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
@@ -18,7 +15,7 @@ namespace Geometry_Dash_Randomiser {
       /// These are exclusively randomisation settings<br/>
       /// Everything in this class is exported and imported via the export and import configurations buttons<br/>
       /// </summary>
-      public class RandomizationConfig {
+      public class RandomizationConfig : IEquatable<RandomizationConfig> {
 
             private static readonly RandomizationConfig _instance = new RandomizationConfig();
 
@@ -27,16 +24,7 @@ namespace Geometry_Dash_Randomiser {
                   _created = DateTime.Now;
 
                   _iconTextures.Updated += SaveConfigAfterDelay;
-                  _menuTextures.Updated += SaveConfigAfterDelay;
-                  _shopTextures.Updated += SaveConfigAfterDelay;
-                  _editorTextures.Updated += SaveConfigAfterDelay;
-                  _tileTextures.Updated += SaveConfigAfterDelay;
-                  _portalTextures.Updated += SaveConfigAfterDelay;
-                  _orbTextures.Updated += SaveConfigAfterDelay;
-                  _padTextures.Updated += SaveConfigAfterDelay;
-                  _particleTextures.Updated += SaveConfigAfterDelay;
-                  _effectTextures.Updated += SaveConfigAfterDelay;
-                  _miscTextures.Updated += SaveConfigAfterDelay;
+                  _gameTextureConfig.Updated += SaveConfigAfterDelay;
                   _fontRand.Updated += SaveConfigAfterDelay;
             }
 
@@ -44,60 +32,14 @@ namespace Geometry_Dash_Randomiser {
                   get => _instance;
             }
 
-            public IconRandSettings IconTextures {
+            public IconRandomizationSettings IconTextures {
                   get => _iconTextures;
                   set => UpdateSetting(_iconTextures, value, _defaultIconTextures);
             }
 
-            public RandomizationSetting MenuTextures {
-                  get => _menuTextures;
-                  set => UpdateSetting(_menuTextures, value, _defaultMenuTextures);
-            }
-
-            public RandomizationSetting ShopTextures {
-                  get => _shopTextures;
-                  set => UpdateSetting(_shopTextures, value, _defaultShopTextures);
-            }
-
-            public RandomizationSetting EditorTextures {
-                  get => _editorTextures;
-                  set => UpdateSetting(_editorTextures, value, _defaultEditorTextures);
-            }
-
-            public RandomizationSetting TileTextures {
-                  get => _tileTextures;
-                  set => UpdateSetting(_tileTextures, value, _defaultTileTextures);
-            }
-
-            public RandomizationSetting PortalTextures {
-                  get => _portalTextures;
-                  set => UpdateSetting(_portalTextures, value, _defaultPortalTextures);
-            }
-
-            public RandomizationSetting OrbTextures {
-                  get => _orbTextures;
-                  set => UpdateSetting(_orbTextures, value, _defaultOrbTextures);
-            }
-
-            public RandomizationSetting PadTextures {
-                  get => _padTextures;
-                  set => UpdateSetting(_padTextures, value, _defaultPadTextures);
-            }
-
-            public RandomizationSetting ParticleTextures {
-                  get => _particleTextures;
-                  set => UpdateSetting(_particleTextures, value, _defaultParticleTextures);
-            }
-
-            public RandomizationSetting EffectTextures {
-                  get => _effectTextures;
-                  set => UpdateSetting(_effectTextures, value, _defaultEffectTextures);
-            }
-
-            public RandomizationSetting MiscTextures {
-                  get => _miscTextures;
-                  set => UpdateSetting(_miscTextures, value, _defaultMiscTextures);
- 
+            public GameTextureConfig GameTextureConfig {
+                  get => _gameTextureConfig;
+                  set => UpdateSetting(_gameTextureConfig, value, _defaultGameTextureConfig);
             }
 
             public FontRandomisationSettings FontRand {
@@ -139,16 +81,7 @@ namespace Geometry_Dash_Randomiser {
 
             public int GetEnabledSettingsCount() {
                   return (IconTextures.Enabled ? 1 : 0) +
-                         (MenuTextures.Enabled ? 1 : 0) +
-                         (ShopTextures.Enabled ? 1 : 0) +
-                         (EditorTextures.Enabled ? 1 : 0) +
-                         (TileTextures.Enabled ? 1 : 0) +
-                         (PortalTextures.Enabled ? 1 : 0) +
-                         (OrbTextures.Enabled ? 1 : 0) +
-                         (PadTextures.Enabled ? 1 : 0) +
-                         (ParticleTextures.Enabled ? 1 : 0) +
-                         (EffectTextures.Enabled ? 1 : 0) +
-                         (MiscTextures.Enabled ? 1 : 0) +
+                         GameTextureConfig.GetEnabledSettingsCount() +
                          (FontRand.Enabled ? 1 : 0);
             }
 
@@ -168,16 +101,18 @@ namespace Geometry_Dash_Randomiser {
                         IconTextures.Swing,
                         IconTextures.Jetpack,
 
-                        MenuTextures,
-                        ShopTextures,
-                        EditorTextures,
-                        TileTextures,
-                        PortalTextures,
-                        OrbTextures,
-                        PadTextures,
-                        ParticleTextures,
-                        EffectTextures,
-                        MiscTextures,
+                        GameTextureConfig.Menu,
+                        GameTextureConfig.Shop,
+                        GameTextureConfig.Editor,
+                        GameTextureConfig.Tile,
+                        GameTextureConfig.Portal,
+                        GameTextureConfig.Orb,
+                        GameTextureConfig.Pad,
+                        GameTextureConfig.Particle,
+                        GameTextureConfig.Effect,
+                        GameTextureConfig.Misc,
+
+                        // The font ones are missing from this on purpose for now. Later they will be added when font and game textures can be mixed around
                   };
             }
 
@@ -281,21 +216,12 @@ namespace Geometry_Dash_Randomiser {
 
             private void ApplyFrom(RandomizationConfig other) {
                   if (other == null) {
-                        Logger.Write(Logger.Mode.Error, "The parameter \"other\" was passed as null in Config.cs.");
+                        Logger.Write(Logger.Mode.Error, "The parameter \"other\" was passed as null in RandomizationConfig.ApplyFrom");
                         return;
                   }
 
                   this.IconTextures = other.IconTextures;
-                  this.MenuTextures = other.MenuTextures;
-                  this.ShopTextures = other.ShopTextures;
-                  this.EditorTextures = other.EditorTextures;
-                  this.TileTextures = other.TileTextures;
-                  this.PortalTextures = other.PortalTextures;
-                  this.OrbTextures = other.OrbTextures;
-                  this.PadTextures = other.PadTextures;
-                  this.ParticleTextures = other.ParticleTextures;
-                  this.EffectTextures = other.EffectTextures;
-                  this.MiscTextures = other.MiscTextures;
+                  this.GameTextureConfig = other.GameTextureConfig;
                   this.FontRand = other.FontRand;
 
                   this.MaxSpriteMultiplier = other.MaxSpriteMultiplier;
@@ -303,18 +229,25 @@ namespace Geometry_Dash_Randomiser {
                   this.Seed = other.Seed;
             }
 
+            public bool Equals(RandomizationConfig other) {
+                  if (other == null) {
+                        Logger.Write(Logger.Mode.Error, "The parameter \"other\" was passed as null in RandomizationConfig.Equals");
+                        return false;
+                  }
+
+                  if (this.IconTextures.Equals(other.IconTextures) == false ||
+                        this.GameTextureConfig.Equals(other.GameTextureConfig) == false ||
+                        this.FontRand.Equals(other.FontRand) == false) {
+
+                        return false;
+                  }
+
+                  return true;
+            }
+
             // Private members
-            private readonly IconRandSettings _iconTextures = _defaultIconTextures;
-            private readonly RandomizationSetting _menuTextures = _defaultMenuTextures;
-            private readonly RandomizationSetting _shopTextures = _defaultShopTextures;
-            private readonly RandomizationSetting _editorTextures = _defaultEditorTextures;
-            private readonly RandomizationSetting _tileTextures = _defaultTileTextures;
-            private readonly RandomizationSetting _portalTextures = _defaultPortalTextures;
-            private readonly RandomizationSetting _orbTextures = _defaultOrbTextures;
-            private readonly RandomizationSetting _padTextures = _defaultPadTextures;
-            private readonly RandomizationSetting _particleTextures = _defaultParticleTextures;
-            private readonly RandomizationSetting _effectTextures = _defaultEffectTextures;
-            private readonly RandomizationSetting _miscTextures = _defaultMiscTextures;
+            private readonly IconRandomizationSettings _iconTextures = _defaultIconTextures;
+            private readonly GameTextureConfig _gameTextureConfig = _defaultGameTextureConfig;
             private readonly FontRandomisationSettings _fontRand = _defaultFontRand;
 
             private float _maxSpriteMultiplier = 1.10f;
@@ -358,17 +291,8 @@ namespace Geometry_Dash_Randomiser {
             };
 
             // Default values for all settings
-            private static IconRandSettings _defaultIconTextures => IconRandSettings.Default;
-            private static RandomizationSetting _defaultMenuTextures => new RandomizationSetting(group: 1, enabled: true, associatedType: ResourceType.Menu);
-            private static RandomizationSetting _defaultShopTextures => new RandomizationSetting(group: 1, enabled: true, associatedType: ResourceType.Shop);
-            private static RandomizationSetting _defaultEditorTextures => new RandomizationSetting(associatedType: ResourceType.Editor);
-            private static RandomizationSetting _defaultTileTextures => new RandomizationSetting(associatedType: ResourceType.Block);
-            private static RandomizationSetting _defaultPortalTextures => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Portal);
-            private static RandomizationSetting _defaultOrbTextures => new RandomizationSetting(group: 3, enabled: true, associatedType: ResourceType.Orb);
-            private static RandomizationSetting _defaultPadTextures => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Pad);
-            private static RandomizationSetting _defaultParticleTextures => new RandomizationSetting(group: 3, enabled: true, associatedType: ResourceType.Particle);
-            private static RandomizationSetting _defaultEffectTextures => new RandomizationSetting(group: 2, enabled: true, associatedType: ResourceType.Effect);
-            private static RandomizationSetting _defaultMiscTextures => new RandomizationSetting(associatedType: ResourceType.Miscellaneous);
+            private static IconRandomizationSettings _defaultIconTextures => IconRandomizationSettings.Default;
+            private static GameTextureConfig _defaultGameTextureConfig => GameTextureConfig.Default;
             private static FontRandomisationSettings _defaultFontRand => FontRandomisationSettings.Default;
 
             public const float MinSpriteMultiplier = 1.01f;
@@ -376,5 +300,61 @@ namespace Geometry_Dash_Randomiser {
 
             public const int DefaultPercentageRandomised = 100;
             public const int DefaultGroup = 0;
+
+            #region Legacy Fields
+
+            // Legacy Fields for reading JSON data
+
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public RandomizationSetting MenuTextures {
+                  set => GameTextureConfig.UpdateSetting(value, GameTextureConfig.SettingType.Menu);
+            }
+
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public RandomizationSetting ShopTextures {
+                  set => GameTextureConfig.UpdateSetting(value, GameTextureConfig.SettingType.Shop);
+            }
+
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public RandomizationSetting EditorTextures {
+                  set => GameTextureConfig.UpdateSetting(value, GameTextureConfig.SettingType.Editor);
+            }
+
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public RandomizationSetting TileTextures {
+                  set => GameTextureConfig.UpdateSetting(value, GameTextureConfig.SettingType.Tile);
+            }
+
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public RandomizationSetting PortalTextures {
+                  set => GameTextureConfig.UpdateSetting(value, GameTextureConfig.SettingType.Portal);
+            }
+
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public RandomizationSetting OrbTextures {
+                  set => GameTextureConfig.UpdateSetting(value, GameTextureConfig.SettingType.Orb);
+            }
+
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public RandomizationSetting PadTextures {
+                  set => GameTextureConfig.UpdateSetting(value, GameTextureConfig.SettingType.Pad);
+            }
+
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public RandomizationSetting ParticleTextures {
+                  set => GameTextureConfig.UpdateSetting(value, GameTextureConfig.SettingType.Particle);
+            }
+
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public RandomizationSetting EffectTextures {
+                  set => GameTextureConfig.UpdateSetting(value, GameTextureConfig.SettingType.Effect);
+            }
+
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public RandomizationSetting MiscTextures {
+                  set => GameTextureConfig.UpdateSetting(value, GameTextureConfig.SettingType.Misc);
+            }
+
+            #endregion
       }
 }

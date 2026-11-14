@@ -294,6 +294,7 @@
     <Compile Include="Configuration\Font\FontStyleShuffleSettings.cs" />
     <Compile Include="Configuration\Font\CharacterRandomisationSettings.cs" />
     <Compile Include="Configuration\Font\LetterSpacingSettings.cs" />
+    <Compile Include="Configuration\GameTextureConfig.cs" />
     <Compile Include="Debug\DebugOptions.cs" />
     <Compile Include="Enums\ApplicationState.cs" />
     <Compile Include="Enums\FormatMode.cs" />
@@ -382,7 +383,7 @@
     <Compile Include="Enums\GameFileType.cs" />
     <Compile Include="ControlClasses\GameSheetAssembler.cs" />
     <Compile Include="ControlClasses\GameSheetManager.cs" />
-    <Compile Include="Configuration\IconRandSettings.cs" />
+    <Compile Include="Configuration\IconRandomizationSettings.cs" />
     <Compile Include="Forms\ImportConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>

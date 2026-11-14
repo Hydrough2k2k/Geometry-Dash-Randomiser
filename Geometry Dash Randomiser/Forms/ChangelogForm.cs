@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Geometry_Dash_Randomiser {
@@ -30,18 +31,8 @@ namespace Geometry_Dash_Randomiser {
                   }
             }
 
-            private Control[] arrangedElements;
-
             public ChangelogForm() {
                   InitializeComponent();
-
-                  arrangedElements = new Control[] {
-                        this.whatsNewLabel, this.whatsNewTextBox,
-                        this.changesLabel, this.changesTextBox,
-                        this.bugfixesLabel, this.bugfixesTextBox,
-                        this.knownBugsLabel, this.knownBugsTextBox,
-                        this.notesLabel, this.notesTextBox
-                  };
 
                   StoreOriginalText();
 
@@ -97,99 +88,37 @@ namespace Geometry_Dash_Randomiser {
                   this.previousVersionButton.Text = "Previous Version";
                   this.nextVersionButton.Text = "Next Version";
 
-                  LengthMeasurerLabel_Hidden.Text = data.Bugfixes[0];
+                  StringBuilder sb = new StringBuilder();
+                  AppendDataToChangeLog(data.NewStuff, sb);
+                  AppendDataToChangeLog(data.Changes, sb);
+                  AppendDataToChangeLog(data.Bugfixes, sb);
+                  AppendDataToChangeLog(data.KnownBugs, sb);
+                  AppendDataToChangeLog(data.Notes, sb);
 
-                  this.whatsNewLabel.Text = "What's New?";
-                  this.whatsNewTextBox.Text = string.Join("\n", data.NewStuff);
+                  this.ChangeLogTextBox.Text = sb.ToString();
+            }
 
-                  this.changesLabel.Text = "Changes:";
-                  this.changesTextBox.Text = string.Join("\n", data.Changes);
+            private void AppendDataToChangeLog(ChangelogData.ChangeLogProperty data, StringBuilder to) {
+                  if (data.Data.Length != 0) {
+                        if (to.Length != 0) {
+                              to.Append("\n\n");
+                        }
 
-                  this.bugfixesLabel.Text = "Bugfixes:";
-                  this.bugfixesTextBox.Text = string.Join("\n", data.Bugfixes);
-
-                  this.knownBugsLabel.Text = "Known Bugs:";
-                  this.knownBugsTextBox.Text = string.Join("\n", data.KnownBugs);
-
-                  this.notesLabel.Text = "Notes:";
-                  this.notesTextBox.Text = string.Join("\n", data.Notes);
+                        to.Append($"{data.TypeName}\n");
+                        to.Append($"{string.Join("\n", data.Data)}");
+                  }
             }
 
             private void ResizeWindowAndElements() {
                   Size size = new Size(_windowWidth, 0);
 
-                  Size textboxSize = DefaultTextBoxSize();
-
-                  this.whatsNewTextBox.Size = GetTextBoxHeightFromContents(this.whatsNewTextBox);
-                  this.changesTextBox.Size = GetTextBoxHeightFromContents(this.changesTextBox);
-                  this.bugfixesTextBox.Size = GetTextBoxHeightFromContents(this.bugfixesTextBox);
-                  this.knownBugsTextBox.Size = GetTextBoxHeightFromContents(this.knownBugsTextBox);
-                  this.notesTextBox.Size = GetTextBoxHeightFromContents(this.notesTextBox);
-
-                  Control latestMovedControl = this.previousVersionButton;
-
-                  // Position the text boxes and their labels
-                  for (int i = 0; i < arrangedElements.Length; i++) {
-                        ChangelogSection section = (ChangelogSection)(i / 2);
-                        bool skip = false;
-
-                        // Check if the current section has any content, if not, skip it
-                        switch (section) {
-                              case ChangelogSection.WhatsNew:
-                                    if (CurrentChangelog.NewStuff.Length == 0)
-                                          skip = true;
-                                    break;
-
-                              case ChangelogSection.Changes:
-                                    if (CurrentChangelog.Changes.Length == 0)
-                                          skip = true;
-                                    break;
-
-                              case ChangelogSection.Bugfixes:
-                                    if (CurrentChangelog.Bugfixes.Length == 0)
-                                          skip = true;
-                                    break;
-
-                              case ChangelogSection.KnownBugs:
-                                    if (CurrentChangelog.KnownBugs.Length == 0)
-                                          skip = true;
-                                    break;
-
-                              case ChangelogSection.Notes:
-                                    if (CurrentChangelog.Notes.Length == 0)
-                                          skip = true;
-                                    break;
-                        }
-
-                        // Set the visibility based on whether we skip the section or not
-                        arrangedElements[i].Visible = !skip;
-                        if (skip) {
-                              // Set the text box to be hidden as well, and incement the index to skip the next element (the text box) as well
-                              arrangedElements[++i].Visible = false;
-                              continue;
-                        }
-
-                        Point nextLocation;
-
-                        if (i % 2 == 0) {
-                              // Label relocation logic
-                              nextLocation = new Point(_padding, latestMovedControl.Location.Y + latestMovedControl.Height + _padding);
-
-                        } else {
-                              // Textbox relocation logic
-                              nextLocation = new Point(_padding, latestMovedControl.Location.Y + latestMovedControl.Height + _padding / 2);
-                        }
-
-                        arrangedElements[i].Location = nextLocation;
-
-                        latestMovedControl = arrangedElements[i];
-                  }
+                  this.ChangeLogTextBox.Size = GetTextBoxHeightFromContents(this.ChangeLogTextBox);
 
                   // Calculate the new window height
-                  size.Height = latestMovedControl.Location.Y + latestMovedControl.Height + 3 * _padding;
+                  size.Height = this.ChangeLogTextBox.Location.Y + this.ChangeLogTextBox.Height + 3 * _padding;
 
                   // Set the size of the window based on the calculated values
-                  this.Size = new Size(size.Width + _padding, size.Height + _padding);
+                  this.Size = new Size(size.Width + _padding, size.Height + (int)(_padding * 0.5f));
 
                   // Move the buttons to the correct location
                   this.previousVersionButton.Location = new Point(_padding, _padding);
@@ -307,7 +236,7 @@ namespace Geometry_Dash_Randomiser {
             
             private const int _padding = 15;
             
-            private const int _maxTextboxHeight = 105;
+            private const int _maxTextboxHeight = 1000;
             private const int _baseTextboxHeight = 5;
             private const int _lineHeight = 20;
             

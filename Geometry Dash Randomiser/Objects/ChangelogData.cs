@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace Geometry_Dash_Randomiser {
 
@@ -7,11 +8,17 @@ namespace Geometry_Dash_Randomiser {
 
             public string Version => _version;
             public string ReleaseDate => _releaseDate;
-            public string[] NewStuff => _newStuff;
-            public string[] Changes => _changes;
-            public string[] Bugfixes => _bugfixes;
-            public string[] KnownBugs => _knownBugs;
-            public string[] Notes => _notes;
+            //public string[] NewStuff => _newStuff;
+            //public string[] Changes => _changes;
+            //public string[] Bugfixes => _bugfixes;
+            //public string[] KnownBugs => _knownBugs;
+            //public string[] Notes => _notes;
+
+            public ChangeLogProperty NewStuff => _newStuff;
+            public ChangeLogProperty Changes => _changes;
+            public ChangeLogProperty Bugfixes => _bugfixes;
+            public ChangeLogProperty KnownBugs => _knownBugs;
+            public ChangeLogProperty Notes => _notes;
 
             public ChangelogData() { }
 
@@ -22,11 +29,11 @@ namespace Geometry_Dash_Randomiser {
             public ChangelogData(string version, string releaseDate, string[] newStuff, string[] changes, string[] bugfixes, string[] knownBugs, string[] notes) {
                   this._version = version;
                   this._releaseDate = releaseDate;
-                  this._newStuff = newStuff;
-                  this._changes = changes;
-                  this._bugfixes = bugfixes;
-                  this._knownBugs = knownBugs;
-                  this._notes = notes;
+                  this._newStuff = new ChangeLogProperty(newStuff, ChangeLogProperty.Type.NewStuff);
+                  this._changes = new ChangeLogProperty(changes, ChangeLogProperty.Type.Changes);
+                  this._bugfixes = new ChangeLogProperty(bugfixes, ChangeLogProperty.Type.Bugfixes);
+                  this._knownBugs = new ChangeLogProperty(knownBugs, ChangeLogProperty.Type.KnownBugs);
+                  this._notes = new ChangeLogProperty(notes, ChangeLogProperty.Type.Notes);
             }
 
             public static ChangelogData Default => new ChangelogData(
@@ -120,10 +127,46 @@ namespace Geometry_Dash_Randomiser {
 
             private readonly string _version = string.Empty;
             private readonly string _releaseDate = string.Empty;
-            private readonly string[] _newStuff = Array.Empty<string>();
-            private readonly string[] _changes = Array.Empty<string>();
-            private readonly string[] _bugfixes = Array.Empty<string>();
-            private readonly string[] _knownBugs = Array.Empty<string>();
-            private readonly string[] _notes = Array.Empty<string>();
+            private readonly ChangeLogProperty _newStuff = new ChangeLogProperty();
+            private readonly ChangeLogProperty _changes = new ChangeLogProperty();
+            private readonly ChangeLogProperty _bugfixes = new ChangeLogProperty();
+            private readonly ChangeLogProperty _knownBugs = new ChangeLogProperty();
+            private readonly ChangeLogProperty _notes = new ChangeLogProperty();
+
+            public class ChangeLogProperty {
+
+                  public enum Type { None, NewStuff, Changes, Bugfixes, KnownBugs, Notes }
+
+                  public ChangeLogProperty() { }
+
+                  public ChangeLogProperty(string[] data, Type type) {
+                        _type = type;
+                        Data = data;
+                  }
+
+                  public ChangeLogProperty(Type type, string[] data) {
+                        _type = type;
+                        Data = data;
+                  }
+
+                  public string[] Data { get; set; }
+                  public string TypeName => TryGetTypeName();
+
+                  private string TryGetTypeName() {
+                        bool found = _typeNameDict.TryGetValue(this._type, out string value);
+                        return found ? value : string.Empty;
+                  }
+
+                  private static Dictionary<Type, string> _typeNameDict = new Dictionary<Type, string>() {
+                         { Type.None, string.Empty },
+                         { Type.NewStuff, "What's New?" },
+                         { Type.Changes, "Changes:" },
+                         { Type.Bugfixes, "Bugfixes:" },
+                         { Type.KnownBugs, "Known Bugs:" },
+                         { Type.Notes, "Notes:" }
+                  };
+
+                  private Type _type;
+            }
       }
 }

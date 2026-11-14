@@ -130,20 +130,20 @@ namespace Geometry_Dash_Randomiser {
                   BackupOriginalFiles();
 
                   this._progressState.CurrentStage = ApplicationState.Unpacking;
-                  //_gamesheetManager.ReadAllFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
+                  _gamesheetManager.ReadAllFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
                   _fontManager.ReadAllFiles(PathManager.BackupResourcesFolder, AdvancedConfig.Instance.Quality);
 
                   this._progressState.CurrentStage = ApplicationState.Randomising;
-                  //GameSheet[] randomisedGameSheets = _gamesheetManager.RandomizeFiles(random);
+                  GameSheet[] randomisedGameSheets = _gamesheetManager.RandomizeFiles(random);
                   Font[] randomisedFonts = _fontManager.RandomizeFiles(random);
 
                   this._progressState.CurrentStage = ApplicationState.Repackaging;
-                  //GameSheetManager.WriteFilesToDisk(randomisedGameSheets);
+                  GameSheetManager.WriteFilesToDisk(randomisedGameSheets);
                   FontManager.WriteFilesToDisk(randomisedFonts);
 
-                  //if (AdvancedConfig.Instance.AutoOverwriteFiles == true) {
-                  //      AutoOverwriteFiles();
-                  //}
+                  if (AdvancedConfig.Instance.AutoOverwriteFiles == true) {
+                        AutoOverwriteFiles();
+                  }
 
                   this._progressState.CurrentStage = ApplicationState.Idle;
                   this._progressState.NewFileBatch(0);

@@ -5,30 +5,26 @@ using System.Text.Json.Serialization;
 
 namespace Geometry_Dash_Randomiser {
 
-      public class IconRandSettings : IToggleableSetting, IUpdateNotify, ICopyableSetting<IconRandSettings> {
+      public class IconRandomizationSettings : IToggleableSetting, IUpdateNotify, ICopyableSetting<IconRandomizationSettings>, IEquatable<IconRandomizationSettings> {
 
             public event EventHandler Updated;
 
-            // Array for storing references to all settings for easy iteration
-            private readonly RandomizationSetting[] _randomisationSettings;
+            public IReadOnlyList<RandomizationSetting> RandomizationSettings;
 
-            public IconRandSettings() {
+            public IconRandomizationSettings() {
                   _randomisationSettings = new RandomizationSetting[] {
                         _cube, _ship, _ball, _ufo, _wave, _robot, _spider, _swing, _jetpack
                   };
 
-                  _cube.Updated += InvokeUpdateEvent;
-                  _ship.Updated += InvokeUpdateEvent;
-                  _ball.Updated += InvokeUpdateEvent;
-                  _ufo.Updated += InvokeUpdateEvent;
-                  _wave.Updated += InvokeUpdateEvent;
-                  _robot.Updated += InvokeUpdateEvent;
-                  _spider.Updated += InvokeUpdateEvent;
-                  _swing.Updated += InvokeUpdateEvent;
-                  _jetpack.Updated += InvokeUpdateEvent;
+                  RandomizationSettings = Array.AsReadOnly(_randomisationSettings);
+
+                  for (int i = 0; i < _randomisationSettings.Length; i++) {
+                        _randomisationSettings[i].Updated += InvokeUpdateEvent;
+                  }
             }
 
-            public static IconRandSettings Default => new IconRandSettings { Group = 0, Enabled = true };
+            [JsonIgnore]
+            public static IconRandomizationSettings Default => new IconRandomizationSettings { Group = 0, Enabled = true };
 
             [JsonIgnore]
             public RandomizationSetting[] RandomisationSettings => _randomisationSettings;
@@ -155,8 +151,9 @@ namespace Geometry_Dash_Randomiser {
                   @event?.Invoke(this, e);
             }
 
-            public void CopyDataFrom(IconRandSettings source) {
+            public void CopyDataFrom(IconRandomizationSettings source) {
                   if (source == null) {
+                        Logger.Write(Logger.Mode.Error, "The parameter \"source\" was passed as null in IconRandomizationSettings.CopyDataFrom");
                         return;
                   }
 
@@ -174,7 +171,30 @@ namespace Geometry_Dash_Randomiser {
                   Jetpack = source.Jetpack;
             }
 
-            public static explicit operator RandomizationSetting(IconRandSettings icrs) => icrs.ToRandSetting();
+            public bool Equals(IconRandomizationSettings other) {
+                  if (other == null) {
+                        Logger.Write(Logger.Mode.Error, "The parameter \"other\" was passed as null in IconRandomizationSettings.Equals");
+                        return false;
+                  }
+
+                  if (this.Group != other.Group ||
+                        this.PercentageRandomised != other.PercentageRandomised) {
+
+                        return false;
+                  }
+
+                  // Compare each Randomization setting
+                  for (int i = 0; i < _randomisationSettings.Length; i++) {
+                        // If any of them don't match, return false
+                        if (this._randomisationSettings[i].Equals(other.RandomizationSettings[i]) == false) {
+                              return false;
+                        }
+                  }
+
+                  return true;
+            }
+
+            public static explicit operator RandomizationSetting(IconRandomizationSettings icrs) => icrs.ToRandSetting();
 
             private RandomizationSetting ToRandSetting() {
                   return new RandomizationSetting(Group, Enabled, PercentageRandomised, ResourceType.Unknown);
@@ -192,6 +212,9 @@ namespace Geometry_Dash_Randomiser {
             private readonly RandomizationSetting _spider = _defaultSpider;
             private readonly RandomizationSetting _swing = _defaultSwing;
             private readonly RandomizationSetting _jetpack = _defaultJetpack;
+
+            // Array for storing references to all settings for easy iteration
+            private readonly RandomizationSetting[] _randomisationSettings;
 
             private static RandomizationSetting _defaultCube => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Cube);
             private static RandomizationSetting _defaultShip => new RandomizationSetting(group: 0, enabled: true, associatedType: ResourceType.Ship);

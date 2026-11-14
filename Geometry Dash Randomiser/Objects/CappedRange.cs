@@ -1,6 +1,8 @@
-﻿namespace Geometry_Dash_Randomiser {
+﻿using System;
 
-      public class CappedRange : Range {
+namespace Geometry_Dash_Randomiser {
+
+      public class CappedRange : Range, IEquatable<CappedRange> {
 
             public CappedRange() { }
 
@@ -44,8 +46,25 @@
             }
 
             public void CopyDataFrom(CappedRange source) {
+                  if (source == null) {
+                        Logger.Write(Logger.Mode.Error, "The parameter \"source\" was passed as null in CappedRange.CopyDataFrom");
+                        return;
+                  }
+
                   Min = source._min;
                   Max = source._max;
+            }
+
+            public bool Equals(CappedRange other) {
+                  if (other == null) {
+                        Logger.Write(Logger.Mode.Error, "The parameter \"other\" was passed as null in CappedRange.Equals");
+                        return false;
+                  }
+
+                  if (this.Min != other.Min || this.Max != other.Max)
+                        return false;
+
+                  return true;
             }
 
             private readonly int _minCap = -255;

@@ -71,47 +71,15 @@
                   this.restoreFilesButton = new System.Windows.Forms.Button();
                   this.autoOverwriteFilesCheckbox = new System.Windows.Forms.CheckBox();
                   this.button1 = new System.Windows.Forms.Button();
-                  this.fontRandEnabledCheckbox = new System.Windows.Forms.CheckBox();
-                  this.fontShuffleStylesCheckbox = new System.Windows.Forms.CheckBox();
-                  this.randomiseCharactersCheckBox = new System.Windows.Forms.CheckBox();
-                  this.randomLetterSpacingCheckBox = new System.Windows.Forms.CheckBox();
-                  this.fontStyleRandModeLabel = new System.Windows.Forms.Label();
-                  this.characterSymbolRandCheckBox = new System.Windows.Forms.CheckBox();
-                  this.characterNumberRandCheckBox = new System.Windows.Forms.CheckBox();
-                  this.characterLetterRandCheckBox = new System.Windows.Forms.CheckBox();
-                  this.letterSpacingModeLabel = new System.Windows.Forms.Label();
-                  this.kerningMinLabel = new System.Windows.Forms.Label();
-                  this.kerningMaxLabel = new System.Windows.Forms.Label();
-                  this.kerningLabel = new System.Windows.Forms.Label();
-                  this.x_OffsetLabel = new System.Windows.Forms.Label();
-                  this.x_OffsetMinLabel = new System.Windows.Forms.Label();
-                  this.x_OffsetMaxLabel = new System.Windows.Forms.Label();
-                  this.letterSpacingLevelLabel = new System.Windows.Forms.Label();
-                  this.characterSpecialRandCheckBox = new System.Windows.Forms.CheckBox();
                   this.themesSettingsButton = new System.Windows.Forms.PictureBox();
                   this.refreshThemesButton = new System.Windows.Forms.PictureBox();
                   this.seedInfoIcon = new System.Windows.Forms.PictureBox();
-                  this.letterSpacingModeInfoIcon = new System.Windows.Forms.PictureBox();
-                  this.fontRandomiseCharactersInfoIcon = new System.Windows.Forms.PictureBox();
                   this.button2 = new System.Windows.Forms.Button();
                   this.button3 = new System.Windows.Forms.Button();
                   this.label2 = new System.Windows.Forms.Label();
                   this.label3 = new System.Windows.Forms.Label();
                   this.label4 = new System.Windows.Forms.Label();
                   this.label1 = new System.Windows.Forms.Label();
-                  this.characterSymbolRandGroupDisplay = new System.Windows.Forms.NumericUpDown();
-                  this.characterNumberRandGroupDisplay = new System.Windows.Forms.NumericUpDown();
-                  this.characterLetterRandGroupDisplay = new System.Windows.Forms.NumericUpDown();
-                  this.fontStyleModeSelector = new System.Windows.Forms.ComboBox();
-                  this.kerningMinInput = new System.Windows.Forms.TextBox();
-                  this.kerningMaxInput = new System.Windows.Forms.TextBox();
-                  this.x_OffsetMinInput = new System.Windows.Forms.TextBox();
-                  this.x_OffsetMaxInput = new System.Windows.Forms.TextBox();
-                  this.characterSpecialRandPercentageBox = new System.Windows.Forms.TextBox();
-                  this.characterSymbolRandPercentageBox = new System.Windows.Forms.TextBox();
-                  this.characterNumberRandPercentageBox = new System.Windows.Forms.TextBox();
-                  this.characterLetterRandPercentageBox = new System.Windows.Forms.TextBox();
-                  this.characterSpecialRandGroupDisplay = new System.Windows.Forms.NumericUpDown();
                   this.textureQualitySelectorBox = new System.Windows.Forms.DomainUpDown();
                   this.randomSeedButton = new System.Windows.Forms.Button();
                   this.CubeTexturesGroupDisplay_Gr = new System.Windows.Forms.NumericUpDown();
@@ -170,16 +138,48 @@
                   this.statusDisplay = new System.Windows.Forms.Label();
                   this.elapsedTimeDisplay = new System.Windows.Forms.Label();
                   this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
-                  this.letterSpacingModeSelector = new System.Windows.Forms.ComboBox();
-                  this.letterSpacingLevelInputBox = new System.Windows.Forms.NumericUpDown();
-                  this.fontRandomisationSettingsContainer = new System.Windows.Forms.GroupBox();
-                  this.fontAdvancedModeSeparatorConnectorBeam = new System.Windows.Forms.PictureBox();
-                  this.fontRandMainConnectorBeam = new System.Windows.Forms.PictureBox();
-                  this.fontRandomiseLettersConnectorBeam = new System.Windows.Forms.PictureBox();
-                  this.letterSpacingConnectorBeam = new System.Windows.Forms.PictureBox();
-                  this.fontRandWarningIcon = new System.Windows.Forms.PictureBox();
-                  this.shuffleFontsConnectorBeam = new System.Windows.Forms.PictureBox();
                   this.Logo = new System.Windows.Forms.PictureBox();
+                  this.fontRandEnabledCheckbox = new System.Windows.Forms.CheckBox();
+                  this.fontShuffleStylesCheckbox = new System.Windows.Forms.CheckBox();
+                  this.randomiseCharactersCheckBox = new System.Windows.Forms.CheckBox();
+                  this.shuffleFontsConnectorBeam = new System.Windows.Forms.PictureBox();
+                  this.fontRandWarningIcon = new System.Windows.Forms.PictureBox();
+                  this.randomLetterSpacingCheckBox = new System.Windows.Forms.CheckBox();
+                  this.characterSymbolRandGroupDisplay = new System.Windows.Forms.NumericUpDown();
+                  this.letterSpacingConnectorBeam = new System.Windows.Forms.PictureBox();
+                  this.characterNumberRandGroupDisplay = new System.Windows.Forms.NumericUpDown();
+                  this.characterLetterRandGroupDisplay = new System.Windows.Forms.NumericUpDown();
+                  this.fontStyleRandModeLabel = new System.Windows.Forms.Label();
+                  this.characterSymbolRandCheckBox = new System.Windows.Forms.CheckBox();
+                  this.fontStyleModeSelector = new System.Windows.Forms.ComboBox();
+                  this.characterNumberRandCheckBox = new System.Windows.Forms.CheckBox();
+                  this.fontRandomiseLettersConnectorBeam = new System.Windows.Forms.PictureBox();
+                  this.characterLetterRandCheckBox = new System.Windows.Forms.CheckBox();
+                  this.fontRandomiseCharactersInfoIcon = new System.Windows.Forms.PictureBox();
+                  this.fontRandMainConnectorBeam = new System.Windows.Forms.PictureBox();
+                  this.letterSpacingModeLabel = new System.Windows.Forms.Label();
+                  this.letterSpacingModeSelector = new System.Windows.Forms.ComboBox();
+                  this.kerningMinLabel = new System.Windows.Forms.Label();
+                  this.kerningMinInput = new System.Windows.Forms.TextBox();
+                  this.kerningMaxLabel = new System.Windows.Forms.Label();
+                  this.kerningMaxInput = new System.Windows.Forms.TextBox();
+                  this.kerningLabel = new System.Windows.Forms.Label();
+                  this.x_OffsetLabel = new System.Windows.Forms.Label();
+                  this.x_OffsetMinLabel = new System.Windows.Forms.Label();
+                  this.x_OffsetMinInput = new System.Windows.Forms.TextBox();
+                  this.x_OffsetMaxLabel = new System.Windows.Forms.Label();
+                  this.x_OffsetMaxInput = new System.Windows.Forms.TextBox();
+                  this.fontAdvancedModeSeparatorConnectorBeam = new System.Windows.Forms.PictureBox();
+                  this.letterSpacingLevelLabel = new System.Windows.Forms.Label();
+                  this.letterSpacingLevelInputBox = new System.Windows.Forms.NumericUpDown();
+                  this.letterSpacingModeInfoIcon = new System.Windows.Forms.PictureBox();
+                  this.characterSpecialRandGroupDisplay = new System.Windows.Forms.NumericUpDown();
+                  this.characterSpecialRandCheckBox = new System.Windows.Forms.CheckBox();
+                  this.characterLetterRandPercentageBox = new System.Windows.Forms.TextBox();
+                  this.characterNumberRandPercentageBox = new System.Windows.Forms.TextBox();
+                  this.characterSymbolRandPercentageBox = new System.Windows.Forms.TextBox();
+                  this.characterSpecialRandPercentageBox = new System.Windows.Forms.TextBox();
+                  this.fontRandomisationSettingsContainer = new System.Windows.Forms.GroupBox();
                   ((System.ComponentModel.ISupportInitialize)(this.IconTexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.MenuTexturesGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.EditorTexturesGroupDisplay)).BeginInit();
@@ -195,12 +195,6 @@
                   ((System.ComponentModel.ISupportInitialize)(this.themesSettingsButton)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.refreshThemesButton)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.seedInfoIcon)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.letterSpacingModeInfoIcon)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.fontRandomiseCharactersInfoIcon)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.characterSymbolRandGroupDisplay)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.characterNumberRandGroupDisplay)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.characterLetterRandGroupDisplay)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.characterSpecialRandGroupDisplay)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.CubeTexturesGroupDisplay_Gr)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.ShipTexturesGroupDisplay_Gr)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.BallTexturesGroupDisplay_Gr)).BeginInit();
@@ -221,15 +215,21 @@
                   ((System.ComponentModel.ISupportInitialize)(this.themesSettingsBackground)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.refreshThemesBackground)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.gameFolderWarningIcon)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.letterSpacingLevelInputBox)).BeginInit();
-                  this.fontRandomisationSettingsContainer.SuspendLayout();
-                  ((System.ComponentModel.ISupportInitialize)(this.fontAdvancedModeSeparatorConnectorBeam)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.fontRandMainConnectorBeam)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.fontRandomiseLettersConnectorBeam)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.letterSpacingConnectorBeam)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.fontRandWarningIcon)).BeginInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.shuffleFontsConnectorBeam)).BeginInit();
                   ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.shuffleFontsConnectorBeam)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.fontRandWarningIcon)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.characterSymbolRandGroupDisplay)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.letterSpacingConnectorBeam)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.characterNumberRandGroupDisplay)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.characterLetterRandGroupDisplay)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.fontRandomiseLettersConnectorBeam)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.fontRandomiseCharactersInfoIcon)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.fontRandMainConnectorBeam)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.fontAdvancedModeSeparatorConnectorBeam)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.letterSpacingLevelInputBox)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.letterSpacingModeInfoIcon)).BeginInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.characterSpecialRandGroupDisplay)).BeginInit();
+                  this.fontRandomisationSettingsContainer.SuspendLayout();
                   this.SuspendLayout();
                   // 
                   // IconTexturesCheckbox
@@ -850,228 +850,6 @@
                   this.button1.UseVisualStyleBackColor = true;
                   this.button1.Visible = false;
                   // 
-                  // fontRandEnabledCheckbox
-                  // 
-                  this.fontRandEnabledCheckbox.AutoSize = true;
-                  this.fontRandEnabledCheckbox.BackColor = System.Drawing.Color.Transparent;
-                  this.fontRandEnabledCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F);
-                  this.fontRandEnabledCheckbox.Location = new System.Drawing.Point(8, 22);
-                  this.fontRandEnabledCheckbox.Name = "fontRandEnabledCheckbox";
-                  this.fontRandEnabledCheckbox.Size = new System.Drawing.Size(90, 27);
-                  this.fontRandEnabledCheckbox.TabIndex = 0;
-                  this.fontRandEnabledCheckbox.Text = "Enabled";
-                  this.toolTip.SetToolTip(this.fontRandEnabledCheckbox, "Enable/Disable font randomisation");
-                  this.fontRandEnabledCheckbox.UseVisualStyleBackColor = false;
-                  this.fontRandEnabledCheckbox.Click += new System.EventHandler(this.FontRandEnabledCheckbox_Click);
-                  // 
-                  // fontShuffleStylesCheckbox
-                  // 
-                  this.fontShuffleStylesCheckbox.AutoSize = true;
-                  this.fontShuffleStylesCheckbox.BackColor = System.Drawing.Color.Transparent;
-                  this.fontShuffleStylesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F);
-                  this.fontShuffleStylesCheckbox.Location = new System.Drawing.Point(32, 52);
-                  this.fontShuffleStylesCheckbox.Name = "fontShuffleStylesCheckbox";
-                  this.fontShuffleStylesCheckbox.Size = new System.Drawing.Size(202, 27);
-                  this.fontShuffleStylesCheckbox.TabIndex = 1;
-                  this.fontShuffleStylesCheckbox.Text = "Randomize Font Styles";
-                  this.toolTip.SetToolTip(this.fontShuffleStylesCheckbox, "Randomise the way the characters look in the game");
-                  this.fontShuffleStylesCheckbox.UseVisualStyleBackColor = false;
-                  this.fontShuffleStylesCheckbox.Click += new System.EventHandler(this.FontShuffleStylesCheckbox_Click);
-                  // 
-                  // randomiseCharactersCheckBox
-                  // 
-                  this.randomiseCharactersCheckBox.AutoSize = true;
-                  this.randomiseCharactersCheckBox.BackColor = System.Drawing.Color.Transparent;
-                  this.randomiseCharactersCheckBox.Font = new System.Drawing.Font("Calibri", 14.25F);
-                  this.randomiseCharactersCheckBox.Location = new System.Drawing.Point(32, 112);
-                  this.randomiseCharactersCheckBox.Name = "randomiseCharactersCheckBox";
-                  this.randomiseCharactersCheckBox.Size = new System.Drawing.Size(201, 27);
-                  this.randomiseCharactersCheckBox.TabIndex = 2;
-                  this.randomiseCharactersCheckBox.Text = "Randomize Characters";
-                  this.toolTip.SetToolTip(this.randomiseCharactersCheckBox, "Swap letters around, say the letter \'a\' will look like a \'c\'. This might make rea" +
-        "ding a bit more difficult");
-                  this.randomiseCharactersCheckBox.UseVisualStyleBackColor = false;
-                  this.randomiseCharactersCheckBox.Click += new System.EventHandler(this.RandomiseCharactersSettingsChanged);
-                  // 
-                  // randomLetterSpacingCheckBox
-                  // 
-                  this.randomLetterSpacingCheckBox.AutoSize = true;
-                  this.randomLetterSpacingCheckBox.BackColor = System.Drawing.Color.Transparent;
-                  this.randomLetterSpacingCheckBox.Font = new System.Drawing.Font("Calibri", 14.25F);
-                  this.randomLetterSpacingCheckBox.Location = new System.Drawing.Point(32, 262);
-                  this.randomLetterSpacingCheckBox.Name = "randomLetterSpacingCheckBox";
-                  this.randomLetterSpacingCheckBox.Size = new System.Drawing.Size(205, 27);
-                  this.randomLetterSpacingCheckBox.TabIndex = 113;
-                  this.randomLetterSpacingCheckBox.Text = "Random Letter Spacing";
-                  this.toolTip.SetToolTip(this.randomLetterSpacingCheckBox, "Make the letters get spaced out or moved closer to each other randomly");
-                  this.randomLetterSpacingCheckBox.UseVisualStyleBackColor = false;
-                  this.randomLetterSpacingCheckBox.Click += new System.EventHandler(this.LetterSpacingSettingsChanged);
-                  // 
-                  // fontStyleRandModeLabel
-                  // 
-                  this.fontStyleRandModeLabel.AutoSize = true;
-                  this.fontStyleRandModeLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
-                  this.fontStyleRandModeLabel.Location = new System.Drawing.Point(54, 83);
-                  this.fontStyleRandModeLabel.Name = "fontStyleRandModeLabel";
-                  this.fontStyleRandModeLabel.Size = new System.Drawing.Size(64, 23);
-                  this.fontStyleRandModeLabel.TabIndex = 117;
-                  this.fontStyleRandModeLabel.Text = "Mode: ";
-                  this.toolTip.SetToolTip(this.fontStyleRandModeLabel, "Change if individual characters or entire fonts shoud be swapped around");
-                  // 
-                  // characterSymbolRandCheckBox
-                  // 
-                  this.characterSymbolRandCheckBox.AutoSize = true;
-                  this.characterSymbolRandCheckBox.BackColor = System.Drawing.Color.Transparent;
-                  this.characterSymbolRandCheckBox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.characterSymbolRandCheckBox.Location = new System.Drawing.Point(56, 202);
-                  this.characterSymbolRandCheckBox.Name = "characterSymbolRandCheckBox";
-                  this.characterSymbolRandCheckBox.Size = new System.Drawing.Size(94, 27);
-                  this.characterSymbolRandCheckBox.TabIndex = 113;
-                  this.characterSymbolRandCheckBox.Text = "Symbols";
-                  this.toolTip.SetToolTip(this.characterSymbolRandCheckBox, "The rule that determines how symbols like /.% should be swapped around");
-                  this.characterSymbolRandCheckBox.UseVisualStyleBackColor = false;
-                  this.characterSymbolRandCheckBox.Click += new System.EventHandler(this.SymbolsRandomisationSettingsChanged);
-                  // 
-                  // characterNumberRandCheckBox
-                  // 
-                  this.characterNumberRandCheckBox.AutoSize = true;
-                  this.characterNumberRandCheckBox.BackColor = System.Drawing.Color.Transparent;
-                  this.characterNumberRandCheckBox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.characterNumberRandCheckBox.Location = new System.Drawing.Point(56, 172);
-                  this.characterNumberRandCheckBox.Name = "characterNumberRandCheckBox";
-                  this.characterNumberRandCheckBox.Size = new System.Drawing.Size(100, 27);
-                  this.characterNumberRandCheckBox.TabIndex = 112;
-                  this.characterNumberRandCheckBox.Text = "Numbers";
-                  this.toolTip.SetToolTip(this.characterNumberRandCheckBox, "The rule that determines how digits should be swapped around");
-                  this.characterNumberRandCheckBox.UseVisualStyleBackColor = false;
-                  this.characterNumberRandCheckBox.Click += new System.EventHandler(this.NumbersRandomisationSettingsChanged);
-                  // 
-                  // characterLetterRandCheckBox
-                  // 
-                  this.characterLetterRandCheckBox.AutoSize = true;
-                  this.characterLetterRandCheckBox.BackColor = System.Drawing.Color.Transparent;
-                  this.characterLetterRandCheckBox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.characterLetterRandCheckBox.Location = new System.Drawing.Point(56, 142);
-                  this.characterLetterRandCheckBox.Name = "characterLetterRandCheckBox";
-                  this.characterLetterRandCheckBox.Size = new System.Drawing.Size(82, 27);
-                  this.characterLetterRandCheckBox.TabIndex = 111;
-                  this.characterLetterRandCheckBox.Text = "Letters";
-                  this.toolTip.SetToolTip(this.characterLetterRandCheckBox, "The rule that determines how letters should be swapped around");
-                  this.characterLetterRandCheckBox.UseVisualStyleBackColor = false;
-                  this.characterLetterRandCheckBox.Click += new System.EventHandler(this.LettersRandomisationSettingsChanged);
-                  // 
-                  // letterSpacingModeLabel
-                  // 
-                  this.letterSpacingModeLabel.AutoSize = true;
-                  this.letterSpacingModeLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
-                  this.letterSpacingModeLabel.Location = new System.Drawing.Point(54, 293);
-                  this.letterSpacingModeLabel.Name = "letterSpacingModeLabel";
-                  this.letterSpacingModeLabel.Size = new System.Drawing.Size(64, 23);
-                  this.letterSpacingModeLabel.TabIndex = 120;
-                  this.letterSpacingModeLabel.Text = "Mode: ";
-                  this.toolTip.SetToolTip(this.letterSpacingModeLabel, "Simple or advanced mode for letter spacing");
-                  // 
-                  // kerningMinLabel
-                  // 
-                  this.kerningMinLabel.AutoSize = true;
-                  this.kerningMinLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
-                  this.kerningMinLabel.Location = new System.Drawing.Point(127, 353);
-                  this.kerningMinLabel.Name = "kerningMinLabel";
-                  this.kerningMinLabel.Size = new System.Drawing.Size(45, 23);
-                  this.kerningMinLabel.TabIndex = 122;
-                  this.kerningMinLabel.Text = "Min:";
-                  this.toolTip.SetToolTip(this.kerningMinLabel, "This changes when 2 textures can be swapped. Having the value at 2x will only swa" +
-        "p textures that are between 2x smaller or 2x bigger. Bigger value = more chaotic" +
-        " game");
-                  // 
-                  // kerningMaxLabel
-                  // 
-                  this.kerningMaxLabel.AutoSize = true;
-                  this.kerningMaxLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
-                  this.kerningMaxLabel.Location = new System.Drawing.Point(210, 353);
-                  this.kerningMaxLabel.Name = "kerningMaxLabel";
-                  this.kerningMaxLabel.Size = new System.Drawing.Size(48, 23);
-                  this.kerningMaxLabel.TabIndex = 124;
-                  this.kerningMaxLabel.Text = "Max:";
-                  this.toolTip.SetToolTip(this.kerningMaxLabel, "This changes when 2 textures can be swapped. Having the value at 2x will only swa" +
-        "p textures that are between 2x smaller or 2x bigger. Bigger value = more chaotic" +
-        " game");
-                  // 
-                  // kerningLabel
-                  // 
-                  this.kerningLabel.AutoSize = true;
-                  this.kerningLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
-                  this.kerningLabel.Location = new System.Drawing.Point(54, 353);
-                  this.kerningLabel.Name = "kerningLabel";
-                  this.kerningLabel.Size = new System.Drawing.Size(69, 23);
-                  this.kerningLabel.TabIndex = 100;
-                  this.kerningLabel.Text = "Kerning";
-                  this.toolTip.SetToolTip(this.kerningLabel, "The distance between 2 characters when they are rendered one after another");
-                  // 
-                  // x_OffsetLabel
-                  // 
-                  this.x_OffsetLabel.AutoSize = true;
-                  this.x_OffsetLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
-                  this.x_OffsetLabel.Location = new System.Drawing.Point(54, 323);
-                  this.x_OffsetLabel.Name = "x_OffsetLabel";
-                  this.x_OffsetLabel.Size = new System.Drawing.Size(71, 23);
-                  this.x_OffsetLabel.TabIndex = 10001;
-                  this.x_OffsetLabel.Text = "X Offset";
-                  this.toolTip.SetToolTip(this.x_OffsetLabel, "After each letter there will be this much more or less space");
-                  // 
-                  // x_OffsetMinLabel
-                  // 
-                  this.x_OffsetMinLabel.AutoSize = true;
-                  this.x_OffsetMinLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
-                  this.x_OffsetMinLabel.Location = new System.Drawing.Point(127, 323);
-                  this.x_OffsetMinLabel.Name = "x_OffsetMinLabel";
-                  this.x_OffsetMinLabel.Size = new System.Drawing.Size(45, 23);
-                  this.x_OffsetMinLabel.TabIndex = 10002;
-                  this.x_OffsetMinLabel.Text = "Min:";
-                  this.toolTip.SetToolTip(this.x_OffsetMinLabel, "This changes when 2 textures can be swapped. Having the value at 2x will only swa" +
-        "p textures that are between 2x smaller or 2x bigger. Bigger value = more chaotic" +
-        " game");
-                  // 
-                  // x_OffsetMaxLabel
-                  // 
-                  this.x_OffsetMaxLabel.AutoSize = true;
-                  this.x_OffsetMaxLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
-                  this.x_OffsetMaxLabel.Location = new System.Drawing.Point(210, 323);
-                  this.x_OffsetMaxLabel.Name = "x_OffsetMaxLabel";
-                  this.x_OffsetMaxLabel.Size = new System.Drawing.Size(48, 23);
-                  this.x_OffsetMaxLabel.TabIndex = 10003;
-                  this.x_OffsetMaxLabel.Text = "Max:";
-                  this.toolTip.SetToolTip(this.x_OffsetMaxLabel, "This changes when 2 textures can be swapped. Having the value at 2x will only swa" +
-        "p textures that are between 2x smaller or 2x bigger. Bigger value = more chaotic" +
-        " game");
-                  // 
-                  // letterSpacingLevelLabel
-                  // 
-                  this.letterSpacingLevelLabel.AutoSize = true;
-                  this.letterSpacingLevelLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
-                  this.letterSpacingLevelLabel.Location = new System.Drawing.Point(54, 323);
-                  this.letterSpacingLevelLabel.Name = "letterSpacingLevelLabel";
-                  this.letterSpacingLevelLabel.Size = new System.Drawing.Size(120, 23);
-                  this.letterSpacingLevelLabel.TabIndex = 107;
-                  this.letterSpacingLevelLabel.Text = "Insanity Level:";
-                  this.toolTip.SetToolTip(this.letterSpacingLevelLabel, "How much or how likely it is that letters get rendered closer or further from eac" +
-        "h other");
-                  // 
-                  // characterSpecialRandCheckBox
-                  // 
-                  this.characterSpecialRandCheckBox.AutoSize = true;
-                  this.characterSpecialRandCheckBox.BackColor = System.Drawing.Color.Transparent;
-                  this.characterSpecialRandCheckBox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                  this.characterSpecialRandCheckBox.Location = new System.Drawing.Point(56, 232);
-                  this.characterSpecialRandCheckBox.Name = "characterSpecialRandCheckBox";
-                  this.characterSpecialRandCheckBox.Size = new System.Drawing.Size(90, 27);
-                  this.characterSpecialRandCheckBox.TabIndex = 10010;
-                  this.characterSpecialRandCheckBox.Text = "Specials";
-                  this.toolTip.SetToolTip(this.characterSpecialRandCheckBox, "The rule that determines how emojies and other unique characters should be swappe" +
-        "d around. This is eclusive to ChatFont");
-                  this.characterSpecialRandCheckBox.UseVisualStyleBackColor = false;
-                  this.characterSpecialRandCheckBox.Click += new System.EventHandler(this.SpecialsRandomisationSettingsChanged);
-                  // 
                   // themesSettingsButton
                   // 
                   this.themesSettingsButton.Image = global::Geometry_Dash_Randomiser.Properties.Resources.SettingsImage;
@@ -1107,28 +885,6 @@
                   this.seedInfoIcon.TabStop = false;
                   this.toolTip.SetToolTip(this.seedInfoIcon, "The application will generate a random seed when clicking \"Randomise\" if the seed" +
         " is set to 0.");
-                  // 
-                  // letterSpacingModeInfoIcon
-                  // 
-                  this.letterSpacingModeInfoIcon.Image = global::Geometry_Dash_Randomiser.Properties.Resources.InfoIcon;
-                  this.letterSpacingModeInfoIcon.InitialImage = null;
-                  this.letterSpacingModeInfoIcon.Location = new System.Drawing.Point(239, 296);
-                  this.letterSpacingModeInfoIcon.Name = "letterSpacingModeInfoIcon";
-                  this.letterSpacingModeInfoIcon.Size = new System.Drawing.Size(18, 18);
-                  this.letterSpacingModeInfoIcon.TabIndex = 10009;
-                  this.letterSpacingModeInfoIcon.TabStop = false;
-                  this.toolTip.SetToolTip(this.letterSpacingModeInfoIcon, "Click me for an explanation!");
-                  // 
-                  // fontRandomiseCharactersInfoIcon
-                  // 
-                  this.fontRandomiseCharactersInfoIcon.Image = global::Geometry_Dash_Randomiser.Properties.Resources.InfoIcon;
-                  this.fontRandomiseCharactersInfoIcon.InitialImage = null;
-                  this.fontRandomiseCharactersInfoIcon.Location = new System.Drawing.Point(228, 116);
-                  this.fontRandomiseCharactersInfoIcon.Name = "fontRandomiseCharactersInfoIcon";
-                  this.fontRandomiseCharactersInfoIcon.Size = new System.Drawing.Size(18, 18);
-                  this.fontRandomiseCharactersInfoIcon.TabIndex = 117;
-                  this.fontRandomiseCharactersInfoIcon.TabStop = false;
-                  this.toolTip.SetToolTip(this.fontRandomiseCharactersInfoIcon, "These are independent from the Icon and Texture randomisation groups");
                   // 
                   // button2
                   // 
@@ -1203,197 +959,6 @@
                   this.toolTip.SetToolTip(this.label1, "The randomization group to add these textures to. Each group will be shuffled tog" +
         "ether, but 0 will make only this group\'s contents get shuffled even if multiple " +
         "texture types are set to group 0");
-                  // 
-                  // characterSymbolRandGroupDisplay
-                  // 
-                  this.characterSymbolRandGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.characterSymbolRandGroupDisplay.Location = new System.Drawing.Point(240, 202);
-                  this.characterSymbolRandGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-                  this.characterSymbolRandGroupDisplay.Name = "characterSymbolRandGroupDisplay";
-                  this.characterSymbolRandGroupDisplay.Size = new System.Drawing.Size(55, 28);
-                  this.characterSymbolRandGroupDisplay.TabIndex = 116;
-                  this.toolTip.SetToolTip(this.characterSymbolRandGroupDisplay, "The randomization group to add these textures to. Each group will be shuffled tog" +
-        "ether, but 0 will make only this group\'s contents get shuffled even if multiple " +
-        "texture types are set to group 0");
-                  this.characterSymbolRandGroupDisplay.ValueChanged += new System.EventHandler(this.SymbolsRandomisationSettingsChanged);
-                  // 
-                  // characterNumberRandGroupDisplay
-                  // 
-                  this.characterNumberRandGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.characterNumberRandGroupDisplay.Location = new System.Drawing.Point(240, 172);
-                  this.characterNumberRandGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-                  this.characterNumberRandGroupDisplay.Name = "characterNumberRandGroupDisplay";
-                  this.characterNumberRandGroupDisplay.Size = new System.Drawing.Size(55, 28);
-                  this.characterNumberRandGroupDisplay.TabIndex = 115;
-                  this.toolTip.SetToolTip(this.characterNumberRandGroupDisplay, "The randomization group to add these textures to. Each group will be shuffled tog" +
-        "ether, but 0 will make only this group\'s contents get shuffled even if multiple " +
-        "texture types are set to group 0");
-                  this.characterNumberRandGroupDisplay.ValueChanged += new System.EventHandler(this.NumbersRandomisationSettingsChanged);
-                  // 
-                  // characterLetterRandGroupDisplay
-                  // 
-                  this.characterLetterRandGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.characterLetterRandGroupDisplay.Location = new System.Drawing.Point(240, 142);
-                  this.characterLetterRandGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-                  this.characterLetterRandGroupDisplay.Name = "characterLetterRandGroupDisplay";
-                  this.characterLetterRandGroupDisplay.Size = new System.Drawing.Size(55, 28);
-                  this.characterLetterRandGroupDisplay.TabIndex = 114;
-                  this.toolTip.SetToolTip(this.characterLetterRandGroupDisplay, "The randomization group to add these textures to. Each group will be shuffled tog" +
-        "ether, but 0 will make only this group\'s contents get shuffled even if multiple " +
-        "texture types are set to group 0");
-                  this.characterLetterRandGroupDisplay.ValueChanged += new System.EventHandler(this.LettersRandomisationSettingsChanged);
-                  // 
-                  // fontStyleModeSelector
-                  // 
-                  this.fontStyleModeSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-                  this.fontStyleModeSelector.Font = new System.Drawing.Font("Cambria", 12F);
-                  this.fontStyleModeSelector.FormattingEnabled = true;
-                  this.fontStyleModeSelector.Items.AddRange(new object[] {
-            "Per Font",
-            "Per Letter"});
-                  this.fontStyleModeSelector.Location = new System.Drawing.Point(115, 82);
-                  this.fontStyleModeSelector.Name = "fontStyleModeSelector";
-                  this.fontStyleModeSelector.Size = new System.Drawing.Size(120, 27);
-                  this.fontStyleModeSelector.TabIndex = 118;
-                  this.toolTip.SetToolTip(this.fontStyleModeSelector, "Change if individual characters or entire fonts shoud be swapped around");
-                  this.fontStyleModeSelector.SelectedIndexChanged += new System.EventHandler(this.FontShuffleStylesMode_Change);
-                  // 
-                  // kerningMinInput
-                  // 
-                  this.kerningMinInput.Font = new System.Drawing.Font("Cambria", 11.25F);
-                  this.kerningMinInput.Location = new System.Drawing.Point(170, 353);
-                  this.kerningMinInput.MaxLength = 4;
-                  this.kerningMinInput.Name = "kerningMinInput";
-                  this.kerningMinInput.Size = new System.Drawing.Size(38, 25);
-                  this.kerningMinInput.TabIndex = 9999;
-                  this.kerningMinInput.Text = "0";
-                  this.toolTip.SetToolTip(this.kerningMinInput, "Minimum range. -255 to 256 inclusive");
-                  this.kerningMinInput.Leave += new System.EventHandler(this.KerningMinInput_TextChanged);
-                  // 
-                  // kerningMaxInput
-                  // 
-                  this.kerningMaxInput.Font = new System.Drawing.Font("Cambria", 11.25F);
-                  this.kerningMaxInput.Location = new System.Drawing.Point(255, 353);
-                  this.kerningMaxInput.MaxLength = 4;
-                  this.kerningMaxInput.Name = "kerningMaxInput";
-                  this.kerningMaxInput.Size = new System.Drawing.Size(38, 25);
-                  this.kerningMaxInput.TabIndex = 9999;
-                  this.kerningMaxInput.Text = "0";
-                  this.toolTip.SetToolTip(this.kerningMaxInput, "Maximum range. -255 to 256 inclusive");
-                  this.kerningMaxInput.Leave += new System.EventHandler(this.KerningMaxInput_TextChanged);
-                  // 
-                  // x_OffsetMinInput
-                  // 
-                  this.x_OffsetMinInput.Font = new System.Drawing.Font("Cambria", 11.25F);
-                  this.x_OffsetMinInput.Location = new System.Drawing.Point(170, 323);
-                  this.x_OffsetMinInput.MaxLength = 4;
-                  this.x_OffsetMinInput.Name = "x_OffsetMinInput";
-                  this.x_OffsetMinInput.Size = new System.Drawing.Size(38, 25);
-                  this.x_OffsetMinInput.TabIndex = 10005;
-                  this.x_OffsetMinInput.Text = "0";
-                  this.toolTip.SetToolTip(this.x_OffsetMinInput, "Minimum range. -255 to 256 inclusive");
-                  this.x_OffsetMinInput.Leave += new System.EventHandler(this.X_OffsetMinInput_TextChanged);
-                  // 
-                  // x_OffsetMaxInput
-                  // 
-                  this.x_OffsetMaxInput.Font = new System.Drawing.Font("Cambria", 11.25F);
-                  this.x_OffsetMaxInput.Location = new System.Drawing.Point(255, 323);
-                  this.x_OffsetMaxInput.MaxLength = 4;
-                  this.x_OffsetMaxInput.Name = "x_OffsetMaxInput";
-                  this.x_OffsetMaxInput.Size = new System.Drawing.Size(38, 25);
-                  this.x_OffsetMaxInput.TabIndex = 10004;
-                  this.x_OffsetMaxInput.Text = "0";
-                  this.toolTip.SetToolTip(this.x_OffsetMaxInput, "Maximum range. -255 to 256 inclusive");
-                  this.x_OffsetMaxInput.Leave += new System.EventHandler(this.X_OffsetMaxInput_TextChanged);
-                  // 
-                  // characterSpecialRandPercentageBox
-                  // 
-                  this.characterSpecialRandPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-                  this.characterSpecialRandPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.characterSpecialRandPercentageBox.Location = new System.Drawing.Point(178, 232);
-                  this.characterSpecialRandPercentageBox.MaxLength = 4;
-                  this.characterSpecialRandPercentageBox.Name = "characterSpecialRandPercentageBox";
-                  this.characterSpecialRandPercentageBox.Size = new System.Drawing.Size(60, 28);
-                  this.characterSpecialRandPercentageBox.TabIndex = 10014;
-                  this.characterSpecialRandPercentageBox.Text = "100%";
-                  this.toolTip.SetToolTip(this.characterSpecialRandPercentageBox, "What percentage of textures in this category should get shuffled around. Minimum " +
-        "0%, maximum 100%");
-                  this.characterSpecialRandPercentageBox.Leave += new System.EventHandler(this.SpecialsRandomisationSettingsChanged);
-                  this.characterSpecialRandPercentageBox.Validated += new System.EventHandler(this.ValidatePercentageTextBox);
-                  // 
-                  // characterSymbolRandPercentageBox
-                  // 
-                  this.characterSymbolRandPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-                  this.characterSymbolRandPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.characterSymbolRandPercentageBox.Location = new System.Drawing.Point(178, 202);
-                  this.characterSymbolRandPercentageBox.MaxLength = 4;
-                  this.characterSymbolRandPercentageBox.Name = "characterSymbolRandPercentageBox";
-                  this.characterSymbolRandPercentageBox.Size = new System.Drawing.Size(60, 28);
-                  this.characterSymbolRandPercentageBox.TabIndex = 10013;
-                  this.characterSymbolRandPercentageBox.Text = "100%";
-                  this.toolTip.SetToolTip(this.characterSymbolRandPercentageBox, "What percentage of textures in this category should get shuffled around. Minimum " +
-        "0%, maximum 100%");
-                  this.characterSymbolRandPercentageBox.Leave += new System.EventHandler(this.SymbolsRandomisationSettingsChanged);
-                  this.characterSymbolRandPercentageBox.Validated += new System.EventHandler(this.ValidatePercentageTextBox);
-                  // 
-                  // characterNumberRandPercentageBox
-                  // 
-                  this.characterNumberRandPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-                  this.characterNumberRandPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.characterNumberRandPercentageBox.Location = new System.Drawing.Point(178, 172);
-                  this.characterNumberRandPercentageBox.MaxLength = 4;
-                  this.characterNumberRandPercentageBox.Name = "characterNumberRandPercentageBox";
-                  this.characterNumberRandPercentageBox.Size = new System.Drawing.Size(60, 28);
-                  this.characterNumberRandPercentageBox.TabIndex = 10012;
-                  this.characterNumberRandPercentageBox.Text = "100%";
-                  this.toolTip.SetToolTip(this.characterNumberRandPercentageBox, "What percentage of textures in this category should get shuffled around. Minimum " +
-        "0%, maximum 100%");
-                  this.characterNumberRandPercentageBox.Leave += new System.EventHandler(this.NumbersRandomisationSettingsChanged);
-                  this.characterNumberRandPercentageBox.Validated += new System.EventHandler(this.ValidatePercentageTextBox);
-                  // 
-                  // characterLetterRandPercentageBox
-                  // 
-                  this.characterLetterRandPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-                  this.characterLetterRandPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.characterLetterRandPercentageBox.Location = new System.Drawing.Point(178, 142);
-                  this.characterLetterRandPercentageBox.MaxLength = 4;
-                  this.characterLetterRandPercentageBox.Name = "characterLetterRandPercentageBox";
-                  this.characterLetterRandPercentageBox.Size = new System.Drawing.Size(60, 28);
-                  this.characterLetterRandPercentageBox.TabIndex = 116;
-                  this.characterLetterRandPercentageBox.Text = "100%";
-                  this.toolTip.SetToolTip(this.characterLetterRandPercentageBox, "What percentage of textures in this category should get shuffled around. Minimum " +
-        "0%, maximum 100%");
-                  this.characterLetterRandPercentageBox.Leave += new System.EventHandler(this.LettersRandomisationSettingsChanged);
-                  this.characterLetterRandPercentageBox.Validated += new System.EventHandler(this.ValidatePercentageTextBox);
-                  // 
-                  // characterSpecialRandGroupDisplay
-                  // 
-                  this.characterSpecialRandGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
-                  this.characterSpecialRandGroupDisplay.Location = new System.Drawing.Point(240, 232);
-                  this.characterSpecialRandGroupDisplay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-                  this.characterSpecialRandGroupDisplay.Name = "characterSpecialRandGroupDisplay";
-                  this.characterSpecialRandGroupDisplay.Size = new System.Drawing.Size(55, 28);
-                  this.characterSpecialRandGroupDisplay.TabIndex = 10011;
-                  this.toolTip.SetToolTip(this.characterSpecialRandGroupDisplay, "The randomization group to add these textures to. Each group will be shuffled tog" +
-        "ether, but 0 will make only this group\'s contents get shuffled even if multiple " +
-        "texture types are set to group 0");
-                  this.characterSpecialRandGroupDisplay.ValueChanged += new System.EventHandler(this.SpecialsRandomisationSettingsChanged);
                   // 
                   // textureQualitySelectorBox
                   // 
@@ -2176,6 +1741,260 @@
                   this.elapsedTimeDisplay.Text = "Elapsed Time";
                   this.elapsedTimeDisplay.Visible = false;
                   // 
+                  // Logo
+                  // 
+                  this.Logo.Image = ((System.Drawing.Image)(resources.GetObject("Logo.Image")));
+                  this.Logo.InitialImage = null;
+                  this.Logo.Location = new System.Drawing.Point(10, 10);
+                  this.Logo.Name = "Logo";
+                  this.Logo.Size = new System.Drawing.Size(60, 60);
+                  this.Logo.TabIndex = 120;
+                  this.Logo.TabStop = false;
+                  this.Logo.Click += new System.EventHandler(this.Logo_Click);
+                  // 
+                  // fontRandEnabledCheckbox
+                  // 
+                  this.fontRandEnabledCheckbox.AutoSize = true;
+                  this.fontRandEnabledCheckbox.BackColor = System.Drawing.Color.Transparent;
+                  this.fontRandEnabledCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.fontRandEnabledCheckbox.Location = new System.Drawing.Point(8, 22);
+                  this.fontRandEnabledCheckbox.Name = "fontRandEnabledCheckbox";
+                  this.fontRandEnabledCheckbox.Size = new System.Drawing.Size(90, 27);
+                  this.fontRandEnabledCheckbox.TabIndex = 0;
+                  this.fontRandEnabledCheckbox.Text = "Enabled";
+                  this.toolTip.SetToolTip(this.fontRandEnabledCheckbox, "Enable/Disable font randomisation");
+                  this.fontRandEnabledCheckbox.UseVisualStyleBackColor = false;
+                  this.fontRandEnabledCheckbox.Click += new System.EventHandler(this.FontRandEnabledCheckbox_Click);
+                  // 
+                  // fontShuffleStylesCheckbox
+                  // 
+                  this.fontShuffleStylesCheckbox.AutoSize = true;
+                  this.fontShuffleStylesCheckbox.BackColor = System.Drawing.Color.Transparent;
+                  this.fontShuffleStylesCheckbox.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.fontShuffleStylesCheckbox.Location = new System.Drawing.Point(32, 52);
+                  this.fontShuffleStylesCheckbox.Name = "fontShuffleStylesCheckbox";
+                  this.fontShuffleStylesCheckbox.Size = new System.Drawing.Size(202, 27);
+                  this.fontShuffleStylesCheckbox.TabIndex = 1;
+                  this.fontShuffleStylesCheckbox.Text = "Randomize Font Styles";
+                  this.toolTip.SetToolTip(this.fontShuffleStylesCheckbox, "Randomise the way the characters look in the game");
+                  this.fontShuffleStylesCheckbox.UseVisualStyleBackColor = false;
+                  this.fontShuffleStylesCheckbox.Click += new System.EventHandler(this.FontShuffleStylesCheckbox_Click);
+                  // 
+                  // randomiseCharactersCheckBox
+                  // 
+                  this.randomiseCharactersCheckBox.AutoSize = true;
+                  this.randomiseCharactersCheckBox.BackColor = System.Drawing.Color.Transparent;
+                  this.randomiseCharactersCheckBox.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.randomiseCharactersCheckBox.Location = new System.Drawing.Point(32, 112);
+                  this.randomiseCharactersCheckBox.Name = "randomiseCharactersCheckBox";
+                  this.randomiseCharactersCheckBox.Size = new System.Drawing.Size(201, 27);
+                  this.randomiseCharactersCheckBox.TabIndex = 2;
+                  this.randomiseCharactersCheckBox.Text = "Randomize Characters";
+                  this.toolTip.SetToolTip(this.randomiseCharactersCheckBox, "Swap letters around, say the letter \'a\' will look like a \'c\'. This might make rea" +
+        "ding a bit more difficult");
+                  this.randomiseCharactersCheckBox.UseVisualStyleBackColor = false;
+                  this.randomiseCharactersCheckBox.Click += new System.EventHandler(this.RandomiseCharactersSettingsChanged);
+                  // 
+                  // shuffleFontsConnectorBeam
+                  // 
+                  this.shuffleFontsConnectorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.ConnectorBeamWhite;
+                  this.shuffleFontsConnectorBeam.Location = new System.Drawing.Point(37, 74);
+                  this.shuffleFontsConnectorBeam.Name = "shuffleFontsConnectorBeam";
+                  this.shuffleFontsConnectorBeam.Size = new System.Drawing.Size(17, 22);
+                  this.shuffleFontsConnectorBeam.TabIndex = 89;
+                  this.shuffleFontsConnectorBeam.TabStop = false;
+                  // 
+                  // fontRandWarningIcon
+                  // 
+                  this.fontRandWarningIcon.Image = global::Geometry_Dash_Randomiser.Properties.Resources.Warning;
+                  this.fontRandWarningIcon.Location = new System.Drawing.Point(93, 25);
+                  this.fontRandWarningIcon.Name = "fontRandWarningIcon";
+                  this.fontRandWarningIcon.Size = new System.Drawing.Size(22, 19);
+                  this.fontRandWarningIcon.TabIndex = 112;
+                  this.fontRandWarningIcon.TabStop = false;
+                  // 
+                  // randomLetterSpacingCheckBox
+                  // 
+                  this.randomLetterSpacingCheckBox.AutoSize = true;
+                  this.randomLetterSpacingCheckBox.BackColor = System.Drawing.Color.Transparent;
+                  this.randomLetterSpacingCheckBox.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.randomLetterSpacingCheckBox.Location = new System.Drawing.Point(32, 262);
+                  this.randomLetterSpacingCheckBox.Name = "randomLetterSpacingCheckBox";
+                  this.randomLetterSpacingCheckBox.Size = new System.Drawing.Size(205, 27);
+                  this.randomLetterSpacingCheckBox.TabIndex = 113;
+                  this.randomLetterSpacingCheckBox.Text = "Random Letter Spacing";
+                  this.toolTip.SetToolTip(this.randomLetterSpacingCheckBox, "Make the letters get spaced out or moved closer to each other randomly");
+                  this.randomLetterSpacingCheckBox.UseVisualStyleBackColor = false;
+                  this.randomLetterSpacingCheckBox.Click += new System.EventHandler(this.LetterSpacingSettingsChanged);
+                  // 
+                  // characterSymbolRandGroupDisplay
+                  // 
+                  this.characterSymbolRandGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
+                  this.characterSymbolRandGroupDisplay.Location = new System.Drawing.Point(240, 202);
+                  this.characterSymbolRandGroupDisplay.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+                  this.characterSymbolRandGroupDisplay.Name = "characterSymbolRandGroupDisplay";
+                  this.characterSymbolRandGroupDisplay.Size = new System.Drawing.Size(55, 28);
+                  this.characterSymbolRandGroupDisplay.TabIndex = 116;
+                  this.toolTip.SetToolTip(this.characterSymbolRandGroupDisplay, "The randomization group to add these textures to. Each group will be shuffled tog" +
+        "ether, but 0 will make only this group\'s contents get shuffled even if multiple " +
+        "texture types are set to group 0");
+                  this.characterSymbolRandGroupDisplay.ValueChanged += new System.EventHandler(this.SymbolsRandomisationSettingsChanged);
+                  // 
+                  // letterSpacingConnectorBeam
+                  // 
+                  this.letterSpacingConnectorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.ConnectorBeamWhite;
+                  this.letterSpacingConnectorBeam.Location = new System.Drawing.Point(37, 284);
+                  this.letterSpacingConnectorBeam.Name = "letterSpacingConnectorBeam";
+                  this.letterSpacingConnectorBeam.Size = new System.Drawing.Size(17, 82);
+                  this.letterSpacingConnectorBeam.TabIndex = 116;
+                  this.letterSpacingConnectorBeam.TabStop = false;
+                  // 
+                  // characterNumberRandGroupDisplay
+                  // 
+                  this.characterNumberRandGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
+                  this.characterNumberRandGroupDisplay.Location = new System.Drawing.Point(240, 172);
+                  this.characterNumberRandGroupDisplay.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+                  this.characterNumberRandGroupDisplay.Name = "characterNumberRandGroupDisplay";
+                  this.characterNumberRandGroupDisplay.Size = new System.Drawing.Size(55, 28);
+                  this.characterNumberRandGroupDisplay.TabIndex = 115;
+                  this.toolTip.SetToolTip(this.characterNumberRandGroupDisplay, "The randomization group to add these textures to. Each group will be shuffled tog" +
+        "ether, but 0 will make only this group\'s contents get shuffled even if multiple " +
+        "texture types are set to group 0");
+                  this.characterNumberRandGroupDisplay.ValueChanged += new System.EventHandler(this.NumbersRandomisationSettingsChanged);
+                  // 
+                  // characterLetterRandGroupDisplay
+                  // 
+                  this.characterLetterRandGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
+                  this.characterLetterRandGroupDisplay.Location = new System.Drawing.Point(240, 142);
+                  this.characterLetterRandGroupDisplay.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+                  this.characterLetterRandGroupDisplay.Name = "characterLetterRandGroupDisplay";
+                  this.characterLetterRandGroupDisplay.Size = new System.Drawing.Size(55, 28);
+                  this.characterLetterRandGroupDisplay.TabIndex = 114;
+                  this.toolTip.SetToolTip(this.characterLetterRandGroupDisplay, "The randomization group to add these textures to. Each group will be shuffled tog" +
+        "ether, but 0 will make only this group\'s contents get shuffled even if multiple " +
+        "texture types are set to group 0");
+                  this.characterLetterRandGroupDisplay.ValueChanged += new System.EventHandler(this.LettersRandomisationSettingsChanged);
+                  // 
+                  // fontStyleRandModeLabel
+                  // 
+                  this.fontStyleRandModeLabel.AutoSize = true;
+                  this.fontStyleRandModeLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.fontStyleRandModeLabel.Location = new System.Drawing.Point(54, 83);
+                  this.fontStyleRandModeLabel.Name = "fontStyleRandModeLabel";
+                  this.fontStyleRandModeLabel.Size = new System.Drawing.Size(64, 23);
+                  this.fontStyleRandModeLabel.TabIndex = 117;
+                  this.fontStyleRandModeLabel.Text = "Mode: ";
+                  this.toolTip.SetToolTip(this.fontStyleRandModeLabel, "Change if individual characters or entire fonts shoud be swapped around");
+                  // 
+                  // characterSymbolRandCheckBox
+                  // 
+                  this.characterSymbolRandCheckBox.AutoSize = true;
+                  this.characterSymbolRandCheckBox.BackColor = System.Drawing.Color.Transparent;
+                  this.characterSymbolRandCheckBox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.characterSymbolRandCheckBox.Location = new System.Drawing.Point(56, 202);
+                  this.characterSymbolRandCheckBox.Name = "characterSymbolRandCheckBox";
+                  this.characterSymbolRandCheckBox.Size = new System.Drawing.Size(94, 27);
+                  this.characterSymbolRandCheckBox.TabIndex = 113;
+                  this.characterSymbolRandCheckBox.Text = "Symbols";
+                  this.toolTip.SetToolTip(this.characterSymbolRandCheckBox, "The rule that determines how symbols like /.% should be swapped around");
+                  this.characterSymbolRandCheckBox.UseVisualStyleBackColor = false;
+                  this.characterSymbolRandCheckBox.Click += new System.EventHandler(this.SymbolsRandomisationSettingsChanged);
+                  // 
+                  // fontStyleModeSelector
+                  // 
+                  this.fontStyleModeSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+                  this.fontStyleModeSelector.Font = new System.Drawing.Font("Cambria", 12F);
+                  this.fontStyleModeSelector.FormattingEnabled = true;
+                  this.fontStyleModeSelector.Items.AddRange(new object[] {
+            "Per Font",
+            "Per Letter"});
+                  this.fontStyleModeSelector.Location = new System.Drawing.Point(115, 82);
+                  this.fontStyleModeSelector.Name = "fontStyleModeSelector";
+                  this.fontStyleModeSelector.Size = new System.Drawing.Size(120, 27);
+                  this.fontStyleModeSelector.TabIndex = 118;
+                  this.toolTip.SetToolTip(this.fontStyleModeSelector, "Change if individual characters or entire fonts shoud be swapped around");
+                  this.fontStyleModeSelector.SelectedIndexChanged += new System.EventHandler(this.FontShuffleStylesMode_Change);
+                  // 
+                  // characterNumberRandCheckBox
+                  // 
+                  this.characterNumberRandCheckBox.AutoSize = true;
+                  this.characterNumberRandCheckBox.BackColor = System.Drawing.Color.Transparent;
+                  this.characterNumberRandCheckBox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.characterNumberRandCheckBox.Location = new System.Drawing.Point(56, 172);
+                  this.characterNumberRandCheckBox.Name = "characterNumberRandCheckBox";
+                  this.characterNumberRandCheckBox.Size = new System.Drawing.Size(100, 27);
+                  this.characterNumberRandCheckBox.TabIndex = 112;
+                  this.characterNumberRandCheckBox.Text = "Numbers";
+                  this.toolTip.SetToolTip(this.characterNumberRandCheckBox, "The rule that determines how digits should be swapped around");
+                  this.characterNumberRandCheckBox.UseVisualStyleBackColor = false;
+                  this.characterNumberRandCheckBox.Click += new System.EventHandler(this.NumbersRandomisationSettingsChanged);
+                  // 
+                  // fontRandomiseLettersConnectorBeam
+                  // 
+                  this.fontRandomiseLettersConnectorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.ConnectorBeamWhite;
+                  this.fontRandomiseLettersConnectorBeam.Location = new System.Drawing.Point(37, 134);
+                  this.fontRandomiseLettersConnectorBeam.Name = "fontRandomiseLettersConnectorBeam";
+                  this.fontRandomiseLettersConnectorBeam.Size = new System.Drawing.Size(17, 112);
+                  this.fontRandomiseLettersConnectorBeam.TabIndex = 119;
+                  this.fontRandomiseLettersConnectorBeam.TabStop = false;
+                  // 
+                  // characterLetterRandCheckBox
+                  // 
+                  this.characterLetterRandCheckBox.AutoSize = true;
+                  this.characterLetterRandCheckBox.BackColor = System.Drawing.Color.Transparent;
+                  this.characterLetterRandCheckBox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.characterLetterRandCheckBox.Location = new System.Drawing.Point(56, 142);
+                  this.characterLetterRandCheckBox.Name = "characterLetterRandCheckBox";
+                  this.characterLetterRandCheckBox.Size = new System.Drawing.Size(82, 27);
+                  this.characterLetterRandCheckBox.TabIndex = 111;
+                  this.characterLetterRandCheckBox.Text = "Letters";
+                  this.toolTip.SetToolTip(this.characterLetterRandCheckBox, "The rule that determines how letters should be swapped around");
+                  this.characterLetterRandCheckBox.UseVisualStyleBackColor = false;
+                  this.characterLetterRandCheckBox.Click += new System.EventHandler(this.LettersRandomisationSettingsChanged);
+                  // 
+                  // fontRandomiseCharactersInfoIcon
+                  // 
+                  this.fontRandomiseCharactersInfoIcon.Image = global::Geometry_Dash_Randomiser.Properties.Resources.InfoIcon;
+                  this.fontRandomiseCharactersInfoIcon.InitialImage = null;
+                  this.fontRandomiseCharactersInfoIcon.Location = new System.Drawing.Point(228, 116);
+                  this.fontRandomiseCharactersInfoIcon.Name = "fontRandomiseCharactersInfoIcon";
+                  this.fontRandomiseCharactersInfoIcon.Size = new System.Drawing.Size(18, 18);
+                  this.fontRandomiseCharactersInfoIcon.TabIndex = 117;
+                  this.fontRandomiseCharactersInfoIcon.TabStop = false;
+                  this.toolTip.SetToolTip(this.fontRandomiseCharactersInfoIcon, "These are independent from the Icon and Texture randomisation groups");
+                  // 
+                  // fontRandMainConnectorBeam
+                  // 
+                  this.fontRandMainConnectorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.FontConnectorBeam;
+                  this.fontRandMainConnectorBeam.Location = new System.Drawing.Point(13, 44);
+                  this.fontRandMainConnectorBeam.Name = "fontRandMainConnectorBeam";
+                  this.fontRandMainConnectorBeam.Size = new System.Drawing.Size(17, 232);
+                  this.fontRandMainConnectorBeam.TabIndex = 111;
+                  this.fontRandMainConnectorBeam.TabStop = false;
+                  // 
+                  // letterSpacingModeLabel
+                  // 
+                  this.letterSpacingModeLabel.AutoSize = true;
+                  this.letterSpacingModeLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.letterSpacingModeLabel.Location = new System.Drawing.Point(54, 293);
+                  this.letterSpacingModeLabel.Name = "letterSpacingModeLabel";
+                  this.letterSpacingModeLabel.Size = new System.Drawing.Size(64, 23);
+                  this.letterSpacingModeLabel.TabIndex = 120;
+                  this.letterSpacingModeLabel.Text = "Mode: ";
+                  this.toolTip.SetToolTip(this.letterSpacingModeLabel, "Simple or advanced mode for letter spacing");
+                  // 
                   // letterSpacingModeSelector
                   // 
                   this.letterSpacingModeSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -2189,6 +2008,149 @@
                   this.letterSpacingModeSelector.Size = new System.Drawing.Size(120, 27);
                   this.letterSpacingModeSelector.TabIndex = 121;
                   this.letterSpacingModeSelector.SelectedIndexChanged += new System.EventHandler(this.LetterSpacingModeSettingsChanged);
+                  // 
+                  // kerningMinLabel
+                  // 
+                  this.kerningMinLabel.AutoSize = true;
+                  this.kerningMinLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.kerningMinLabel.Location = new System.Drawing.Point(127, 353);
+                  this.kerningMinLabel.Name = "kerningMinLabel";
+                  this.kerningMinLabel.Size = new System.Drawing.Size(45, 23);
+                  this.kerningMinLabel.TabIndex = 122;
+                  this.kerningMinLabel.Text = "Min:";
+                  this.toolTip.SetToolTip(this.kerningMinLabel, "This changes when 2 textures can be swapped. Having the value at 2x will only swa" +
+        "p textures that are between 2x smaller or 2x bigger. Bigger value = more chaotic" +
+        " game");
+                  // 
+                  // kerningMinInput
+                  // 
+                  this.kerningMinInput.Font = new System.Drawing.Font("Cambria", 11.25F);
+                  this.kerningMinInput.Location = new System.Drawing.Point(170, 353);
+                  this.kerningMinInput.MaxLength = 4;
+                  this.kerningMinInput.Name = "kerningMinInput";
+                  this.kerningMinInput.Size = new System.Drawing.Size(38, 25);
+                  this.kerningMinInput.TabIndex = 9999;
+                  this.kerningMinInput.Text = "0";
+                  this.toolTip.SetToolTip(this.kerningMinInput, "Minimum range. -255 to 256 inclusive");
+                  this.kerningMinInput.Leave += new System.EventHandler(this.KerningMinInput_TextChanged);
+                  // 
+                  // kerningMaxLabel
+                  // 
+                  this.kerningMaxLabel.AutoSize = true;
+                  this.kerningMaxLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.kerningMaxLabel.Location = new System.Drawing.Point(211, 353);
+                  this.kerningMaxLabel.Name = "kerningMaxLabel";
+                  this.kerningMaxLabel.Size = new System.Drawing.Size(48, 23);
+                  this.kerningMaxLabel.TabIndex = 124;
+                  this.kerningMaxLabel.Text = "Max:";
+                  this.toolTip.SetToolTip(this.kerningMaxLabel, "This changes when 2 textures can be swapped. Having the value at 2x will only swa" +
+        "p textures that are between 2x smaller or 2x bigger. Bigger value = more chaotic" +
+        " game");
+                  // 
+                  // kerningMaxInput
+                  // 
+                  this.kerningMaxInput.Font = new System.Drawing.Font("Cambria", 11.25F);
+                  this.kerningMaxInput.Location = new System.Drawing.Point(257, 353);
+                  this.kerningMaxInput.MaxLength = 4;
+                  this.kerningMaxInput.Name = "kerningMaxInput";
+                  this.kerningMaxInput.Size = new System.Drawing.Size(38, 25);
+                  this.kerningMaxInput.TabIndex = 9999;
+                  this.kerningMaxInput.Text = "0";
+                  this.toolTip.SetToolTip(this.kerningMaxInput, "Maximum range. -255 to 256 inclusive");
+                  this.kerningMaxInput.Leave += new System.EventHandler(this.KerningMaxInput_TextChanged);
+                  // 
+                  // kerningLabel
+                  // 
+                  this.kerningLabel.AutoSize = true;
+                  this.kerningLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.kerningLabel.Location = new System.Drawing.Point(54, 353);
+                  this.kerningLabel.Name = "kerningLabel";
+                  this.kerningLabel.Size = new System.Drawing.Size(69, 23);
+                  this.kerningLabel.TabIndex = 100;
+                  this.kerningLabel.Text = "Kerning";
+                  this.toolTip.SetToolTip(this.kerningLabel, "The distance between 2 characters when they are rendered one after another");
+                  // 
+                  // x_OffsetLabel
+                  // 
+                  this.x_OffsetLabel.AutoSize = true;
+                  this.x_OffsetLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.x_OffsetLabel.Location = new System.Drawing.Point(54, 323);
+                  this.x_OffsetLabel.Name = "x_OffsetLabel";
+                  this.x_OffsetLabel.Size = new System.Drawing.Size(71, 23);
+                  this.x_OffsetLabel.TabIndex = 10001;
+                  this.x_OffsetLabel.Text = "X Offset";
+                  this.toolTip.SetToolTip(this.x_OffsetLabel, "After each letter there will be this much more or less space");
+                  // 
+                  // x_OffsetMinLabel
+                  // 
+                  this.x_OffsetMinLabel.AutoSize = true;
+                  this.x_OffsetMinLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.x_OffsetMinLabel.Location = new System.Drawing.Point(127, 323);
+                  this.x_OffsetMinLabel.Name = "x_OffsetMinLabel";
+                  this.x_OffsetMinLabel.Size = new System.Drawing.Size(45, 23);
+                  this.x_OffsetMinLabel.TabIndex = 10002;
+                  this.x_OffsetMinLabel.Text = "Min:";
+                  this.toolTip.SetToolTip(this.x_OffsetMinLabel, "This changes when 2 textures can be swapped. Having the value at 2x will only swa" +
+        "p textures that are between 2x smaller or 2x bigger. Bigger value = more chaotic" +
+        " game");
+                  // 
+                  // x_OffsetMinInput
+                  // 
+                  this.x_OffsetMinInput.Font = new System.Drawing.Font("Cambria", 11.25F);
+                  this.x_OffsetMinInput.Location = new System.Drawing.Point(170, 323);
+                  this.x_OffsetMinInput.MaxLength = 4;
+                  this.x_OffsetMinInput.Name = "x_OffsetMinInput";
+                  this.x_OffsetMinInput.Size = new System.Drawing.Size(38, 25);
+                  this.x_OffsetMinInput.TabIndex = 10005;
+                  this.x_OffsetMinInput.Text = "0";
+                  this.toolTip.SetToolTip(this.x_OffsetMinInput, "Minimum range. -255 to 256 inclusive");
+                  this.x_OffsetMinInput.Leave += new System.EventHandler(this.X_OffsetMinInput_TextChanged);
+                  // 
+                  // x_OffsetMaxLabel
+                  // 
+                  this.x_OffsetMaxLabel.AutoSize = true;
+                  this.x_OffsetMaxLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.x_OffsetMaxLabel.Location = new System.Drawing.Point(211, 323);
+                  this.x_OffsetMaxLabel.Name = "x_OffsetMaxLabel";
+                  this.x_OffsetMaxLabel.Size = new System.Drawing.Size(48, 23);
+                  this.x_OffsetMaxLabel.TabIndex = 10003;
+                  this.x_OffsetMaxLabel.Text = "Max:";
+                  this.toolTip.SetToolTip(this.x_OffsetMaxLabel, "This changes when 2 textures can be swapped. Having the value at 2x will only swa" +
+        "p textures that are between 2x smaller or 2x bigger. Bigger value = more chaotic" +
+        " game");
+                  // 
+                  // x_OffsetMaxInput
+                  // 
+                  this.x_OffsetMaxInput.Font = new System.Drawing.Font("Cambria", 11.25F);
+                  this.x_OffsetMaxInput.Location = new System.Drawing.Point(257, 323);
+                  this.x_OffsetMaxInput.MaxLength = 4;
+                  this.x_OffsetMaxInput.Name = "x_OffsetMaxInput";
+                  this.x_OffsetMaxInput.Size = new System.Drawing.Size(38, 25);
+                  this.x_OffsetMaxInput.TabIndex = 10004;
+                  this.x_OffsetMaxInput.Text = "0";
+                  this.toolTip.SetToolTip(this.x_OffsetMaxInput, "Maximum range. -255 to 256 inclusive");
+                  this.x_OffsetMaxInput.Leave += new System.EventHandler(this.X_OffsetMaxInput_TextChanged);
+                  // 
+                  // fontAdvancedModeSeparatorConnectorBeam
+                  // 
+                  this.fontAdvancedModeSeparatorConnectorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.ConnectorBeamWhite;
+                  this.fontAdvancedModeSeparatorConnectorBeam.Location = new System.Drawing.Point(124, 326);
+                  this.fontAdvancedModeSeparatorConnectorBeam.Name = "fontAdvancedModeSeparatorConnectorBeam";
+                  this.fontAdvancedModeSeparatorConnectorBeam.Size = new System.Drawing.Size(2, 50);
+                  this.fontAdvancedModeSeparatorConnectorBeam.TabIndex = 10006;
+                  this.fontAdvancedModeSeparatorConnectorBeam.TabStop = false;
+                  // 
+                  // letterSpacingLevelLabel
+                  // 
+                  this.letterSpacingLevelLabel.AutoSize = true;
+                  this.letterSpacingLevelLabel.Font = new System.Drawing.Font("Calibri", 14.25F);
+                  this.letterSpacingLevelLabel.Location = new System.Drawing.Point(54, 323);
+                  this.letterSpacingLevelLabel.Name = "letterSpacingLevelLabel";
+                  this.letterSpacingLevelLabel.Size = new System.Drawing.Size(120, 23);
+                  this.letterSpacingLevelLabel.TabIndex = 107;
+                  this.letterSpacingLevelLabel.Text = "Insanity Level:";
+                  this.toolTip.SetToolTip(this.letterSpacingLevelLabel, "How much or how likely it is that letters get rendered closer or further from eac" +
+        "h other");
                   // 
                   // letterSpacingLevelInputBox
                   // 
@@ -2213,6 +2175,109 @@
             0,
             0});
                   this.letterSpacingLevelInputBox.ValueChanged += new System.EventHandler(this.letterSpacingLevelInputBox_ValueChanged);
+                  // 
+                  // letterSpacingModeInfoIcon
+                  // 
+                  this.letterSpacingModeInfoIcon.Image = global::Geometry_Dash_Randomiser.Properties.Resources.InfoIcon;
+                  this.letterSpacingModeInfoIcon.InitialImage = null;
+                  this.letterSpacingModeInfoIcon.Location = new System.Drawing.Point(239, 296);
+                  this.letterSpacingModeInfoIcon.Name = "letterSpacingModeInfoIcon";
+                  this.letterSpacingModeInfoIcon.Size = new System.Drawing.Size(18, 18);
+                  this.letterSpacingModeInfoIcon.TabIndex = 10009;
+                  this.letterSpacingModeInfoIcon.TabStop = false;
+                  this.toolTip.SetToolTip(this.letterSpacingModeInfoIcon, "Click me for an explanation!");
+                  // 
+                  // characterSpecialRandGroupDisplay
+                  // 
+                  this.characterSpecialRandGroupDisplay.Font = new System.Drawing.Font("Cambria", 13.2F);
+                  this.characterSpecialRandGroupDisplay.Location = new System.Drawing.Point(240, 232);
+                  this.characterSpecialRandGroupDisplay.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+                  this.characterSpecialRandGroupDisplay.Name = "characterSpecialRandGroupDisplay";
+                  this.characterSpecialRandGroupDisplay.Size = new System.Drawing.Size(55, 28);
+                  this.characterSpecialRandGroupDisplay.TabIndex = 10011;
+                  this.toolTip.SetToolTip(this.characterSpecialRandGroupDisplay, "The randomization group to add these textures to. Each group will be shuffled tog" +
+        "ether, but 0 will make only this group\'s contents get shuffled even if multiple " +
+        "texture types are set to group 0");
+                  this.characterSpecialRandGroupDisplay.ValueChanged += new System.EventHandler(this.SpecialsRandomisationSettingsChanged);
+                  // 
+                  // characterSpecialRandCheckBox
+                  // 
+                  this.characterSpecialRandCheckBox.AutoSize = true;
+                  this.characterSpecialRandCheckBox.BackColor = System.Drawing.Color.Transparent;
+                  this.characterSpecialRandCheckBox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                  this.characterSpecialRandCheckBox.Location = new System.Drawing.Point(56, 232);
+                  this.characterSpecialRandCheckBox.Name = "characterSpecialRandCheckBox";
+                  this.characterSpecialRandCheckBox.Size = new System.Drawing.Size(90, 27);
+                  this.characterSpecialRandCheckBox.TabIndex = 10010;
+                  this.characterSpecialRandCheckBox.Text = "Specials";
+                  this.toolTip.SetToolTip(this.characterSpecialRandCheckBox, "The rule that determines how emojies and other unique characters should be swappe" +
+        "d around. This is eclusive to ChatFont");
+                  this.characterSpecialRandCheckBox.UseVisualStyleBackColor = false;
+                  this.characterSpecialRandCheckBox.Click += new System.EventHandler(this.SpecialsRandomisationSettingsChanged);
+                  // 
+                  // characterLetterRandPercentageBox
+                  // 
+                  this.characterLetterRandPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+                  this.characterLetterRandPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
+                  this.characterLetterRandPercentageBox.Location = new System.Drawing.Point(178, 142);
+                  this.characterLetterRandPercentageBox.MaxLength = 4;
+                  this.characterLetterRandPercentageBox.Name = "characterLetterRandPercentageBox";
+                  this.characterLetterRandPercentageBox.Size = new System.Drawing.Size(60, 28);
+                  this.characterLetterRandPercentageBox.TabIndex = 116;
+                  this.characterLetterRandPercentageBox.Text = "100%";
+                  this.toolTip.SetToolTip(this.characterLetterRandPercentageBox, "What percentage of textures in this category should get shuffled around. Minimum " +
+        "0%, maximum 100%");
+                  this.characterLetterRandPercentageBox.Leave += new System.EventHandler(this.LettersRandomisationSettingsChanged);
+                  this.characterLetterRandPercentageBox.Validated += new System.EventHandler(this.ValidatePercentageTextBox);
+                  // 
+                  // characterNumberRandPercentageBox
+                  // 
+                  this.characterNumberRandPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+                  this.characterNumberRandPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
+                  this.characterNumberRandPercentageBox.Location = new System.Drawing.Point(178, 172);
+                  this.characterNumberRandPercentageBox.MaxLength = 4;
+                  this.characterNumberRandPercentageBox.Name = "characterNumberRandPercentageBox";
+                  this.characterNumberRandPercentageBox.Size = new System.Drawing.Size(60, 28);
+                  this.characterNumberRandPercentageBox.TabIndex = 10012;
+                  this.characterNumberRandPercentageBox.Text = "100%";
+                  this.toolTip.SetToolTip(this.characterNumberRandPercentageBox, "What percentage of textures in this category should get shuffled around. Minimum " +
+        "0%, maximum 100%");
+                  this.characterNumberRandPercentageBox.Leave += new System.EventHandler(this.NumbersRandomisationSettingsChanged);
+                  this.characterNumberRandPercentageBox.Validated += new System.EventHandler(this.ValidatePercentageTextBox);
+                  // 
+                  // characterSymbolRandPercentageBox
+                  // 
+                  this.characterSymbolRandPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+                  this.characterSymbolRandPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
+                  this.characterSymbolRandPercentageBox.Location = new System.Drawing.Point(178, 202);
+                  this.characterSymbolRandPercentageBox.MaxLength = 4;
+                  this.characterSymbolRandPercentageBox.Name = "characterSymbolRandPercentageBox";
+                  this.characterSymbolRandPercentageBox.Size = new System.Drawing.Size(60, 28);
+                  this.characterSymbolRandPercentageBox.TabIndex = 10013;
+                  this.characterSymbolRandPercentageBox.Text = "100%";
+                  this.toolTip.SetToolTip(this.characterSymbolRandPercentageBox, "What percentage of textures in this category should get shuffled around. Minimum " +
+        "0%, maximum 100%");
+                  this.characterSymbolRandPercentageBox.Leave += new System.EventHandler(this.SymbolsRandomisationSettingsChanged);
+                  this.characterSymbolRandPercentageBox.Validated += new System.EventHandler(this.ValidatePercentageTextBox);
+                  // 
+                  // characterSpecialRandPercentageBox
+                  // 
+                  this.characterSpecialRandPercentageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+                  this.characterSpecialRandPercentageBox.Font = new System.Drawing.Font("Cambria", 13.2F);
+                  this.characterSpecialRandPercentageBox.Location = new System.Drawing.Point(178, 232);
+                  this.characterSpecialRandPercentageBox.MaxLength = 4;
+                  this.characterSpecialRandPercentageBox.Name = "characterSpecialRandPercentageBox";
+                  this.characterSpecialRandPercentageBox.Size = new System.Drawing.Size(60, 28);
+                  this.characterSpecialRandPercentageBox.TabIndex = 10014;
+                  this.characterSpecialRandPercentageBox.Text = "100%";
+                  this.toolTip.SetToolTip(this.characterSpecialRandPercentageBox, "What percentage of textures in this category should get shuffled around. Minimum " +
+        "0%, maximum 100%");
+                  this.characterSpecialRandPercentageBox.Leave += new System.EventHandler(this.SpecialsRandomisationSettingsChanged);
+                  this.characterSpecialRandPercentageBox.Validated += new System.EventHandler(this.ValidatePercentageTextBox);
                   // 
                   // fontRandomisationSettingsContainer
                   // 
@@ -2264,71 +2329,6 @@
                   this.fontRandomisationSettingsContainer.TabStop = false;
                   this.fontRandomisationSettingsContainer.Text = "Font Randomisation";
                   // 
-                  // fontAdvancedModeSeparatorConnectorBeam
-                  // 
-                  this.fontAdvancedModeSeparatorConnectorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.ConnectorBeamWhite;
-                  this.fontAdvancedModeSeparatorConnectorBeam.Location = new System.Drawing.Point(124, 326);
-                  this.fontAdvancedModeSeparatorConnectorBeam.Name = "fontAdvancedModeSeparatorConnectorBeam";
-                  this.fontAdvancedModeSeparatorConnectorBeam.Size = new System.Drawing.Size(2, 50);
-                  this.fontAdvancedModeSeparatorConnectorBeam.TabIndex = 10006;
-                  this.fontAdvancedModeSeparatorConnectorBeam.TabStop = false;
-                  // 
-                  // fontRandMainConnectorBeam
-                  // 
-                  this.fontRandMainConnectorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.FontConnectorBeam;
-                  this.fontRandMainConnectorBeam.Location = new System.Drawing.Point(13, 44);
-                  this.fontRandMainConnectorBeam.Name = "fontRandMainConnectorBeam";
-                  this.fontRandMainConnectorBeam.Size = new System.Drawing.Size(17, 232);
-                  this.fontRandMainConnectorBeam.TabIndex = 111;
-                  this.fontRandMainConnectorBeam.TabStop = false;
-                  // 
-                  // fontRandomiseLettersConnectorBeam
-                  // 
-                  this.fontRandomiseLettersConnectorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.ConnectorBeamWhite;
-                  this.fontRandomiseLettersConnectorBeam.Location = new System.Drawing.Point(37, 134);
-                  this.fontRandomiseLettersConnectorBeam.Name = "fontRandomiseLettersConnectorBeam";
-                  this.fontRandomiseLettersConnectorBeam.Size = new System.Drawing.Size(17, 112);
-                  this.fontRandomiseLettersConnectorBeam.TabIndex = 119;
-                  this.fontRandomiseLettersConnectorBeam.TabStop = false;
-                  // 
-                  // letterSpacingConnectorBeam
-                  // 
-                  this.letterSpacingConnectorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.ConnectorBeamWhite;
-                  this.letterSpacingConnectorBeam.Location = new System.Drawing.Point(37, 284);
-                  this.letterSpacingConnectorBeam.Name = "letterSpacingConnectorBeam";
-                  this.letterSpacingConnectorBeam.Size = new System.Drawing.Size(17, 82);
-                  this.letterSpacingConnectorBeam.TabIndex = 116;
-                  this.letterSpacingConnectorBeam.TabStop = false;
-                  // 
-                  // fontRandWarningIcon
-                  // 
-                  this.fontRandWarningIcon.Image = global::Geometry_Dash_Randomiser.Properties.Resources.Warning;
-                  this.fontRandWarningIcon.Location = new System.Drawing.Point(93, 25);
-                  this.fontRandWarningIcon.Name = "fontRandWarningIcon";
-                  this.fontRandWarningIcon.Size = new System.Drawing.Size(22, 19);
-                  this.fontRandWarningIcon.TabIndex = 112;
-                  this.fontRandWarningIcon.TabStop = false;
-                  // 
-                  // shuffleFontsConnectorBeam
-                  // 
-                  this.shuffleFontsConnectorBeam.Image = global::Geometry_Dash_Randomiser.Properties.Resources.ConnectorBeamWhite;
-                  this.shuffleFontsConnectorBeam.Location = new System.Drawing.Point(37, 74);
-                  this.shuffleFontsConnectorBeam.Name = "shuffleFontsConnectorBeam";
-                  this.shuffleFontsConnectorBeam.Size = new System.Drawing.Size(17, 22);
-                  this.shuffleFontsConnectorBeam.TabIndex = 89;
-                  this.shuffleFontsConnectorBeam.TabStop = false;
-                  // 
-                  // Logo
-                  // 
-                  this.Logo.Image = ((System.Drawing.Image)(resources.GetObject("Logo.Image")));
-                  this.Logo.InitialImage = null;
-                  this.Logo.Location = new System.Drawing.Point(10, 10);
-                  this.Logo.Name = "Logo";
-                  this.Logo.Size = new System.Drawing.Size(60, 60);
-                  this.Logo.TabIndex = 120;
-                  this.Logo.TabStop = false;
-                  this.Logo.Click += new System.EventHandler(this.Logo_Click);
-                  // 
                   // GDR_Form
                   // 
                   this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2375,12 +2375,6 @@
                   ((System.ComponentModel.ISupportInitialize)(this.themesSettingsButton)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.refreshThemesButton)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.seedInfoIcon)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.letterSpacingModeInfoIcon)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.fontRandomiseCharactersInfoIcon)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.characterSymbolRandGroupDisplay)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.characterNumberRandGroupDisplay)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.characterLetterRandGroupDisplay)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.characterSpecialRandGroupDisplay)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.CubeTexturesGroupDisplay_Gr)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.ShipTexturesGroupDisplay_Gr)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.BallTexturesGroupDisplay_Gr)).EndInit();
@@ -2405,16 +2399,22 @@
                   ((System.ComponentModel.ISupportInitialize)(this.themesSettingsBackground)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.refreshThemesBackground)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.gameFolderWarningIcon)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.shuffleFontsConnectorBeam)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.fontRandWarningIcon)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.characterSymbolRandGroupDisplay)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.letterSpacingConnectorBeam)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.characterNumberRandGroupDisplay)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.characterLetterRandGroupDisplay)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.fontRandomiseLettersConnectorBeam)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.fontRandomiseCharactersInfoIcon)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.fontRandMainConnectorBeam)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.fontAdvancedModeSeparatorConnectorBeam)).EndInit();
                   ((System.ComponentModel.ISupportInitialize)(this.letterSpacingLevelInputBox)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.letterSpacingModeInfoIcon)).EndInit();
+                  ((System.ComponentModel.ISupportInitialize)(this.characterSpecialRandGroupDisplay)).EndInit();
                   this.fontRandomisationSettingsContainer.ResumeLayout(false);
                   this.fontRandomisationSettingsContainer.PerformLayout();
-                  ((System.ComponentModel.ISupportInitialize)(this.fontAdvancedModeSeparatorConnectorBeam)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.fontRandMainConnectorBeam)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.fontRandomiseLettersConnectorBeam)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.letterSpacingConnectorBeam)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.fontRandWarningIcon)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.shuffleFontsConnectorBeam)).EndInit();
-                  ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
                   this.ResumeLayout(false);
                   this.PerformLayout();
 
@@ -2511,6 +2511,30 @@
             private System.Windows.Forms.PictureBox themesSettingsButton;
             private System.Windows.Forms.MainMenu mainMenu1;
             private System.Windows.Forms.PictureBox seedInfoIcon;
+            private System.Windows.Forms.Label label2;
+            private System.Windows.Forms.TextBox SwingTexturesPercentageBox;
+            private System.Windows.Forms.TextBox SpiderTexturesPercentageBox;
+            private System.Windows.Forms.TextBox RobotTexturesPercentageBox;
+            private System.Windows.Forms.TextBox WaveTexturesPercentageBox;
+            private System.Windows.Forms.TextBox UFO_TexturesPercentageBox;
+            private System.Windows.Forms.TextBox BallTexturesPercentageBox;
+            private System.Windows.Forms.TextBox ShipTexturesPercentageBox;
+            private System.Windows.Forms.TextBox CubeTexturesPercentageBox;
+            private System.Windows.Forms.TextBox IconTexturesPercentageBox;
+            private System.Windows.Forms.Label label4;
+            private System.Windows.Forms.TextBox MiscTexturesPercentageBox;
+            private System.Windows.Forms.TextBox EffectTexturesPercentageBox;
+            private System.Windows.Forms.TextBox ParticleTexturesPercentageBox;
+            private System.Windows.Forms.TextBox PadTexturesPercentageBox;
+            private System.Windows.Forms.TextBox OrbTexturesPercentageBox;
+            private System.Windows.Forms.TextBox PortalTexturesPercentageBox;
+            private System.Windows.Forms.TextBox TileTexturesPercentageBox;
+            private System.Windows.Forms.TextBox EditorTexturesPercentageBox;
+            private System.Windows.Forms.TextBox ShopTexturesPercentageBox;
+            private System.Windows.Forms.TextBox MenuTexturesPercentageBox;
+            private System.Windows.Forms.TextBox JetpackTexturesPercentageBox;
+            private System.Windows.Forms.Button button3;
+            private System.Windows.Forms.Button button2;
             private System.Windows.Forms.CheckBox fontRandEnabledCheckbox;
             private System.Windows.Forms.CheckBox fontShuffleStylesCheckbox;
             private System.Windows.Forms.CheckBox randomiseCharactersCheckBox;
@@ -2545,36 +2569,12 @@
             private System.Windows.Forms.Label letterSpacingLevelLabel;
             private System.Windows.Forms.NumericUpDown letterSpacingLevelInputBox;
             private System.Windows.Forms.PictureBox letterSpacingModeInfoIcon;
-            private System.Windows.Forms.GroupBox fontRandomisationSettingsContainer;
-            private System.Windows.Forms.CheckBox characterSpecialRandCheckBox;
             private System.Windows.Forms.NumericUpDown characterSpecialRandGroupDisplay;
+            private System.Windows.Forms.CheckBox characterSpecialRandCheckBox;
             private System.Windows.Forms.TextBox characterLetterRandPercentageBox;
-            private System.Windows.Forms.TextBox characterSpecialRandPercentageBox;
-            private System.Windows.Forms.TextBox characterSymbolRandPercentageBox;
             private System.Windows.Forms.TextBox characterNumberRandPercentageBox;
-            private System.Windows.Forms.Label label2;
-            private System.Windows.Forms.TextBox SwingTexturesPercentageBox;
-            private System.Windows.Forms.TextBox SpiderTexturesPercentageBox;
-            private System.Windows.Forms.TextBox RobotTexturesPercentageBox;
-            private System.Windows.Forms.TextBox WaveTexturesPercentageBox;
-            private System.Windows.Forms.TextBox UFO_TexturesPercentageBox;
-            private System.Windows.Forms.TextBox BallTexturesPercentageBox;
-            private System.Windows.Forms.TextBox ShipTexturesPercentageBox;
-            private System.Windows.Forms.TextBox CubeTexturesPercentageBox;
-            private System.Windows.Forms.TextBox IconTexturesPercentageBox;
-            private System.Windows.Forms.Label label4;
-            private System.Windows.Forms.TextBox MiscTexturesPercentageBox;
-            private System.Windows.Forms.TextBox EffectTexturesPercentageBox;
-            private System.Windows.Forms.TextBox ParticleTexturesPercentageBox;
-            private System.Windows.Forms.TextBox PadTexturesPercentageBox;
-            private System.Windows.Forms.TextBox OrbTexturesPercentageBox;
-            private System.Windows.Forms.TextBox PortalTexturesPercentageBox;
-            private System.Windows.Forms.TextBox TileTexturesPercentageBox;
-            private System.Windows.Forms.TextBox EditorTexturesPercentageBox;
-            private System.Windows.Forms.TextBox ShopTexturesPercentageBox;
-            private System.Windows.Forms.TextBox MenuTexturesPercentageBox;
-            private System.Windows.Forms.TextBox JetpackTexturesPercentageBox;
-            private System.Windows.Forms.Button button3;
-            private System.Windows.Forms.Button button2;
+            private System.Windows.Forms.TextBox characterSymbolRandPercentageBox;
+            private System.Windows.Forms.TextBox characterSpecialRandPercentageBox;
+            private System.Windows.Forms.GroupBox fontRandomisationSettingsContainer;
       }
 }

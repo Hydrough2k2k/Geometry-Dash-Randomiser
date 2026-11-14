@@ -3,7 +3,7 @@ using static Geometry_Dash_Randomiser.Font;
 
 namespace Geometry_Dash_Randomiser {
 
-      public class LetterSpacingSettings : IUpdateNotify {
+      public class LetterSpacingSettings : IUpdateNotify, IEquatable<LetterSpacingSettings> {
 
             public event EventHandler Updated;
 
@@ -98,11 +98,34 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public void CopyDataFrom(LetterSpacingSettings source) {
+                  if (source == null) {
+                        Logger.Write(Logger.Mode.Error, "The parameter \"source\" was passed as null in LetterSpacingSettings.CopyDataFrom");
+                        return;
+                  }
+
                   Enabled = source.Enabled;
                   Mode = source.Mode;
                   Level = source.Level;
                   X_Offset.CopyDataFrom(source.X_Offset);
                   Kerning.CopyDataFrom(source.Kerning);
+            }
+
+            public bool Equals(LetterSpacingSettings other) {
+                  if (other == null) {
+                        Logger.Write(Logger.Mode.Error, "The parameter \"other\" was passed as null in LetterSpacingSettings.Equals");
+                        return false;
+                  }
+
+                  if (this.Enabled != other.Enabled ||
+                        this.Mode != other.Mode ||
+                        this.Level != other.Level ||
+                        this.X_Offset.Equals(other.X_Offset) == false ||
+                        this.Kerning.Equals(other.Kerning) == false) {
+
+                        return false;
+                  }
+
+                  return true;
             }
 
             public KerningData GetKerningData() {

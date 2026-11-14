@@ -20,12 +20,8 @@ namespace Geometry_Dash_Randomiser {
                   return value;
             }
 
-            public static int Abs(int value) {
-                  return System.Math.Abs(value);
-            }
+            public static int Abs(int value) => System.Math.Abs(value);
 
-            public static float Abs(float value) {
-                  return System.Math.Abs(value);
-            }
+            public static float Abs(float value) => System.Math.Abs(value);
       }
 }

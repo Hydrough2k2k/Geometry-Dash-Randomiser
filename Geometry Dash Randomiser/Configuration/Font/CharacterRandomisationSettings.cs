@@ -9,20 +9,19 @@ namespace Geometry_Dash_Randomiser {
 
             public event EventHandler Updated;
 
+            public IReadOnlyList<RandomizationSetting> RandomizationSettings;
+
             public CharacterRandomisationSettings() {
                   _randomisationSettings = new RandomizationSetting[] {
                         _letter, _number, _symbol, _special
                   };
 
-                  _letter.MaxGroupNumber = 10;
-                  _number.MaxGroupNumber = 10;
-                  _symbol.MaxGroupNumber = 10;
-                  _special.MaxGroupNumber = 10;
+                  RandomizationSettings = Array.AsReadOnly(_randomisationSettings);
 
-                  _letter.Updated += InvokeUpdateEvent;
-                  _number.Updated += InvokeUpdateEvent;
-                  _symbol.Updated += InvokeUpdateEvent;
-                  _special.Updated += InvokeUpdateEvent;
+                  for (int i = 0; i < _randomisationSettings.Length; i++) {
+                        _randomisationSettings[i].MaxGroupNumber = 10;
+                        _randomisationSettings[i].Updated += InvokeUpdateEvent;
+                  }
             }
 
             public static CharacterRandomisationSettings Default => new CharacterRandomisationSettings();
@@ -90,10 +89,32 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public void CopyDataFrom(CharacterRandomisationSettings source) {
+                  if (source == null) {
+                        Logger.Write(Logger.Mode.Error, "The parameter \"source\" was passed as null in CharacterRandomisationSettings.CopyDataFrom");
+                        return;
+                  }
+
                   Letter = source.Letter;
                   Number = source.Number;
                   Symbol = source.Symbol;
                   Special = source.Special;
+            }
+
+            public bool Equals(CharacterRandomisationSettings other) {
+                  if (other == null) {
+                        Logger.Write(Logger.Mode.Error, "The parameter \"other\" was passed as null in IconRandomizationSettings.Equals");
+                        return false;
+                  }
+
+                  // Compare each Randomization setting
+                  for (int i = 0; i < _randomisationSettings.Length; i++) {
+                        // If any of them don't match, return false
+                        if (this._randomisationSettings[i].Equals(other.RandomizationSettings[i]) == false) {
+                              return false;
+                        }
+                  }
+
+                  return true;
             }
 
             private void InvokeUpdateEvent(object sender, EventArgs e) => InvokeEvent(Updated, null);

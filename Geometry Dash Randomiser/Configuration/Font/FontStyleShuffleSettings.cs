@@ -2,7 +2,7 @@
 
 namespace Geometry_Dash_Randomiser {
 
-      public class FontStyleShuffleSettings : IUpdateNotify {
+      public class FontStyleShuffleSettings : IUpdateNotify, IEquatable<FontStyleShuffleSettings> {
 
             public event EventHandler Updated;
 
@@ -38,8 +38,28 @@ namespace Geometry_Dash_Randomiser {
             }
 
             public void CopyDataFrom(FontStyleShuffleSettings source) {
+                  if (source == null) {
+                        Logger.Write(Logger.Mode.Error, "The parameter \"source\" was passed as null in FontStyleShuffleSettings.CopyDataFrom");
+                        return;
+                  }
+
                   Enabled = source.Enabled;
                   Mode = source.Mode;
+            }
+            
+            public bool Equals(FontStyleShuffleSettings other) {
+                  if (other == null) {
+                        Logger.Write(Logger.Mode.Error, "The parameter \"other\" was passed as null in IconRandomizationSettings.Equals");
+                        return false;
+                  }
+
+                  if (this.Enabled != other.Enabled ||
+                        this.Mode != other.Mode) {
+
+                        return false;
+                  }
+
+                  return true;
             }
 
             private void InvokeEvent(EventHandler @event, EventArgs e) {

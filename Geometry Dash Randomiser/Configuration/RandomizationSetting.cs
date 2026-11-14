@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace Geometry_Dash_Randomiser {
 
       [Serializable]
-      public class RandomizationSetting : IToggleableSetting, IUpdateNotify, ICopyableSetting<RandomizationSetting> {
+      public class RandomizationSetting : IToggleableSetting, IUpdateNotify, ICopyableSetting<RandomizationSetting>, IEquatable<RandomizationSetting> {
 
             public event EventHandler Updated;
 
@@ -71,12 +71,28 @@ namespace Geometry_Dash_Randomiser {
 
             public void CopyDataFrom(RandomizationSetting source) {
                   if (source == null) {
+                        Logger.Write(Logger.Mode.Error, "The parameter \"source\" was passed as null in RandomizationSetting.CopyDataFrom");
                         return;
                   }
 
                   this.Group = source.Group;
                   this.Enabled = source.Enabled;
                   this.PercentageRandomised = source.PercentageRandomised;
+            }
+
+            public bool Equals(RandomizationSetting other) {
+                  if (other == null) {
+                        Logger.Write(Logger.Mode.Error, "The parameter \"other\" was passed as null in RandomizationSetting.Equals");
+                        return false;
+                  }
+
+                  if (this.Enabled != other.Enabled ||
+                        this.Group != other.Group ||
+                        this.PercentageRandomised != other._percentageRandomised) {
+
+                        return false;
+                  }
+                  return true;
             }
 
             public bool IsEnabledAndGroupIsZero() => Enabled == true && Group == 0;

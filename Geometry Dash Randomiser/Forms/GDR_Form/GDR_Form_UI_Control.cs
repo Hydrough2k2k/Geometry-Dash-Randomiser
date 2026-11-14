@@ -194,16 +194,16 @@ namespace Geometry_Dash_Randomiser {
 
             private void SetAllGameTexturesElementStates() {
                   // I know all of these are horribly long, but to keep the names distinct, I kinda have to do this :/
-                  UpdateRandomisationControlsStates(MenuTexturesCheckbox, MenuTexturesPercentageBox, MenuTexturesGroupDisplay, config.MenuTextures);
-                  UpdateRandomisationControlsStates(ShopTexturesCheckbox, ShopTexturesPercentageBox, ShopTexturesGroupDisplay, config.ShopTextures);
-                  UpdateRandomisationControlsStates(EditorTexturesCheckbox, EditorTexturesPercentageBox, EditorTexturesGroupDisplay, config.EditorTextures);
-                  UpdateRandomisationControlsStates(BlockTexturesCheckbox, TileTexturesPercentageBox, TileTexturesGroupDisplay, config.TileTextures);
-                  UpdateRandomisationControlsStates(PortalTexturesCheckbox, PortalTexturesPercentageBox, PortalTexturesGroupDisplay, config.PortalTextures);
-                  UpdateRandomisationControlsStates(OrbsTexturesCheckbox, OrbTexturesPercentageBox, OrbTexturesGroupDisplay, config.OrbTextures);
-                  UpdateRandomisationControlsStates(PadsTexturesCheckbox, PadTexturesPercentageBox, PadTexturesGroupDisplay, config.PadTextures);
-                  UpdateRandomisationControlsStates(ParticleTexturesCheckbox, ParticleTexturesPercentageBox, ParticleTexturesGroupDisplay, config.ParticleTextures);
-                  UpdateRandomisationControlsStates(EffectTexturesCheckbox, EffectTexturesPercentageBox, EffectTexturesGroupDisplay, config.EffectTextures);
-                  UpdateRandomisationControlsStates(MiscTexturesCheckbox, MiscTexturesPercentageBox, MiscTexturesGroupDisplay, config.MiscTextures);
+                  UpdateRandomisationControlsStates(MenuTexturesCheckbox, MenuTexturesPercentageBox, MenuTexturesGroupDisplay, config.GameTextureConfig.Menu);
+                  UpdateRandomisationControlsStates(ShopTexturesCheckbox, ShopTexturesPercentageBox, ShopTexturesGroupDisplay, config.GameTextureConfig.Shop);
+                  UpdateRandomisationControlsStates(EditorTexturesCheckbox, EditorTexturesPercentageBox, EditorTexturesGroupDisplay, config.GameTextureConfig.Editor);
+                  UpdateRandomisationControlsStates(BlockTexturesCheckbox, TileTexturesPercentageBox, TileTexturesGroupDisplay, config.GameTextureConfig.Tile);
+                  UpdateRandomisationControlsStates(PortalTexturesCheckbox, PortalTexturesPercentageBox, PortalTexturesGroupDisplay, config.GameTextureConfig.Portal);
+                  UpdateRandomisationControlsStates(OrbsTexturesCheckbox, OrbTexturesPercentageBox, OrbTexturesGroupDisplay, config.GameTextureConfig.Orb);
+                  UpdateRandomisationControlsStates(PadsTexturesCheckbox, PadTexturesPercentageBox, PadTexturesGroupDisplay, config.GameTextureConfig.Pad);
+                  UpdateRandomisationControlsStates(ParticleTexturesCheckbox, ParticleTexturesPercentageBox, ParticleTexturesGroupDisplay, config.GameTextureConfig.Particle);
+                  UpdateRandomisationControlsStates(EffectTexturesCheckbox, EffectTexturesPercentageBox, EffectTexturesGroupDisplay, config.GameTextureConfig.Effect);
+                  UpdateRandomisationControlsStates(MiscTexturesCheckbox, MiscTexturesPercentageBox, MiscTexturesGroupDisplay, config.GameTextureConfig.Misc);
             }
 
             #region Font Rand UI Controls

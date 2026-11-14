@@ -1,3 +1,18 @@
+Changelog V2.5.2.0:
+Release Date: Who knows
+
+Changes:
+ - Reworked the Changelog screen (again). There is only 1 textbox that contains everything now
+ - The config file stores non-icon config data slightly differently now. Old configs are still supported
+
+ Bugfixes:
+ - The theme can now be changed during randomization
+
+Known Bugs:
+ - Some sawblades get their hitboxes resized when a smaller or bigger texture replaces it's sprite. This can drastically affect level difficulty
+ 
+-------------------------------------------
+
 Changelog V2.5.1.0:
 Release Date: 10 Nov 2026
 
